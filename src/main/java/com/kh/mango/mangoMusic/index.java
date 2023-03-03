@@ -6,7 +6,7 @@ public class index {
 
     @GetMapping("/")
     public String index(){
-
+        int sasd;
         return "index";
     }
 }
