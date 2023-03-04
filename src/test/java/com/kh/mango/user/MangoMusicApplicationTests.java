@@ -1,4 +1,4 @@
-package com.kh.mango.mangoMusic;
+package com.kh.mango.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
