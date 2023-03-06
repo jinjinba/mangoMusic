@@ -1,16 +1,15 @@
-package com.kh.mango.playlist.domain;
+package com.kh.mango.follow.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlayList {
-    private int playListNo;
-    private String musicMBID;
-    private String playListName;
+public class Follow {
+    private int followNo;
     private int userNo;
 }
