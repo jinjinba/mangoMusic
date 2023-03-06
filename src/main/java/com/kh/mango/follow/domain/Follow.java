@@ -1,4 +1,4 @@
-package com.kh.mango.music.domain;
+package com.kh.mango.follow.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Music {
-    private String musicMbid;
-    private int musicPrice;
-    private int musicLike;
+public class Follow {
+    private int followNo;
+    private int userNo;
 }
