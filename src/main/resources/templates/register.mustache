@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>회원 가입</title>
+        <style>
+            ul {
+                list-style-type: none;
+                padding-left: 0%;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>회원가입</h1>
+        <div id="main">
+            <form action="/register" method="post">
+                <ul>
+                    <li>
+                        <label for="id">ID</label>
+                        <input type="text" class="register" placeholder="설정하실 ID를 입력하세요">
+                    </li>
+                    <li>
+                        <label for="pw">PW</label>
+                        <input type="password" class="register" placeholder="설정하실 PW를 입력하세요">
+                    </li>
+                    <li>
+                        <label for="name">이름</label>
+                        <input type="text" class="register" placeholder="이름을 입력하세요">
+                    </li>
+                    <li>
+                        <label for="name">이메일</label>
+                        <input type="text" class="register" placeholder="이름을 입력하세요">
+                    </li>
+                    <li>
+                        <label for="name">성별</label>
+                        <input type="radio" name="genger" value="M" class="register">남
+                        <input type="radio" name="genger" value="F" class="register">여
+                    </li>
+                    <li>
+                        <input type="submit" value="회원가입">
+                        <input type="reset" value="초기화">
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </body>
+</html>
