@@ -1,8 +1,8 @@
-package com.kh.mango.user;
+package com.kh.mango;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 @SpringBootApplication
 public class MangoMusicApplication {
 
