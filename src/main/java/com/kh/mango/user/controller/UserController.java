@@ -1,5 +1,6 @@
 package com.kh.mango.user.controller;
 
+import com.kh.mango.user.domain.Mypage;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,9 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String myPage(){
+    public String myPage(Model model){
+        Mypage myPage = uService.mypageInfo();
+        model.addAttribute("user",myPage);
         return "mypage";
     }
 

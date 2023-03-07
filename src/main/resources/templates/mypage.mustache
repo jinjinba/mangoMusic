@@ -91,7 +91,7 @@
                     <img src="/img/abstract-user-flat-3.svg"
                         style="width: 30px; height: 30px; border-radius: 50%" />
                         <!-- 유저이름 -->
-                    &nbsp;&nbsp;서정민&nbsp;&nbsp;
+                    &nbsp;&nbsp;{{user.userName}}&nbsp;&nbsp;
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="./Login/login.html">로그아웃</a></li>
@@ -106,8 +106,8 @@
             <div class="profile-img"></div>
             
             <!-- 닉네임 들어갈곳 -->
-            <div class="profile-name"><h1>서정민</h1></div>
-            <div class="profile-letter"><span>저는 서정민입니다. KH정보교육원에 다닙니다.</span></div>
+            <div class="profile-name"><h1>{{user.userName}}</h1></div>
+            <div class="profile-letter"><span>{{user.userProfileLetter}}</span></div>
         </div>
     </div>
 
@@ -115,7 +115,7 @@
         <div class="mypage-content-left">
             <div class="point">
                 <!-- 포인트 값 -->
-                <span class="point-value">1,000 <span class="point-value-text">Mango</span></span>
+                <span class="point-value">{{point.pointVal}} <span class="point-value-text">Mango</span></span>
             </div>
             <div class="point-button-container">
                 <button type="button" class="point-button" >충전</button>
