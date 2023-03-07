@@ -27,7 +27,10 @@ body {
     overflow-x: hidden;
     background-attachment: fixed;
 }
-
+.main-logo {
+    text-decoration: none;
+}
+/*logo div*/
 .login-box {
     position: absolute;
     top: 50%;
@@ -79,8 +82,9 @@ body {
 .login-box .user-box input:valid ~ label {
     top: -20px;
     left: 0;
-    color: #03e9f4;
-    font-size: 12px;
+    color: #a5a5a7;
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
 }
 
 .login-box form .login-btn {
@@ -115,18 +119,7 @@ body {
     /*border: 1px solid white;*/
     text-align: center;
 }
-/*.login-box form .sns {*/
-/*    text-align: center;*/
-/*    position: relative;*/
-/*    display: inline-block;*/
-/*    !*padding: 10px 20px;*!*/
-/*    !*margin-top: 40px;*!*/
-/*    color: white;*/
-/*    font-size: 16px;*/
-/*    text-decoration: none;*/
-/*    !*text-transform: uppercase;*!*/
-/*    overflow: hidden;*/
-/*}*/
+
 .login-logo {
     width: 400px;
     height: 70px;
@@ -141,17 +134,53 @@ body {
     0 0 50px #03e9f4,
     0 0 100px #03e9f4;
 }
-/*.login-box a:hover {*/
-/*    background: #03e9f4;*/
-/*    color: #fff;*/
-/*    border-radius: 5px;*/
-/*    box-shadow: 0 0 5px #03e9f4,*/
-/*    0 0 25px #03e9f4,*/
-/*    0 0 50px #03e9f4,*/
-/*    0 0 100px #03e9f4;*/
-/*}*/
+
+/*logo i*/
+.heading {
+    font-weight: 600;
+}
+.heading {
+    font-size: 25px;
+    margin-left: 0.5rem;
+}
+.text-light {
+    color: #f8f9fa!important;
+}
+.mt-3 {
+    margin-top: 1rem!important;
+}
+.align-items-center {
+    align-items: center!important;
+}
+.d-flex {
+    display: flex!important;
+}
+
+.fa-regular, .far {
+    font-weight: 400;
+}
+ .fa-classic, .fa-regular, .fa-solid, .far, .fas {
+     font-family: "Font Awesome 6 Free";
+ }
+ .fa, .fa-brands, .fa-classic, .fa-regular, .fa-sharp, .fa-solid, .fab, .far, .fas {
+     font-style: normal;
+     font-variant: normal;
+     line-height: 1;
+     text-rendering: auto;
+ }
+.p-1 {
+    padding: 0.25rem!important;
+}
+.mx-3 {
+    margin-right: 1rem!important;
+    margin-left: 1rem!important;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
 
 
+/*login*/
 .login-box a span {
     position: absolute;
     display: block;
