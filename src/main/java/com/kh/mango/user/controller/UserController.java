@@ -20,11 +20,18 @@ public class UserController {
     @Autowired
     private UserService uService;
 
-    @GetMapping("/test")
-    public String User(Model model){
-        User user = uService.test();
-        model.addAttribute("user",user);
-        return "test";
+//    @GetMapping("/test")
+//    public String User(Model model){
+//        User user = uService.test();
+//        model.addAttribute("user",user);
+//        return "test";
+//    }
+
+    @GetMapping("/admin")
+    public String memberList(Model model){
+        List<User> userList = uService.selectMember();
+        model.addAttribute("user",userList);
+        return "admin";
     }
 
     @GetMapping("/mypage")
@@ -33,6 +40,8 @@ public class UserController {
         model.addAttribute("user",myPage);
         return "mypage";
     }
+
+
 
 
 }

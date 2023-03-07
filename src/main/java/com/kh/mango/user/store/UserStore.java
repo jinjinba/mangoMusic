@@ -1,6 +1,5 @@
 package com.kh.mango.user.store;
 
-import com.kh.mango.user.domain.Mypage;
 import com.kh.mango.user.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -12,5 +11,5 @@ public interface UserStore {
 
     User test();
 
-    Mypage selectMypageUser();
+    List<User> selectMember();
 }

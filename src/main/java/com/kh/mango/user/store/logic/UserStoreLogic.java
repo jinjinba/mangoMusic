@@ -1,6 +1,5 @@
 package com.kh.mango.user.store.logic;
 
-import com.kh.mango.user.domain.Mypage;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.store.UserStore;
 import org.apache.ibatis.annotations.Mapper;
@@ -22,9 +21,8 @@ public class UserStoreLogic implements UserStore {
     }
 
     @Override
-    public Mypage selectMypageUser() {
-        return sqlSession.selectOne("UserMapper.selectUser");
+    public List<User> selectMember() {
+        List<User> userList = sqlSession.selectList("UserMapper.test");
+        return userList;
     }
-
-
 }

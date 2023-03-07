@@ -22,4 +22,12 @@ public class UserServiceImpl implements UserService {
     public Mypage mypageInfo() {
         return userStore.selectMypageUser();
     }
+
+    @Override
+    public List<User> selectMember() {
+        List<User> userList = userStore.selectMember();
+        return userList;
+    }
+
+
 }
