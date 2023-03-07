@@ -1,12 +1,11 @@
 package com.kh.mango.user.service.logic;
 
+import com.kh.mango.user.domain.Mypage;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.service.UserService;
 import com.kh.mango.user.store.UserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,5 +16,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User test() {
         return userStore.test();
+    }
+
+    @Override
+    public Mypage mypageInfo() {
+        return userStore.selectMypageUser();
     }
 }

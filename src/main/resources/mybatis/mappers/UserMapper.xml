@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
+
 <mapper namespace="UserMapper">
+
+    <resultMap type="com.kh.mango.user.domain.Mypage" id="myPageResultMap">
+        <id property="userNo" column="USER_TBL.USER_NO" />
+        <result property="userId" column="USER_ID" />
+        <result property="userPw" column="MEMBER_PW" />
+        <result property="userName" column="USER_NAME" />
+        <result property="userEmail" column="USER_EMAIL" />
+        <result property="userGender" column="USER_GENDER" />
+        <result property="userType" column="USER_TYPE" />
+        <result property="userDate" column="USER_DATE" />
+        <result property="userFilename" column="USER_FILENAME" />
+        <result property="userFilepath" column="USER_FILEPATH" />
+        <result property="userProfileLetter" column="USER_PROFILE_LETTER" />
+        <result property="pointVal" column="POINT_TBL.pointVal" />
+    </resultMap>
+
+
     <select id="test" resultType="com.kh.mango.user.domain.User">
         SELECT * FROM USER_TBL
     </select>
+
+    <select id="selectUser" resultMap="myPageResultMap">
+        SELECT USER_TBL.USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_GENDER, USER_TYPE, USER_DATE, USER_FILENAME, USER_FILEPATH, USER_PROFILE_LETTER, POINT_TBL.POINT_VAL FROM USER_TBL right outer join POINT_TBL on USER_TBL.USER_NO = POINT_TBL.USER_NO WHERE USER_TBL.USER_NO = 2
+    </select>
+
 </mapper>
