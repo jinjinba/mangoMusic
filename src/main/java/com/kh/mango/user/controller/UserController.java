@@ -21,6 +21,10 @@ public class UserController {
         User user = uService.test();
         System.out.println(user.getUserId());
     }
+    @GetMapping("/register")
+    public String register() {
+        return "user/register";
+    }
 
 
 }

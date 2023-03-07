@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="UserMapper">
-    <select id="test" resultType="com.kh.mango.user.domain.User">
-        SELECT * FROM USER_TBL
-    </select>
+<!--    <select id="test" resultType="com.kh.mango.user.domain.User">-->
+<!--        SELECT * FROM USER_TBL-->
+<!--    </select>-->
+    <insert id="insertUser">
+        INSERT INTO USER_TBL VALUES(SEQ_USER_NO, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userGender}, DEFAULT, DEFAULT)
+    </insert>
 </mapper>

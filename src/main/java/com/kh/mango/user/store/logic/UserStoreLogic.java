@@ -3,6 +3,7 @@ package com.kh.mango.user.store.logic;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.store.UserStore;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,4 +20,11 @@ public class UserStoreLogic implements UserStore {
     public User test() {
         return sqlSession.selectOne("UserMapper.test");
     }
+
+    @Override
+    public int insertUser(SqlSession session, User user) {
+        int result = session.insert("UserMapper.insertUser", user);
+        return result;
+    }
+
 }
