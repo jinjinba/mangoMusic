@@ -5,6 +5,7 @@ import com.kh.mango.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -19,9 +20,15 @@ public class UserController {
     private UserService uService;
 
     @GetMapping("/test")
-    public void User(){
+    public String User(Model model){
         User user = uService.test();
-        System.out.println(user.getUserId());
+        model.addAttribute("user",user);
+        return "test";
+    }
+
+    @GetMapping("/mypage")
+    public String myPage(){
+        return "mypage";
     }
 
 
