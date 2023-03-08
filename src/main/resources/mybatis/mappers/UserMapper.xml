@@ -17,7 +17,7 @@
         <result property="userFilename" column="USER_FILENAME" />
         <result property="userFilepath" column="USER_FILEPATH" />
         <result property="userProfileLetter" column="USER_PROFILE_LETTER" />
-        <result property="pointVal" column="POINT_TBL.pointVal" />
+        <result property="pointVal" column="POINT_VAL" />
     </resultMap>
 
 

@@ -8,6 +8,6 @@ public class PointController {
 
     @GetMapping("/point")
     public String pointUpdate(){
-        return "mypage";
+        return "mypage.html";
     }
 }
