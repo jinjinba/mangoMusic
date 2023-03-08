@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <link rel="stylesheet" href="../static/Album/styles.css" />
-    <link rel="stylesheet" href="../static/css/myPageStyle.css">
+    <link rel="stylesheet" href="../static/myPageStyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
@@ -132,7 +132,6 @@
                         <span class="arrow-top">-</span>
                         <span class="arrow-bottom">+</span>
                     </div>
-
                 </div>
                 <div class="anw">
                     {{#followers}}
@@ -140,24 +139,16 @@
                     {{/followers}}
                 </div>
                 <div class="que">
-                    <span>구매목록</span>
+                    <span>거래목록</span>
                     <div class="arrow-wrap">
                         <span class="arrow-top">-</span>
                         <span class="arrow-bottom">+</span>
                     </div>
                 </div>
                 <div class="anw">
-                    <span>This is second answer.</span>
-                </div>
-                <div class="que">
-                    <span>판매목록</span>
-                    <div class="arrow-wrap">
-                        <span class="arrow-top">-</span>
-                        <span class="arrow-bottom">+</span>
-                    </div>
-                </div>
-                <div class="anw">
-                    <span>This is third answer.</span>
+                    {{#trades}}
+                    <span>거래번호 : {{deal.tradeNo}} | 거래시간 : {{deal.dealDate}} | 구분 : {{deal.dealType}}</span>
+                    {{/trades}}
                 </div>
                 <div class="que">
                     <span>좋아요 목록</span>
@@ -167,7 +158,9 @@
                     </div>
                 </div>
                 <div class="anw">
-                    <span>This is second answer.</span>
+                    {{#likes}}
+                    <span>{{like.musicMbid}}</span>
+                    {{/like}}
                 </div>
             </div>
         </div>

@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.List;
 
 @Controller
@@ -34,22 +32,18 @@ public class UserController {
         return "admin";
     }
 
-    @GetMapping("/admin/search")
+    @GetMapping("/admin/search.do")
     public String userSearchView(@RequestParam("searchValue") String searchValue, Model model) {
         List<User> searchList = uService.searchUser(searchValue);
-        if(!searchList.isEmpty()) {
-            model.addAttribute("searchUser", searchList);
-            return "adminSearch";
-        } else {
-            return "admin";
-        }
+        model.addAttribute("user",searchList);
+        return "admins";
     }
 
     @GetMapping("/mypage")
     public String myPage(Model model){
         Mypage myPage = uService.mypageInfo();
         model.addAttribute("myPage",myPage);
-        return "mypage.html";
+        return "mypage";
     }
 
 
