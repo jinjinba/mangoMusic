@@ -1,23 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mango Music</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-Mc5Qjl0LCzJmr8vYE7X1CPkZXIL+7nWgpC8+K7V/cIkYpPck+VWcdx/zecT77Jlk70I+LzSzm1np99kaJvAnQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <link rel="stylesheet" href="../static/Album/styles.css" />
-    <link rel="stylesheet" href="../static/myPageStyle.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-</head>
+{{>layouts/sidebar}}
 <!-- sidebar -->
 <body>
+<main class="body">
+    <nav class="navbar sticky-top mb-3">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex"></div>
+            <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i>
+        </div>
+
+        <div class="d-flex align-items-center" id="rightnav">
+            <div style="margin-right: 1rem">
+                {{^loginUser.userId}}
+                <button type="button" class="btn btn-outline-white text-light" style="border-radius: 20px" onclick="location.href='/login'">
+                    로그인
+                </button>
+                {{/loginUser.userId}}
+            </div>
+            {{#loginUser.userId}}
+            <div class="dropdown">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                    <img src="https://i.pinimg.com/564x/08/35/96/083596835424340eda90439fd20e5ee9.jpg"
+                         style="width: 30px; height: 30px; border-radius: 50%" />
+                    &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                    <li><a class="dropdown-item" href="./Login/login.html">로그아웃</a></li>
+                </ul>
+            </div>
+            {{/loginUser.userId}}
+        </div>
+        </div>
+    </nav>
+    <br>
 <div class="navbar-custom d-none d-lg-block d-xl-block d-xxl-block">
     <ul class="navbar-nav">
         <li class="nav-item my-3">
@@ -93,7 +109,7 @@
                     <img src="../img/abstract-user-flat-3.svg"
                         style="width: 30px; height: 30px; border-radius: 50%" />
                         <!-- 유저이름 -->
-                    &nbsp;&nbsp;{{myPage.userName}}&nbsp;&nbsp;
+                    &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
@@ -108,8 +124,8 @@
             <div class="profile-img"></div>
             
 <!--             닉네임 들어갈곳-->
-            <div class="profile-name"><h1>{{myPage.userName}}</h1></div>
-            <div class="profile-letter"><span>{{myPage.userProfileLetter}}</span></div>
+            <div class="profile-name"><h1>{{loginUser.userName}}</h1></div>
+            <div class="profile-letter"><span>{{loginUser.userProfileLetter}}</span></div>
         </div>
     </div>
 
@@ -117,7 +133,7 @@
         <div class="mypage-content-left">
             <div class="point">
 <!--                 포인트 값-->
-                <span class="point-value">{{myPage.pointVal}} <span class="point-value-text">Mango</span></span>
+                <span class="point-value">{{loginUser.pointVal}} <span class="point-value-text">Mango</span></span>
             </div>
             <div class="point-button-container">
                 <button type="button" class="point-button" >충전</button>
@@ -138,7 +154,7 @@
                 </div>
                 <div class="anw">
                     {{#followers}}
-                    <span>{{follow.userName}}</span>
+                    <span>{{MyPageFollow.userName}}</span>
                     {{/followers}}
                 </div>
                 <div class="que">
@@ -149,9 +165,9 @@
                     </div>
                 </div>
                 <div class="anw">
-                    {{#trades}}
-                    <span>거래번호 : {{deal.tradeNo}} | 거래시간 : {{deal.dealDate}} | 구분 : {{deal.dealType}}</span>
-                    {{/trades}}
+                    {{#deals}}
+                    <span>거래번호 : {{MyPageDeal.tradeNo}} | 거래시간 : {{MyPageDeal.dealDate}} | 구분 : {{MyPageDeal.dealType}} | 가격 : {{MyPageDeal.dealPrice}}</span>
+                    {{/deals}}
                 </div>
                 <div class="que">
                     <span>좋아요 목록</span>
@@ -161,9 +177,9 @@
                     </div>
                 </div>
                 <div class="anw">
-                    {{#likes}}
-                    <span>{{like.musicMbid}}</span>
-                    {{/likes}}
+<!--                    {{#likes}}-->
+<!--                    <span>{{like.musicMbid}}</span>-->
+<!--                    {{/likes}}-->
                 </div>
             </div>
         </div>

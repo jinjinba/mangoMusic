@@ -5,7 +5,7 @@
 
 <mapper namespace="UserMapper">
 
-    <resultMap type="com.kh.mango.user.domain.Mypage" id="myPageResultMap">
+    <resultMap type="com.kh.mango.user.domain.MyPage" id="myPageResultMap">
         <id property="userNo" column="USER_TBL.USER_NO" />
         <result property="userId" column="USER_ID" />
         <result property="userPw" column="MEMBER_PW" />
@@ -19,6 +19,14 @@
         <result property="userProfileLetter" column="USER_PROFILE_LETTER" />
         <result property="pointVal" column="POINT_VAL" />
     </resultMap>
+    <resultMap id="myPageFollowersResultMap" type="com.kh.mango.user.domain.MyPageFollow">
+        <id property="followNo" column="FOLLOW_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userGender" column="USER_GENDER"/>
+    </resultMap>
+
 
 
     <select id="test" resultType="com.kh.mango.user.domain.User">
@@ -35,5 +43,10 @@
     <select id="searchUser" resultType="com.kh.mango.user.domain.User">
         SELECT * FROM USER_TBL WHERE USER_ID LIKE '%' || #{searchValue} ||'%' or USER_NAME LIKE '%' || #{searchValue} ||'%'
     </select>
-
+    <select id="selectFollowers" resultMap="myPageFollowersResultMap">
+        SELECT F.FOLLOW_NO, U.USER_NO, U.USER_ID, U.USER_NAME, U.USER_GENDER  FROM USER_TBL U, FOLLOW_TBL F WHERE F.FOLLOW_NO = #{userNo} AND F.USER_NO = U.USER_NO
+    </select>
+    <select id="selectDeals" resultType="com.kh.mango.deal.domain.Deal">
+        SELECT * FROM DEAL_TBL WHERE BUYER_NO = #{userNo} OR SELLER_NO = #{userNo}
+    </select>
 </mapper>

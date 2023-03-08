@@ -1,6 +1,8 @@
 package com.kh.mango.user.store.logic;
 
-import com.kh.mango.user.domain.Mypage;
+import com.kh.mango.user.domain.MyPage;
+import com.kh.mango.user.domain.MyPageFollow;
+import com.kh.mango.user.domain.MyPageDeals;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.store.UserStore;
 import org.apache.ibatis.session.SqlSession;
@@ -40,7 +42,7 @@ public class UserStoreLogic implements UserStore {
 
 
     @Override
-    public Mypage selectMypageUser(int userNo) {
+    public MyPage selectMyPageUser(int userNo) {
         return sqlSession.selectOne("UserMapper.selectUserByMyPage",userNo);
     }
 
@@ -49,5 +51,15 @@ public class UserStoreLogic implements UserStore {
     public List<User> searchUser(String searchValue) {
         List<User> searchList = sqlSession.selectList("UserMapper.searchUser", searchValue);
         return searchList;
+    }
+
+    @Override
+    public List<MyPageFollow> selectMyPageFollower(int userNo) {
+        return sqlSession.selectList("UserMapper.selectFollowers",userNo);
+    }
+
+    @Override
+    public List<MyPageDeals> selectMyPageDeals(int userNo) {
+        return sqlSession.selectList("UserMapper.selectDeals", userNo);
     }
 }

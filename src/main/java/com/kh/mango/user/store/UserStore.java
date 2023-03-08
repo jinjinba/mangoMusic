@@ -1,6 +1,8 @@
 package com.kh.mango.user.store;
 
-import com.kh.mango.user.domain.Mypage;
+import com.kh.mango.user.domain.MyPage;
+import com.kh.mango.user.domain.MyPageFollow;
+import com.kh.mango.user.domain.MyPageDeals;
 import com.kh.mango.user.domain.User;
 import org.apache.ibatis.session.SqlSession;
 
@@ -12,7 +14,7 @@ public interface UserStore {
 
     List<User> selectMember();
 
-    Mypage selectMypageUser(int user);
+    MyPage selectMyPageUser(int user);
 
     //    로그인
     User checkUserLogin(SqlSession session, User user);
@@ -22,4 +24,7 @@ public interface UserStore {
 
     List<User> searchUser(String searchValue);
 
+    List<MyPageFollow> selectMyPageFollower(int userNo);
+
+    List<MyPageDeals> selectMyPageDeals(int userNo);
 }

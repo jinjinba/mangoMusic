@@ -1,6 +1,8 @@
 package com.kh.mango.user.controller;
 
-import com.kh.mango.user.domain.Mypage;
+import com.kh.mango.user.domain.MyPage;
+import com.kh.mango.user.domain.MyPageFollow;
+import com.kh.mango.user.domain.MyPageDeals;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.List;
 
 @Controller
@@ -60,8 +60,12 @@ public class UserController {
 
     @GetMapping("/mypage")
     public String myPageView(Model model,@SessionAttribute("loginUser") User user){
-        Mypage myPage = uService.mypageInfo(user.getUserNo());
-        model.addAttribute("myPage",myPage);
+        MyPage myPage = uService.myPageInfo(user.getUserNo());
+        List<MyPageFollow> followList = uService.myPageFollow(user.getUserNo());
+        List<MyPageDeals> deals = uService.myPageDeals(user.getUserNo());
+        model.addAttribute("loginUser",myPage);
+        model.addAttribute("followers",followList);
+        model.addAttribute("deals",deals);
         return "mypage";
     }
 

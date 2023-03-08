@@ -1,6 +1,8 @@
 package com.kh.mango.user.service.logic;
 
-import com.kh.mango.user.domain.Mypage;
+import com.kh.mango.user.domain.MyPage;
+import com.kh.mango.user.domain.MyPageFollow;
+import com.kh.mango.user.domain.MyPageDeals;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.service.UserService;
 import com.kh.mango.user.store.UserStore;
@@ -14,41 +16,51 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserStore userStore;
+    UserStore uStore;
     @Autowired
     SqlSession session;
 
     @Override
     public User test() {
-        return userStore.test();
+        return uStore.test();
     }
     @Override
     public int insertUser(User user) {
-        int result = userStore.insertUser(session, user);
+        int result = uStore.insertUser(session, user);
         return result;
     }
     @Override
     public User checkUserLogin(User user) {
-        User uOne = userStore.checkUserLogin(session, user);
+        User uOne = uStore.checkUserLogin(session, user);
         return uOne;
 
     }
 
     @Override
     public List<User> searchUser(String searchValue) {
-        List<User> searchList = userStore.searchUser(searchValue);
+        List<User> searchList = uStore.searchUser(searchValue);
         return searchList;
     }
 
     @Override
+    public List<MyPageFollow> myPageFollow(int userNo) {
+        return uStore.selectMyPageFollower(userNo);
+    }
+
+    @Override
+    public List<MyPageDeals> myPageDeals(int userNo) {
+        return uStore.selectMyPageDeals(userNo);
+    }
+
+    @Override
     public List<User> selectMember() {
-        List<User> userList = userStore.selectMember();
+        List<User> userList = uStore.selectMember();
         return userList;
     }
 
     @Override
-    public Mypage mypageInfo(int userNo) {
-        return userStore.selectMypageUser(userNo);
+    public MyPage myPageInfo(int userNo) {
+        return uStore.selectMyPageUser(userNo);
     }
 
 }
