@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.sql.Connection;
@@ -49,11 +48,9 @@ public class UserController {
     @GetMapping("/mypage")
     public String myPage(Model model){
         Mypage myPage = uService.mypageInfo();
-        model.addAttribute("user",myPage);
-        return "mypage";
+        model.addAttribute("myPage",myPage);
+        return "mypage.html";
     }
-
-
 
 
 }

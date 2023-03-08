@@ -17,7 +17,7 @@
         <result property="userFilename" column="USER_FILENAME" />
         <result property="userFilepath" column="USER_FILEPATH" />
         <result property="userProfileLetter" column="USER_PROFILE_LETTER" />
-        <result property="pointVal" column="POINT_TBL.pointVal" />
+        <result property="pointVal" column="POINT_VAL" />
     </resultMap>
 
 
@@ -25,7 +25,7 @@
         SELECT * FROM USER_TBL
     </select>
 
-    <select id="selectUser" resultMap="myPageResultMap">
+    <select id="selectUserByMyPage" resultMap="myPageResultMap">
         SELECT USER_TBL.USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_GENDER, USER_TYPE, USER_DATE, USER_FILENAME, USER_FILEPATH, USER_PROFILE_LETTER, POINT_TBL.POINT_VAL FROM USER_TBL right outer join POINT_TBL on USER_TBL.USER_NO = POINT_TBL.USER_NO WHERE USER_TBL.USER_NO = 2
     </select>
 
