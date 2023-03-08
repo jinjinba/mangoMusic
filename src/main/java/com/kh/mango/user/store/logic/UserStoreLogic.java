@@ -3,7 +3,6 @@ package com.kh.mango.user.store.logic;
 import com.kh.mango.user.domain.Mypage;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.store.UserStore;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +40,8 @@ public class UserStoreLogic implements UserStore {
 
 
     @Override
-    public Mypage selectMypageUser() {
-        return sqlSession.selectOne("UserMapper.selectUser");
+    public Mypage selectMypageUser(int userNo) {
+        return sqlSession.selectOne("UserMapper.selectUserByMyPage",userNo);
     }
 
 

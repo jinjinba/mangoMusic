@@ -72,11 +72,10 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String myPageView(Model model,HttpServletRequest request){
-        User user = (User) request.getAttribute("loginUser");
-        Mypage myPage = uService.mypageInfo(user);
+    public String myPageView(Model model,@SessionAttribute("loginUser") User user){
+        Mypage myPage = uService.mypageInfo(user.getUserNo());
         model.addAttribute("myPage",myPage);
-        return "mypage.html";
+        return "mypage";
     }
 
 
