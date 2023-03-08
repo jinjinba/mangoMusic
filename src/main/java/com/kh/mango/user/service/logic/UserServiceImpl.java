@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Mypage mypageInfo() {
+    public Mypage mypageInfo(User user) {
         return null;
     }
 

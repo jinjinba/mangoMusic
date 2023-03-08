@@ -11,7 +11,7 @@ public interface UserService {
 
     List<User> selectMember();
 
-    Mypage mypageInfo();
+    Mypage mypageInfo(User user);
 
     int insertUser(User user);
 

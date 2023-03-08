@@ -21,21 +21,17 @@ public class UserController {
     @Autowired
     private UserService uService;
 
-//    @GetMapping("/test")
-//    public String User(Model model){
-//        User user = uService.test();
-//        model.addAttribute("user",user);
-//        return "test";
-//    }
+
     @GetMapping("/register")
     public String register() {
         return "user/register";
     }
 
-    @GetMapping("/login")
-    public String login() {
+    @RequestMapping(method = RequestMethod.GET, value = "/login")
+    public String loginView() {
         return "login";
     }
+
     @RequestMapping(method = RequestMethod.POST, value = "/login.do")
     public String userLogin(
             HttpServletRequest request
@@ -76,9 +72,10 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String myPageView(Model model){
-//        Mypage myPage = uService.mypageInfo();
-//        model.addAttribute("myPage",myPage);
+    public String myPageView(Model model,HttpServletRequest request){
+        User user = (User) request.getAttribute("loginUser");
+        Mypage myPage = uService.mypageInfo(user);
+        model.addAttribute("myPage",myPage);
         return "mypage.html";
     }
 
