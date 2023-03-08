@@ -1,6 +1,5 @@
 package com.kh.mango.user.controller;
 
-import com.kh.mango.user.domain.Mypage;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -40,10 +39,10 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public String myPage(Model model){
-        Mypage myPage = uService.mypageInfo();
-        model.addAttribute("myPage",myPage);
-        return "mypage";
+    public String myPageView(Model model){
+//        Mypage myPage = uService.mypageInfo();
+//        model.addAttribute("myPage",myPage);
+        return "mypage.html";
     }
 
 

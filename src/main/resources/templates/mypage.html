@@ -107,7 +107,7 @@
         <div class="profile">
             <div class="profile-img"></div>
             
-            <!-- 닉네임 들어갈곳 -->
+<!--             닉네임 들어갈곳-->
             <div class="profile-name"><h1>{{myPage.userName}}</h1></div>
             <div class="profile-letter"><span>{{myPage.userProfileLetter}}</span></div>
         </div>
@@ -116,7 +116,7 @@
     <div class="margin-top" id="mypage-content-container">
         <div class="mypage-content-left">
             <div class="point">
-                <!-- 포인트 값 -->
+<!--                 포인트 값-->
                 <span class="point-value">{{myPage.pointVal}} <span class="point-value-text">Mango</span></span>
             </div>
             <div class="point-button-container">
@@ -125,6 +125,9 @@
             </div>
         </div>
         <div class="mypage-content-right">
+<!--            팔로우 검색 버튼-->
+            <button type="button">검색</button>
+
             <div id="Accordion_wrap">
                 <div class="que">
                     <span>팔로우 목록</span>
@@ -160,7 +163,7 @@
                 <div class="anw">
                     {{#likes}}
                     <span>{{like.musicMbid}}</span>
-                    {{/like}}
+                    {{/likes}}
                 </div>
             </div>
         </div>
