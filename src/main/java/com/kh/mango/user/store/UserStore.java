@@ -12,5 +12,9 @@ public interface UserStore {
 
     User test();
 
+    List<User> selectMember();
+
     Mypage selectMypageUser();
+
+    List<User> searchUser(String searchValue);
 }

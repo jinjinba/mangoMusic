@@ -9,5 +9,9 @@ public interface UserService {
 
     User test();
 
+    List<User> selectMember();
+
     Mypage mypageInfo();
+
+    List<User> searchUser(String searchValue);
 }

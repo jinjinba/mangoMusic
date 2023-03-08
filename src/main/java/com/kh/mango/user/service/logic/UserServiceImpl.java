@@ -26,4 +26,17 @@ public class UserServiceImpl implements UserService {
         int result = userStore.insertUser(session, user);
         return result;
     }
+
+    @Override
+    public List<User> searchUser(String searchValue) {
+        List<User> searchList = userStore.searchUser(searchValue);
+        return searchList;
+    }
+
+    @Override
+    public List<User> selectMember() {
+        List<User> userList = userStore.selectMember();
+        return userList;
+    }
+
 }

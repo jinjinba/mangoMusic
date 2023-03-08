@@ -22,9 +22,19 @@ public class UserStoreLogic implements UserStore {
     }
 
     @Override
-    public Mypage selectMypageUser() {
-        return sqlSession.selectOne("UserMapper.selectUserByMyPage");
+    public List<User> selectMember() {
+        List<User> userList = sqlSession.selectList("UserMapper.test");
+        return userList;
     }
 
+    @Override
+    public Mypage selectMypageUser() {
+        return sqlSession.selectOne("UserMapper.selectUser");
+    }
 
+    @Override
+    public List<User> searchUser(String searchValue) {
+        List<User> searchList = sqlSession.selectList("UserMapper.searchUser", searchValue);
+        return searchList;
+    }
 }
