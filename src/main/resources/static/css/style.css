@@ -5,7 +5,12 @@ font-size: 16px;
 font-family: "Roboto", sans-serif;
 
 } */
-
+.navLogo{
+    width: 100%;
+}
+.navLogo:hover{
+    background-color: #1a1a1a;
+}
 body {
     color: #a5a5a7;
     background-color: #343a40;

@@ -1,17 +1,16 @@
 package com.kh.mango.user.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@AllArgsConstructor
+@ToString
+public class Mypage {
 
     private int userNo;
     private String userId;
@@ -24,5 +23,5 @@ public class User {
     private String userFilename;
     private String userFilepath;
     private String userProfileLetter;
-
+    private int pointVal;
 }
