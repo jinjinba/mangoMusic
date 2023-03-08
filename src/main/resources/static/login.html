@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>로그인</title>
-        <link rel="stylesheet" href="login.css" />
+        <link rel="stylesheet" href="css/login.css" />
         <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"charset="utf-8"></script>
     </head>
     <body>
@@ -14,23 +14,23 @@
         </a>
         <div class="login-box">
             <h2>Login</h2>
-            <form method="get" action="#" id="login-form">
+            <form method="post" action="/login.do" id="login-form">
                 <div class="user-box">
-                    <input type="text" name="userId" placeholder="ID">
-<!--                    <label>ID</label>-->
+                    <input type="text" name="user-id" placeholder="ID">
+                    <!--                    <label>ID</label>-->
                 </div>
                 <div class="user-box">
-                    <input type="password" name="userPw" placeholder="Password">
-<!--                    <label>PW</label>-->
+                    <input type="password" name="user-pw" placeholder="Password">
+                    <!--                    <label>PW</label>-->
                 </div>
                 <div id="login-btn">
-                    <a class="login-btn" href="#">
+                    <button type="submit" id="login-b" class="login-btn">
                         <span></span>
                         <span></span>
                         <span></span>
                         <span></span>
                         Submit
-                    </a>
+                    </button>
                     <a class="login-btn" href="register.html">
                         <span></span>
                         <span></span>

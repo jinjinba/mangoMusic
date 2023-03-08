@@ -7,9 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.List;
@@ -26,6 +27,39 @@ public class UserController {
 //        model.addAttribute("user",user);
 //        return "test";
 //    }
+    @GetMapping("/register")
+    public String register() {
+        return "user/register";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/login.do")
+    public String userLogin(
+            HttpServletRequest request
+            , @RequestParam("user-id") String userId
+            , @RequestParam("user-pw") String userPw
+            , Model model) {
+        try {
+            User uParam = new User(userId, userPw);
+            User user = uService.checkUserLogin(uParam);
+            HttpSession session = request.getSession();
+            if (user != null) {
+                session.setAttribute("loginUser", user);
+                return "index";
+            }
+            model.addAttribute("msg","로그인 실패");
+            return "error";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("msg", e.getMessage());
+            return "error";
+        }
+    }
+
 
     @GetMapping("/admin")
     public String memberList(Model model){
@@ -50,10 +84,6 @@ public class UserController {
         Mypage myPage = uService.mypageInfo();
         model.addAttribute("myPage",myPage);
         return "mypage.html";
-    }
-    @GetMapping("/register")
-    public String register() {
-        return "user/register";
     }
 
 

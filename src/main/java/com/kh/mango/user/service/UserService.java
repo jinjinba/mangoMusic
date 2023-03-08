@@ -13,5 +13,9 @@ public interface UserService {
 
     Mypage mypageInfo();
 
+    int insertUser(User user);
+
+    User checkUserLogin(User user);
+
     List<User> searchUser(String searchValue);
 }

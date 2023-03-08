@@ -1,49 +1,50 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>회원 로그인</title>
-        <style>
-            #main {
-                border: 1px solid black;
-                margin: auto;
-                padding: 20px;
-            }
-            #button-area {
-                margin-top: 20px;
-                --text-align: center;
-                flex-direction: row;
-                align-items: stretch;
-            }
-            .btn {
-                width: 500px;
-                height: 80px;
-            }
-        </style>
-    </head>
-    <body>
-        <main class="body">
-            <h1>로그인</h1>
-            <form action="/login" method="post">
-                <input type="text" class="login" name="userId" placeholder="ID를 입력해주세요"> <br>
-                <input type="password" class="login" name="userPw" placeholder="PW를 입력해주세요">
-            </form>
-            <div id="button-area">
-                <button class="btn"><a href="#">로그인</a></button>
-                <br><br><br>
-                <button class="btn"><a href="#">구글 로그인</a></button>
-                <br><br>
-                <button class="btn"><a href="#">네이버 로그인</a></button>
-                <br><br>
-                <button class="btn"><a href="#">카카오 로그인</a></button>
-                <br><br><br>
-                <button><a href="/register">회원가입</a></button>
-                <button><a href="#">아이디 찾기</a></button>
-                <button><a href="#">비밀번호 찾기</a></button>
-            </div>
-        </main>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" href="/login.css" />
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"charset="utf-8"></script>
+</head>
+<body>
+<a class="main-logo" href="index.html">
+    <div class="text-light heading d-flex align-items-center justify-content-flex-start mt-3">
+        <i class="fa-regular fa-mango mx-3 p-1"></i> Mango Music
+    </div>
+</a>
+<div class="login-box">
+    <form method="post" action="/login.do" id="login-form">
+        <h2>Login</h2>
+        <div class="user-box">
+            <input type="text" name="user-id" placeholder="ID">
+            <!--                    <label>ID</label>-->
+        </div>
+        <div class="user-box">
+            <input type="password" name="user-pw" placeholder="Password">
+            <!--                    <label>PW</label>-->
+        </div>
+        <div id="login-btn">
+            <button type="submit" id="login-b" class="login-btn" href="#">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Submit
+            </button>
+            <a class="login-btn" href="register.html">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                회원가입
+            </a>
+        </div>
+        <div class="snsLogin">
+            <a class="sns" href="#"><img class="login-logo" src="Login_img/btn_google_signin_light_focus_web@2x.png" alt="구글 로그인"></a> <br>
+            <a class="sns" href="#"><img class="login-logo" src="Login_img/btnG_완성형.png" alt="네이버 로그인"></a> <br>
+            <a class="sns" href="#"><img class="login-logo" src="Login_img/kakao_login_large_wide.png" alt="카카오 로그인"></a> <br>
+        </div>
+    </form>
+</div>
+</body>
 </html>

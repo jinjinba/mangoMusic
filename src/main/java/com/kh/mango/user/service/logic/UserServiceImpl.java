@@ -1,5 +1,6 @@
 package com.kh.mango.user.service.logic;
 
+import com.kh.mango.user.domain.Mypage;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.service.UserService;
 import com.kh.mango.user.store.UserStore;
@@ -26,6 +27,12 @@ public class UserServiceImpl implements UserService {
         int result = userStore.insertUser(session, user);
         return result;
     }
+    @Override
+    public User checkUserLogin(User user) {
+        User uOne = userStore.checkUserLogin(session, user);
+        return uOne;
+
+    }
 
     @Override
     public List<User> searchUser(String searchValue) {
@@ -37,6 +44,11 @@ public class UserServiceImpl implements UserService {
     public List<User> selectMember() {
         List<User> userList = userStore.selectMember();
         return userList;
+    }
+
+    @Override
+    public Mypage mypageInfo() {
+        return null;
     }
 
 }

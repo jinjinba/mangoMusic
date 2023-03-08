@@ -9,11 +9,25 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class User {
 
     private int userNo;
+
+    public User(int userNo, String userId, String userPw, String userName, String userEmail, String userGender, int userType, Timestamp userDate, String userFilename, String userFilepath, String userProfileLetter) {
+        this.userNo = userNo;
+        this.userId = userId;
+        this.userPw = userPw;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userGender = userGender;
+        this.userType = userType;
+        this.userDate = userDate;
+        this.userFilename = userFilename;
+        this.userFilepath = userFilepath;
+        this.userProfileLetter = userProfileLetter;
+    }
+
     private String userId;
     private String userPw;
     private String userName;
@@ -25,4 +39,8 @@ public class User {
     private String userFilepath;
     private String userProfileLetter;
 
+    public User(String userId, String userPw) {
+        this.userId = userId;
+        this.userPw = userPw;
+    }
 }
