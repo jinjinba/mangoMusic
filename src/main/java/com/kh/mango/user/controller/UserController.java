@@ -68,21 +68,17 @@ public class UserController {
         return "admin";
     }
 
-    @GetMapping("/admin/search")
+    @GetMapping("/admin/search.do")
     public String userSearchView(@RequestParam("searchValue") String searchValue, Model model) {
         List<User> searchList = uService.searchUser(searchValue);
-        if(!searchList.isEmpty()) {
-            model.addAttribute("searchUser", searchList);
-            return "adminSearch";
-        } else {
-            return "admin";
-        }
+        model.addAttribute("user",searchList);
+        return "admins";
     }
 
     @GetMapping("/mypage")
-    public String myPage(Model model){
-        Mypage myPage = uService.mypageInfo();
-        model.addAttribute("myPage",myPage);
+    public String myPageView(Model model){
+//        Mypage myPage = uService.mypageInfo();
+//        model.addAttribute("myPage",myPage);
         return "mypage.html";
     }
 

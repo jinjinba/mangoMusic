@@ -41,7 +41,7 @@
     margin-left: 70px;
     margin-top: 45px;
     border-radius: 150px;
-    background-image: url(../img/abstract-user-flat-3.svg);
+    background-image: url(img/abstract-user-flat-3.svg);
     background-position: center;
     background-size: 250px;
     background-repeat: no-repeat;
@@ -82,10 +82,10 @@
     height: 100%;
     padding-top: 100px;
     float: left;
-    border: 1px solid white;
+    /*border: 1px solid white;*/
 }
 .mypage-content-right{
-    padding-left: 30px;
+    padding-left: 100px;
     padding-top: 30px;
     height: 100%;
     width: 60%;
@@ -141,21 +141,23 @@
     position: relative;
     padding: 17px 0;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 20px;
     border-bottom: 1px solid #dddddd;
+    width: 800px;
 
 }
 
 .que::before{
     display: inline-block;
-    font-size: 14px;
+    font-size: 13px;
     color: #006633;
     margin: 0 5px;
 }
 
 .que.on>span{
-    font-weight: bold;
-    color: #006633;
+    font-size: 20px;
+    /*font-weight: bold;*/
+    color: #f9e000;
 }
 
 .anw {
@@ -163,6 +165,9 @@
     overflow: hidden;
     font-size: 14px;
     padding: 27px 0;
+    width: 800px;
+    background-color: transparent;
+    opacity: 0.5;
 }
 
 .anw::before {

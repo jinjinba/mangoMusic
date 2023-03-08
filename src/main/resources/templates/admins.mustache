@@ -1,0 +1,50 @@
+{{>layouts/sidebar}}
+
+<div id="admin">
+    <div id="main-header">
+        Admin Page
+    </div>
+    <div id="main">
+        <div id="main1">
+            <div id="submit">회원 목록</div>
+            <form action="/admin/search.do" method="get">
+                <input type="text" name="searchValue" placeholder="검색어 입력" style="width: 300px; height: 30px">
+                <input type="submit" value="검색">
+            </form>
+            <div id="user-list">
+                <table class="table" style="color: #b6b6b6">
+                    <tr>
+                        <th>아이디</th>
+                        <th>이름</th>
+                    </tr>
+                    {{#user}}
+                        <tr>
+                            <td>{{userId}}</td>
+                            <td>{{userName}}</td>
+                        </tr>
+                    {{/user}}
+                </table>
+            </div>
+        </div>
+        <div id="main2">
+            <div id="main2-1">
+                전체 포인트 내역 <br>
+                <div id="point">
+                    <b>300,000P</b> <br>
+                    <button type="button" id="point-btn">포인트 내역 보기</button>
+                </div>
+            </div>
+            <div id="main2-2">
+                공지사항 / Q&A <br>
+                <div id="qna">
+                    <button type="button" id="point-btn">공지사항 페이지</button>
+                    <br>
+                    <button type="button" id="point-btn">Q&A 페이지</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</main>
+{{>layouts/footer}}
