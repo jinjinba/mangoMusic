@@ -449,11 +449,14 @@ a {
         height: inherit;
         --background-color: #c46e86;
         float: left;
-        font-size: 30px;
+        --font-size: 30px;
         font-weight: bold;
         padding: 10px;
         --border-right: solid 1px;
         --border-right-color: whitesmoke;
+    }
+    #submit {
+        font-size: 30px;
     }
         #user-list {
             font-size: 20px;

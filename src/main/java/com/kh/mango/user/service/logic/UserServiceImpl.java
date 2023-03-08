@@ -7,6 +7,8 @@ import com.kh.mango.user.store.UserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -24,10 +26,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> searchUser(String searchValue) {
+        List<User> searchList = userStore.searchUser(searchValue);
+        return searchList;
+    }
+
+    @Override
     public List<User> selectMember() {
         List<User> userList = userStore.selectMember();
         return userList;
     }
-
 
 }

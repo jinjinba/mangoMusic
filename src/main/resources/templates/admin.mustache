@@ -1,3 +1,4 @@
+{{>layouts/sidebar}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -196,9 +197,11 @@
         </div>
         <div id="main">
             <div id="main1">
-                회원 목록
-                <input type="text">
-                <button type="button"></button>
+                <div id="submit">회원 목록</div>
+                <form action="/admin/search" method="get">
+                    <input type="text" name="searchValue" placeholder="검색어 입력" style="width: 300px; height: 30px">
+                    <input type="submit" value="검색">
+                </form>
                 <div id="user-list">
                     <table class="table" style="color: #b6b6b6">
                         <tr>
@@ -236,6 +239,7 @@
 
 
 
+
 </main>
 
 
@@ -247,3 +251,4 @@
 </body>
 
 </html>
+{{>layouts/footer}}
