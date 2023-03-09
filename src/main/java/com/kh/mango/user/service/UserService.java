@@ -9,13 +9,13 @@ public interface UserService {
 
     User test();
 
+    List<User> selectMember();
+
+    Mypage mypageInfo(int userNo);
+
     int insertUser(User user);
 
     User checkUserLogin(User user);
-
-    List<User> selectMember();
-
-    Mypage mypageInfo(User user);
 
     List<User> searchUser(String searchValue);
 }
