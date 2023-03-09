@@ -23,11 +23,12 @@ public class UserController {
     @Autowired
     private UserService uService;
 
-
+    // 회원가입 화면
     @RequestMapping(method = RequestMethod.GET, value = "/register")
     public String register() {
         return "register";
     }
+    // 유저 회원가입
     @RequestMapping(method = RequestMethod.POST, value = "/register.do")
     public String userRegister(
             HttpServletRequest request
@@ -48,11 +49,13 @@ public class UserController {
         }
     }
 
+    // 로그인 화면
     @RequestMapping(method = RequestMethod.GET, value = "/login")
     public String loginView() {
         return "login";
     }
 
+    // 유저 로그인
     @RequestMapping(method = RequestMethod.POST, value = "/login.do")
     public String userLogin(
             HttpServletRequest request
@@ -73,6 +76,17 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("msg", e.getMessage());
+            return "error";
+        }
+    }
+    // 로그아웃
+    @GetMapping("logout")
+    public String userLogout(HttpSession session, Model model) {
+        if(session != null) {
+            session.invalidate();
+            return "index";
+        }else {
+            model.addAttribute("msg", "로그아웃 처리 하지 못하였습니다.");
             return "error";
         }
     }
