@@ -320,7 +320,7 @@ a {
 
 @media screen and (min-width: 1500px) {
     main {
-        margin-left: 16rem;
+        margin-left: 18rem;
         /*5em x 16px = 80px*/
         padding: 2rem;
         color: #dedee0;
