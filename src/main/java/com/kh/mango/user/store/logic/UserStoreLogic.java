@@ -65,4 +65,10 @@ public class UserStoreLogic implements UserStore {
     public List<Like> selectMyPageLikes(int userNo) {
         return sqlSession.selectList("UserMapper.selectLikes",userNo);
     }
+
+    @Override
+    public User selectOneByNumber(int userNo) {
+        User user = sqlSession.selectOne("UserMapper.selectOneByNumber", userNo);
+        return user;
+    }
 }

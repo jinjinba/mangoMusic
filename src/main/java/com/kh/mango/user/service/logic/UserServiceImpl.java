@@ -42,6 +42,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User selectOneByNumber(int userNo) {
+        User user = uStore.selectOneByNumber(userNo);
+        return user;
+    }
+
+    @Override
     public List<MyPageFollow> myPageFollow(int userNo) {
         return uStore.selectMyPageFollower(userNo);
     }

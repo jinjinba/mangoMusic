@@ -18,6 +18,8 @@ public interface UserService {
 
     List<User> searchUser(String searchValue);
 
+    User selectOneByNumber(int userNo);
+
     List<MyPageFollow> myPageFollow(int userNo);
 
     List<MyPageDeals> myPageDeals(int userNo);

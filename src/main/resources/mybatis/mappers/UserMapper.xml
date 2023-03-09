@@ -5,7 +5,7 @@
 
 <mapper namespace="UserMapper">
 
-    <resultMap type="com.kh.mango.user.domain.MyPage" id="myPageResultMap">
+    <resultMap type="com.kh.mango.user.domain.Mypage" id="myPageResultMap">
         <id property="userNo" column="USER_TBL.USER_NO" />
         <result property="userId" column="USER_ID" />
         <result property="userPw" column="MEMBER_PW" />
@@ -55,4 +55,9 @@
     <select id="selectLikes" resultType="com.kh.mango.user.domain.Like">
         SELECT * FROM LIKE_TBL WHERE USER_NO = #{userNo}
     </select>
+
+    <select id="selectOneByNumber" resultType="com.kh.mango.user.domain.User">
+        SELECT * FROM USER_TBL WHERE USER_NO = #{userNo}
+    </select>
+
 </mapper>

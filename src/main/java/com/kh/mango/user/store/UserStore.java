@@ -14,7 +14,7 @@ public interface UserStore {
 
     //    로그인
     User checkUserLogin(SqlSession session, User user);
-    
+
     // 회원가입
     int insertUser(SqlSession session, User user);
 
@@ -24,6 +24,7 @@ public interface UserStore {
 
     List<User> searchUser(String searchValue);
 
+    User selectOneByNumber(int userNo);
     List<MyPageFollow> selectMyPageFollower(int userNo);
 
     List<MyPageDeals> selectMyPageDeals(int userNo);

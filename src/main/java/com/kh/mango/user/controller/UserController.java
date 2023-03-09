@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.List;
 
 @Controller
@@ -88,5 +90,17 @@ public class UserController {
         return "mypage";
     }
 
+
+    @GetMapping("/userSearch")
+    public String userSearch() {
+        return "userSearch";
+    }
+
+    @GetMapping("/userList")
+    public String userList(@RequestParam("searchValue") String searchValue, Model model) {
+        List<User> searchList = uService.searchUser(searchValue);
+        model.addAttribute("user",searchList);
+        return "userList";
+    }
 
 }
