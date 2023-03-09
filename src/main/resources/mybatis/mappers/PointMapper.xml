@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PointMapper">
+
+    <update id="chargePoint">
+        UPDATE POINT_TBL SET POINT_VAL = POINT_VAL + #{pointVal} WHERE USER_NO = #{userNo}
+    </update>
+    <insert id="insertChargePointRecord">
+        INSERT INTO POINT_RECORD_TBL VALUES(#{userNo},'충전',#{pointVal})
+    </insert>
+
+    <insert id="insertRefundPointRecord">
+        INSERT INTO POINT_RECORD_TBL VALUES(#{userNo},'출금',#{pointVal})
+    </insert>
+</mapper>

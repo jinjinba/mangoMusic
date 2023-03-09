@@ -52,7 +52,7 @@ public class UserController {
     }
 
     // 유저 로그인
-    @RequestMapping(method = RequestMethod.POST, value = "/login.do")
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
     public String userLogin(
             HttpServletRequest request
             , @RequestParam("user-id") String userId
@@ -63,7 +63,6 @@ public class UserController {
             User user = uService.checkUserLogin(uParam);
             HttpSession session = request.getSession();
             if (user != null) {
-                model.addAttribute("user",user);
                 session.setAttribute("loginUser", user);
                 return "index";
             }
@@ -95,7 +94,7 @@ public class UserController {
         List<MyPageFollow> followList = uService.myPageFollow(user.getUserNo());
         List<MyPageDeals> deals = uService.myPageDeals(user.getUserNo());
         List<Like> like = uService.myPageLikes(user.getUserNo());
-        model.addAttribute("loginUser",myPage);
+        model.addAttribute("myPage",myPage);
         model.addAttribute("followers",followList);
         model.addAttribute("deals",deals);
         model.addAttribute("likes",like);

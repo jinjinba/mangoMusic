@@ -9,7 +9,7 @@
         <div class="d-flex align-items-center" id="rightnav">
             <div style="margin-right: 1rem">
             </div>
-            {{#user.userId}}
+            {{#loginUser}}
             <div class="dropdown" id="myPageDropDown">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
@@ -17,17 +17,17 @@
                     <img src="../img/abstract-user-flat-3.svg"
                          style="width: 30px; height: 30px; border-radius: 50%" />
                     <!-- 유저이름 -->
-                    &nbsp;&nbsp;{{user.userName}}&nbsp;&nbsp;
+                    &nbsp;&nbsp;{{userName}}&nbsp;&nbsp;
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
                     <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
                 </ul>
             </div>
-                {{/user.userId}}
-            {{^user.userId}}
+                {{/loginUser}}
+            {{^loginUser}}
                 <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2" >로그인</button>
-            {{/user.userId}}
+            {{/loginUser}}
         </div>
     </nav>
     <div class="margin-top">
