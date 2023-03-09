@@ -5,7 +5,7 @@
 
 <mapper namespace="UserMapper">
 
-    <resultMap type="com.kh.mango.user.domain.Mypage" id="myPageResultMap">
+    <resultMap type="com.kh.mango.user.domain.MyPage" id="myPageResultMap">
         <id property="userNo" column="USER_TBL.USER_NO" />
         <result property="userId" column="USER_ID" />
         <result property="userPw" column="MEMBER_PW" />

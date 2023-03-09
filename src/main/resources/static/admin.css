@@ -437,7 +437,8 @@ a {
     color: #ffffff;
     font-size: 50px;
 }
-#admin {
+#admin_page {
+    padding-left: 30px;
 }
 
 #main {

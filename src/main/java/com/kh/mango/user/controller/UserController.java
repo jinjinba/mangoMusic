@@ -105,16 +105,5 @@ public class UserController {
     }
 
 
-    @GetMapping("/userSearch")
-    public String userSearch() {
-        return "userSearch";
-    }
-
-    @GetMapping("/userList")
-    public String userList(@RequestParam("searchValue") String searchValue, Model model) {
-        List<User> searchList = uService.searchUser(searchValue);
-        model.addAttribute("user",searchList);
-        return "userList";
-    }
 
 }
