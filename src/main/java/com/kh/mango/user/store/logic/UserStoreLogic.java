@@ -41,6 +41,7 @@ public class UserStoreLogic implements UserStore {
         return userList;
     }
 
+
     @Override
     public MyPage selectMyPageUser(int userNo) {
         return sqlSession.selectOne("UserMapper.selectUserByMyPage",userNo);
