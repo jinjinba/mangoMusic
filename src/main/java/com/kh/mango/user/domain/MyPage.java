@@ -1,7 +1,6 @@
 package com.kh.mango.user.domain;
 
 import lombok.*;
-import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 
@@ -10,7 +9,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Mypage {
+public class MyPage {
 
     private int userNo;
     private String userId;

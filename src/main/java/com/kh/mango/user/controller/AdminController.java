@@ -29,4 +29,11 @@ public class AdminController {
         model.addAttribute("user",searchList);
         return "admins";
     }
+
+    @GetMapping("/admin/userInfo")
+    public String userInfoView(@RequestParam("userNo") int userNo, Model model) {
+        User user = uService.selectOneByNumber(userNo);
+        model.addAttribute("user", user);
+        return "userInfo";
+    }
 }

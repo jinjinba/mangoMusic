@@ -1,7 +1,6 @@
 package com.kh.mango.user.controller;
 
-import com.kh.mango.user.domain.Mypage;
-import com.kh.mango.user.domain.User;
+import com.kh.mango.user.domain.*;
 import com.kh.mango.user.service.UserService;
 import com.kh.mango.user.service.logic.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -94,10 +93,28 @@ public class UserController {
 
     @GetMapping("/mypage")
     public String myPageView(Model model,@SessionAttribute("loginUser") User user){
-        Mypage myPage = uService.mypageInfo(user.getUserNo());
-        model.addAttribute("myPage",myPage);
+        MyPage myPage = uService.myPageInfo(user.getUserNo());
+        List<MyPageFollow> followList = uService.myPageFollow(user.getUserNo());
+        List<MyPageDeals> deals = uService.myPageDeals(user.getUserNo());
+        List<Like> like = uService.myPageLikes(user.getUserNo());
+        model.addAttribute("loginUser",myPage);
+        model.addAttribute("followers",followList);
+        model.addAttribute("deals",deals);
+        model.addAttribute("likes",like);
         return "mypage";
     }
 
+
+    @GetMapping("/userSearch")
+    public String userSearch() {
+        return "userSearch";
+    }
+
+    @GetMapping("/userList")
+    public String userList(@RequestParam("searchValue") String searchValue, Model model) {
+        List<User> searchList = uService.searchUser(searchValue);
+        model.addAttribute("user",searchList);
+        return "userList";
+    }
 
 }
