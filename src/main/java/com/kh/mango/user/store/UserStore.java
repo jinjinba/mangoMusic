@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface UserStore {
 
-    User test();
 
 
     MyPage selectMyPageUser(int user);

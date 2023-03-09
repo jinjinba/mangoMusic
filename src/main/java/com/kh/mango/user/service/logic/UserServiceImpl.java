@@ -17,10 +17,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     SqlSession session;
 
-    @Override
-    public User test() {
-        return uStore.test();
-    }
 
     @Override
     public int insertUser(User user) {

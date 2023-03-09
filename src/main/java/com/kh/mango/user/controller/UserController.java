@@ -2,7 +2,6 @@ package com.kh.mango.user.controller;
 
 import com.kh.mango.user.domain.*;
 import com.kh.mango.user.service.UserService;
-import com.kh.mango.user.service.logic.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.List;
 
 @Controller
@@ -66,6 +63,7 @@ public class UserController {
             User user = uService.checkUserLogin(uParam);
             HttpSession session = request.getSession();
             if (user != null) {
+                model.addAttribute("user",user);
                 session.setAttribute("loginUser", user);
                 return "index";
             }
@@ -79,7 +77,7 @@ public class UserController {
         }
     }
     // 로그아웃
-    @GetMapping("logout")
+    @GetMapping("/logout")
     public String userLogout(HttpSession session, Model model) {
         if(session != null) {
             session.invalidate();
