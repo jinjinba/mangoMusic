@@ -23,9 +23,9 @@ public class UserStoreLogic implements UserStore {
     }
 
     @Override
-    public List<User> selectMember() {
-        List<User> userList = sqlSession.selectList("UserMapper.test");
-        return userList;
+    public int insertUser(SqlSession session, User user) {
+        int result = session.insert("UserMapper.insertUser", user);
+        return result;
     }
 
     @Override
@@ -35,10 +35,10 @@ public class UserStoreLogic implements UserStore {
     }
 
     @Override
-    public int insertUser(SqlSession session, User user) {
-        return 0;
+    public List<User> selectMember() {
+        List<User> userList = sqlSession.selectList("UserMapper.test");
+        return userList;
     }
-
 
     @Override
     public Mypage selectMypageUser() {

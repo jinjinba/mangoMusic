@@ -1,50 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>회원 가입</title>
-        <style>
-            ul {
-                list-style-type: none;
-                padding-left: 0%;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>회원가입</h1>
-        <div id="main">
-            <form action="/register" method="post">
-                <ul>
-                    <li>
-                        <label for="id">ID</label>
-                        <input type="text" class="register" placeholder="ID를 입력하세요">
-                    </li>
-                    <li>
-                        <label for="pw">PW</label>
-                        <input type="password" class="register" placeholder="PW를 입력하세요">
-                    </li>
-                    <li>
-                        <label for="name">이름</label>
-                        <input type="text" class="register" placeholder="이름을 입력하세요">
-                    </li>
-                    <li>
-                        <label for="name">이메일</label>
-                        <input type="text" class="register" placeholder="이메일 입력하세요">
-                    </li>
-                    <li>
-                        <label for="name">성별</label>
-                        <input type="radio" name="genger" value="M" class="register">남
-                        <input type="radio" name="genger" value="F" class="register">여
-                    </li>
-                    <li>
-                        <input type="submit" value="회원가입">
-                        <input type="reset" value="초기화">
-                    </li>
-                </ul>
-            </form>
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="register.css" />
+</head>
+<body>
+<a class="main-logo" href="index.html">
+    <div class="text-light heading d-flex align-items-center justify-content-flex-start mt-3">
+        <i class="fa-regular fa-mango mx-3 p-1"></i> Mango Music
+    </div>
+</a>
+<div class="register-box">
+    <h2>회원가입</h2>
+    <form method="post" action="/register.do" id="register-form">
+        <div class="user-box">
+            <label>ID</label>
+            <input type="text" class="register" name="userId" placeholder="ID를 입력해주세요.">
         </div>
-    </body>
+        <div class="user-box">
+            <label>PW</label>
+            <input type="password" class="register" name="userPw" placeholder="PW를 입력해주세요.">
+        </div>
+        <div class="user-box">
+            <label>NAME</label>
+            <input type="text" class="register" name="userName" placeholder="이름을 입력해주세요.">
+        </div>
+        <div class="user-box">
+            <label>EMAIL</label>
+            <input type="text" class="register" name="userEmail" placeholder="이메일을 입력해주세요.">
+        </div>
+        <div class="user-box">
+            <label>GENDER</label>
+            <input type="radio" name="userGender" class="gender" value="M">남성
+            <input type="radio" name="userGender" class="gender" value="F">여성
+        </div>
+        <!--              <div class="register-submit">-->
+        <!--                  <input type="submit" class="register-btn" value="가입하기">-->
+        <!--                  <input type="reset" class="register-btn" value="초기화">-->
+        <!--              </div>-->
+        <div id="register-btn">
+            <button type="submit" class="register-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                가입하기
+            </button>
+        </div>
+    </form>
+</div>
+</body>
 </html>

@@ -139,7 +139,7 @@ body {
     font-size: 16px;
     text-decoration: none;
     text-transform: uppercase;
-
+    background-color:transparent;
     overflow: hidden;
     transition: .5s;
     margin-top: 40px;
@@ -155,12 +155,12 @@ body {
     0 0 100px #03e9f4;
 }
 
-.register-box a span {
+.register-box button span {
     position: absolute;
     display: block;
 }
 
-.register-box a span:nth-child(1) {
+.register-box button span:nth-child(1) {
     top: 0;
     left: -100%;
     width: 100%;
@@ -178,7 +178,7 @@ body {
     }
 }
 
-.register-box a span:nth-child(2) {
+.register-box button span:nth-child(2) {
     top: -100%;
     right: 0;
     width: 2px;
@@ -197,7 +197,7 @@ body {
     }
 }
 
-.register-box a span:nth-child(3) {
+.register-box button span:nth-child(3) {
     bottom: 0;
     right: -100%;
     width: 100%;
@@ -216,7 +216,7 @@ body {
     }
 }
 
-.register-box a span:nth-child(4) {
+.register-box button span:nth-child(4) {
     bottom: -100%;
     left: 0;
     width: 2px;

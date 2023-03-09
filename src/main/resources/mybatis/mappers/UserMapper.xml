@@ -20,6 +20,9 @@
         <result property="pointVal" column="POINT_VAL" />
     </resultMap>
 
+    <insert id="insertUser">
+        INSERT INTO USER_TBL VALUES(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userGender}, DEFAULT, DEFAULT, '', '', '')
+    </insert>
 
     <select id="test" resultType="com.kh.mango.user.domain.User">
         SELECT * FROM USER_TBL

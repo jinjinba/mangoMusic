@@ -13,15 +13,15 @@ public interface UserStore {
 
     User test();
 
-    List<User> selectMember();
-
-    Mypage selectMypageUser();
+    // 회원가입
+    int insertUser(SqlSession session, User user);
 
     //    로그인
     User checkUserLogin(SqlSession session, User user);
-    
-    // 회원가입
-    int insertUser(SqlSession session, User user);
+
+    List<User> selectMember();
+
+    Mypage selectMypageUser();
 
     List<User> searchUser(String searchValue);
 
