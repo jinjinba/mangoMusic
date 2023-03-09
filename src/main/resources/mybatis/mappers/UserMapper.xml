@@ -59,5 +59,8 @@
     <select id="selectOneByNumber" resultType="com.kh.mango.user.domain.User">
         SELECT * FROM USER_TBL WHERE USER_NO = #{userNo}
     </select>
+    <select id="selectPointRecord" resultType="com.kh.mango.point.domain.PointRecord">
+        SELECT * FROM POINT_RECORD_TBL ORDER BY POINT_RECORD_DATE DESC
+    </select>
 
 </mapper>

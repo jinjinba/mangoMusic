@@ -17,9 +17,15 @@ public class PointController {
     private PointService pService;
 
     @GetMapping("/chargePoint")
-    public String pointCharge(){
+    public String pointChargeView(){
         return "chargePoint";
     }
+
+    @GetMapping("/refundPoint")
+    public String pointRefundView(){
+        return "refundPoint";
+    }
+
     @GetMapping("/chargePointAction")
     public String pointChargeAction(@RequestParam("pointVal") int pointVal, Model model, @SessionAttribute("loginUser") User user){
             Point point = new Point(user.getUserNo(), pointVal);
@@ -33,7 +39,7 @@ public class PointController {
             }
     }
 
-    @GetMapping("/refund")
+    @GetMapping("/refundPointAction")
     public String pointRefund(@RequestParam("pointVal") int pointVal, Model model, @SessionAttribute("loginUser") User user){
         Point point = new Point(user.getUserNo(), pointVal);
         int result = pService.updateRefundPoint(point);

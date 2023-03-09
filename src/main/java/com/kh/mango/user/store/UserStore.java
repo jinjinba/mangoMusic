@@ -1,5 +1,6 @@
 package com.kh.mango.user.store;
 
+import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 import org.apache.ibatis.session.SqlSession;
 
@@ -29,4 +30,6 @@ public interface UserStore {
     List<MyPageDeals> selectMyPageDeals(int userNo);
 
     List<Like> selectMyPageLikes(int userNo);
+
+    List<PointRecord> selectPointRecord(int userNo);
 }

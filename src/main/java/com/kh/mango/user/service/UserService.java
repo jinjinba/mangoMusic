@@ -1,5 +1,6 @@
 package com.kh.mango.user.service;
 
+import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface UserService {
     List<MyPageDeals> myPageDeals(int userNo);
 
     List<Like> myPageLikes(int userNo);
+
+    List<PointRecord> selectPointRecord(int userNo);
 }

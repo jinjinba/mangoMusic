@@ -5,11 +5,13 @@
     <update id="chargePoint">
         UPDATE POINT_TBL SET POINT_VAL = POINT_VAL + #{pointVal} WHERE USER_NO = #{userNo}
     </update>
+    <update id="refundPoint">
+        UPDATE POINT_TBL SET POINT_VAL = POINT_VAL - #{pointVal} WHERE USER_NO = #{userNo}
+    </update>
     <insert id="insertChargePointRecord">
-        INSERT INTO POINT_RECORD_TBL VALUES(#{userNo},'충전',#{pointVal})
+        INSERT INTO POINT_RECORD_TBL VALUES(#{userNo},'충전',#{pointVal},SYSTIMESTAMP)
     </insert>
-
     <insert id="insertRefundPointRecord">
-        INSERT INTO POINT_RECORD_TBL VALUES(#{userNo},'출금',#{pointVal})
+        INSERT INTO POINT_RECORD_TBL VALUES(#{userNo},'출금',#{pointVal},SYSTIMESTAMP)
     </insert>
 </mapper>

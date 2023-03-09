@@ -47,7 +47,7 @@
             </div>
             <div class="point-button-container">
                 <button type="button" class="point-button" onclick="window.open('http://127.0.0.1:8985/chargePoint','','bottom=600, left=800, width=500, height=300')">충전</button>
-                <button type="button" class="point-button">출금</button>
+                <button type="button" class="point-button" onclick="window.open('http://127.0.0.1:8985/refundPoint','','bottom=600, left=800, width=500, height=300')">출금</button>
             </div>
         </div>
         <div class="mypage-content-right">
@@ -92,6 +92,18 @@
                         <input type="hidden" value="{{musicMbid}}" id="likeTag">
                         <span></span>
                     {{/likes}}
+                </div>
+                <div class="que">
+                    <span>포인트 충전 내역</span>
+                    <div class="arrow-wrap">
+                        <span class="arrow-top">-</span>
+                        <span class="arrow-bottom">+</span>
+                    </div>
+                </div>
+                <div class="anw">
+                    {{#pointRecord}}
+                        <span>구분 : {{pointPM}} | 시간 : {{pointRecordDate}} | 금액 : {{pointVal}}</span>
+                    {{/pointRecord}}
                 </div>
             </div>
         </div>
