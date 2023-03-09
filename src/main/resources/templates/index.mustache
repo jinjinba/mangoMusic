@@ -1,5 +1,4 @@
 {{>layouts/sidebar}}
-a
 <main class="body" id="body-mypage">
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -27,7 +26,7 @@ a
             </div>
                 {{/user.userId}}
             {{^user.userId}}
-                <button type="button" onclick="location.href='/login'">로그인</button>
+                <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2" >로그인</button>
             {{/user.userId}}
         </div>
     </nav>
