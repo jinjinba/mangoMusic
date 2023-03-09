@@ -1,9 +1,6 @@
 package com.kh.mango.user.service.logic;
 
-import com.kh.mango.user.domain.MyPage;
-import com.kh.mango.user.domain.MyPageFollow;
-import com.kh.mango.user.domain.MyPageDeals;
-import com.kh.mango.user.domain.User;
+import com.kh.mango.user.domain.*;
 import com.kh.mango.user.service.UserService;
 import com.kh.mango.user.store.UserStore;
 import org.apache.ibatis.session.SqlSession;
@@ -52,6 +49,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<MyPageDeals> myPageDeals(int userNo) {
         return uStore.selectMyPageDeals(userNo);
+    }
+
+    @Override
+    public List<Like> myPageLikes(int userNo) {
+        return uStore.selectMyPageLikes(userNo);
     }
 
     @Override

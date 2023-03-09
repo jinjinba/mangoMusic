@@ -1,9 +1,6 @@
 package com.kh.mango.user.store.logic;
 
-import com.kh.mango.user.domain.MyPage;
-import com.kh.mango.user.domain.MyPageFollow;
-import com.kh.mango.user.domain.MyPageDeals;
-import com.kh.mango.user.domain.User;
+import com.kh.mango.user.domain.*;
 import com.kh.mango.user.store.UserStore;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -62,5 +59,10 @@ public class UserStoreLogic implements UserStore {
     @Override
     public List<MyPageDeals> selectMyPageDeals(int userNo) {
         return sqlSession.selectList("UserMapper.selectDeals", userNo);
+    }
+
+    @Override
+    public List<Like> selectMyPageLikes(int userNo) {
+        return sqlSession.selectList("UserMapper.selectLikes",userNo);
     }
 }

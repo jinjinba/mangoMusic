@@ -1,9 +1,6 @@
 package com.kh.mango.user.store;
 
-import com.kh.mango.user.domain.MyPage;
-import com.kh.mango.user.domain.MyPageFollow;
-import com.kh.mango.user.domain.MyPageDeals;
-import com.kh.mango.user.domain.User;
+import com.kh.mango.user.domain.*;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -30,4 +27,6 @@ public interface UserStore {
     List<MyPageFollow> selectMyPageFollower(int userNo);
 
     List<MyPageDeals> selectMyPageDeals(int userNo);
+
+    List<Like> selectMyPageLikes(int userNo);
 }

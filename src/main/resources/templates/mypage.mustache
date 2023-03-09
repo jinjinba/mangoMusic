@@ -1,96 +1,6 @@
 {{>layouts/sidebar}}
 <!-- sidebar -->
-<body>
-<main class="body">
-    <nav class="navbar sticky-top mb-3">
-        <div class="d-flex align-items-center justify-content-between">
-            <div class="d-flex"></div>
-            <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i>
-        </div>
 
-        <div class="d-flex align-items-center" id="rightnav">
-            <div style="margin-right: 1rem">
-                {{^loginUser.userId}}
-                <button type="button" class="btn btn-outline-white text-light" style="border-radius: 20px" onclick="location.href='/login'">
-                    로그인
-                </button>
-                {{/loginUser.userId}}
-            </div>
-            {{#loginUser.userId}}
-            <div class="dropdown">
-                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
-                    <img src="https://i.pinimg.com/564x/08/35/96/083596835424340eda90439fd20e5ee9.jpg"
-                         style="width: 30px; height: 30px; border-radius: 50%" />
-                    &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
-                </button>
-                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
-                    <li><a class="dropdown-item" href="./Login/login.html">로그아웃</a></li>
-                </ul>
-            </div>
-            {{/loginUser.userId}}
-        </div>
-        </div>
-    </nav>
-    <br>
-<div class="navbar-custom d-none d-lg-block d-xl-block d-xxl-block">
-    <ul class="navbar-nav">
-        <li class="nav-item my-3">
-            <div class="text-light heading d-flex align-items-center justify-content-flex-start mt-3">
-                <a href="/" style="color:white;"><i class="fa-regular fa-mango mx-3 p-1"></i> Mango Music</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <button type="button"
-                    class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
-                    style="height: 60px">
-                <i class="fa-solid fa-house mx-3"></i>
-                <div class="w-75 d-flex">
-                    <a class="gotohome" href="./index.html">홈</a>
-                </div>
-            </button>
-        </li>
-        <li class="nav-item">
-            <button type="button"
-                    class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
-                    style="height: 60px">
-                <i class="fa-solid fa-magnifying-glass mx-3"></i>
-                <div class="w-75 d-flex">
-                    <a class="gotohome" href="./Search/search.html">검색하기</a>
-                </div>
-            </button>
-        </li>
-        <li class="nav-item">
-            <button type="button"
-                    class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
-                    style="height: 60px">
-                <i class="fa-regular fa-bookmark mx-3"></i>
-                <div class="w-75 d-flex">내 라이브러리</div>
-            </button>
-        </li>
-        <li class="nav-item margin-top">
-            <button type="button"
-                    class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
-                    style="height: 60px">
-                <i class="fa-solid fa-plus mx-2"></i>
-                <div class="w-75 d-flex">플레이리스트 만들기</div>
-            </button>
-        </li>
-        <li class="nav-item">
-            <button type="button"
-                    class="btn w-100 h-50 py-md-2 text-light button-hover text-left d-flex align-items-center justify-content-around"
-                    style="height: 60px">
-                <i class="fa-solid fa-heart mx-2"></i>
-                <div class="w-75 d-flex">좋아요 표시한 곡</div>
-            </button>
-        </li>
-    </ul>
-    <div>
-        <span class="m-3 download"><i class="fa-regular fa-circle-down mt-3"></i> Install App</span>
-    </div>
-</div>
-<!-- sidebar End -->
 
 <main class="body" id="body-mypage">
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
@@ -154,7 +64,7 @@
                 </div>
                 <div class="anw">
                     {{#followers}}
-                    <span>{{MyPageFollow.userName}}</span>
+                    <span>이름 : {{userName}}</span>
                     {{/followers}}
                 </div>
                 <div class="que">
@@ -166,8 +76,9 @@
                 </div>
                 <div class="anw">
                     {{#deals}}
-                    <span>거래번호 : {{MyPageDeal.tradeNo}} | 거래시간 : {{MyPageDeal.dealDate}} | 구분 : {{MyPageDeal.dealType}} | 가격 : {{MyPageDeal.dealPrice}}</span>
+                    <span>거래번호 : {{TradeNo}} | 거래시간 : {{dealDate}} | 구분 : {{dealType}} | 가격 : {{dealPrice}}</span>
                     {{/deals}}
+
                 </div>
                 <div class="que">
                     <span>좋아요 목록</span>
@@ -177,9 +88,10 @@
                     </div>
                 </div>
                 <div class="anw">
-<!--                    {{#likes}}-->
-<!--                    <span>{{like.musicMbid}}</span>-->
-<!--                    {{/likes}}-->
+                    {{#likes}}
+                        <input type="hidden" value="{{musicMbid}}" id="likeTag">
+                        <span></span>
+                    {{/likes}}
                 </div>
             </div>
         </div>
@@ -199,6 +111,15 @@
         crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/8539ff3369.js" crossorigin="anonymous"></script>
 <script src="home.js"></script>
+<script>
+    var test = document.getElementById("likeTag").value;
+    var request = new XMLHttpRequest();
+    request.open('GET', 'https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=45ac2dc0a0b1bad3966314cc210f8c49&artist=cher&track=believe&format=json');
+    request.send();
+    request.onload = function() {
+        console.log(JSON.parse(request.response));
+    }
+</script>
 </body>
 
 </html>

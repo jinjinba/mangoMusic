@@ -1,9 +1,6 @@
 package com.kh.mango.user.controller;
 
-import com.kh.mango.user.domain.MyPage;
-import com.kh.mango.user.domain.MyPageFollow;
-import com.kh.mango.user.domain.MyPageDeals;
-import com.kh.mango.user.domain.User;
+import com.kh.mango.user.domain.*;
 import com.kh.mango.user.service.UserService;
 import com.kh.mango.user.service.logic.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -83,9 +80,11 @@ public class UserController {
         MyPage myPage = uService.myPageInfo(user.getUserNo());
         List<MyPageFollow> followList = uService.myPageFollow(user.getUserNo());
         List<MyPageDeals> deals = uService.myPageDeals(user.getUserNo());
+        List<Like> like = uService.myPageLikes(user.getUserNo());
         model.addAttribute("loginUser",myPage);
         model.addAttribute("followers",followList);
         model.addAttribute("deals",deals);
+        model.addAttribute("likes",like);
         return "mypage";
     }
 

@@ -1,9 +1,6 @@
 package com.kh.mango.user.service;
 
-import com.kh.mango.user.domain.MyPage;
-import com.kh.mango.user.domain.MyPageFollow;
-import com.kh.mango.user.domain.MyPageDeals;
-import com.kh.mango.user.domain.User;
+import com.kh.mango.user.domain.*;
 
 import java.util.List;
 
@@ -24,4 +21,6 @@ public interface UserService {
     List<MyPageFollow> myPageFollow(int userNo);
 
     List<MyPageDeals> myPageDeals(int userNo);
+
+    List<Like> myPageLikes(int userNo);
 }

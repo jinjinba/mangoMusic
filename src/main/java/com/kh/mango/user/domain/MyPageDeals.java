@@ -8,6 +8,6 @@ import java.sql.Timestamp;
 public class MyPageDeals {
     private int tradeNo;
     private Timestamp dealDate;
-    private int dealType;
+    private String dealType;
     private int dealPrice;
 }

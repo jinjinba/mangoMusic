@@ -6,7 +6,6 @@ import lombok.Getter;
 @Data
 public class MyPageFollow {
     private int followNo;
-    
     private int userNo;
     private String userId;
     private String userName;
