@@ -16,11 +16,6 @@ public class UserStoreLogic implements UserStore {
     private SqlSessionTemplate sqlSession;
 
     @Override
-    public User test() {
-        return sqlSession.selectOne("UserMapper.test");
-    }
-
-    @Override
     public int insertUser(SqlSession session, User user) {
         int result = session.insert("UserMapper.insertUser", user);
         return result;
