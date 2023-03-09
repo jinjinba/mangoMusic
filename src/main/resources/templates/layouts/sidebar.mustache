@@ -81,30 +81,4 @@
             <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i>
         </div>
 
-        <div class="d-flex align-items-center" id="rightnav">
-            <div style="margin-right: 1rem">
-                {{^loginUser.userId}}
-                <button type="button" class="btn btn-outline-white text-light" style="border-radius: 20px" onclick="location.href='/login'">
-                        로그인
-                </button>
-                {{/loginUser.userId}}
-            </div>
-            {{#loginUser.userId}}
-                <div class="dropdown">
-                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
-                        <img src="https://i.pinimg.com/564x/08/35/96/083596835424340eda90439fd20e5ee9.jpg"
-                             style="width: 30px; height: 30px; border-radius: 50%" />
-                        &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
-                        <li><a class="dropdown-item" href="./Login/login.html">로그아웃</a></li>
-                    </ul>
-                </div>
-            {{/loginUser.userId}}
-        </div>
-    </nav>
-
-    <br>
 <!-- sidebar End -->

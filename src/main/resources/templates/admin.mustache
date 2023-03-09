@@ -18,7 +18,7 @@
                             <th>이름</th>
                         </tr>
                         {{#user}}
-                        <tr id="user-tr" onclick="window.open('http://www.daum.net/')" style="cursor: pointer;">
+                        <tr id="user-tr" onclick="window.open('/admin/userInfo?userNo={{userNo}}','','top=0, left=700, width=500, height=600')" style="cursor: pointer;">
                             <td>{{userId}}</td>
                             <td>{{userName}}</td>
                         </tr>
@@ -45,6 +45,8 @@
             </div>
         </div>
     </div>
+
+<button onclick="window.open('/userSearch','','top=0, left=700, width=500, height=600')">테스트 </button>
 
 </main>
 {{>layouts/footer}}

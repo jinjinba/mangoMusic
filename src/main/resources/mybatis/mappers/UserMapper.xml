@@ -19,6 +19,14 @@
         <result property="userProfileLetter" column="USER_PROFILE_LETTER" />
         <result property="pointVal" column="POINT_VAL" />
     </resultMap>
+    <resultMap id="myPageFollowersResultMap" type="com.kh.mango.user.domain.MyPageFollow">
+        <id property="followNo" column="FOLLOW_NO"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userGender" column="USER_GENDER"/>
+    </resultMap>
+
 
     <insert id="insertUser">
         INSERT INTO USER_TBL VALUES(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userGender}, DEFAULT, DEFAULT, '', '', '')
@@ -32,11 +40,24 @@
     </select>
 
     <select id="selectUserByMyPage" resultMap="myPageResultMap">
-        SELECT USER_TBL.USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_GENDER, USER_TYPE, USER_DATE, USER_FILENAME, USER_FILEPATH, USER_PROFILE_LETTER, POINT_TBL.POINT_VAL FROM USER_TBL right outer join POINT_TBL on USER_TBL.USER_NO = POINT_TBL.USER_NO WHERE USER_TBL.USER_NO = #userNo
+        SELECT USER_TBL.USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_GENDER, USER_TYPE, USER_DATE, USER_FILENAME, USER_FILEPATH, USER_PROFILE_LETTER, POINT_TBL.POINT_VAL FROM USER_TBL right outer join POINT_TBL on USER_TBL.USER_NO = POINT_TBL.USER_NO WHERE USER_TBL.USER_NO = #{userNo}
     </select>
 
     <select id="searchUser" resultType="com.kh.mango.user.domain.User">
         SELECT * FROM USER_TBL WHERE USER_ID LIKE '%' || #{searchValue} ||'%' or USER_NAME LIKE '%' || #{searchValue} ||'%'
+    </select>
+    <select id="selectFollowers" resultMap="myPageFollowersResultMap">
+        SELECT F.FOLLOW_NO, U.USER_NO, U.USER_ID, U.USER_NAME, U.USER_GENDER  FROM USER_TBL U, FOLLOW_TBL F WHERE F.FOLLOW_NO = #{userNo} AND F.USER_NO = U.USER_NO
+    </select>
+    <select id="selectDeals" resultType="com.kh.mango.deal.domain.Deal">
+        SELECT * FROM DEAL_TBL WHERE BUYER_NO = #{userNo} OR SELLER_NO = #{userNo}
+    </select>
+    <select id="selectLikes" resultType="com.kh.mango.user.domain.Like">
+        SELECT * FROM LIKE_TBL WHERE USER_NO = #{userNo}
+    </select>
+
+    <select id="selectOneByNumber" resultType="com.kh.mango.user.domain.User">
+        SELECT * FROM USER_TBL WHERE USER_NO = #{userNo}
     </select>
 
 </mapper>
