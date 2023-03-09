@@ -5,6 +5,7 @@ import com.kh.mango.user.domain.MyPageFollow;
 import com.kh.mango.user.domain.MyPageDeals;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.service.UserService;
+import com.kh.mango.user.service.logic.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +24,28 @@ public class UserController {
     private UserService uService;
 
 
-    @GetMapping("/register")
+    @RequestMapping(method = RequestMethod.GET, value = "/register")
     public String register() {
-        return "user/register";
+        return "register";
+    }
+    @RequestMapping(method = RequestMethod.POST, value = "/register.do")
+    public String userRegister(
+            HttpServletRequest request
+            , @ModelAttribute User user
+            , Model model) {
+        try {
+            int result = uService.insertUser(user);
+            if(result > 0) {
+                return "index";
+            }else {
+                model.addAttribute("msg", "회원가입이 실패인데요?");
+                return "error";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("msg", e.getMessage());
+            return "error";
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/login")

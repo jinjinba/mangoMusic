@@ -22,6 +22,13 @@ public interface UserStore {
     // 회원가입
     int insertUser(SqlSession session, User user);
 
+    //    로그인
+    User checkUserLogin(SqlSession session, User user);
+
+    List<User> selectMember();
+
+    Mypage selectMypageUser(int user);
+
     List<User> searchUser(String searchValue);
 
     List<MyPageFollow> selectMyPageFollower(int userNo);

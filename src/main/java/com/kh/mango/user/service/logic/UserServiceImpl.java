@@ -24,11 +24,13 @@ public class UserServiceImpl implements UserService {
     public User test() {
         return uStore.test();
     }
+
     @Override
     public int insertUser(User user) {
         int result = uStore.insertUser(session, user);
         return result;
     }
+
     @Override
     public User checkUserLogin(User user) {
         User uOne = uStore.checkUserLogin(session, user);
