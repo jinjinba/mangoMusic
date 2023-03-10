@@ -98,16 +98,17 @@ public class UserController {
             return "findId";
         }
     }
-    @GetMapping("/FindId")
-    public String newFindId(
-            @RequestParam("user-name") String userName
+
+    @GetMapping("/newFindId")
+    public String newFindId(@RequestParam("user-name") String userName
             , @RequestParam("user-email") String userEmail
-            , Model model) {
+            , Model model){
         User uParam = new User(userName, userEmail, null);
         User user = uService.findUserId(uParam);
         model.addAttribute("user", user);
-        return "newFindId";
+        return "newfind";
     }
+
     // 비밀번호 찾기
     @RequestMapping(method = RequestMethod.GET, value = "/findPw")
     public String findPwView() {

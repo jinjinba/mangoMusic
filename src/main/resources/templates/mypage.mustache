@@ -73,7 +73,6 @@
         </div>
         <div class="mypage-content-right">
 <!--            팔로우 검색 버튼-->
-            <button type="button" onclick="window.open('/userSearch','','top=0, left=700, width=500, height=600')">검색</button>
 
             <div id="Accordion_wrap">
                 <div class="que">
@@ -89,10 +88,12 @@
                             <th>이름</th>
                         </tr>
                     {{#followers}}
-                        <td>{{userName}}</td>
+                        <tr>
+                            <td>{{userName}}</td>
+                        </tr>
                     {{/followers}}
                     </table>
-                    <button type="button">검색</button>
+                    <button type="button" onclick="window.open('/userSearch','','top=0, left=700, width=500, height=600')">검색</button>
                 </div>
                 <div class="que">
                     <span>거래목록</span>
@@ -182,15 +183,8 @@
 <script src="home.js"></script>
 <script>
     // 음악 정보 api 로 가져오기
-    var test = document.getElementById("likeTag").value;
-    var request = new XMLHttpRequest();
-    request.open('GET', 'https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=45ac2dc0a0b1bad3966314cc210f8c49&artist=cher&track=believe&format=json');
-    request.send();
-    request.onload = function() {
-        var songInfo = JSON.parse(request.response).track;
-        document.querySelector("#songName").innerHTML = songInfo.name;
-        document.querySelector("#songArtist").innerHTML = songInfo.artist.name;
-    }
+
+
 
     //  포인트 잔량 정규 표현식
     var pointVal = document.querySelector(".point-val").value;
@@ -200,6 +194,15 @@
     var pointVal2 = document.querySelectorAll(".pointRecord-val");
     for(var a = 0; a < pointVal2.length; a++){
         document.querySelectorAll(".pointRecord-val-re")[a].innerHTML = pointVal2[a].value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " Mango";
+    }
+    let test = document.getElementById("likeTag").value;
+    var request = new XMLHttpRequest();
+    request.open('GET', 'https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=45ac2dc0a0b1bad3966314cc210f8c49&artist=cher&track=believe&format=json');
+    request.send();
+    request.onload = function() {
+        var songInfo = JSON.parse(request.response).track;
+        document.querySelector("#songName").innerHTML = songInfo.name;
+        document.querySelector("#songArtist").innerHTML = songInfo.artist.name;
     }
 </script>
 {{>layouts/footer}}
