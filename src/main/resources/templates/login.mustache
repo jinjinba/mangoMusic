@@ -23,6 +23,11 @@
             <input type="password" name="user-pw" placeholder="Password">
             <!--                    <label>PW</label>-->
         </div>
+        <div id="findIdPw">
+            <a class="find" href="/findId">아이디 찾기</a>
+            <span class="find">/</span>
+            <a class="find" href="#">비밀번호 찾기</a>
+        </div>
         <div id="login-btn">
             <button type="submit" id="login-b" class="login-btn">
                 <span></span>
@@ -31,13 +36,13 @@
                 <span></span>
                 로그인
             </button>
-            <a class="login-btn" href="register.html">
+            <button class="login-btn">
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
                 회원가입
-            </a>
+            </button>
         </div>
         <div class="snsLogin">
             <a class="sns" href="#"><img class="login-logo" src="Login_img/btn_google_signin_light_focus_web@2x.png" alt="구글 로그인"></a> <br>
@@ -46,5 +51,22 @@
         </div>
     </form>
 </div>
+<script>
+    {{#error}}
+        window.onload = function() {
+            alert("아이디 또는 비밀번호를 확인해주세요.")
+        }
+    {{/error}}
+    {{#success}}
+        window.onload = function () {
+            alert("축하합니다. 회원가입에 성공하셨습니다.")
+        }
+    {{/success}}
+    {{#findId}}
+    window.onload = function () {
+        window.open('http://127.0.0.1:8985/newFindId','','bottom=600, left=800, width=500, height=300');
+    }
+    {{/findId}}
+</script>
 </body>
 </html>

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
-
 <mapper namespace="UserMapper">
 
     <resultMap type="com.kh.mango.user.domain.MyPage" id="myPageResultMap">
@@ -29,14 +27,28 @@
 
 
     <insert id="insertUser">
-        INSERT INTO USER_TBL VALUES(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userGender}, DEFAULT, DEFAULT, '', '', '')
+        {CALL DECLARE
+            BEGIN
+            INSERT INTO USER_TBL VALUES(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userGender}, null, DEFAULT, '', '', '');
+            INSERT INTO POINT_TBL VALUES(SEQ_USER_NO.CURRVAL, 0, NULL);
+        END
+            }
+
     </insert>
+    <insert id="insertPoint">
+        INSERT INTO POINT_TBL VALUES (SEQ_USER_NO.CURRENTVAL, 0, NULL)
+    </insert>
+
 
     <select id="test" resultType="com.kh.mango.user.domain.User">
         SELECT * FROM USER_TBL
     </select>
     <select id="checkUserLogin" resultType="com.kh.mango.user.domain.User">
         SELECT * FROM USER_TBL WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
+    </select>
+
+    <select id="selectFindId" resultType="com.kh.mango.user.domain.User">
+        SELECT * FROM USER_TBL WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
     </select>
 
     <select id="selectUserByMyPage" resultMap="myPageResultMap">

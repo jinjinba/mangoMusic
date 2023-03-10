@@ -33,6 +33,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserId(User user) {
+        User uOne = uStore.findUserId(session, user);
+        return uOne;
+    }
+
+    @Override
+    public User findUserPw(User user) { return uStore.findUserPw(session, user); }
+
+    @Override
     public List<User> searchUser(String searchValue) {
         List<User> searchList = uStore.searchUser(searchValue);
         return searchList;

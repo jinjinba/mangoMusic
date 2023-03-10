@@ -26,19 +26,14 @@ public class UserController {
         return "register";
     }
     // 유저 회원가입
-    @RequestMapping(method = RequestMethod.POST, value = "/register.do")
+    @RequestMapping(method = RequestMethod.POST, value = "/register")
     public String userRegister(
             HttpServletRequest request
             , @ModelAttribute User user
             , Model model) {
         try {
-            int result = uService.insertUser(user);
-            if(result > 0) {
-                return "index";
-            }else {
-                model.addAttribute("msg", "회원가입이 실패인데요?");
-                return "error";
-            }
+           uService.insertUser(user);
+           return "index";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("msg", e.getMessage());
@@ -65,15 +60,69 @@ public class UserController {
             HttpSession session = request.getSession();
             if (user != null) {
                 session.setAttribute("loginUser", user);
-                return "index";
+                model.addAttribute("success", 1);
+                return "login";
+            }else {
+                model.addAttribute("error", "에러");
+                return "login";
             }
-            model.addAttribute("msg","로그인 실패");
-            return "error";
 
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("msg", e.getMessage());
             return "error";
+        }
+    }
+    // 아이디 찾기
+    @RequestMapping(method = RequestMethod.GET, value = "/findId")
+    public String findIdView() {
+        return "findId";
+    }
+
+    @RequestMapping(value = "/findId", method = RequestMethod.POST)
+    public String findId(
+            HttpServletRequest request
+            , @RequestParam("user-name") String userName
+            , @RequestParam("user-email") String userEmail
+            , Model model) {
+
+        User uParam = new User(userName, userEmail, null);
+        User user = uService.findUserId(uParam);
+        if(user != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("findId", "성공");
+            return "login";
+        }else {
+            model.addAttribute("error", "에러");
+            return "findId";
+        }
+    }
+    @GetMapping("/FindId")
+    public String newFindId(){
+        return "newFindId";
+    }
+    // 비밀번호 찾기
+    @RequestMapping(method = RequestMethod.GET, value = "/findPw")
+    public String findPwView() {
+        return "findPw";
+    }
+
+    @RequestMapping(value = "/findPw", method = RequestMethod.POST)
+    public String findPw(
+            HttpServletRequest request
+            , @RequestParam("user-id") String userId
+            , @RequestParam("user-email") String userEmail
+            , Model model) {
+        User uParam = new User(userId, userEmail);
+        User user = uService.findUserPw(uParam);
+        HttpSession session = request.getSession();
+        if(user != null) {
+            session.setAttribute("findPwUser", user);
+            model.addAttribute("findPw", "성공");
+            return "login";
+        }else {
+            model.addAttribute("error", "에러");
+            return "findPw";
         }
     }
     // 로그아웃

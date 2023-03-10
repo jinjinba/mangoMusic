@@ -17,6 +17,10 @@ public interface UserService {
 
     User checkUserLogin(User user);
 
+    User findUserId(User user);
+
+    User findUserPw(User user);
+
     List<User> searchUser(String searchValue);
 
     User selectOneByNumber(int userNo);
