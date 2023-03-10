@@ -33,6 +33,7 @@ public class UserController {
             , Model model) {
         try {
            uService.insertUser(user);
+            model.addAttribute("success", "성공");
            return "index";
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,8 +61,8 @@ public class UserController {
             HttpSession session = request.getSession();
             if (user != null) {
                 session.setAttribute("loginUser", user);
-                model.addAttribute("success", 1);
-                return "login";
+//                model.addAttribute("success", 1);
+                return "index";
             }else {
                 model.addAttribute("error", "에러");
                 return "login";
