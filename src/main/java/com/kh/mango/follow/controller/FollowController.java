@@ -1,5 +1,7 @@
 package com.kh.mango.follow.controller;
 
+import com.kh.mango.follow.domain.Follow;
+import com.kh.mango.follow.service.FollowService;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import java.util.List;
 
@@ -17,6 +20,10 @@ public class FollowController {
 
     @Autowired
     private UserService uService;
+
+    @Autowired
+    private FollowService followService;
+
 
     @GetMapping("/userSearch")
     public String userSearch() {
@@ -30,7 +37,19 @@ public class FollowController {
         return "userList";
     }
 
+    @GetMapping("/userFollow")
+    public String followUser(Model model
+            , @SessionAttribute("loginUser") User user
+            ,@RequestParam("userNo")int followNo) {
+        Follow followUser = new Follow(user.getUserNo(), followNo);
+        int result = followService.followUser(followUser);
+        if(result > 0) {
+            return "/userSearch";
+        } else {
+            return "/index";
+        }
 
+    }
 
     
 }

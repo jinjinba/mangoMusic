@@ -1,5 +1,8 @@
 package com.kh.mango.follow.store;
 
-public class FollowStore {
+import com.kh.mango.follow.domain.Follow;
 
+public interface FollowStore {
+
+    int followUser(Follow followUser);
 }

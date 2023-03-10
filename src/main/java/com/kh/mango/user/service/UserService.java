@@ -28,4 +28,5 @@ public interface UserService {
     List<Like> myPageLikes(int userNo);
 
     List<PointRecord> selectPointRecord(int userNo);
+
 }
