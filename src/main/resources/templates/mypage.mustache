@@ -101,9 +101,22 @@
                     </div>
                 </div>
                 <div class="anw">
+                    <table>
+                        <tr>
+                            <th>구분</th>
+                            <th>번호</th>
+                            <th>시간</th>
+                            <th>가격</th>
+                        </tr>
                     {{#deals}}
-                    <span>거래번호 : {{TradeNo}} | 거래시간 : {{dealDate}} | 구분 : {{dealType}} | 가격 : {{dealPrice}}</span><br>
+                        <tr>
+                            <td>{{dealType}}</td>
+                            <td>{{TradeNo}}</td>
+                            <td>{{dealDate}}</td>
+                            <td>{{dealPrice}}</td>
+                        </tr>
                     {{/deals}}
+                    </table>
                 </div>
                 <div class="que">
                     <span>좋아요 목록</span>
