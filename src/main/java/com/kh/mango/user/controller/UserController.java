@@ -98,7 +98,13 @@ public class UserController {
         }
     }
     @GetMapping("/FindId")
-    public String newFindId(){
+    public String newFindId(
+            @RequestParam("user-name") String userName
+            , @RequestParam("user-email") String userEmail
+            , Model model) {
+        User uParam = new User(userName, userEmail, null);
+        User user = uService.findUserId(uParam);
+        model.addAttribute("user", user);
         return "newFindId";
     }
     // 비밀번호 찾기
