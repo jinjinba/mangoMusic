@@ -1,5 +1,6 @@
 package com.kh.mango.user.service.logic;
 
+import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 import com.kh.mango.user.service.UserService;
 import com.kh.mango.user.store.UserStore;
@@ -59,6 +60,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Like> myPageLikes(int userNo) {
         return uStore.selectMyPageLikes(userNo);
+    }
+
+    @Override
+    public List<PointRecord> selectPointRecord(int userNo) {
+        return uStore.selectPointRecord(userNo);
     }
 
     @Override
