@@ -8,6 +8,6 @@ import java.sql.Timestamp;
 public class PointRecord {
     private int userNo;
     private String pointPM;
-    private int pointVal;
+    private int pointRecord;
     private Timestamp pointRecordDate;
 }

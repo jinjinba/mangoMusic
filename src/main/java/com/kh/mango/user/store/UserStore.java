@@ -1,5 +1,6 @@
 package com.kh.mango.user.store;
 
+import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 import org.apache.ibatis.session.SqlSession;
 
