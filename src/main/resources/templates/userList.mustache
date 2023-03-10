@@ -140,7 +140,7 @@
                 <tr id="user-tr">
                     <td>{{userId}}</td>
                     <td>{{userName}}</td>
-                    <td><input type="button" id="follow-btn" value="팔로우"></td>
+                    <td><input type="button" id="follow-btn" value="팔로우" onclick="location.href='/userFollow?userNo={{userNo}}'"></td>
                 </tr>
             {{/user}}
         </table>
