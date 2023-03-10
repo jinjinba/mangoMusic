@@ -29,11 +29,18 @@
 
 
     <insert id="insertUser">
-        INSERT INTO USER_TBL VALUES(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userGender}, null, DEFAULT, '', '', '')
+        {CALL DECLARE
+            BEGIN
+            INSERT INTO USER_TBL VALUES(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userGender}, null, DEFAULT, '', '', '');
+            INSERT INTO POINT_TBL VALUES(SEQ_USER_NO.CURRVAL, 0, NULL);
+        END
+            }
+
     </insert>
     <insert id="insertPoint">
         INSERT INTO POINT_TBL VALUES (SEQ_USER_NO.CURRENTVAL, 0, NULL)
     </insert>
+
 
     <select id="test" resultType="com.kh.mango.user.domain.User">
         SELECT * FROM USER_TBL

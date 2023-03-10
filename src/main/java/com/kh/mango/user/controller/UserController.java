@@ -32,13 +32,8 @@ public class UserController {
             , @ModelAttribute User user
             , Model model) {
         try {
-            int result = uService.insertUser(user);
-            if(result > 0) {
-                return "index";
-            }else {
-                model.addAttribute("error", "에러");
-                return "register";
-            }
+           uService.insertUser(user);
+           return "index";
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("msg", e.getMessage());
