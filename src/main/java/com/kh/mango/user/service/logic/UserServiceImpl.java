@@ -32,6 +32,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserId(User user) { return uStore.findUserId(user); }
+
+    @Override
     public List<User> searchUser(String searchValue) {
         List<User> searchList = uStore.searchUser(searchValue);
         return searchList;

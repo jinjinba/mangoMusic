@@ -11,15 +11,15 @@ public interface UserStore {
 
     MyPage selectMyPageUser(int user);
 
-    //    로그인
-    User checkUserLogin(SqlSession session, User user);
-
     // 회원가입
     int insertUser(SqlSession session, User user);
 
+    //    로그인
+    User checkUserLogin(SqlSession session, User user);
+
+    User findUserId(User user);
 
     List<User> selectMember();
-
 
     List<User> searchUser(String searchValue);
 
@@ -29,4 +29,5 @@ public interface UserStore {
     List<MyPageDeals> selectMyPageDeals(int userNo);
 
     List<Like> selectMyPageLikes(int userNo);
+
 }

@@ -25,7 +25,7 @@ public class UserController {
         return "register";
     }
     // 유저 회원가입
-    @RequestMapping(method = RequestMethod.POST, value = "/register.do")
+    @RequestMapping(method = RequestMethod.POST, value = "/register")
     public String userRegister(
             HttpServletRequest request
             , @ModelAttribute User user
@@ -35,8 +35,8 @@ public class UserController {
             if(result > 0) {
                 return "index";
             }else {
-                model.addAttribute("msg", "회원가입이 실패인데요?");
-                return "error";
+                model.addAttribute("error", "에러");
+                return "register";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,15 +65,40 @@ public class UserController {
             if (user != null) {
                 session.setAttribute("loginUser", user);
                 return "index";
+            }else {
+                model.addAttribute("error", "에러");
+                return "login";
             }
-            model.addAttribute("msg","로그인 실패");
-            return "error";
 
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("msg", e.getMessage());
             return "error";
         }
+    }
+    // 아이디 찾기
+    @GetMapping("/findId")
+    public String findId(
+            HttpServletRequest request
+            , @RequestParam("user-name") String userName
+            , @RequestParam("user-email") String userEmail
+            , Model model) {
+        User uParam = new User(userName, userEmail);
+        User user = uService.findUserId(uParam);
+        HttpSession session = request.getSession();
+        if(user != null) {
+            session.setAttribute("findIdUser", user);
+            return "login";
+        }else {
+            model.addAttribute("error", "에러");
+            return "findId";
+        }
+    }
+    // 비밀번호 찾기
+    @GetMapping("/findPw")
+    public String findPw(HttpServletRequest request, Model model
+            , User user) {
+        return "findPw";
     }
     // 로그아웃
     @GetMapping("/logout")

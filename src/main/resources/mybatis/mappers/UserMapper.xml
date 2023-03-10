@@ -29,7 +29,7 @@
 
 
     <insert id="insertUser">
-        INSERT INTO USER_TBL VALUES(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userGender}, DEFAULT, DEFAULT, '', '', '')
+        INSERT INTO USER_TBL VALUES(SEQ_USER_NO.NEXTVAL, #{userId}, #{userPw}, #{userName}, #{userEmail}, #{userGender}, null, DEFAULT, '', '', '')
     </insert>
 
     <select id="test" resultType="com.kh.mango.user.domain.User">
@@ -37,6 +37,10 @@
     </select>
     <select id="checkUserLogin" resultType="com.kh.mango.user.domain.User">
         SELECT * FROM USER_TBL WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
+    </select>
+
+    <select id="selectFindId" resultType="com.kh.mango.user.domain.User">
+        SELECT USER_ID FROM USER_TBL WHERE USER_NAME = #{userName} AND USER_PW = #{userEmail}
     </select>
 
     <select id="selectUserByMyPage" resultMap="myPageResultMap">

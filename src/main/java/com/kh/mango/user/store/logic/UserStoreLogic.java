@@ -28,6 +28,11 @@ public class UserStoreLogic implements UserStore {
     }
 
     @Override
+    public User findUserId(User user) {
+        return sqlSession.selectOne("UserMapper.selectFindId", user);
+    }
+
+    @Override
     public List<User> selectMember() {
         List<User> userList = sqlSession.selectList("UserMapper.test");
         return userList;

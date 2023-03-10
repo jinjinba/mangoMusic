@@ -23,6 +23,11 @@
             <input type="password" name="user-pw" placeholder="Password">
             <!--                    <label>PW</label>-->
         </div>
+        <div id="findIdPw">
+            <a class="find" href="/findId">아이디 찾기</a>
+            <span class="find">/</span>
+            <a class="find" href="#">비밀번호 찾기</a>
+        </div>
         <div id="login-btn">
             <button type="submit" id="login-b" class="login-btn">
                 <span></span>
@@ -31,7 +36,7 @@
                 <span></span>
                 로그인
             </button>
-            <a class="login-btn" href="register.html">
+            <a class="login-btn" href="/register">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -46,5 +51,12 @@
         </div>
     </form>
 </div>
+<script>
+    {{#error}}
+        window.onload = function() {
+            alert("아이디 또는 비밀번호를 확인해주세요.")
+        }
+    {{/error}}
+</script>
 </body>
 </html>

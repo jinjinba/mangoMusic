@@ -61,7 +61,7 @@ body {
     padding: 10px 0;
     font-size: 16px;
     color: #fff;
-    margin-bottom: 30px;
+    margin-top: 30px;
     border: none;
     border-bottom: 1px solid #fff;
     outline: none;
@@ -180,11 +180,22 @@ body {
 }
 
 
+
+/* 아이디 비밀번호 찾기 */
+#findIdPw {
+    text-align: right;
+    margin-top: 10px;
+}
+.find {
+    color: white;
+    text-decoration: none;
+
+}
 /*login*/
 /*로그인 버튼*/
 #login-b {
     background-color:transparent;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
 }
 .login-box button span {
     position: absolute;
