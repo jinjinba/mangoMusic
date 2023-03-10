@@ -14,4 +14,7 @@
     <insert id="insertRefundPointRecord">
         INSERT INTO POINT_RECORD_TBL VALUES(#{userNo},'출금',#{pointVal},SYSTIMESTAMP)
     </insert>
+    <select id="selectPoint">
+        SELECT * FROM POINT_TBL WHERE USER_NO = ${userNo}
+    </select>
 </mapper>

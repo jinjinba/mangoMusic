@@ -19,4 +19,9 @@ public class PointStoreLogic implements PointStore {
         session.insert("PointMapper.insertRefundPointRecord",point);
         return session.update("PointMapper.refundPoint",point);
     }
+
+    @Override
+    public Point selectPoint(SqlSession session, int userNo) {
+        return session.selectOne("PointMapper.selectPoint",userNo);
+    }
 }

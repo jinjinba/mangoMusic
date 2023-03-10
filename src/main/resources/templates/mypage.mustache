@@ -21,6 +21,58 @@
         background-color: #666666;
        opacity: 0.8;
     }
+    /*모달창*/
+    #my_modal {
+        display: none;
+        width: 600px;
+        padding: 20px 60px;
+        border: 1px solid #888;
+        border-radius: 3px;
+        text-align: center;
+        justify-content: center;
+        color: #ffffff;
+        background-color: #343a40;
+        font-family: 'Noto Sans KR', sans-serif;
+        background-image: linear-gradient(to top,
+        #121212,
+        #121212,
+        #121212,
+        #121212,
+        #121212,
+        #161419,
+        #1a151e,
+        #201522,
+        #311327,
+        #430d24,
+        #53051b,
+        #5e0506);
+        background-size: cover;
+        overflow: auto;
+        overflow-x: hidden;
+        background-attachment: fixed;
+    }
+    }
+
+    #my_modal .modal_close_btn {
+        /*position: absolute;*/
+        /*top: 10px;*/
+        /*right: 10px;*/
+    }
+
+    #button-area{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+        border-radius: 15px;
+    }
+    .add-btn{
+        border: 1px solid #ccc;
+        border-radius: 30px;
+        width: 100px;
+        height: 50px;
+        font-size: 20px;
+        font-weight: bold;
+    }
 </style>
 <main class="body" id="body-mypage">
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
@@ -54,6 +106,7 @@
             <div class="profile-img"></div>
             
 <!--             닉네임 들어갈곳-->
+            <input type="hidden" value="{{myPage.userId}}" class="userNo">
             <div class="profile-name"><h1>{{myPage.userName}}</h1></div>
             <div class="profile-letter"><span>{{myPage.userProfileLetter}}</span></div>
         </div>
@@ -67,7 +120,21 @@
                 <span class="point-value"><span class="point-val-re"></span> <span class="point-value-text">Mango</span></span>
             </div>
             <div class="point-button-container">
-                <button type="button" class="point-button" onclick="window.open('http://127.0.0.1:8985/chargePoint','','bottom=600, left=800, width=500, height=300')">충전</button>
+                <div id="my_modal">
+                    <h2 style="color:white;">포인트 충전</h2>
+                    <br>
+                    <form id="search" action="/chargePointAction" method="post">
+                            <input type="text" name="pointVal" style="width: 300px; height: 50px;border-radius: 20px;">
+                    <div id="button-area">
+                        <input type="button" value="충전" class="add-btn" id="add-btn-sub">
+                        <button type="button" id="modal_close_btn" class="add-btn">닫기</button>
+                    </div>
+                    </form>
+
+                </div>
+
+                <button id="popup_open_btn" class="point-button">충전</button>
+
                 <button type="button" class="point-button" onclick="window.open('http://127.0.0.1:8985/refundPoint','','bottom=600, left=800, width=500, height=300')">출금</button>
             </div>
         </div>
@@ -182,8 +249,58 @@
 <script src="https://kit.fontawesome.com/8539ff3369.js" crossorigin="anonymous"></script>
 <script src="home.js"></script>
 <script>
-    // 음악 정보 api 로 가져오기
+    function modal(id) {
+        var zIndex = 9999;
+        var modal = document.getElementById(id);
 
+        // 모달 div 뒤에 희끄무레한 레이어
+        var bg = document.createElement('div');
+        bg.setStyle({
+            position: 'fixed',
+            zIndex: zIndex,
+            left: '0px',
+            top: '0px',
+            width: '100%',
+            height: '100%',
+            overflow: 'auto',
+            // 레이어 색갈은 여기서 바꾸면 됨
+            backgroundColor: 'rgba(0,0,0,0.4)'
+        });
+        document.body.append(bg);
+
+        // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+        modal.querySelector('#modal_close_btn').addEventListener('click', function() {
+            bg.remove();
+            modal.style.display = 'none';
+        });
+
+        modal.setStyle({
+            position: 'fixed',
+            display: 'block',
+            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+
+            // 시꺼먼 레이어 보다 한칸 위에 보이기
+            zIndex: zIndex + 1,
+
+            // div center 정렬
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            msTransform: 'translate(-50%, -50%)',
+            webkitTransform: 'translate(-50%, -50%)'
+        });
+    }
+
+    // Element 에 style 한번에 오브젝트로 설정하는 함수 추가
+    Element.prototype.setStyle = function(styles) {
+        for (var k in styles) this.style[k] = styles[k];
+        return this;
+    };
+
+    document.getElementById('popup_open_btn').addEventListener('click', function() {
+        // 모달창 띄우기
+        modal('my_modal');
+    });
 
 
     //  포인트 잔량 정규 표현식
@@ -195,6 +312,25 @@
     for(var a = 0; a < pointVal2.length; a++){
         document.querySelectorAll(".pointRecord-val-re")[a].innerHTML = pointVal2[a].value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " Mango";
     }
+    var userId = document.querySelector(".userNo").value;
+
+    document.querySelector("#add-btn-sub").onclick(()=>{
+        $.ajax(
+                {
+                    type:"POST",
+                    url:"/ajaxPoint",
+                    data:{
+                        point:pointVal,
+                        userNo:userId
+                    },
+                    success : function (data){
+                        document.querySelector(".point-val-re").value = data;
+                    }
+                }
+        )
+    });
+    // 음악 정보 api 로 가져오기
+
     let test = document.getElementById("likeTag").value;
     var request = new XMLHttpRequest();
     request.open('GET', 'https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=45ac2dc0a0b1bad3966314cc210f8c49&artist=cher&track=believe&format=json');

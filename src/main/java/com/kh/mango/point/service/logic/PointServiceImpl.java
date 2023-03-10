@@ -22,4 +22,9 @@ public class PointServiceImpl implements PointService {
     public int updateRefundPoint(Point point) {
         return pStore.updateRefundPoint(session,point);
     }
+
+    @Override
+    public Point selectPoint(int userNo) {
+        return pStore.selectPoint(session,userNo);
+    }
 }

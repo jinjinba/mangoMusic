@@ -6,4 +6,6 @@ public interface PointService {
     int updateAddPoint(Point point);
 
     int updateRefundPoint(Point point);
+
+    Point selectPoint(int userNo);
 }

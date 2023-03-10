@@ -7,4 +7,6 @@ public interface PointStore {
     int updateAddPoint(SqlSession session, Point point);
 
     int updateRefundPoint(SqlSession session, Point point);
+
+    Point selectPoint(SqlSession session, int userNo);
 }

@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class PointController {
@@ -26,17 +30,25 @@ public class PointController {
         return "refundPoint";
     }
 
-    @GetMapping("/chargePointAction")
+    @PostMapping("/chargePointAction")
     public String pointChargeAction(@RequestParam("pointVal") int pointVal, Model model, @SessionAttribute("loginUser") User user){
+            Map<String, Integer> map = new HashMap<String,Integer>();
             Point point = new Point(user.getUserNo(), pointVal);
             int result = pService.updateAddPoint(point);
+            Point pointValue = pService.selectPoint(user.getUserNo());
             if(result > 0){
-                model.addAttribute("com","window.close()");
-                return "chargePoint";
+                map.put("pointVal",pointValue.getPointVal());
+                return null;
             }else {
                 model.addAttribute("fal",1);
-                return "chargePoint";
+                return null;
             }
+    }
+
+    @PostMapping("/ajaxPoint")
+    public void ajaxPoint(@RequestParam("userNo")int userNo, @RequestParam("pointVal") int pointVal){
+        System.out.println(userNo);
+        System.out.println(pointVal);
     }
 
     @GetMapping("/refundPointAction")
