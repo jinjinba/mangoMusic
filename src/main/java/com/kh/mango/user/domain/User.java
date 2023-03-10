@@ -29,4 +29,10 @@ public class User {
         this.userId = userId;
         this.userPw = userPw;
     }
+
+    public User(String userName, String userEmail, String userGender) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userGender = userGender;
+    }
 }

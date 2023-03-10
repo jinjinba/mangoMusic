@@ -12,13 +12,15 @@ public interface UserStore {
 
     MyPage selectMyPageUser(int user);
 
-    //    로그인
-    User checkUserLogin(SqlSession session, User user);
-
     // 회원가입
     int insertUser(SqlSession session, User user);
 
-    User findUserId(User user);
+    //    로그인
+    User checkUserLogin(SqlSession session, User user);
+
+    User findUserId(SqlSession session, User user);
+
+    User findUserPw(SqlSession session, User user);
 
     List<User> selectMember();
 

@@ -19,6 +19,8 @@ public interface UserService {
 
     User findUserId(User user);
 
+    User findUserPw(User user);
+
     List<User> searchUser(String searchValue);
 
     User selectOneByNumber(int userNo);
@@ -30,4 +32,5 @@ public interface UserService {
     List<Like> myPageLikes(int userNo);
 
     List<PointRecord> selectPointRecord(int userNo);
+
 }

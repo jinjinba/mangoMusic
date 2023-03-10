@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-
-
 <mapper namespace="UserMapper">
 
     <resultMap type="com.kh.mango.user.domain.MyPage" id="myPageResultMap">
@@ -50,7 +48,7 @@
     </select>
 
     <select id="selectFindId" resultType="com.kh.mango.user.domain.User">
-        SELECT USER_ID FROM USER_TBL WHERE USER_NAME = #{userName} AND USER_PW = #{userEmail}
+        SELECT * FROM USER_TBL WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
     </select>
 
     <select id="selectUserByMyPage" resultMap="myPageResultMap">

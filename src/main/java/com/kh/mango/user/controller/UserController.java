@@ -60,7 +60,8 @@ public class UserController {
             HttpSession session = request.getSession();
             if (user != null) {
                 session.setAttribute("loginUser", user);
-                return "index";
+                model.addAttribute("success", 1);
+                return "login";
             }else {
                 model.addAttribute("error", "에러");
                 return "login";
@@ -73,28 +74,56 @@ public class UserController {
         }
     }
     // 아이디 찾기
-    @GetMapping("/findId")
+    @RequestMapping(method = RequestMethod.GET, value = "/findId")
+    public String findIdView() {
+        return "findId";
+    }
+
+    @RequestMapping(value = "/findId", method = RequestMethod.POST)
     public String findId(
             HttpServletRequest request
             , @RequestParam("user-name") String userName
             , @RequestParam("user-email") String userEmail
             , Model model) {
-        User uParam = new User(userName, userEmail);
+
+        User uParam = new User(userName, userEmail, null);
         User user = uService.findUserId(uParam);
-        HttpSession session = request.getSession();
         if(user != null) {
-            session.setAttribute("findIdUser", user);
+            model.addAttribute("user", user);
+            model.addAttribute("findId", "성공");
             return "login";
         }else {
             model.addAttribute("error", "에러");
             return "findId";
         }
     }
+    @GetMapping("/FindId")
+    public String newFindId(){
+        return "newFindId";
+    }
     // 비밀번호 찾기
-    @GetMapping("/findPw")
-    public String findPw(HttpServletRequest request, Model model
-            , User user) {
+    @RequestMapping(method = RequestMethod.GET, value = "/findPw")
+    public String findPwView() {
         return "findPw";
+    }
+
+    @RequestMapping(value = "/findPw", method = RequestMethod.POST)
+    public String findPw(
+            HttpServletRequest request
+            , @RequestParam("user-id") String userId
+            , @RequestParam("user-email") String userEmail
+            , Model model) {
+        User uParam = new User(userId, userEmail);
+        User user = uService.findUserPw(uParam);
+        HttpSession session = request.getSession();
+        if(user != null) {
+            session.setAttribute("findPwUser", user);
+            model.addAttribute("findPw", "성공");
+            return "login";
+        }else {
+            model.addAttribute("error", "에러");
+            return "findPw";
+        }
     }
     // 로그아웃
     @GetMapping("/logout")
