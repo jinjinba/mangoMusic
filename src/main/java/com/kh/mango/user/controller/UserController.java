@@ -83,15 +83,15 @@ public class UserController {
     @RequestMapping(value = "/findId", method = RequestMethod.POST)
     public String findId(
             HttpServletRequest request
-            , @RequestParam("user-name") String userName
-            , @RequestParam("user-email") String userEmail
+            , @RequestParam("userName") String userName
+            , @RequestParam("userEmail") String userEmail
             , Model model) {
 
         User uParam = new User(userName, userEmail, null);
         User user = uService.findUserId(uParam);
         if(user != null) {
-            model.addAttribute("user", user);
             model.addAttribute("findId", "성공");
+            model.addAttribute("user", user);
             return "login";
         }else {
             model.addAttribute("error", "에러");
@@ -99,12 +99,13 @@ public class UserController {
         }
     }
 
-    @GetMapping("/newFindId")
-    public String newFindId(@RequestParam("user-name") String userName
-            , @RequestParam("user-email") String userEmail
-            , Model model){
-        User uParam = new User(userName, userEmail, null);
-        User user = uService.findUserId(uParam);
+    @GetMapping("/newFind")
+    public String newFindId(
+            @ModelAttribute User userParam
+            ,Model model){
+//        User uParam = new User(userParam.getUserName(), userParam.getUserEmail(), null);
+        System.out.println(userParam.toString());
+        User user = uService.findUserId(userParam);
         model.addAttribute("user", user);
         return "newfind";
     }
