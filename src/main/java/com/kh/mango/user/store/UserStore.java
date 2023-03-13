@@ -1,5 +1,6 @@
 package com.kh.mango.user.store;
 
+import com.kh.mango.point.domain.AdminPoint;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 import org.apache.ibatis.session.SqlSession;
@@ -36,4 +37,5 @@ public interface UserStore {
 
     List<PointRecord> selectPointRecord(int userNo);
 
+    int addAllPoint();
 }

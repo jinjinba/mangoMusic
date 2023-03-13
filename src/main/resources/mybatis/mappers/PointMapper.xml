@@ -14,4 +14,7 @@
     <insert id="insertRefundPointRecord">
         INSERT INTO POINT_RECORD_TBL VALUES(#{userNo},'출금',#{pointVal},SYSTIMESTAMP)
     </insert>
+    <select id="addAllPoint" resultType="_int">
+        SELECT SUM(POINT_VAL) FROM POINT_TBL
+    </select>
 </mapper>
