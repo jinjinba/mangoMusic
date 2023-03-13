@@ -51,6 +51,14 @@
         SELECT * FROM USER_TBL WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
     </select>
 
+    <select id="selectUserPw" resultType="com.kh.mango.user.domain.User">
+        SELECT * FROM USER_TBL WHERE USER_ID = #{userId} AND USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
+    </select>
+
+    <update id="updateUserPw">
+        UPDATE USER_TBL SET USER_PW = #{userPw} WHERE USER_ID = #{userId}
+    </update>
+
     <select id="selectUserByMyPage" resultMap="myPageResultMap">
         SELECT USER_TBL.USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_GENDER, USER_TYPE, USER_DATE, USER_FILENAME, USER_FILEPATH, USER_PROFILE_LETTER, POINT_TBL.POINT_VAL FROM USER_TBL right outer join POINT_TBL on USER_TBL.USER_NO = POINT_TBL.USER_NO WHERE USER_TBL.USER_NO = #{userNo}
     </select>
