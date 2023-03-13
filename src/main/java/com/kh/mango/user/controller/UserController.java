@@ -1,5 +1,6 @@
 package com.kh.mango.user.controller;
 
+import com.kh.mango.message.domain.Message;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 import com.kh.mango.user.service.UserService;

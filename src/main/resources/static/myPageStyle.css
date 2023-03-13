@@ -283,23 +283,53 @@ tr:hover {
     background-image: url("img/mailbox.svg");
     background-color: transparent;
     border: none;
+    position: fixed;
+    top: 0px;
+    right: 180px;
 }
-.msg-toggle-btn .active{
-    display: flex;
-    position: relative;
-    top: 125px;
-    justify-content: right;
-}
+
+
 .msg-area{
     background-color: black;
-    width: 400px;
+    width: 600px;
     height: 300px;
     position: relative;
     top: 180px;
     z-index: 9999999999;
     border-radius: 25px;
     display: none;
+    opacity: 0.3;
+    overflow: auto;
 }
 .msg-area .active{
     display: flex;
+    justify-content: center;
+}
+
+.msg-area span{
+    opacity: 1;
+    font-size: 30px;
+    position: absolute;
+    top: 30px;
+    left: 50px;
+}
+.msg-area ul {
+    position: absolute;
+    top: 30px;
+    left: 50px;
+    font-size: 30px;
+}
+
+.msg-text{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 500px;
+    height: 60px;
+    padding-left: 10px;
+    padding-top: 7px;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
 }

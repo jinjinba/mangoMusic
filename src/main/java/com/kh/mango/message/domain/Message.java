@@ -13,8 +13,9 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class Message {
     private int msgNo;
-    private String msgSubject;
     private String msgContent;
     private Timestamp msgDate;
-    private int userNo;
+    private int userNoSend;
+    private int userNoReceive;
+
 }

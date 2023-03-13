@@ -1,5 +1,6 @@
 package com.kh.mango.user.service.logic;
 
+import com.kh.mango.message.domain.Message;
 import com.kh.mango.point.domain.AdminPoint;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
@@ -89,6 +90,8 @@ public class UserServiceImpl implements UserService {
     public User selectUserPw(User uParam) {
         return uStore.selectUserPw(session,uParam);
     }
+
+
 
     @Override
     public List<User> selectMember() {

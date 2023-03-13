@@ -112,11 +112,24 @@ function pointRefundFunc() {
 
 const msgBtn = $('#msg-btn');
 const msgBox = $('#msg-box');
-
+const msgObj = { "userNo": parseInt($('.userNo').val()) }
 function msgToggle(){
-    console.log("asas");
-    msgBtn.toggle('active');
    msgBox.toggle('active');
+   $.ajax(
+       {
+           type:"POST",
+           url: "/ajaxMessage",
+           data: msgObj,
+           success:function(data){
+                $(data).each(function(){
+                    alert(this.messageContent);
+                });
+           },
+           error : function(){
+               alert("error");
+           }
+       }
+   )
 }
 
 // 음악 정보 api 로 가져오기

@@ -1,5 +1,6 @@
 package com.kh.mango.user.store.logic;
 
+import com.kh.mango.message.domain.Message;
 import com.kh.mango.point.domain.AdminPoint;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
@@ -95,6 +96,8 @@ public class UserStoreLogic implements UserStore {
     public User selectUserPw(SqlSession session, User uParam) {
         return session.selectOne("UserMapper.selectUserPw",uParam);
     }
+
+
 
     @Override
     public User selectOneByNumber(int userNo) {
