@@ -63,9 +63,9 @@
         }
     {{/success}}
     {{#findId}}
-    window.onload = function () {
-        window.open('http://127.0.0.1:8985/newFindId','','bottom=600, left=800, width=500, height=300');
-    }
+        window.onload = function () {
+            window.open('/newFind?userName={{user.userName}}&userEmail={{user.userEmail}}','','bottom=600, left=800, width=500, height=300');
+        }
     {{/findId}}
 </script>
 </body>
