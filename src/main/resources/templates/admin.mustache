@@ -60,8 +60,13 @@
                 <div id="main2-1">
                     전체 포인트 내역 <br>
                     <div id="point">
-                        <b>{{adminPoint}}</b> <br>
-                        <button type="button" id="point-btn">포인트 내역 보기</button>
+                        <input type="hidden" value="{{adminPoint}}" class="point-val">
+                        <div class="point-value">
+                            <span class="point-val-re"></span>
+                            <span class="point-value-text">Mango</span>
+                        </div>
+                        <br>
+                        <button type="button" id="point-btn" onclick="window.open('/admin/pointList')">포인트 내역 보기</button>
                     </div>
                 </div>
                 <div id="main2-2">
@@ -76,7 +81,12 @@
         </div>
     </div>
 
-<button onclick="window.open('/userSearch','','top=0, left=700, width=500, height=600')">테스트 </button>
-
 </main>
+<script>
+
+    //  포인트 잔량 정규 표현식
+    var pointVal = document.querySelector(".point-val").value;
+    document.querySelector(".point-val-re").innerHTML = pointVal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+
+</script>
 {{>layouts/footer}}

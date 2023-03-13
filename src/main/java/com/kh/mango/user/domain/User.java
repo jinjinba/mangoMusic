@@ -1,5 +1,6 @@
 package com.kh.mango.user.domain;
 
+import com.kh.mango.point.domain.PointRecord;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,8 @@ public class User {
     private String userFilename;
     private String userFilepath;
     private String userProfileLetter;
+
+    private PointRecord pointRecord;
 
     public User(String userId, String userPw) {
         this.userId = userId;
