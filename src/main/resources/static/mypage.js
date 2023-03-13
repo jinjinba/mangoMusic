@@ -110,6 +110,15 @@ function pointRefundFunc() {
     $('#modal_close_btn').trigger("click");
 }
 
+const msgBtn = $('#msg-btn');
+const msgBox = $('#msg-box');
+
+function msgToggle(){
+    console.log("asas");
+    msgBtn.toggle('active');
+   msgBox.toggle('active');
+}
+
 // 음악 정보 api 로 가져오기
 
 test = $('#likeTag').val();

@@ -1,4 +1,3 @@
-
 {{>layouts/sidebar}}
 <!-- sidebar -->
 <main class="body" id="body-mypage">
@@ -9,7 +8,9 @@
         </div>
 
         <div class="d-flex align-items-center" id="rightnav">
-            <div style="margin-right: 1rem">
+            <div style="margin-right: 1rem; display: flex" class="message">
+                <div class="msg-area" id="msg-box"></div>
+                <button type="button" class="msg-toggle-btn" id="msg-btn" onclick="msgToggle();"></button>
             </div>
             <div class="dropdown" id="myPageDropDown">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
@@ -174,13 +175,5 @@
 
         </div>
 </main>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/8539ff3369.js" crossorigin="anonymous"></script>
-<!--<script src="home.js"></script>-->
-<!--<script src="mypage.js"></script>-->
 
 {{>layouts/footer}}

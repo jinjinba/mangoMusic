@@ -1,16 +1,10 @@
 package com.kh.mango.user.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class User {
 
     private int userNo;
@@ -19,11 +13,14 @@ public class User {
     private String userName;
     private String userEmail;
     private String userGender;
-    private int userType;
+    private Integer userType;
     private Timestamp userDate;
     private String userFilename;
     private String userFilepath;
     private String userProfileLetter;
+
+    public User() {
+    }
 
     public User(String userId, String userPw) {
         this.userId = userId;
