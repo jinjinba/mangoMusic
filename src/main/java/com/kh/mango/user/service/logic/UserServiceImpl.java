@@ -81,6 +81,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int updateUserPw(User uParam) {
+        return uStore.updateUserPw(session,uParam);
+    }
+
+    @Override
+    public User selectUserPw(User uParam) {
+        return uStore.selectUserPw(session,uParam);
+    }
+
+    @Override
     public List<User> selectMember() {
         List<User> userList = uStore.selectMember();
         return userList;

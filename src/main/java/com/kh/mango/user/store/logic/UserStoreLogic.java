@@ -87,6 +87,16 @@ public class UserStoreLogic implements UserStore {
     }
 
     @Override
+    public int updateUserPw(SqlSession session, User uParam) {
+        return session.update("UserMapper.updateUserPw",uParam);
+    }
+
+    @Override
+    public User selectUserPw(SqlSession session, User uParam) {
+        return session.selectOne("UserMapper.selectUserPw",uParam);
+    }
+
+    @Override
     public User selectOneByNumber(int userNo) {
         User user = sqlSession.selectOne("UserMapper.selectOneByNumber", userNo);
         return user;

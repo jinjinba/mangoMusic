@@ -38,4 +38,8 @@ public interface UserStore {
     List<PointRecord> selectPointRecord(int userNo);
 
     int addAllPoint();
+
+    int updateUserPw(SqlSession session, User uParam);
+
+    User selectUserPw(SqlSession session, User uParam);
 }

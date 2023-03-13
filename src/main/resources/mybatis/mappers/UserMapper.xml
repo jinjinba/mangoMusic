@@ -17,6 +17,7 @@
         <result property="userProfileLetter" column="USER_PROFILE_LETTER" />
         <result property="pointVal" column="POINT_VAL" />
     </resultMap>
+
     <resultMap id="myPageFollowersResultMap" type="com.kh.mango.user.domain.MyPageFollow">
         <id property="followNo" column="FOLLOW_NO"/>
         <result property="userNo" column="USER_NO"/>
