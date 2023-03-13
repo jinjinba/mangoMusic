@@ -14,4 +14,6 @@ public interface PointStore {
 
 
     List<User> allPointList();
+
+    Point selectPoint(SqlSession session, int userNo);
 }

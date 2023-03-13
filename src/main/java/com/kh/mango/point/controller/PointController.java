@@ -7,9 +7,10 @@ import com.kh.mango.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import java.util.List;
 
@@ -29,31 +30,30 @@ public class PointController {
         return "refundPoint";
     }
 
-    @GetMapping("/chargePointAction")
-    public String pointChargeAction(@RequestParam("pointVal") int pointVal, Model model, @SessionAttribute("loginUser") User user){
-            Point point = new Point(user.getUserNo(), pointVal);
-            int result = pService.updateAddPoint(point);
-            if(result > 0){
-                model.addAttribute("com","window.close()");
-                return "chargePoint";
-            }else {
-                model.addAttribute("fal",1);
-                return "chargePoint";
-            }
+    @PostMapping("/ajaxAddPoint")
+    @ResponseBody
+    public String ajaxAddPoint(int userNo, int pointVal){
+        Point point = new Point(userNo, pointVal);
+        int result = pService.updateAddPoint(point);
+        if(result > 0){
+            Point point1 = pService.selectPoint(userNo);
+            return String.valueOf(point1.getPointVal());
+        }
+        return null;
     }
 
-    @GetMapping("/refundPointAction")
-    public String pointRefund(@RequestParam("pointVal") int pointVal, Model model, @SessionAttribute("loginUser") User user){
-        Point point = new Point(user.getUserNo(), pointVal);
+    @PostMapping("/ajaxRefundPoint")
+    @ResponseBody
+    public String ajaxRefundPoint(int userNo, int pointVal){
+        Point point = new Point(userNo, pointVal);
         int result = pService.updateRefundPoint(point);
         if(result > 0){
-            model.addAttribute("com","window.close()");
-            return "refundPoint";
-        }else {
-            model.addAttribute("fal",1);
-            return "refundPoint";
+            Point point1 = pService.selectPoint(userNo);
+            return String.valueOf(point1.getPointVal());
         }
+        return null;
     }
+
 
 
 }

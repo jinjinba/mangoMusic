@@ -1,17 +1,6 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
 
-</body>
-</html>
 {{>layouts/sidebar}}
+
 <main class="body" id="body-mypage">
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -33,7 +22,12 @@
                     &nbsp;&nbsp;{{userName}}&nbsp;&nbsp;
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                    {{#loginUser.userType}}
+                        <li><a class="dropdown-item" href="/admin">관리자페이지</a></li>
+                    {{/loginUser.userType}}
+                    {{^loginUser.userType}}
+                        <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                    {{/loginUser.userType}}
                     <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
                 </ul>
             </div>

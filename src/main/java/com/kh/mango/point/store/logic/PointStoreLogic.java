@@ -30,6 +30,11 @@ public class PointStoreLogic implements PointStore {
     }
 
     @Override
+    public Point selectPoint(SqlSession session, int userNo) {
+        return session.selectOne("PointMapper.selectPoint",userNo);
+    }
+
+    @Override
     public List<User> allPointList() {
         return sqlSession.selectList("PointMapper.AllPointRecordList");
     }

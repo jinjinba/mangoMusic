@@ -196,3 +196,110 @@
 .que.on .arrow-top {
     display: block;
 }
+
+body {
+    height: 1100px;
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    border-bottom: 1px solid white;
+}
+
+td {
+    height: 40px;
+}
+
+#myPagePlayBar {
+    position: fixed;
+}
+
+tr:hover {
+    background-color: #666666;
+    opacity: 0.8;
+}
+
+/*모달창*/
+.my_modal_all {
+    display: none;
+    width: 600px;
+    padding: 20px 60px;
+    border: 1px solid #888;
+    border-radius: 3px;
+    text-align: center;
+    justify-content: center;
+    color: #ffffff;
+    background-color: #343a40;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-image: linear-gradient(to top,
+    #121212,
+    #121212,
+    #121212,
+    #121212,
+    #121212,
+    #161419,
+    #1a151e,
+    #201522,
+    #311327,
+    #430d24,
+    #53051b,
+    #5e0506);
+    background-size: cover;
+    overflow: auto;
+    overflow-x: hidden;
+    background-attachment: fixed;
+}
+
+
+
+.my_modal_all .modal_close_btn {
+    /*position: absolute;*/
+    /*top: 10px;*/
+    /*right: 10px;*/
+}
+
+
+#button-area {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    border-radius: 15px;
+}
+
+.add-btn {
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.msg-toggle-btn{
+    width: 40px;
+    height: 40px;
+    background-image: url("img/mailbox.svg");
+    background-color: transparent;
+    border: none;
+}
+.msg-toggle-btn .active{
+    display: flex;
+    position: relative;
+    top: 125px;
+    justify-content: right;
+}
+.msg-area{
+    background-color: black;
+    width: 400px;
+    height: 300px;
+    position: relative;
+    top: 180px;
+    z-index: 9999999999;
+    border-radius: 25px;
+    display: none;
+}
+.msg-area .active{
+    display: flex;
+}

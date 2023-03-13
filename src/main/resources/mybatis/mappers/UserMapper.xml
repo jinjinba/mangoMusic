@@ -10,13 +10,14 @@
         <result property="userName" column="USER_NAME" />
         <result property="userEmail" column="USER_EMAIL" />
         <result property="userGender" column="USER_GENDER" />
-        <result property="userType" column="USER_TYPE" />
+        <result property="userType" column="USER_TYPE" javaType="Integer"/>
         <result property="userDate" column="USER_DATE" />
         <result property="userFilename" column="USER_FILENAME" />
         <result property="userFilepath" column="USER_FILEPATH" />
         <result property="userProfileLetter" column="USER_PROFILE_LETTER" />
         <result property="pointVal" column="POINT_VAL" />
     </resultMap>
+
     <resultMap id="myPageFollowersResultMap" type="com.kh.mango.user.domain.MyPageFollow">
         <id property="followNo" column="FOLLOW_NO"/>
         <result property="userNo" column="USER_NO"/>
@@ -50,6 +51,14 @@
     <select id="selectFindId" resultType="com.kh.mango.user.domain.User">
         SELECT * FROM USER_TBL WHERE USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
     </select>
+
+    <select id="selectUserPw" resultType="com.kh.mango.user.domain.User">
+        SELECT * FROM USER_TBL WHERE USER_ID = #{userId} AND USER_NAME = #{userName} AND USER_EMAIL = #{userEmail}
+    </select>
+
+    <update id="updateUserPw">
+        UPDATE USER_TBL SET USER_PW = #{userPw} WHERE USER_ID = #{userId}
+    </update>
 
     <select id="selectUserByMyPage" resultMap="myPageResultMap">
         SELECT USER_TBL.USER_NO, USER_ID, USER_PW, USER_NAME, USER_EMAIL, USER_GENDER, USER_TYPE, USER_DATE, USER_FILENAME, USER_FILEPATH, USER_PROFILE_LETTER, POINT_TBL.POINT_VAL FROM USER_TBL right outer join POINT_TBL on USER_TBL.USER_NO = POINT_TBL.USER_NO WHERE USER_TBL.USER_NO = #{userNo}

@@ -104,7 +104,6 @@ public class UserController {
             @ModelAttribute User userParam
             ,Model model){
 //        User uParam = new User(userParam.getUserName(), userParam.getUserEmail(), null);
-        System.out.println(userParam.toString());
         User user = uService.findUserId(userParam);
         model.addAttribute("user", user);
         return "newfind";
@@ -119,21 +118,43 @@ public class UserController {
     @RequestMapping(value = "/findPw", method = RequestMethod.POST)
     public String findPw(
             HttpServletRequest request
-            , @RequestParam("user-id") String userId
-            , @RequestParam("user-email") String userEmail
+            , @RequestParam("userId") String userId
+            , @RequestParam("userName") String userName
+            , @RequestParam("userEmail") String userEmail
             , Model model) {
-        User uParam = new User(userId, userEmail);
-        User user = uService.findUserPw(uParam);
-        HttpSession session = request.getSession();
+        User uParam = new User(userId,null ,userName , userEmail);
+        User user = uService.selectUserPw(uParam);
         if(user != null) {
-            session.setAttribute("findPwUser", user);
             model.addAttribute("findPw", "성공");
+            model.addAttribute("user", user);
             return "login";
         }else {
             model.addAttribute("error", "에러");
             return "findPw";
         }
     }
+
+    // 비밀번호 변경
+    @GetMapping("/updatePw")
+    public String updatePwView(
+            @ModelAttribute User user
+            , Model model){
+        model.addAttribute("user", user);
+        return "updatePw";
+    }
+    @PostMapping("/updatePw")
+    public String updatePw(
+            @ModelAttribute("user")User user
+            , @ModelAttribute("newPw") String userPw
+            ,Model model){
+        User uParam = new User(user.getUserId(),userPw);
+        int result = uService.updateUserPw(uParam);
+        if(result > 0){
+            model.addAttribute("su","성공");
+        }
+        return "login";
+    }
+
     // 로그아웃
     @GetMapping("/logout")
     public String userLogout(HttpSession session, Model model) {

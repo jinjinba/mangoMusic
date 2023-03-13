@@ -42,4 +42,7 @@
     <select id="AllPointRecordList" resultType="com.kh.mango.point.domain.PointRecord">
         SELECT U.USER_ID, P.POINT_PM, P.POINT_RECORD, P.POINT_RECORD_DATE FROM POINT_RECORD_TBL P JOIN USER_TBL U ON P.USER_NO = U.USER_NO
     </select>
+    <select id="selectPoint" resultType="com.kh.mango.point.domain.Point">
+        SELECT * FROM POINT_TBL WHERE USER_NO = ${userNo}
+    </select>
 </mapper>

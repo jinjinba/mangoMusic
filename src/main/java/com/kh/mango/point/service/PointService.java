@@ -13,4 +13,6 @@ public interface PointService {
 
 
     List<User> allPointList();
+
+    Point selectPoint(int userNo);
 }

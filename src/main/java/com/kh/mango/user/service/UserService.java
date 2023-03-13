@@ -36,4 +36,8 @@ public interface UserService {
 
 
     int addAllPoint();
+
+    int updateUserPw(User uParam);
+
+    User selectUserPw(User uParam);
 }

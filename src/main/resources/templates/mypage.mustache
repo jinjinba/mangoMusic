@@ -1,27 +1,5 @@
 {{>layouts/sidebar}}
 <!-- sidebar -->
-
-<style>
-    body{
-        height: 1100px;
-    }
-    table{
-        width: 100%;
-    }
-    tr{
-        border-bottom: 1px solid white;
-    }
-    td{
-        height: 40px;
-    }
-    #myPagePlayBar{
-        position: fixed;
-    }
-    tr:hover{
-        background-color: #666666;
-       opacity: 0.8;
-    }
-</style>
 <main class="body" id="body-mypage">
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -30,16 +8,18 @@
         </div>
 
         <div class="d-flex align-items-center" id="rightnav">
-            <div style="margin-right: 1rem">
+            <div style="margin-right: 1rem; display: flex" class="message">
+                <div class="msg-area" id="msg-box"></div>
+                <button type="button" class="msg-toggle-btn" id="msg-btn" onclick="msgToggle();"></button>
             </div>
             <div class="dropdown" id="myPageDropDown">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
-                        <!-- 유저 이미지 -->
+                    <!-- 유저 이미지 -->
                     <img src="../img/abstract-user-flat-3.svg"
-                        style="width: 30px; height: 30px; border-radius: 50%" />
-                        <!-- 유저이름 -->
-                    &nbsp;&nbsp;{{myPage.userName}}&nbsp;&nbsp;
+                         style="width: 30px; height: 30px; border-radius: 50%" />
+                    <!-- 유저이름 -->
+                    &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
@@ -52,8 +32,9 @@
         <h2 class="greeting mb-3">MyPage</h2>
         <div class="profile">
             <div class="profile-img"></div>
-            
-<!--             닉네임 들어갈곳-->
+
+            <!--             닉네임 들어갈곳-->
+            <input type="hidden" value="{{loginUser.userNo}}" class="userNo">
             <div class="profile-name"><h1>{{myPage.userName}}</h1></div>
             <div class="profile-letter"><span>{{myPage.userProfileLetter}}</span></div>
         </div>
@@ -62,147 +43,137 @@
     <div class="margin-top" id="mypage-content-container">
         <div class="mypage-content-left">
             <div class="point">
-<!--                 포인트 값-->
+                <!--                 포인트 값-->
                 <input type="hidden" value="{{myPage.pointVal}}" class="point-val">
                 <span class="point-value"><span class="point-val-re"></span> <span class="point-value-text">Mango</span></span>
             </div>
-            <div class="point-button-container">
-                <button type="button" class="point-button" onclick="window.open('http://127.0.0.1:8985/chargePoint','','bottom=600, left=800, width=500, height=300')">충전</button>
-                <button type="button" class="point-button" onclick="window.open('http://127.0.0.1:8985/refundPoint','','bottom=600, left=800, width=500, height=300')">출금</button>
-            </div>
-        </div>
-        <div class="mypage-content-right">
-<!--            팔로우 검색 버튼-->
+            <!-- 충전 모달 -->
+            <div class="point-button-container" >
+                <div id="my_modal" class="my_modal_all">
+                    <h2 style="color:white;">포인트 충전</h2>
+                    <br>
+                    <input type="text" name="pointVal" id="point-add-input"
+                           style="width: 300px; height: 50px;border-radius: 20px;">
+                    <div id="button-area">
+                        <input type="button" value="충전" class="add-btn" id="add-btn-sub" onclick="pointAddFunc()">
+                        <button type="button" id="modal_close_btn" class="add-btn">닫기</button>
+                    </div>
+                </div>
+                <!--            출금모달    -->
+                <div id="my_modal-2" class="my_modal_all">
+                    <h2 style="color:white;">포인트 출금</h2>
+                    <br>
+                    <input type="text" name="pointVal" id="point-refund-input"
+                           style="width: 300px; height: 50px;border-radius: 20px;">
+                    <div id="button-area">
+                        <input type="button" value="출금" class="add-btn" id="add-btn-sub" onclick="pointRefundFunc()">
+                        <button type="button" id="modal_close_btn" class="add-btn">닫기</button>
+                    </div>
+                </div>
+                <!-- 출금 모달 끝 -->
 
-            <div id="Accordion_wrap">
-                <div class="que">
-                    <span>팔로우 목록</span>
-                    <div class="arrow-wrap">
-                        <span class="arrow-top">-</span>
-                        <span class="arrow-bottom">+</span>
-                    </div>
-                </div>
-                <div class="anw">
-                    <table>
-                        <tr>
-                            <th>이름</th>
-                        </tr>
-                    {{#followers}}
-                        <tr>
-                            <td>{{userName}}</td>
-                        </tr>
-                    {{/followers}}
-                    </table>
-                    <button type="button" onclick="window.open('/userSearch','','top=0, left=700, width=500, height=600')">검색</button>
-                </div>
-                <div class="que">
-                    <span>거래목록</span>
-                    <div class="arrow-wrap">
-                        <span class="arrow-top">-</span>
-                        <span class="arrow-bottom">+</span>
-                    </div>
-                </div>
-                <div class="anw">
-                    <table>
-                        <tr>
-                            <th>구분</th>
-                            <th>번호</th>
-                            <th>시간</th>
-                            <th>가격</th>
-                        </tr>
-                    {{#deals}}
-                        <tr>
-                            <td>{{dealType}}</td>
-                            <td>{{TradeNo}}</td>
-                            <td>{{dealDate}}</td>
-                            <td>{{dealPrice}}</td>
-                        </tr>
-                    {{/deals}}
-                    </table>
-                </div>
-                <div class="que">
-                    <span>좋아요 목록</span>
-                    <div class="arrow-wrap">
-                        <span class="arrow-top">-</span>
-                        <span class="arrow-bottom">+</span>
-                    </div>
-                </div>
-                <div class="anw">
-                    <table>
-                        <tr>
-                            <th>제목</th>
-                            <th>가수</th>
-                        </tr>
-                        <tr>
-                    {{#likes}}
-                        <input type="hidden" value="{{musicMbid}}" id="likeTag">
-                        <td id="songName" style="width: 200px"></td>
-                        <td id="songArtist"></td>
-                    {{/likes}}
-                        </tr>
-                    </table>
-                </div>
-                <div class="que">
-                    <span>포인트 충전 내역</span>
-                    <div class="arrow-wrap">
-                        <span class="arrow-top">-</span>
-                        <span class="arrow-bottom">+</span>
-                    </div>
-                </div>
-                <div class="anw">
-                    <table>
-                        {{#pointRecord}}
-                        <tr>
-                            <td style="width: 100px">{{pointPM}}
-                            <td style="width: 300px; height: 40px">{{pointRecordDate}}
-                            <td class="pointRecord-val-re"> <span> Mango</span>
-                        </tr>
-                        <input type="hidden" value="{{pointRecord}}" class="pointRecord-val">
-                        {{/pointRecord}}
-
-
-                    </table>
+                    <button id="popup_open_btn" class="point-button">충전</button>
+                    <button id="popup_open_btn-2" class="point-button">출금</button>
                 </div>
             </div>
-        </div>
+            <div class="mypage-content-right">
+                <!--            팔로우 검색 버튼-->
 
-    </div>
+                <div id="Accordion_wrap">
+                    <div class="que">
+                        <span>팔로우 목록</span>
+                        <div class="arrow-wrap">
+                            <span class="arrow-top">-</span>
+                            <span class="arrow-bottom">+</span>
+                        </div>
+                    </div>
+                    <div class="anw">
+                        <table>
+                            <tr>
+                                <th>이름</th>
+                            </tr>
+                            {{#followers}}
+                                <tr>
+                                    <td>{{userName}}</td>
+                                </tr>
+                            {{/followers}}
+                        </table>
+                        <button type="button"
+                                onclick="window.open('/userSearch','','top=0, left=700, width=500, height=600')">검색
+                        </button>
+                    </div>
+                    <div class="que">
+                        <span>거래목록</span>
+                        <div class="arrow-wrap">
+                            <span class="arrow-top">-</span>
+                            <span class="arrow-bottom">+</span>
+                        </div>
+                    </div>
+                    <div class="anw">
+                        <table>
+                            <tr>
+                                <th>구분</th>
+                                <th>번호</th>
+                                <th>시간</th>
+                                <th>가격</th>
+                            </tr>
+                            {{#deals}}
+                                <tr>
+                                    <td>{{dealType}}</td>
+                                    <td>{{TradeNo}}</td>
+                                    <td>{{dealDate}}</td>
+                                    <td>{{dealPrice}}</td>
+                                </tr>
+                            {{/deals}}
+                        </table>
+                    </div>
+                    <div class="que">
+                        <span>좋아요 목록</span>
+                        <div class="arrow-wrap">
+                            <span class="arrow-top">-</span>
+                            <span class="arrow-bottom">+</span>
+                        </div>
+                    </div>
+                    <div class="anw">
+                        <table>
+                            <tr>
+                                <th>제목</th>
+                                <th>가수</th>
+                            </tr>
+                            <tr>
+                                {{#likes}}
+                                    <input type="hidden" value="{{musicMbid}}" id="likeTag">
+                                    <td id="songName" style="width: 200px"></td>
+                                    <td id="songArtist"></td>
+                                {{/likes}}
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="que">
+                        <span>포인트 충전 내역</span>
+                        <div class="arrow-wrap">
+                            <span class="arrow-top">-</span>
+                            <span class="arrow-bottom">+</span>
+                        </div>
+                    </div>
+                    <div class="anw">
+                        <table>
+                            {{#pointRecord}}
+                                <tr>
+                                    <td style="width: 100px">{{pointPM}}
+                                    <td style="width: 300px; height: 40px">{{pointRecordDate}}
+                                    <td class="pointRecord-val-re"><span> Mango</span>
+                                </tr>
+                                <input type="hidden" value="{{pointRecord}}" class="pointRecord-val">
+                            {{/pointRecord}}
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 </main>
 
-<script>
-    $(".que").click(function() {
-        $(this).next(".anw").stop().slideToggle(300);
-        $(this).toggleClass('on').siblings().removeClass('on');
-        $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
-    });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/8539ff3369.js" crossorigin="anonymous"></script>
-<script src="home.js"></script>
-<script>
-    // 음악 정보 api 로 가져오기
-
-
-
-    //  포인트 잔량 정규 표현식
-    var pointVal = document.querySelector(".point-val").value;
-    document.querySelector(".point-val-re").innerHTML = pointVal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-
-    // 포인트 충전 내역 정규표현식
-    var pointVal2 = document.querySelectorAll(".pointRecord-val");
-    for(var a = 0; a < pointVal2.length; a++){
-        document.querySelectorAll(".pointRecord-val-re")[a].innerHTML = pointVal2[a].value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " Mango";
-    }
-    let test = document.getElementById("likeTag").value;
-    var request = new XMLHttpRequest();
-    request.open('GET', 'https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=45ac2dc0a0b1bad3966314cc210f8c49&artist=cher&track=believe&format=json');
-    request.send();
-    request.onload = function() {
-        var songInfo = JSON.parse(request.response).track;
-        document.querySelector("#songName").innerHTML = songInfo.name;
-        document.querySelector("#songArtist").innerHTML = songInfo.artist.name;
-    }
-</script>
 {{>layouts/footer}}

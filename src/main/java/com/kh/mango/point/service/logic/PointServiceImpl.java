@@ -28,6 +28,11 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
+    public Point selectPoint(int userNo) {
+        return pStore.selectPoint(session,userNo);
+    }
+
+    @Override
     public List<User> allPointList() {
         return pStore.allPointList();
     }
