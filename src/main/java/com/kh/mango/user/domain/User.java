@@ -35,4 +35,13 @@ public class User {
         this.userEmail = userEmail;
         this.userGender = userGender;
     }
+
+
+    public User(String userId, String userName, String userEmail, String userGender) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userGender = userGender;
+    }
 }
+
