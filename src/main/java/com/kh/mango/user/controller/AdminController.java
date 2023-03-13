@@ -1,5 +1,6 @@
 package com.kh.mango.user.controller;
 
+import com.kh.mango.point.domain.AdminPoint;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,11 @@ public class AdminController {
     private UserService uService;
 
     @GetMapping("/admin")
-    public String memberList(Model model){
+    public String adminPage(Model model){
         List<User> userList = uService.selectMember();
+        int adminPoint = uService.addAllPoint();
         model.addAttribute("user",userList);
+        model.addAttribute("adminPoint",adminPoint);
         return "admin";
     }
 
@@ -36,4 +39,5 @@ public class AdminController {
         model.addAttribute("user", user);
         return "userInfo";
     }
+
 }

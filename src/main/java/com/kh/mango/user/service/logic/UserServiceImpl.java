@@ -1,11 +1,13 @@
 package com.kh.mango.user.service.logic;
 
+import com.kh.mango.point.domain.AdminPoint;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 import com.kh.mango.user.service.UserService;
 import com.kh.mango.user.store.UserStore;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -71,6 +73,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<PointRecord> selectPointRecord(int userNo) {
         return uStore.selectPointRecord(userNo);
+    }
+
+    @Override
+    public int addAllPoint() {
+        return uStore.addAllPoint();
     }
 
     @Override
