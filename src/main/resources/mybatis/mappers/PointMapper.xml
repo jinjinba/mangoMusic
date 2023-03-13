@@ -14,7 +14,7 @@
     <insert id="insertRefundPointRecord">
         INSERT INTO POINT_RECORD_TBL VALUES(#{userNo},'출금',#{pointVal},SYSTIMESTAMP)
     </insert>
-    <select id="selectPoint">
+    <select id="selectPoint" resultType="com.kh.mango.point.domain.Point">
         SELECT * FROM POINT_TBL WHERE USER_NO = ${userNo}
     </select>
 </mapper>
