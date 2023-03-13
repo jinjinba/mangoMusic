@@ -134,12 +134,14 @@ public class UserController {
         }
     }
 
+    // 비밀번호 변경
     @GetMapping("/updatePw")
-    public String updatePwView(@ModelAttribute User user, Model model){
+    public String updatePwView(
+            @ModelAttribute User user
+            , Model model){
         model.addAttribute("user", user);
         return "updatePw";
     }
-    // 비밀번호 변경
     @PostMapping("/updatePw")
     public String updatePw(
             @ModelAttribute("user")User user

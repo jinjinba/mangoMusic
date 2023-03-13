@@ -13,8 +13,12 @@
     </div>
 </a>
 <div class="find-box">
-    <form method="post" action="/findId" id="find-form">
-        <h2>아이디 찾기</h2>
+    <form method="post" action="/findPw" id="find-form">
+        <h2>비밀번호 찾기</h2>
+        <div class="user-box">
+            <label>ID</label>
+            <input type="text" class="find" name="userId" placeholder="ID를 입력해주세요.">
+        </div>
         <div class="user-box">
             <label>NAME</label>
             <input type="text" class="find" name="userName" placeholder="이름을 입력해주세요.">
@@ -30,20 +34,15 @@
                 <span></span>
                 <span></span>
                 <span></span>
-                아이디 조회
+                비밀번호 qusrud
             </button>
         </div>
     </form>
 </div>
 <script>
-    {{#findId}}
-        window.onload = function () {
-            alert("조회하신 아이디는 {{user.userId}}")
-        }
-    {{/findId}}
     {{#error}}
         window.onload = function () {
-            alert("이름 또는 이메일을 잘못 입력하셧습니다.")
+            alert("아이디 or 이름 or 이메일을 잘못 입력하셧습니다.")
         }
     {{/error}}
 </script>

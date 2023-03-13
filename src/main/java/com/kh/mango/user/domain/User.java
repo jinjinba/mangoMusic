@@ -37,11 +37,11 @@ public class User {
     }
 
 
-    public User(String userId, String userName, String userEmail, String userGender) {
+    public User(String userId, String userPw, String userName, String userEmail) {
         this.userId = userId;
+        this.userPw = userPw;
         this.userName = userName;
         this.userEmail = userEmail;
-        this.userGender = userGender;
     }
 }
 
