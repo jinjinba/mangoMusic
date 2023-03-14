@@ -21,6 +21,7 @@ font-family: "Roboto", sans-serif;
 .navLogo:hover{
     background-color: #1a1a1a;
 }
+
 body {
     color: #a5a5a7;
     background-color: #343a40;
@@ -517,4 +518,11 @@ a {
 }
 #qna {
     padding: 20px;
+}
+#aaaaa{
+    background-color: beige;
+    width: 12px;
+    height: 16px;
+    margin: 0px 16px 0px 16px;
+    background-image: url("img/csimg.svg");
 }

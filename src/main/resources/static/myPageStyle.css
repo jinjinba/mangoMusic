@@ -162,12 +162,13 @@
 
 .anw {
     display: none;
-    overflow: hidden;
+    overflow: auto;
     font-size: 14px;
     padding: 27px 0;
     width: 800px;
     background-color: transparent;
     opacity: 0.5;
+    height: 200px;
 }
 
 .anw::before {
