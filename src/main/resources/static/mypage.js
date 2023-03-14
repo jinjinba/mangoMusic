@@ -121,9 +121,7 @@ function msgToggle(){
            url: "/ajaxMessage",
            data: msgObj,
            success:function(data){
-                $(data).each(function(){
-                    alert(this.messageContent);
-                });
+
            },
            error : function(){
                alert("error");

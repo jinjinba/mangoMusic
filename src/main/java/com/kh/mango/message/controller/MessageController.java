@@ -16,6 +16,7 @@ public class MessageController {
 
     @PostMapping("/ajaxMessage")
     public List<Message> ajaxMessageView(int userNo){
-        return mService.selectMessageList(userNo);
+        List<Message> messages = mService.selectMessageList(userNo);
+        return messages;
     }
 }
