@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class MessageController {
     private MessageService mService;
 
     @PostMapping("/ajaxMessage")
+    @ResponseBody
     public List<Message> ajaxMessageView(int userNo){
         List<Message> messages = mService.selectMessageList(userNo);
         return messages;
