@@ -1,5 +1,10 @@
 package com.kh.mango.user.domain;
 
+import com.kh.mango.point.domain.PointRecord;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -21,6 +26,8 @@ public class User {
 
     public User() {
     }
+
+    private PointRecord pointRecord;
 
     public User(String userId, String userPw) {
         this.userId = userId;

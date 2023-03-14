@@ -1,6 +1,7 @@
 package com.kh.mango.point.controller;
 
 import com.kh.mango.point.domain.Point;
+import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.point.service.PointService;
 import com.kh.mango.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import java.util.List;
 
 @Controller
 public class PointController {
@@ -50,5 +53,7 @@ public class PointController {
         }
         return null;
     }
+
+
 
 }
