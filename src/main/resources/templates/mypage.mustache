@@ -1,4 +1,5 @@
 {{>layouts/sidebar}}
+<link rel="stylesheet" href="/myPageStyle.css">
 <!-- sidebar -->
 <main class="body" id="body-mypage">
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
@@ -9,7 +10,14 @@
 
         <div class="d-flex align-items-center" id="rightnav">
             <div style="margin-right: 1rem; display: flex" class="message">
-                <div class="msg-area" id="msg-box"></div>
+                <div class="msg-area" id="msg-box">
+                    <ul>
+                    </ul>
+                    {{^msgNo}}
+                        <span>새로운 메시지가 없습니다.</span>
+                    {{/msgNo}}
+
+                </div>
                 <button type="button" class="msg-toggle-btn" id="msg-btn" onclick="msgToggle();"></button>
             </div>
             <div class="dropdown" id="myPageDropDown">
