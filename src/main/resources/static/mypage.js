@@ -82,7 +82,7 @@ function pointAddFunc() {
     $.ajax(
         {
             type: "POST",
-            url: "/ajaxAddPoint",
+            url: "/ajaxFollowUser",
             data: pointData,
             success: function (data) {
                 $('.point-val-re').text(data.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
