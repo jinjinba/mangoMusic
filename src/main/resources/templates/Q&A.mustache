@@ -1,0 +1,50 @@
+{{>layouts/sidebar}}
+<link rel="stylesheet" href="css/notice.css" />
+<main>
+
+    <div id="main-all">
+        <form action="/notice">
+            <div class="main-header">
+                <h2>고객센터</h2>
+                <hr>
+            </div>
+            <div class="main-body">
+                <div class="body-top" align="center">
+                    <a class="atag" href="#">공지사항</a>
+                    <a class="atag" href="#">Q & A</a>
+                </div>
+                <div class="body-mid">
+                    <table>
+                        <thead>
+                            <tr class="t-notice">
+                                <th>번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성날짜</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#cars }}
+                                <a href="http://localhost:8985/detail?">
+                                    <tr class="t-notice">
+                                        <td>{{}}</td>
+                                        <td>{{}}</td>
+                                        <td>{{}}</td>
+                                        <td>{{}}</td>
+                                    </tr>
+                                </a>
+                            {{/cars}}
+                        </tbody>
+                        <tr align="right">
+                            <td colspan="4">글쓰기</td>
+                        </tr>
+                        <tr align="center">
+                            <td colspan="4"><a>페이징</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+{{>layouts/footer}}

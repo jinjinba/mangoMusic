@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CsMapper">
+    <resultMap id="NoticeResultMap" type="com.kh.mango.cs.domain.Notice">
+        <id property="csNo" column="CS_NO"/>
+        <result property="csSubject" column="CS_SUBEJECT"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="csDate" column="CS_DATE"/>
+    </resultMap>
+
+    <select id="selectNoticeList" resultMap="NoticeResultMap">
+        SELECT CS_NO, CS_SUBEJECT,USER_NAME, CS_DATE FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 ORDER BY ROWNUM DESC
+    </select>
+
+</mapper>
