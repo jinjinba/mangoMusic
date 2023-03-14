@@ -1,0 +1,25 @@
+{{>layouts/sidebar}}
+<link rel="stylesheet" href="css/notice.css" />
+<main>
+
+    <div id="main-all">
+        <div class="main-header">
+            <h2>공지사항</h2>
+            <hr>
+        </div>
+        <form action="/notice_wr">
+            <div class="main-body">
+                <ul>
+                    <li>
+                        <label>제목 :</label>
+                        <input type="text" name="csSubject" placeholder="제목을 입력해주세요.">
+                    </li>
+                    <li>
+                        <textarea id="story" name="story" rows="5" cols="33" placeholder="내용을 입력해주세요.">
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</main>
+{{>layouts/footer}}
