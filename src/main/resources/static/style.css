@@ -5,6 +5,16 @@ font-size: 16px;
 font-family: "Roboto", sans-serif;
 
 } */
+.navbar-custom{
+    height: 103vh;
+}
+#navbar-mypage{
+    height: 103%;
+}
+#d-flex-mypage{
+
+    padding-bottom: 1.5rem;
+}
 .navLogo{
     width: 100%;
 }
