@@ -121,7 +121,7 @@
 <br>
 <h2>회원 검색</h2>
 <br>
-
+<input type="hidden" id="userNo" value="{{loginUser.userNo}}">
 <div id="main1">
     <form id="search" action="/userList" method="get">
         <input type="text" name="searchValue" value="" style="width: 300px; height: 30px">
@@ -138,9 +138,10 @@
             </tr>
             {{#user}}
                 <tr id="user-tr">
-                    <td>{{userId}}</td>
+                    <input type="hidden" id="followNo" value="{{userNo}}" >
+                    <td id="followNo">{{userId}}</td>
                     <td>{{userName}}</td>
-                    <td><input type="button" id="follow-btn" value="팔로우" onclick="location.href='/userFollow?userNo={{userNo}}'"></td>
+                    <td><input type="button" id="follow-btn" value="팔로우" onclick="followUserFunc()"></td>
                 </tr>
             {{/user}}
         </table>
@@ -150,5 +151,25 @@
 <div id="button-area">
     <p id="input"><input type="button" value="닫기" onclick="self.close()"></p>
 </div>
+
+<script>
+    function followUserFunc() {
+        const followData = {
+            "followNo" : parseInt($('#followNo').val()),
+            "userNo" : parseInt($('#userNo').val())
+        };
+        $.ajax(
+                {
+                    type: "POST",
+                    url: "/ajaxFollowUser",
+                    data: followData,
+                    success: function (data) {
+                        $('#follow-btn').val('팔로우');
+                        $('#follow-btn').css("background",'pink');
+                    }
+                }
+        )
+    }
+</script>
 </body>
 </html>
