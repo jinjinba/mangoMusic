@@ -75,10 +75,13 @@ document.getElementById('popup_open_btn-2').addEventListener('click', function (
 });
 
 function pointAddFunc() {
-    const pointData = {
+    let pointData = {
         "userNo": parseInt($('.userNo').val()),
-        "pointVal": parseInt($('#point-add-input').val())
+        "pointVal": parseInt($('#point-add-input').val()),
     };
+    if(pointData.pointVal < 0){
+        pointData = null;
+    }
     $.ajax(
         {
             type: "POST",
@@ -86,6 +89,9 @@ function pointAddFunc() {
             data: pointData,
             success: function (data) {
                 $('.point-val-re').text(data.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+            },
+            error : function(){
+                alert("올바른 값을 입력해주세요.");
             }
         }
     )
@@ -93,10 +99,14 @@ function pointAddFunc() {
 }
 
 function pointRefundFunc() {
-    const pointData = {
+    let pointData = {
         "userNo": parseInt($('.userNo').val()),
-        "pointVal": parseInt($('#point-refund-input').val())
+        "pointVal": parseInt($('#point-refund-input').val()),
+        "pointCurrentVal" : parseInt($('#point-val-current').val())
     };
+    if(pointData.pointVal > pointData.pointCurrentVal){
+        pointData = null;
+    }
     $.ajax(
         {
             type: "POST",
@@ -104,6 +114,14 @@ function pointRefundFunc() {
             data: pointData,
             success: function (data) {
                 $('.point-val-re').text(data.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+            },
+            error: function(request, status, error){
+                if(request.status === 400){
+                    alert("올바른 값을 입력해주세요.");
+                }else if(request.status === 500){
+                    alert("현재 Mango 보다 작은 값을 입력해주세요.");
+                }
+
             }
         }
     )
