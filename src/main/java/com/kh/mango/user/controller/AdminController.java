@@ -6,6 +6,8 @@ import com.kh.mango.point.service.PointService;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +25,8 @@ public class AdminController {
     private PointService pService;
 
     @GetMapping("/admin")
-    public String adminPage(Model model){
-        List<User> userList = uService.selectMember();
+    public String adminPage(Model model, @PageableDefault(page=0, size = 10) Pageable pageable){
+        List<User> userList = uService.selectMember(pageable);
         int adminPoint = uService.addAllPoint();
         model.addAttribute("user",userList);
         model.addAttribute("adminPoint",adminPoint);

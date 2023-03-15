@@ -1,14 +1,12 @@
 package com.kh.mango.user.store.logic;
 
-import com.kh.mango.message.domain.Message;
-import com.kh.mango.point.domain.AdminPoint;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 import com.kh.mango.user.store.UserStore;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,7 +41,7 @@ public class UserStoreLogic implements UserStore {
     }
 
     @Override
-    public List<User> selectMember() {
+    public List<User> selectMember(Pageable pageable) {
         List<User> userList = sqlSession.selectList("UserMapper.test");
         return userList;
     }

@@ -9,6 +9,7 @@ import com.kh.mango.user.store.UserStore;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -94,8 +95,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<User> selectMember() {
-        List<User> userList = uStore.selectMember();
+    public List<User> selectMember(Pageable pageable) {
+        List<User> userList = uStore.selectMember(pageable);
         return userList;
     }
 
