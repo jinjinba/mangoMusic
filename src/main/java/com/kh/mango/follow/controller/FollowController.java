@@ -30,9 +30,13 @@ public class FollowController {
     }
 
     @GetMapping("/userList")
-    public String userList(@RequestParam("searchValue") String searchValue, Model model) {
+    public String userList(@RequestParam("searchValue") String searchValue
+            , @SessionAttribute("loginUser") User user
+            , Model model) {
         List<User> searchList = uService.searchUser(searchValue);
+        List<Follow> followList = followService.followingUser(user.getUserNo());
         model.addAttribute("user",searchList);
+        model.addAttribute("followList", followList);
         return "userList";
     }
 
@@ -51,9 +55,11 @@ public class FollowController {
 
     @PostMapping("/ajaxFollowUser")
     @ResponseBody
-    public String ajaxFollowUser(@SessionAttribute("loginUser") User user
+    public String ajaxFollowUser(
+            //@SessionAttribute("loginUser") User user
+             int userNo
             , int followNo){
-        Follow followUser = new Follow(user.getUserNo(), followNo);
+        Follow followUser = new Follow(userNo, followNo);
         int result = followService.followUser(followUser);
         if(result > 0) {
             return "/userSearch";

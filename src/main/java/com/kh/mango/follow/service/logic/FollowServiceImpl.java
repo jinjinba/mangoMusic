@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FollowServiceImpl implements FollowService {
 
@@ -22,4 +24,11 @@ public class FollowServiceImpl implements FollowService {
         int result = followStore.followUser(followUser);
         return result;
     }
+
+    @Override
+    public List<Follow> followingUser(int userNo) {
+        return followStore.followingUser(userNo);
+    }
+
+
 }

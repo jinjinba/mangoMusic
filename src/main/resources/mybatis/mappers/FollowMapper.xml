@@ -5,4 +5,8 @@
     <insert id="insertFollowUser">
         INSERT INTO FOLLOW_TBL VALUES(#{followNo},#{userNo})
     </insert>
+
+    <select id="followingUserList" resultType="com.kh.mango.follow.domain.Follow">
+        SELECT USER_NO FROM FOLLOW_TBL WHERE FOLLOW_NO= #{userNo}
+    </select>
 </mapper>

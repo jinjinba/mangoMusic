@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class FollowStoreLogic implements FollowStore {
 
@@ -18,4 +20,11 @@ public class FollowStoreLogic implements FollowStore {
         int result = sqlSession.insert("FollowMapper.insertFollowUser", followUser);
         return result;
     }
+
+    @Override
+    public List<Follow> followingUser(int userNo) {
+        return sqlSession.selectList("FollowMapper.followingUserList", userNo);
+    }
+
+
 }
