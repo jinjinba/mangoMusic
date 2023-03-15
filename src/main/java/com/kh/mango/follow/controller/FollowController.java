@@ -55,6 +55,7 @@ public class FollowController {
             , int followNo){
         Follow followUser = new Follow(user.getUserNo(), followNo);
         int result = followService.followUser(followUser);
+
         if(result > 0) {
             return "/userSearch";
         } else {

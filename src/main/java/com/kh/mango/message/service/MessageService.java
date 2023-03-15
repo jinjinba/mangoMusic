@@ -1,9 +1,9 @@
 package com.kh.mango.message.service;
 
-import com.kh.mango.message.domain.Message;
+import com.kh.mango.message.domain.MessageList;
 
 import java.util.List;
 
 public interface MessageService {
-    List<Message> selectMessageList(int userNo);
+    List<MessageList> selectMessageList(int userNo);
 }

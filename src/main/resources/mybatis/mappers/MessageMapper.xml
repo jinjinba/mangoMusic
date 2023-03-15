@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MessageMapper">
+    <resultMap id="selectMessageResultMap" type="com.kh.mango.message.domain.MessageList">
+        <id column="MSG_NO" property="msgNo"/>
+        <result column="MSG_CONTENT" property="msgContent"/>
+        <result column="MSG_DATE" property="msgDate"/>
+        <result column="USER_NO_SEND" property="userNoSend"/>
+        <result column="USER_NO_RECEIVE" property="userNoReceive"/>
+        <result column="USER_NAME" property="userName"/>
+    </resultMap>
 
-    <select id="selectMessageList" resultType="com.kh.mango.message.domain.Message">
-        SELECT * FROM MSG_TBL WHERE USER_NO_RECEIVE = #{userNo} ORDER BY MSG_NO DESC
+    <select id="selectMessageList" resultMap="selectMessageResultMap">
+        SELECT DISTINCT USER_NAME, USER_NO_SEND FROM MSG_TBL JOIN USER_TBL ON USER_NO = USER_NO_SEND WHERE MSG_TBL.USER_NO_RECEIVE =  #{userNo}
     </select>
 </mapper>
