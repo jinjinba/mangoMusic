@@ -3,20 +3,16 @@
 <main>
 
     <div id="main-all">
+
         <form action="/notice">
             <div class="main-header">
-                <h2>고객센터</h2>
+                <h2>공지사항</h2>
                 <hr>
             </div>
             <div class="notice_content_container">
                 <aside>
                     <table class="notice_category">
                         <tbody>
-                        <tr style="text-align: center;">
-                            <th>
-                                안내사항
-                            </th>
-                        </tr>
                         <tr>
                             <td class="side_td">
                                 <a href="notice">공지사항</a>
@@ -30,8 +26,8 @@
                         </tbody>
                     </table>
                 </aside>
-                <section class="notice_all_container">
-                    <table class="notice_all"  style="overflow: auto;">
+                <div class="notice_all_container" style="overflow: scroll; height: 600px;">
+                    <table class="notice_all">
                         <tbody>
                         <tr>
                             <th class="table_no">
@@ -53,7 +49,7 @@
                                 {{rowNum}}
                             </td>
                             <td>
-                                <a href="#">{{csSubject}}</a>
+                                <a href="/cDetail?csNo=${{csNo}}">{{csSubject}}</a>
                             </td>
                             <td>
                                 {{userName}}
@@ -65,7 +61,12 @@
                         {{/noticeList}}
                         </tbody>
                     </table>
-                </section>
+                </div>
+
+                <div class="writer_btn">
+                    <button type="button" onclick="location.href = '/notice_wr'">글쓰기</button>
+                </div>
+
             </div>
         </form>
     </div>

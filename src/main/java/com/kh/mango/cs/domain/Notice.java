@@ -12,4 +12,5 @@ public class Notice {
     private String userName;
     private Timestamp csDate;
 
+
 }

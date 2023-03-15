@@ -5,44 +5,67 @@
     <div id="main-all">
         <form action="/notice">
             <div class="main-header">
-                <h2>고객센터</h2>
+                <h2>공지사항</h2>
                 <hr>
             </div>
-            <div class="main-body">
-                <div class="body-top" align="center">
-                    <a class="atag" href="#">공지사항</a>
-                    <a class="atag" href="#">Q & A</a>
-                </div>
-                <div class="body-mid">
-                    <table>
-                        <thead>
-                            <tr class="t-notice">
-                                <th>번호</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성날짜</th>
-                            </tr>
-                        </thead>
+            <div class="notice_content_container">
+                <aside>
+                    <table class="notice_category">
                         <tbody>
-                            {{#cars }}
-                                <a href="http://localhost:8985/detail?">
-                                    <tr class="t-notice">
-                                        <td>{{}}</td>
-                                        <td>{{}}</td>
-                                        <td>{{}}</td>
-                                        <td>{{}}</td>
-                                    </tr>
-                                </a>
-                            {{/cars}}
+                        <tr>
+                            <td class="side_td">
+                                <a href="notice">공지사항</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="side_td">
+                                <a href="Q&A">Q&A</a>
+                            </td>
+                        </tr>
                         </tbody>
-                        <tr align="right">
-                            <td colspan="4">글쓰기</td>
+                    </table>
+                </aside>
+                <div class="notice_all_container" style="overflow: scroll; height: 600px;">
+                    <table class="notice_all">
+                        <tbody>
+                        <tr>
+                            <th class="table_no">
+                                번호
+                            </th>
+                            <th class="table_subject">
+                                제목
+                            </th>
+                            <th class="table_writer">
+                                작성자
+                            </th>
+                            <th class="table_writer">
+                                작성날짜
+                            </th>
                         </tr>
-                        <tr align="center">
-                            <td colspan="4"><a>페이징</a></td>
-                        </tr>
+                        {{#noticeList}}
+                            <tr>
+                                <td>
+                                    {{rowNum}}
+                                </td>
+                                <td>
+                                    <a href="#">{{csSubject}}</a>
+                                </td>
+                                <td>
+                                    {{userName}}
+                                </td>
+                                <td>
+                                    {{csDate}}
+                                </td>
+                            </tr>
+                        {{/noticeList}}
+                        </tbody>
                     </table>
                 </div>
+
+                <div class="writer_btn">
+                    <button type="button" onclick="location.href = '#'">글쓰기</button>
+                </div>
+
             </div>
         </form>
     </div>

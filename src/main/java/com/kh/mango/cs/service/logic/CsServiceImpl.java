@@ -26,4 +26,14 @@ public class CsServiceImpl implements CsService {
     public List<Notice> selectNoticeList() {
         return cStore.selectNoticeList(session);
     }
+
+    @Override
+    public int deleteNotice(int csNo) {
+        return cStore.deleteNotice(session, csNo);
+    }
+
+    @Override
+    public Cs selectOneByName(int csNo) {
+        return cStore.selectOneByName(session, csNo);
+    }
 }

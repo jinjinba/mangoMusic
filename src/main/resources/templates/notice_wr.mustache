@@ -1,5 +1,5 @@
 {{>layouts/sidebar}}
-<link rel="stylesheet" href="css/notice.css" />
+<link rel="stylesheet" href="css/notice_wr.css" />
 <main>
 
     <div id="main-all">
@@ -7,19 +7,28 @@
             <h2>공지사항</h2>
             <hr>
         </div>
-        <form action="/notice_wr">
-            <div class="main-body">
-                <ul>
-                    <li>
-                        <label>제목 :</label>
-                        <input type="text" name="csSubject" placeholder="제목을 입력해주세요.">
-                    </li>
-                    <li>
-                        <textarea id="story" name="story" rows="5" cols="33" placeholder="내용을 입력해주세요.">
-                    </li>
-                </ul>
-            </div>
-        </form>
+        <div class="main-body">
+            <form action="/notice_wr">
+                <div class="writer">
+                    <ul>
+                        <li>
+                            <label>제목 :</label>
+                            <input type="text" name="csSubject" placeholder="제목을 입력해주세요.">
+                        </li>
+<!--                        <li>-->
+<!--                            <label>작성자 :</label>-->
+<!--                            <input type="text" name="userName">-->
+<!--                        </li>-->
+                        <li>
+                            <textarea id="story" name="csContent" rows="30" cols="200" placeholder="내용을 입력해주세요."></textarea>
+                        </li>
+                    </ul>
+                    <div class="btn">
+                        <input type="submit" value="등록하기">
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </main>
 {{>layouts/footer}}
