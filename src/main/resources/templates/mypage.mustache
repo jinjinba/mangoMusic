@@ -11,12 +11,15 @@
         <div class="d-flex align-items-center" id="rightnav">
             <div style="margin-right: 1rem; display: flex" class="message">
                 <div class="msg-area" id="msg-box">
-                    <ul>
+                    <div class="msg-user-list">
+                    <ul id="msg-ul">
                     </ul>
-                    {{^msgNo}}
-                        <span>새로운 메시지가 없습니다.</span>
-                    {{/msgNo}}
+                    </div>
+                    <div style=" background-color: rgba(255, 255, 255, 0.5);">
+                    <div class="msg-content-box">
 
+                    </div>
+                    </div>
                 </div>
                 <button type="button" class="msg-toggle-btn" id="msg-btn" onclick="msgToggle();"></button>
             </div>
@@ -67,6 +70,7 @@
                         <button type="button" id="modal_close_btn" class="add-btn">닫기</button>
                     </div>
                 </div>
+
                 <!--            출금모달    -->
                 <div id="my_modal-2" class="my_modal_all">
                     <h2 style="color:white;">포인트 출금</h2>

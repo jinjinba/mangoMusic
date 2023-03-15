@@ -18,5 +18,21 @@ public interface CsStore {
 
     int insertCs(SqlSession session, Cs cs);
 
+    /**
+     * 공지사항 리스트
+     * @param session
+     * @return List<Notice>
+     */
     List<Notice> selectNoticeList(SqlSession session);
+
+    /**
+     * 공지사항 삭제
+     * @param session
+     * @param csNo
+     * @return int
+     */
+    int deleteNotice(SqlSession session, int csNo);
+
+    Cs selectOneByName(SqlSession session, int csNo);
+
 }

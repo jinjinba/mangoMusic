@@ -68,12 +68,14 @@ Element.prototype.setStyle = function (styles) {
 document.getElementById('popup_open_btn').addEventListener('click', function () {
     // 모달창 띄우기
     modal('my_modal');
+    $('#point-add-input').val('');
 });
 document.getElementById('popup_open_btn-2').addEventListener('click', function () {
     // 모달창 띄우기
     modal('my_modal-2');
-});
+    $('#point-refund-input').val('');
 
+});
 function pointAddFunc() {
     let pointData = {
         "userNo": parseInt($('.userNo').val()),
@@ -85,7 +87,7 @@ function pointAddFunc() {
     $.ajax(
         {
             type: "POST",
-            url: "/ajaxFollowUser",
+            url: "/ajaxAddPoint",
             data: pointData,
             success: function (data) {
                 $('.point-val-re').text(data.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
@@ -125,28 +127,40 @@ function pointRefundFunc() {
             }
         }
     )
-    $('#modal_close_btn').trigger("click");
-}
+    $('.add-btn')[3].click();
 
+}
 const msgBtn = $('#msg-btn');
 const msgBox = $('#msg-box');
 const msgObj = { "userNo": parseInt($('.userNo').val()) }
 function msgToggle(){
    msgBox.toggle('active');
-   $.ajax(
-       {
-           type:"POST",
-           url: "/ajaxMessage",
-           data: msgObj,
-           success:function(data){
-
-           },
-           error : function(request, status, error ){
-               alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
-           }
-       }
-   )
 }
+window.onload = function(){
+    $.ajax(
+        {
+            type:"POST",
+            url: "/ajaxMessage",
+            data: msgObj,
+            success:function(data){
+                let msgList = JSON.parse(data);
+                if(msgList.length > 0){
+                    for(var i = 0; i< msgList.length; i++){
+                        $('#msg-ul').append("<li>" + msgList[i].userName + "</li> <input type='hidden' value='"+msgList[i].userNoSend+"'>");
+                    }
+                }else {
+                    $('#msg-ul').append("<li>메시지가 없습니다.</li>");
+                }
+                console.log([0].msgContent);
+
+            },
+            error : function(request, status, error ){
+                alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+            }
+        }
+    )
+}
+
 
 // 음악 정보 api 로 가져오기
 

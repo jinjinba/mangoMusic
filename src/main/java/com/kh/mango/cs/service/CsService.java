@@ -14,5 +14,16 @@ public interface CsService {
      */
     int insertCs(Cs cs);
 
+    /**
+     * 공지사항 리스트
+     * @return List<Notice>
+     */
     List<Notice> selectNoticeList();
+
+    // 공지사항 삭제
+    int deleteNotice(int csNo);
+
+    // 공지사항 상세
+    Cs selectOneByName(int csNo);
+
 }

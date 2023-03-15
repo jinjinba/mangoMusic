@@ -1,6 +1,6 @@
 package com.kh.mango.message.store.logic;
 
-import com.kh.mango.message.domain.Message;
+import com.kh.mango.message.domain.MessageList;
 import com.kh.mango.message.store.MessageStore;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ public class MessageStoreLogic implements MessageStore {
     private SqlSession session;
 
     @Override
-    public List<Message> selectMessageList(int userNo) {
+    public List<MessageList> selectMessageList(int userNo) {
         return session.selectList("MessageMapper.selectMessageList",userNo);
     }
 }
