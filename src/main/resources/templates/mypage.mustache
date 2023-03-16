@@ -11,13 +11,16 @@
         <div class="d-flex align-items-center" id="rightnav">
             <div style="margin-right: 1rem; display: flex" class="message">
                 <div class="msg-area" id="msg-box">
-                    <div class="msg-user-list">
-                    <ul id="msg-ul">
-                    </ul>
-                    </div>
-                    <div style=" background-color: rgba(255, 255, 255, 0.5);">
-                    <div class="msg-content-box">
+                    <div class="msg-user-list-box">
+                        <div class="msg-user-list">
+                        <ul id="msg-ul">
+                        </ul>
+                        </div>
 
+                        <div class="new-msg-user-list">새로운 메시지</div>
+                    </div>
+                    <div class="msg-content-box" >
+                        <div style="background-color: white; width: 100%; height: 100%; opacity: 0.5;">
                     </div>
                     </div>
                 </div>
@@ -93,6 +96,9 @@
 
                 <div id="Accordion_wrap">
                     <div class="que">
+                        <button type="button"
+                                onclick="window.open('/userSearch','','top=0, left=700, width=500, height=600')">검색
+                        </button>
                         <span>팔로우 목록</span>
                         <div class="arrow-wrap">
                             <span class="arrow-top">-</span>
@@ -110,9 +116,7 @@
                                 </tr>
                             {{/followers}}
                         </table>
-                        <button type="button"
-                                onclick="window.open('/userSearch','','top=0, left=700, width=500, height=600')">검색
-                        </button>
+
                     </div>
                     <div class="que">
                         <span>거래목록</span>
