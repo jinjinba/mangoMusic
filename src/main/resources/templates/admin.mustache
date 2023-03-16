@@ -40,25 +40,29 @@
             <div id="main1">
                 <div id="submit">회원 목록</div>
                 <form action="/admin/search.do" method="get">
-                    <input type="text" name="searchValue" placeholder="검색어 입력" style="width: 300px; height: 30px">
-                    <input type="submit" value="검색">
+                    <input type="text" id="search-input" name="searchValue" placeholder="검색어 입력" style="width: 300px; height: 30px">
+                    <input type="submit" value="검색" id="searchUserList">
                 </form>
                 <div id="user-list">
-                    <table class="table" style="color: #b6b6b6">
+                    <table class="table table-sm" style="color: #b6b6b6; font-size : 16px">
+                        <thead class="thead-light">
                         <tr>
                             <th>아이디</th>
                             <th>이름</th>
+                            <th>이메일</th>
                         </tr>
+                        </thead>
                         {{#user}}
                         <tr id="user-tr" onclick="window.open('/admin/userInfo?userNo={{userNo}}','','top=0, left=700, width=500, height=600')" style="cursor: pointer;">
                             <td>{{userId}}</td>
                             <td>{{userName}}</td>
+                            <td>{{userEmail}}</td>
                         </tr>
                         {{/user}}
                         <tr align="center">
-                            <td colspan="2">
-                                <a href="/admin?page=1">Previous</a>&nbsp;&nbsp;&nbsp;
-                                <a href="/admin?page=2">Next</a>
+                            <td colspan="3">
+                                <a href="/admin?page={{page}}">Previous</a>&nbsp;&nbsp;&nbsp;
+                                <a href="/admin?page={{page}}">Next</a>
                             </td>
                         </tr>
                     </table>
@@ -66,7 +70,7 @@
             </div>
             <div id="main2">
                 <div id="main2-1">
-                    전체 포인트 내역 <br>
+                    전체 포인트<br>
                     <div id="point">
                         <input type="hidden" value="{{adminPoint}}" class="point-val">
                         <div class="point-value">
@@ -101,6 +105,29 @@
     //  포인트 잔량 정규 표현식
     var pointVal = document.querySelector(".point-val").value;
     document.querySelector(".point-val-re").innerHTML = pointVal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+
+
+    // 회원 검색 목록 ajax로 구현하기
+    $("#searchUserList").click(function () {
+
+        const searchData = {
+            "searchValue" : $("#search-input").val()
+        };
+
+        $.ajax(
+                {
+                    type: "GET",
+                    url: "/ajaxSearchUser",
+                    data: searchData,
+                    success: function (data) {
+                        //결과값 넣기
+                        // $(obj).val('팔로잉');
+
+                    }
+                }
+        )
+
+    })
 
 </script>
 {{>layouts/footer}}

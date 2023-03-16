@@ -15,7 +15,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String adminPage(Model model
-               , @RequestParam(value = "page", required = false, defaultValue = "1") Integer page           ){
+               , @RequestParam(value = "page", required = false, defaultValue = "1") Integer page){
         int totalCount = uService.getListCount();
         PageInfo pi = this.getPageInfo(page, totalCount);
         List<User> userList = uService.selectMember(pi);
@@ -40,12 +42,13 @@ public class AdminController {
         model.addAttribute("pi", pi);
         model.addAttribute("user",userList);
         model.addAttribute("adminPoint",adminPoint);
+        model.addAttribute("page", page);
         return "admin";
     }
 
     private PageInfo getPageInfo(int currentPage, int totalCount) {
         PageInfo pi = null;
-        int boardLimit = 10;
+        int boardLimit = 15;
         int naviLimit = 5;
         int maxPage;
         int startNavi;
@@ -62,14 +65,14 @@ public class AdminController {
 
     }
 
-    @GetMapping("/admin/search.do")
-    public String userSearchView(@RequestParam("searchValue") String searchValue, Model model) {
-        List<User> searchList = uService.searchUser(searchValue);
-        int adminPoint = uService.addAllPoint();
-        model.addAttribute("user",searchList);
-        model.addAttribute("adminPoint",adminPoint);
-        return "admins";
-    }
+//    @GetMapping("/admin/search.do")
+//    public String userSearchView(@RequestParam("searchValue") String searchValue, Model model) {
+//        List<User> searchList = uService.searchUser(searchValue);
+//        int adminPoint = uService.addAllPoint();
+//        model.addAttribute("user",searchList);
+//        model.addAttribute("adminPoint",adminPoint);
+//        return "admins";
+//    }
 
     @GetMapping("/admin/userInfo")
     public String userInfoView(@RequestParam("userNo") int userNo, Model model) {
@@ -83,6 +86,13 @@ public class AdminController {
         List<User> recordList = pService.allPointList();
         model.addAttribute("recordList", recordList);
         return "allPointRecordList";
+    }
+
+    @PostMapping("/ajaxSearchUser")
+    @ResponseBody
+    public List<User> searchUserList(String searchValue) {
+        List<User> searchList = uService.searchUser(searchValue);
+        return searchList;
     }
 
 }

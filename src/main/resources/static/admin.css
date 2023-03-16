@@ -10,7 +10,6 @@ font-family: "Roboto", sans-serif;
 body {
     color: #a5a5a7;
     background-color: #343a40;
-    font-family: "Roboto", sans-serif;
     background-image: linear-gradient(to top,
     #121212,
     #121212,
@@ -435,7 +434,7 @@ a {
     width: 100%;
     height:100px;
     color: #ffffff;
-    font-size: 50px;
+    font-size: 40px;
 }
 #admin_page {
     padding-left: 30px;
