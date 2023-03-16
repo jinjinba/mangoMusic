@@ -146,7 +146,7 @@ window.onload = function(){
                 let msgList = JSON.parse(data);
                 if(msgList.length > 0){
                     for(var i = 0; i< msgList.length; i++){
-                        $('#msg-ul').append("<li>" + msgList[i].userName + "</li> <input type='hidden' value='"+msgList[i].userNoSend+"'>");
+                        $('#msg-ul').append("<button type='button' style='border:none; background-color: transparent' onclick='msg_user"+i+"()'><li>" + msgList[i].userName + "</li> <input type='hidden' value='"+msgList[i].userNoSend+"'></button>");
                     }
                 }else {
                     $('#msg-ul').append("<li>메시지가 없습니다.</li>");
@@ -161,6 +161,9 @@ window.onload = function(){
     )
 }
 
+function msg_user0(){
+    alert("");
+}
 
 // 음악 정보 api 로 가져오기
 

@@ -142,7 +142,12 @@
                     <input type="hidden" id="followNo" value="{{userNo}}" >
                     <td id="followId">{{userId}}</td>
                     <td>{{userName}}</td>
-                    <td><input type="button" id="follow-btn" value="팔로우" onclick="followUserFunc(this)"></td>
+                    {{#userNo}}
+                        <td><input type="button" id="follow-btn" value="팔로우" onclick="followUserFunc(this)"></td>
+                    {{/userNo}}
+                    {{^followNo}}
+                        <td><input type="button" id="follow-btn" value="팔로우" onclick="followUserFunc(this)"></td>
+                    {{/followNo}}
                 </tr>
             {{/user}}
         </table>
