@@ -171,9 +171,12 @@ $('.new-msg-user-list').click(function(){
     var msgBox = $('.msg-content-box');
     msgBox.css("display","none");
     msgBox.after('<div class="msg-user-search-box"><input type="text" class="msg-user-search-bar"  placeholder="검색 할 아이디를 입력해주세요..." onkeyup="msgUserSearchFunc()"></div>');
+    var msgSearchBox = $('.msg-user-search-box');
+    msgSearchBox.append("<ul class='msg-search-box-ul'></ul>");
+    console.log("이게 왜작동됨?0");
 });
 function msgUserSearchFunc(){
-        var word =  $('.msg-user-search-bar').val();
+        var word = $('.msg-user-search-bar').val();
             $.ajax({
                 url : "/ajaxMsgUserSearch",
                 type: "POST",
@@ -183,10 +186,8 @@ function msgUserSearchFunc(){
                 dataType: 'json',
                 success:function(data){
                     console.log(data);
-                    var msgSearchBox = $('.msg-user-search-box');
-                    msgSearchBox.append("<ul class='msg-search-box-ul'></ul>");
+                    var str = '';
                     if(data.length > 0) {
-                        var str = '';
                         for (var i = 0; i < data.length; i++) {
                             str += "<li>" + data[i].userName + "</li>";
                         }

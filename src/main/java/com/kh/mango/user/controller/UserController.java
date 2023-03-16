@@ -189,7 +189,10 @@ public class UserController {
     @PostMapping("/ajaxMsgUserSearch")
     @ResponseBody
     public String ajaxMsgUserSearch(String userId){
-        List<UserSearch> userList = uService.selectUserList(userId);
+        List<UserSearch> userList = null;
+        if(userId != null) {
+            userList = uService.selectUserList(userId);
+        }
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = "";
 
