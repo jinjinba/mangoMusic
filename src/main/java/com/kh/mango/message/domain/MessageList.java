@@ -8,5 +8,5 @@ import java.sql.Timestamp;
 public class MessageList {
 
     private String userName;
-    private int userNoSend;
+    private int sendUserNo;
 }

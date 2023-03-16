@@ -45,4 +45,5 @@ public interface UserService {
     User selectUserPw(User uParam);
 
     int getListCount();
+    List<UserSearch> selectUserList(String userId);
 }

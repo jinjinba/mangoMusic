@@ -5,12 +5,15 @@
         <id column="MSG_NO" property="msgNo"/>
         <result column="MSG_CONTENT" property="msgContent"/>
         <result column="MSG_DATE" property="msgDate"/>
-        <result column="USER_NO_SEND" property="userNoSend"/>
-        <result column="USER_NO_RECEIVE" property="userNoReceive"/>
+        <result column="SEND_USER_NO" property="sendUserNo"/>
+        <result column="RECEIVE_USER_NO" property="receiveUserNo"/>
         <result column="USER_NAME" property="userName"/>
     </resultMap>
 
     <select id="selectMessageList" resultMap="selectMessageResultMap">
-        SELECT DISTINCT USER_NAME, USER_NO_SEND FROM MSG_TBL JOIN USER_TBL ON USER_NO = USER_NO_SEND WHERE MSG_TBL.USER_NO_RECEIVE =  #{userNo}
+        SELECT DISTINCT USER_NAME, SEND_USER_NO FROM MSG_TBL JOIN USER_TBL ON USER_NO = SEND_USER_NO WHERE MSG_TBL.RECEIVE_USER_NO =  #{userNo}
+    </select>
+    <select id="selectMessageListAll" resultType="com.kh.mango.message.domain.Message">
+        SELECT * FROM MSG_TBL WHERE SEND_USER_NO = #{sendUserNo} and RECEIVE_USER_NO = #{receiveUserNo}
     </select>
 </mapper>

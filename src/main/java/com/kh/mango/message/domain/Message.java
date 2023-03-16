@@ -15,7 +15,7 @@ public class Message {
     private int msgNo;
     private String msgContent;
     private Timestamp msgDate;
-    private int userNoSend;
-    private int userNoReceive;
+    private int sendUserNo;
+    private int receiveUserNo;
 
 }

@@ -98,6 +98,10 @@ public class UserServiceImpl implements UserService {
         return uStore.getListCount(session);
     }
 
+    @Override
+    public List<UserSearch> selectUserList(String userId) {
+        return uStore.selectUserList(session,userId);
+    }
 
     @Override
     public List<User> selectMember(PageInfo pi) {

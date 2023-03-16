@@ -1,4 +1,6 @@
-$(".que").click(function() {
+
+
+    $(".que").click(function () {
     $(this).next(".anw").stop().slideToggle(300);
     $(this).toggleClass('on').siblings().removeClass('on');
     $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
@@ -76,12 +78,13 @@ document.getElementById('popup_open_btn-2').addEventListener('click', function (
     $('#point-refund-input').val('');
 
 });
+
 function pointAddFunc() {
     let pointData = {
-        "userNo": parseInt($('.userNo').val()),
+        "userNo": parseInt($('#userNo').val()),
         "pointVal": parseInt($('#point-add-input').val()),
     };
-    if(pointData.pointVal < 0){
+    if (pointData.pointVal < 0) {
         pointData = null;
     }
     $.ajax(
@@ -92,7 +95,7 @@ function pointAddFunc() {
             success: function (data) {
                 $('.point-val-re').text(data.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
             },
-            error : function(){
+            error: function () {
                 alert("올바른 값을 입력해주세요.");
             }
         }
@@ -102,11 +105,11 @@ function pointAddFunc() {
 
 function pointRefundFunc() {
     let pointData = {
-        "userNo": parseInt($('.userNo').val()),
+        "userNo": parseInt($('#userNo').val()),
         "pointVal": parseInt($('#point-refund-input').val()),
-        "pointCurrentVal" : parseInt($('#point-val-current').val())
+        "pointCurrentVal": parseInt($('#point-val-current').val())
     };
-    if(pointData.pointVal > pointData.pointCurrentVal){
+    if (pointData.pointVal > pointData.pointCurrentVal) {
         pointData = null;
     }
     $.ajax(
@@ -117,10 +120,10 @@ function pointRefundFunc() {
             success: function (data) {
                 $('.point-val-re').text(data.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
             },
-            error: function(request, status, error){
-                if(request.status === 400){
+            error: function (request, status, error) {
+                if (request.status === 400) {
                     alert("올바른 값을 입력해주세요.");
-                }else if(request.status === 500){
+                } else if (request.status === 500) {
                     alert("현재 Mango 보다 작은 값을 입력해주세요.");
                 }
 
@@ -130,39 +133,97 @@ function pointRefundFunc() {
     $('.add-btn')[3].click();
 
 }
+
 const msgBtn = $('#msg-btn');
 const msgBox = $('#msg-box');
-const msgObj = { "userNo": parseInt($('.userNo').val()) }
-function msgToggle(){
-   msgBox.toggle('active');
+const msgObj = {"userNo": parseInt($('#userNo').val())}
+
+function msgToggle() {
+    msgBox.toggle('active');
 }
-window.onload = function(){
+
+window.onload = function () {
     $.ajax(
         {
-            type:"POST",
+            type: "POST",
             url: "/ajaxMessage",
             data: msgObj,
-            success:function(data){
+            success: function (data) {
                 let msgList = JSON.parse(data);
-                if(msgList.length > 0){
-                    for(var i = 0; i< msgList.length; i++){
-                        $('#msg-ul').append("<button type='button' style='border:none; background-color: transparent' onclick='msg_user"+i+"()'><li>" + msgList[i].userName + "</li> <input type='hidden' value='"+msgList[i].userNoSend+"'></button>");
+                if (msgList.length > 0) {
+                    for (var i = 0; i < msgList.length; i++) {
+                        $('#msg-ul').append("<button type='button' style='border:none; background-color: transparent' onclick='msg_user(" + i + ")'><li>" + msgList[i].userName + "</li> <input type='hidden' value='" + msgList[i].sendUserNo + "' id='send_user_" + i + "'></button><br>");
                     }
-                }else {
-                    $('#msg-ul').append("<li>메시지가 없습니다.</li>");
+                } else {
+                    // $('#msg-ul').append("<li>메시지가 없습니다.</li>");
                 }
                 console.log([0].msgContent);
 
             },
-            error : function(request, status, error ){
+            error: function (request, status, error) {
                 alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
             }
         }
     )
 }
 
-function msg_user0(){
-    alert("");
+$('.new-msg-user-list').click(function(){
+    var msgBox = $('.msg-content-box');
+    msgBox.css("display","none");
+    msgBox.after('<div class="msg-user-search-box"><input type="text" class="msg-user-search-bar"  placeholder="검색 할 아이디를 입력해주세요..." onkeyup="msgUserSearchFunc()"></div>');
+});
+function msgUserSearchFunc(){
+        var word =  $('.msg-user-search-bar').val();
+            $.ajax({
+                url : "/ajaxMsgUserSearch",
+                type: "POST",
+                data:{
+                    "userId" : word
+                },
+                dataType: 'json',
+                success:function(data){
+                    console.log(data);
+                    var msgSearchBox = $('.msg-user-search-box');
+                    msgSearchBox.append("<ul class='msg-search-box-ul'></ul>");
+                    if(data.length > 0) {
+                        var str = '';
+                        for (var i = 0; i < data.length; i++) {
+                            str += "<li>" + data[i].userName + "</li>";
+                        }
+                        $('.msg-search-box-ul').html(str);
+                    }else {
+                        $('.msg-search-box-ul').html(str);
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+                }
+            });
+
+
+}
+// function msg_user(i) {
+//     const test = {
+//         "sendUserNo" : $('#send_user_1').val(),
+//         "receiveUserNo": $('#userNo').val()
+//     };
+//     $.ajax(
+//         {
+//             type: "POST",
+//             url: "/ajaxMsgUser",
+//             data: test,
+//             success : function (data) {
+//                 console.log(JSON.parse(data));
+//             },
+//             error: function (request, status, error) {
+//                 alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+//             }
+//         }
+//     )
+// }
+
+function msg_btn() {
+    $.ajax({})
 }
 
 // 음악 정보 api 로 가져오기

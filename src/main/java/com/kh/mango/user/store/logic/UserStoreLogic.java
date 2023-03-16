@@ -106,6 +106,10 @@ public class UserStoreLogic implements UserStore {
         return session.selectOne("UserMapper.getListCount");
     }
 
+    @Override
+    public List<UserSearch> selectUserList(SqlSession session, String userId) {
+        return session.selectList("UserMapper.selectUserList",userId);
+    }
 
     @Override
     public User selectOneByNumber(int userNo) {

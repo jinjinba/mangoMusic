@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400&display=swap');
+
 .myPageContentContainer {
     height: 500px;
     border-bottom: 1px solid #ccc;
@@ -298,9 +300,10 @@ tr:hover {
     top: 280px;
     z-index: 9999999999;
     border-radius: 25px;
-    display: none;
+    display: block;
     overflow: auto;
     border: 1px solid #ccc;
+    flex-direction: row;
 }
 .msg-area::-webkit-scrollbar{
     width: 0;
@@ -309,9 +312,9 @@ tr:hover {
     display: flex;
     justify-content: center;
 }
-#msg-box{
-    display: flex;
-}
+/*#msg-box{*/
+/*    display: flex;*/
+/*}*/
 .msg-area span{
     opacity: 1;
     font-size: 30px;
@@ -356,18 +359,22 @@ tr:hover {
     background-color: #ccc;
 }
 .msg-user-list-box{
+    width: 29%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    border-right: 1px solid black;
+
 }
 .msg-user-list{
     display: flex;
     justify-content: center;
-    width: 200px;
-    height: 450px;
-    border-right: 1px solid white;
+    width: 100%;
+    height: 90%;
     background-color: white;
     opacity: 1;
     float: left;
+
 }
 
 .msg-user-list::-webkit-scrollbar{
@@ -377,21 +384,81 @@ tr:hover {
 .new-msg-user-list{
     display: flex;
     flex-direction: column;
-    height: 50px;
-    width: 200px;
+    height: 10%;
+    width: 100%;
     text-align: center;
     border-top: 1px solid black;
     background-color: white;
     color: black;
     padding-top: 10px;
     font-weight: bold;
+    float: left;
 }
 .new-msg-user-list:hover{
     background-color: #ccc;
 }
 .msg-content-box{
-    width: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 71%;
     height: 100%;
-    /*background-color: black;*/
-    /*background-color: transparent;*/
+    float: left;
+    background-color: white;
+    flex-direction: column;
+    overflow: auto;
+}
+.msg-box{
+    width: 100%;
+    height: 90%;
+    background-color: white;
+}
+.msg-input-box{
+    width: 100%;
+    height: 10%;
+    /*background-color: #5e0506;*/
+}
+.msg-input{
+    width: 450px;
+    height: 40px;
+    position: relative;
+    border-radius: 25px;
+    left: 16px;
+    /*top: 2px;*/
+    padding-left: 25px;
+    border : 1px solid #ccc;
+}
+.msg-input-btn{
+    position: relative;
+    right:35px;
+    top: 6px;
+    width: 30px;
+    height: 30px;
+    background-image: url("img/msg_send.svg");
+    border: none;
+    background-color: transparent;
+}
+.msg-user-search-box{
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 71%;
+    height: 100%;
+    float: left;
+    background-color: white;
+    flex-direction: column;
+    overflow: auto;
+}
+.msg-user-search-bar{
+    width: 450px;
+    height: 40px;
+    position: relative;
+    border-radius: 25px;
+    left: 16px;
+    top: 10px;
+    padding-left: 25px;
+    border : 1px solid #ccc;
+}
+.msg-search-box-ul{
+    display: block;
+    color: black;
+}
+.msg-search-box-ul li {
+    color: black;
 }

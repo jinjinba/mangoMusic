@@ -1,5 +1,7 @@
 package com.kh.mango.user.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.mango.message.domain.Message;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
@@ -184,6 +186,21 @@ public class UserController {
         return "mypage";
     }
 
+    @PostMapping("/ajaxMsgUserSearch")
+    @ResponseBody
+    public String ajaxMsgUserSearch(String userId){
+        List<UserSearch> userList = uService.selectUserList(userId);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(userList);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+        return jsonString;
+    }
 
 
 }

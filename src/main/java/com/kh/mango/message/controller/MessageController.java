@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.mango.message.domain.Message;
 import com.kh.mango.message.domain.MessageList;
+import com.kh.mango.message.domain.MessageUser;
 import com.kh.mango.message.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class MessageController {
 
     @PostMapping("/ajaxMessage")
     @ResponseBody
-    public ResponseEntity<String> ajaxMessageView(int userNo, Model model){
+    public ResponseEntity<String> ajaxMessageView(int userNo){
         List<MessageList> messages = mService.selectMessageList(userNo);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = "";
@@ -37,5 +38,25 @@ public class MessageController {
 
         return new ResponseEntity<>(jsonString, HttpStatus.OK);
     }
+
+    @PostMapping("/ajaxMsgUser")
+    @ResponseBody
+    public String ajaxMsgUser(int sendUserNo, int receiveUserNo){
+        MessageUser mUser = new MessageUser(sendUserNo,receiveUserNo);
+        List<Message> mList = mService.selectMessageListAll(mUser);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(mList);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+
+        return jsonString;
+    }
+
+
 
 }

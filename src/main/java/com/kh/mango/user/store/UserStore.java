@@ -44,5 +44,6 @@ public interface UserStore {
 
     User selectUserPw(SqlSession session, User uParam);
 
+    List<UserSearch> selectUserList(SqlSession session, String userId);
     int getListCount(SqlSession session);
 }

@@ -83,6 +83,9 @@
     <select id="selectPointRecord" resultType="com.kh.mango.point.domain.PointRecord">
         SELECT * FROM POINT_RECORD_TBL ORDER BY POINT_RECORD_DATE DESC
     </select>
+    <select id="selectUserList" resultType="com.kh.mango.user.domain.UserSearch">
+        SELECT USER_NO, USER_ID, USER_NAME FROM USER_TBL WHERE  ( USER_ID LIKE '%' || #{userId} || '%')
+    </select>
 
     <select id="getListCount" resultType="_int">
         select count(*) from user_tbl

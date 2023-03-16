@@ -1,6 +1,8 @@
 package com.kh.mango.message.service.logic;
 
+import com.kh.mango.message.domain.Message;
 import com.kh.mango.message.domain.MessageList;
+import com.kh.mango.message.domain.MessageUser;
 import com.kh.mango.message.service.MessageService;
 import com.kh.mango.message.store.MessageStore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +18,10 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<MessageList> selectMessageList(int userNo) {
         return mStore.selectMessageList(userNo);
+    }
+
+    @Override
+    public List<Message> selectMessageListAll(MessageUser mUser) {
+        return mStore.selectMessageListAll(mUser);
     }
 }
