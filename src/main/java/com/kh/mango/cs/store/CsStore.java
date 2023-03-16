@@ -2,6 +2,7 @@ package com.kh.mango.cs.store;
 
 import com.kh.mango.cs.domain.Cs;
 import com.kh.mango.cs.domain.Notice;
+import com.kh.mango.cs.domain.nDetail;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -19,6 +20,14 @@ public interface CsStore {
     int insertCs(SqlSession session, Cs cs);
 
     /**
+     * 공지사항 수정
+     * @param session
+     * @param cs
+     * @return int
+     */
+    int updateNotice(SqlSession session, Cs cs);
+
+    /**
      * 공지사항 리스트
      * @param session
      * @return List<Notice>
@@ -33,6 +42,7 @@ public interface CsStore {
      */
     int deleteNotice(SqlSession session, int csNo);
 
-    Cs selectOneByName(SqlSession session, int csNo);
+
+    nDetail selectOneByNo(SqlSession session, int csNo);
 
 }

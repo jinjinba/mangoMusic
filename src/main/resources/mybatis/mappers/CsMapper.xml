@@ -4,22 +4,32 @@
     <resultMap id="NoticeResultMap" type="com.kh.mango.cs.domain.Notice">
         <id property="csNo" column="CS_NO"/>
         <result property="csSubject" column="CS_SUBJECT"/>
-        <result property="csContent" column="CS_CONTENT"/>
         <result property="userName" column="USER_NAME"/>
         <result property="csDate" column="CS_DATE"/>
     </resultMap>
 
+<!--    <resultMap id="nDetailResultMap" type="com.kh.mango.cs.domain.nDetail">-->
+<!--        <id property="csSubject" column="CS_SUBJECT"/>-->
+<!--        <result property="csContent" column="CS_CONTENT"/>-->
+<!--        <result property="userName" column="USER_NAME"/>-->
+<!--        <result property="csDate" column="CS_DATE"/>-->
+<!--    </resultMap>-->
+
+
     <insert id="insertNotice">
-        INSERT INTO CS_TBL VALUES (SEQ_CSNO.NEXTVAL, CS_CATEGORY = 1, #{csSubject}, #{csContent}, DEFAULT, USER_NO = 62)
+        INSERT INTO CS_TBL VALUES (SEQ_CSNO.NEXTVAL, '1', #{csSubject}, #{csContent}, DEFAULT, '62')
     </insert>
+    <update id="updateNotice">
+        UPDATE CS_TBL SET CS_SUBJECT = #{csSubject}, CS_CONTENT = #{csContent} WHERE CS_NO = #{csNo}
+    </update>
     <delete id="deleteNotice">
         DELETE FROM CS_TBL WHERE CS_NO = #{csNo}
     </delete>
     <select id="selectNoticeList" resultMap="NoticeResultMap">
-        SELECT CS_NO, CS_SUBEJECT,USER_NAME, CS_DATE FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 ORDER BY ROWNUM DESC
+        SELECT CS_NO, CS_SUBJECT,USER_NAME, CS_DATE FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 ORDER BY ROWNUM DESC
     </select>
-    <select id="selectOneByName" resultMap="NoticeResultMap">
-        SELECT * FROM CS_TBL WHERE CS_NO = #{csNo}
+    <select id="selectOneByNo" resultType="com.kh.mango.cs.domain.nDetail">
+        SELECT CS_SUBJECT, CS_CONTENT, U.USER_NAME, CS_DATE, CS_NO FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 AND CS_NO = #{csNo}
     </select>
 
 </mapper>

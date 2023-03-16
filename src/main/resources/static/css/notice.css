@@ -1,14 +1,18 @@
 .navbar {
-    margin-right: 32px;
-    margin-top: 20px;
-    border: 1px solid white;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 #main-all {
     height: 100%;
 }
 
 .main-header {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 h2 {
     padding-bottom: 20px;

@@ -2,6 +2,7 @@ package com.kh.mango.cs.service.logic;
 
 import com.kh.mango.cs.domain.Cs;
 import com.kh.mango.cs.domain.Notice;
+import com.kh.mango.cs.domain.nDetail;
 import com.kh.mango.cs.service.CsService;
 import com.kh.mango.cs.store.CsStore;
 import org.apache.ibatis.session.SqlSession;
@@ -23,6 +24,11 @@ public class CsServiceImpl implements CsService {
     }
 
     @Override
+    public int updateNotice(Cs cs) {
+        return cStore.updateNotice(session, cs);
+    }
+
+    @Override
     public List<Notice> selectNoticeList() {
         return cStore.selectNoticeList(session);
     }
@@ -33,7 +39,10 @@ public class CsServiceImpl implements CsService {
     }
 
     @Override
-    public Cs selectOneByName(int csNo) {
-        return cStore.selectOneByName(session, csNo);
+    public nDetail selectOneByNo(int csNo) {
+        return cStore.selectOneByNo(session, csNo);
     }
+
+
+
 }

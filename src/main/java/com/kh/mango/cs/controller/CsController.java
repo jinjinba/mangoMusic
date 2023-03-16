@@ -2,6 +2,7 @@ package com.kh.mango.cs.controller;
 
 import com.kh.mango.cs.domain.Cs;
 import com.kh.mango.cs.domain.Notice;
+import com.kh.mango.cs.domain.nDetail;
 import com.kh.mango.cs.service.CsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,9 @@ public class CsController {
     private CsService cService;
 
     // 공지사항 등록 회면
-    @RequestMapping(value = "/notice_wrView", method = RequestMethod.GET)
+    @RequestMapping(value = "/notice_wr", method = RequestMethod.GET)
     public String notice_wrView(){
-        return "notice_wr";
+        return "/notice_wr";
     }
     // 공지사항 등록
     @RequestMapping(value = "/notice_wr", method = RequestMethod.POST)
@@ -31,24 +32,37 @@ public class CsController {
             , Model model) {
         int result = cService.insertCs(cs);
         if(result > 0) {
-            return "/notice";
+            return "redirect:/notice";
         }else {
-            model.addAttribute("error", "실패");
             return "/notice_wr";
         }
     }
-    // 공지사항 수정
-    @RequestMapping(method = RequestMethod.GET, value = "/nModifyView")
+    // 공지사항 수정 화면
+    @RequestMapping(method = RequestMethod.GET, value = "/noticeModify")
     public String noticeModifyView(
             @RequestParam("csNo") Integer csNo
             , Model model) {
-        Cs cs = cService.selectOneByName(csNo);
+        nDetail cs = cService.selectOneByNo(csNo);
         if(cs != null) {
             model.addAttribute("cs", cs);
-            return "nModify";
+            return "/noticeModify";
         }else {
             model.addAttribute("error", "실패");
-            return "notice";
+            return "/notice";
+        }
+    }
+    // 공지사항 수정
+    @PostMapping(value = "/noticeModify")
+    public String noticeModify(
+            @ModelAttribute Cs cs
+            , Model model
+            , HttpServletRequest request){
+        int result = cService.updateNotice(cs);
+        if(result > 0) {
+            return "redirect:nDetail?csNo="+cs.getCsNo();
+        }else {
+            model.addAttribute("msg", "실패!");
+            return "/noticeModify";
         }
     }
 
@@ -64,18 +78,20 @@ public class CsController {
             noticeList.get(i-1).setRowNum(i);
         }
         model.addAttribute("noticeList",noticeList);
-        return "notice";
+        return "/notice";
     }
 
     // 공지사항 삭제
-    @GetMapping(value = "remove")
-    public String noticeRemove(@RequestParam("csNo") int csNo, Model model) {
+    @GetMapping(value = "/noticeRemove")
+    public String noticeRemove(
+            @RequestParam("csNo") int csNo
+            , Model model) {
         int result = cService.deleteNotice(csNo);
         if(result > 0) {
-            return "notice";
+            return "redirect:/notice";
         }else {
-            model.addAttribute("msg", "실패!");
-            return "nDetail";
+            model.addAttribute("msg", "삭제 실패!");
+            return "/nDetail";
         }
     }
 
@@ -84,9 +100,9 @@ public class CsController {
     public String noticeDetailView(
             @RequestParam("csNo") int csNo
             , Model model){
-            Cs cs = cService.selectOneByName(csNo);
+            nDetail cs = cService.selectOneByNo(csNo);
             model.addAttribute("cs", cs);
-            return "cDetail";
+            return "/nDetail";
     }
 
 }

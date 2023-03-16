@@ -1,10 +1,44 @@
 {{>layouts/sidebar}}
 <link rel="stylesheet" href="css/notice.css" />
 <main>
+    <nav class="navbar sticky-top mb-3" id="navbar-mypage">
+        <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
+            <div class="d-flex"></div>
+            <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
+        </div>
 
+        <div class="d-flex align-items-center" id="rightnav">
+            <div style="margin-right: 1rem">
+            </div>
+            {{#loginUser}}
+                <div class="dropdown" id="myPageDropDown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                        <!-- 유저 이미지 -->
+                        <img src="../img/abstract-user-flat-3.svg"
+                             style="width: 30px; height: 30px; border-radius: 50%" />
+                        <!-- 유저이름 -->
+                        &nbsp;&nbsp;{{userName}}&nbsp;&nbsp;
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        {{#loginUser.userType}}
+                            <li><a class="dropdown-item" href="/admin">관리자페이지</a></li>
+                        {{/loginUser.userType}}
+                        {{^loginUser.userType}}
+                            <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        {{/loginUser.userType}}
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            {{/loginUser}}
+            {{^loginUser}}
+                <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2" >로그인</button>
+            {{/loginUser}}
+        </div>
+    </nav>
     <div id="main-all">
 
-        <form action="/notice">
+
             <div class="main-header">
                 <h2>공지사항</h2>
                 <hr>
@@ -26,6 +60,7 @@
                         </tbody>
                     </table>
                 </aside>
+                <form action="/notice">
                 <div class="notice_all_container" style="overflow: scroll; height: 600px;">
                     <table class="notice_all">
                         <tbody>
@@ -49,7 +84,7 @@
                                 {{rowNum}}
                             </td>
                             <td>
-                                <a href="/cDetail?csNo=${{csNo}}">{{csSubject}}</a>
+                                <a href="/nDetail?csNo={{csNo}}">{{csSubject}}</a>
                             </td>
                             <td>
                                 {{userName}}
@@ -62,13 +97,15 @@
                         </tbody>
                     </table>
                 </div>
-
-                <div class="writer_btn">
-                    <button type="button" onclick="location.href = '/notice_wr'">글쓰기</button>
-                </div>
-
+                </form>
+                <form action="/notice_wr">
+                    <div class="writer_btn">
+                        {{#loginUser.userType}}
+                            <button type="button" onclick="location.href = '/notice_wr'">글쓰기</button>
+                        {{/loginUser.userType}}
+                    </div>
+                </form>
             </div>
-        </form>
     </div>
 </main>
 {{>layouts/footer}}

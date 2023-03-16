@@ -13,4 +13,5 @@ public class Notice {
     private Timestamp csDate;
 
 
+
 }
