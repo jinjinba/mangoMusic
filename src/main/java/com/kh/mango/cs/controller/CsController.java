@@ -54,9 +54,15 @@ public class CsController {
     // 공지사항 수정
     @PostMapping(value = "/noticeModify")
     public String noticeModify(
-            @ModelAttribute Cs cs
+            String csSubject
+            , String csContent
+            ,@ModelAttribute Cs cs
             , Model model
             , HttpServletRequest request){
+        cs.setCsSubject(csSubject);
+        cs.setCsContent(csContent);
+        System.out.println(cs);
+
         int result = cService.updateNotice(cs);
         if(result > 0) {
             return "redirect:nDetail?csNo="+cs.getCsNo();
