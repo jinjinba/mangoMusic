@@ -65,7 +65,7 @@
     </select>
 
     <select id="searchUser" resultType="com.kh.mango.user.domain.User">
-        SELECT * FROM USER_TBL WHERE USER_ID LIKE '%' || #{searchValue} ||'%' or USER_NAME LIKE '%' || #{searchValue} ||'%'
+        SELECT * FROM USER_TBL WHERE (USER_ID LIKE '%' || #{searchValue} ||'%' or USER_NAME LIKE '%' || #{searchValue} ||'%')
     </select>
     <select id="selectFollowers" resultMap="myPageFollowersResultMap">
         SELECT F.FOLLOW_NO, U.USER_NO, U.USER_ID, U.USER_NAME, U.USER_GENDER  FROM USER_TBL U, FOLLOW_TBL F WHERE F.FOLLOW_NO = #{userNo} AND F.USER_NO = U.USER_NO
@@ -82,6 +82,10 @@
     </select>
     <select id="selectPointRecord" resultType="com.kh.mango.point.domain.PointRecord">
         SELECT * FROM POINT_RECORD_TBL ORDER BY POINT_RECORD_DATE DESC
+    </select>
+
+    <select id="getListCount" resultType="_int">
+        select count(*) from user_tbl
     </select>
 
 </mapper>

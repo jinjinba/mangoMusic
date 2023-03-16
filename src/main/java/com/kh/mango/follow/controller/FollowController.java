@@ -1,6 +1,7 @@
 package com.kh.mango.follow.controller;
 
 import com.kh.mango.follow.domain.Follow;
+import com.kh.mango.follow.domain.SearchUser;
 import com.kh.mango.follow.service.FollowService;
 import com.kh.mango.point.domain.Point;
 import com.kh.mango.user.domain.User;
@@ -29,16 +30,33 @@ public class FollowController {
         return "userSearch";
     }
 
+//    @GetMapping("/userList")
+//    public String userList(@RequestParam("searchValue") String searchValue
+//            , @SessionAttribute("loginUser") User user
+//            , Model model) {
+//        SearchUser searchUser = new SearchUser(searchValue, user.getUserNo());
+//        List<User> searchList = followService.searchUser(searchUser);
+//        List<Follow> followList = followService.followingUser(user.getUserNo());
+//        model.addAttribute("user", searchList);
+//        model.addAttribute("followList", followList);
+//        return "userList";
+//        }
+
+
+
     @GetMapping("/userList")
     public String userList(@RequestParam("searchValue") String searchValue
-            , @SessionAttribute("loginUser") User user
-            , Model model) {
-        List<User> searchList = uService.searchUser(searchValue);
-        List<Follow> followList = followService.followingUser(user.getUserNo());
-        model.addAttribute("user",searchList);
-        model.addAttribute("followList", followList);
+             , @SessionAttribute("loginUser") User user
+                         , Model model) {
+        SearchUser searchUser = new SearchUser(searchValue, user.getUserNo());
+        List<User> searchList = followService.searchUser(searchUser);
+        model.addAttribute("user", searchList);
         return "userList";
     }
+
+
+
+
 
 //    @GetMapping("/userFollow")
 //    public String followUser(Model model

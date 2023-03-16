@@ -3,6 +3,7 @@ package com.kh.mango.user.store;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface UserStore {
 
     User findUserPw(SqlSession session, User user);
 
-    List<User> selectMember(Pageable pageable);
+    List<User> selectMember(SqlSession session, PageInfo pi);
 
 
     List<User> searchUser(String searchValue);
@@ -43,4 +44,5 @@ public interface UserStore {
 
     User selectUserPw(SqlSession session, User uParam);
 
+    int getListCount(SqlSession session);
 }

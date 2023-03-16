@@ -3,9 +3,13 @@ package com.kh.mango.user.controller;
 import com.kh.mango.point.domain.AdminPoint;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.point.service.PointService;
+import com.kh.mango.user.domain.PageInfo;
 import com.kh.mango.user.domain.User;
 import com.kh.mango.user.service.UserService;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -24,13 +28,38 @@ public class AdminController {
     @Autowired
     private PointService pService;
 
+//    @PageableDefault(page = 0, size = 10) Pageable pageable
+
     @GetMapping("/admin")
-    public String adminPage(Model model, @PageableDefault(page=0, size = 10) Pageable pageable){
-        List<User> userList = uService.selectMember(pageable);
+    public String adminPage(Model model
+               , @RequestParam(value = "page", required = false, defaultValue = "1") Integer page           ){
+        int totalCount = uService.getListCount();
+        PageInfo pi = this.getPageInfo(page, totalCount);
+        List<User> userList = uService.selectMember(pi);
         int adminPoint = uService.addAllPoint();
+        model.addAttribute("pi", pi);
         model.addAttribute("user",userList);
         model.addAttribute("adminPoint",adminPoint);
         return "admin";
+    }
+
+    private PageInfo getPageInfo(int currentPage, int totalCount) {
+        PageInfo pi = null;
+        int boardLimit = 10;
+        int naviLimit = 5;
+        int maxPage;
+        int startNavi;
+        int endNavi;
+
+        maxPage = (int) ((double) totalCount / boardLimit + 0.9);;
+        startNavi = (((int) ((double) currentPage / naviLimit + 0.9)) - 1) * naviLimit + 1;
+        endNavi = startNavi + naviLimit -1;
+        if(endNavi > maxPage) {
+            endNavi = maxPage;
+        }
+        pi = new PageInfo(currentPage, boardLimit, naviLimit, startNavi, endNavi, totalCount, maxPage);
+        return pi;
+
     }
 
     @GetMapping("/admin/search.do")

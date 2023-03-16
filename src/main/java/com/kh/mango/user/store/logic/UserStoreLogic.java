@@ -3,9 +3,11 @@ package com.kh.mango.user.store.logic;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 import com.kh.mango.user.store.UserStore;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -41,8 +43,12 @@ public class UserStoreLogic implements UserStore {
     }
 
     @Override
-    public List<User> selectMember(Pageable pageable) {
-        List<User> userList = sqlSession.selectList("UserMapper.test");
+    public List<User> selectMember(SqlSession session, PageInfo pi) {
+        int currentPage = pi.getCurrentPage();
+        int limit = pi.getBoardLimit();
+        int offset = (currentPage -1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        List<User> userList = sqlSession.selectList("UserMapper.test", null, rowBounds);
         return userList;
     }
 
@@ -95,6 +101,10 @@ public class UserStoreLogic implements UserStore {
         return session.selectOne("UserMapper.selectUserPw",uParam);
     }
 
+    @Override
+    public int getListCount(SqlSession session) {
+        return session.selectOne("UserMapper.getListCount");
+    }
 
 
     @Override

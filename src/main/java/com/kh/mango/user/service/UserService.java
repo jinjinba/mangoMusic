@@ -4,6 +4,7 @@ import com.kh.mango.message.domain.Message;
 import com.kh.mango.point.domain.AdminPoint;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface UserService {
 
 
 
-    List<User> selectMember(Pageable pageable);
+    List<User> selectMember(PageInfo pi);
 
     MyPage myPageInfo(int userNo);
 
@@ -43,4 +44,5 @@ public interface UserService {
 
     User selectUserPw(User uParam);
 
+    int getListCount();
 }

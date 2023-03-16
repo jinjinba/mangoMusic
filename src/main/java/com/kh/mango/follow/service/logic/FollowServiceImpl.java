@@ -1,8 +1,10 @@
 package com.kh.mango.follow.service.logic;
 
 import com.kh.mango.follow.domain.Follow;
+import com.kh.mango.follow.domain.SearchUser;
 import com.kh.mango.follow.service.FollowService;
 import com.kh.mango.follow.store.FollowStore;
+import com.kh.mango.user.domain.User;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,11 @@ public class FollowServiceImpl implements FollowService {
     @Override
     public List<Follow> followingUser(int userNo) {
         return followStore.followingUser(userNo);
+    }
+
+    @Override
+    public List<User> searchUser(SearchUser searchUser) {
+        return followStore.searchUser(searchUser);
     }
 
 
