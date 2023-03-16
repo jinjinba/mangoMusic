@@ -9,7 +9,7 @@
         <div class="d-flex align-items-center" id="rightnav">
             <div style="margin-right: 1rem">
             </div>
-            {{#user.userId}}
+            {{#loginUser.userId}}
                 <div class="dropdown" id="myPageDropDown">
                     <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                             data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
@@ -17,17 +17,19 @@
                         <img src="../img/abstract-user-flat-3.svg"
                              style="width: 30px; height: 30px; border-radius: 50%" />
                         <!-- 유저이름 -->
-                        &nbsp;&nbsp;{{user.userName}}&nbsp;&nbsp;
+                        &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        {{^loginUser.userType}}
+                            <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        {{/loginUser.userType}}
+                        {{#loginUser.userType}}
+                            <li><a class="dropdown-item" href="/admin">관리자페이지</a></li>
+                        {{/loginUser.userType}}
                         <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
                     </ul>
                 </div>
-            {{/user.userId}}
-            {{^user.userId}}
-                <button type="button" onclick="location.href='/login'">로그인</button>
-            {{/user.userId}}
+            {{/loginUser.userId}}
         </div>
     </nav>
     <div id="admin">
@@ -41,7 +43,7 @@
                     <input type="text" name="searchValue" value="" style="width: 300px; height: 30px">
                     <input type="submit" value="검색">
                 </form>
-                <div id="user-list">
+                <div id="user-list" style="overflow: scroll; height: 550px;">
                     <table class="table" style="color: #b6b6b6">
                         <tr>
                             <th>아이디</th>
@@ -66,7 +68,7 @@
                             <span class="point-value-text">Mango</span>
                         </div>
                         <br>
-                        <button type="button" id="point-btn">포인트 내역 보기</button>
+                        <button type="button" id="point-btn" onclick="window.open('/admin/pointList')">포인트 내역 보기</button>
                     </div>
                 </div>
                 <div id="main2-2">
