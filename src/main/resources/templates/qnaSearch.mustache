@@ -40,7 +40,7 @@
 
 
         <div class="main-header">
-            <h2>공지사항</h2>
+            <h2>Q&A</h2>
             <hr>
         </div>
         <div class="notice_content_container">
@@ -77,14 +77,14 @@
                             작성날짜
                         </th>
                     </tr>
-                    <form action="/notice">
-                        {{#nSearchList}}
+                    <form action="/qna">
+                        {{#qSearchList}}
                             <tr>
                                 <td>
                                     {{rowNum}}
                                 </td>
                                 <td>
-                                    <a href="/noticeDetail?csNo={{csNo}}">{{csSubject}}</a>
+                                    <a href="/qnaDetail?csNo={{csNo}}">{{csSubject}}</a>
                                 </td>
                                 <td>
                                     {{userName}}
@@ -93,13 +93,13 @@
                                     {{csDate}}
                                 </td>
                             </tr>
-                        {{/nSearchList}}
+                        {{/qSearchList}}
                     </form>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="4">
-                                <form action="/noticeSearch" method="get">
+                                <form action="/qnaSearch" method="get">
                                     <input type="hidden" value="{{{search.searchCondition}}}" id="searchCondition">
                                     <select name="searchCondition">
                                         <option value="all" id="select-all">전체</option>
@@ -111,7 +111,7 @@
                                     <input type="submit" value="검색">
                                 </form>
                             </td>
-                            <form action="/noticeWrite">
+                            <form action="/qnaWrite">
                                 {{#loginUser.userType}}
                                     <td><button type="button" onclick="location.href = '/notice_wr'">글쓰기</button></td>
                                 {{/loginUser.userType}}

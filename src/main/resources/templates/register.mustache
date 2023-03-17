@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" href="register.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 <body>
-<a class="main-logo" href="index.html">
+<a class="main-logo" href="/">
     <div class="text-light heading d-flex align-items-center justify-content-flex-start mt-3">
         <i class="fa-regular fa-mango mx-3 p-1"></i> Mango Music
     </div>
@@ -14,21 +15,22 @@
 <div class="register-box">
     <form method="post" action="/register" id="register-form">
         <h2>회원가입</h2>
+        <span id="message" style="color:red;"></span>
         <div class="user-box">
             <label>ID</label>
-            <input type="text" class="register" name="userId" placeholder="ID를 입력해주세요.">
+            <input type="text" class="register" id="user_id" name="userId" placeholder="ID를 입력해주세요.">
         </div>
         <div class="user-box">
             <label>PW</label>
-            <input type="password" class="register" name="userPw" placeholder="PW를 입력해주세요.">
+            <input type="password" class="register" id="pw" name="userPw" placeholder="PW를 입력해주세요.">
         </div>
         <div class="user-box">
             <label>NAME</label>
-            <input type="text" class="register" name="userName" placeholder="이름을 입력해주세요.">
+            <input type="text" class="register" id="user_name" name="userName" placeholder="이름을 입력해주세요.">
         </div>
         <div class="user-box">
             <label>EMAIL</label>
-            <input type="text" class="register" name="userEmail" placeholder="이메일을 입력해주세요.">
+            <input type="text" class="register" id="email" name="userEmail" placeholder="이메일을 입력해주세요.">
         </div>
         <div class="user-box">
             <label>GENDER</label>
@@ -40,7 +42,7 @@
         <!--                  <input type="reset" class="register-btn" value="초기화">-->
         <!--              </div>-->
         <div id="register-btn">
-            <button type="submit" class="register-btn">
+            <button type="submit" class="register-btn" value="회원가입" onclick="return check();">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -50,6 +52,51 @@
         </div>
     </form>
 </div>
-
 </body>
+<script>
+    {{#msg}}
+        window.onload = function() {
+            alert("아이디가 중복되었습니다. 다른 아이디를 입력해 주세요");
+        }
+    {{/msg}}
+    function check() {
+        // 아이디
+        var userId = $("#user_id"); // #user_id에 적은 아이디를 userId로 저장
+        var userPw = $("#pw");
+        var userName = $("#user_name");
+        var userEmail = $("#email");
+        var msgTag = $("#message");
+        // var target = userId.val();
+        // 첫글자가 소문자라 뒤에있는 수량문자는 3,11된다.
+        var idRegExp = /^[a-z][a-z0-9]{3,11}$/; // 아이디
+        var pwRegExp = /^[a-zA-Z0-9]{8,12}$/; // 비밀번호
+        var nameRegExp = /[ㄱ-힣]+$/; // 한글만 가능
+        var emailRegExp = /^[a-z0-9]@{4,12}/;
+        if(!idRegExp.test(userId.val())) {
+            userId.css("background-color", "red");  // 아이디 입력란 색변경
+            msgTag.html("아이디는 영소문자로 시작하고 영어소문자, 숫자 4~12글자로 입력바랍니다.");    // span공간에 메세지 출력
+            return false;   // 아이디를 입력하지 않는다면 회원가입을 눌러도 넘어가지 않음
+        }else if(!pwRegExp.test(userPw.val())) {    // 비밀번호 체크
+            // 비밀번호
+            userPw.css("background-color", "red");
+            msgTag.html("비밀번호는 영어 대/소문자, 숫자로 8~12글자 입력 바랍니다.");
+            return false;
+            // 한글만 가능한 이름
+        }else if(!nameRegExp.test(userName.val())) {    // 이름 체크
+            userName.css("background-color", "red");
+            msgTag.html("이름은 한글(최소1글자)만 입력바랍니다.")
+            return false;
+        }else if(emailRegExp.test(userEmail.val())) {   // 이메일 체크
+            userEmail.css("background-color", "red");
+            msgTag.html("이메일 아이디는 영어소문자, 숫자 4~12자리로 입력바랍니다.");
+            return false;
+        }
+        return true;
+    }
+    function clearwhite() {
+        $("input").css("background-color", "white");
+    }
+
+
+</script>
 </html>
