@@ -1,8 +1,7 @@
 package com.kh.mango.cs.store.logic;
 
 import com.kh.mango.cs.domain.Cs;
-import com.kh.mango.cs.domain.Notice;
-import com.kh.mango.cs.domain.nDetail;
+import com.kh.mango.cs.domain.CsSearch;
 import com.kh.mango.cs.store.CsStore;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -24,8 +23,8 @@ public class CsStoreLogic implements CsStore {
     }
 
     @Override
-    public List<Notice> selectNoticeList(SqlSession session) {
-        List<Notice> notices = session.selectList("CsMapper.selectNoticeList");
+    public List<Cs> selectNoticeList(SqlSession session) {
+        List<Cs> notices = session.selectList("CsMapper.selectNoticeList");
         return notices;
     }
 
@@ -36,8 +35,14 @@ public class CsStoreLogic implements CsStore {
 
     // 공지사항 상세조회
     @Override
-    public nDetail selectOneByNo(SqlSession session, int csNo) {
+    public Cs selectOneByNo(SqlSession session, int csNo) {
         return session.selectOne("CsMapper.selectOneByNo",csNo);
+    }
+
+    // 공지사항 검색
+    @Override
+    public List<Cs> selectListByKeyword(SqlSession session, CsSearch nSearch) {
+        return session.selectList("CsMapper.selectListByKeyword", nSearch);
     }
 
 }

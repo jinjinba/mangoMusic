@@ -1,8 +1,7 @@
 package com.kh.mango.cs.service;
 
 import com.kh.mango.cs.domain.Cs;
-import com.kh.mango.cs.domain.Notice;
-import com.kh.mango.cs.domain.nDetail;
+import com.kh.mango.cs.domain.CsSearch;
 
 import java.util.List;
 
@@ -24,14 +23,17 @@ public interface CsService {
 
     /**
      * 공지사항 리스트
-     * @return List<Notice>
+     *
+     * @return List<Cs>
      */
-    List<Notice> selectNoticeList();
+    List<Cs> selectNoticeList();
 
     // 공지사항 삭제
     int deleteNotice(int csNo);
 
     // 공지사항 상세
-    nDetail selectOneByNo(int csNo);
+    Cs selectOneByNo(int csNo);
 
+    // 공지사항 검색
+    List<Cs> selectListByKeyword(CsSearch nSearch);
 }
