@@ -104,8 +104,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> selectMember(PageInfo pi) {
-        List<User> userList = uStore.selectMember(session, pi);
+    public List<User> selectMember() {
+        List<User> userList = uStore.selectMember(session);
         return userList;
     }
 

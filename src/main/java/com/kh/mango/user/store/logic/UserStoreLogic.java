@@ -43,12 +43,12 @@ public class UserStoreLogic implements UserStore {
     }
 
     @Override
-    public List<User> selectMember(SqlSession session, PageInfo pi) {
-        int currentPage = pi.getCurrentPage();
-        int limit = pi.getBoardLimit();
-        int offset = (currentPage -1) * limit;
-        RowBounds rowBounds = new RowBounds(offset, limit);
-        List<User> userList = sqlSession.selectList("UserMapper.test", null, rowBounds);
+    public List<User> selectMember(SqlSession session) {
+//        int currentPage = pi.getCurrentPage();
+//        int limit = pi.getBoardLimit();
+//        int offset = (currentPage -1) * limit;
+//        RowBounds rowBounds = new RowBounds(offset, limit);
+        List<User> userList = sqlSession.selectList("UserMapper.test");
         return userList;
     }
 
