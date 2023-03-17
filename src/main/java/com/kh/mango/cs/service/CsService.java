@@ -15,11 +15,26 @@ public interface CsService {
     int insertCs(Cs cs);
 
     /**
+     * Q&A 등록
+     * @param cs
+     * @return int
+     */
+    int insertQna(Cs cs);
+
+    /**
      * 공지사항 수정
      * @param cs
      * @return int
      */
     int updateNotice(Cs cs);
+
+    /**
+     * Q&A 수정
+     * @param cs
+     * @return int
+     */
+    int updateQna(Cs cs);
+
 
     /**
      * 공지사항 리스트
@@ -28,12 +43,30 @@ public interface CsService {
      */
     List<Cs> selectNoticeList();
 
+    /**
+     * Q&A 리스트
+     * @return
+     */
+    List<Cs> selectQnaList();
+
     // 공지사항 삭제
     int deleteNotice(int csNo);
+    // Q&A 삭제
+    int deleteQna(int csNo);
 
     // 공지사항 상세
     Cs selectOneByNo(int csNo);
 
+    /**
+     * Q&A 상세
+     * @param csNo
+     * @return
+     */
+    Cs selectQnaOneByNo(int csNo);
+
     // 공지사항 검색
     List<Cs> selectListByKeyword(CsSearch nSearch);
+
+    // Q&A 검색
+    List<Cs> selectQnaListByKeyword(CsSearch qSearch);
 }

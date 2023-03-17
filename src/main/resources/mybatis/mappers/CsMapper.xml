@@ -22,31 +22,61 @@
     <insert id="insertNotice">
         INSERT INTO CS_TBL VALUES (SEQ_CSNO.NEXTVAL, '1', #{csSubject}, #{csContent}, DEFAULT, '62')
     </insert>
+    <insert id="insertQna">
+        INSERT INTO CS_TBL VALUES (SEQ_CSNO.NEXTVAL, '2', #{csSubject}, #{csContent}, DEFAULT, USER_NO = #{userNo})
+    </insert>
     <update id="updateNotice">
+        UPDATE CS_TBL SET CS_SUBJECT = #{csSubject}, CS_CONTENT = #{csContent} WHERE CS_NO = #{csNo}
+    </update>
+    <update id="updateQna">
         UPDATE CS_TBL SET CS_SUBJECT = #{csSubject}, CS_CONTENT = #{csContent} WHERE CS_NO = #{csNo}
     </update>
     <delete id="deleteNotice">
         DELETE FROM CS_TBL WHERE CS_NO = #{csNo}
     </delete>
+    <delete id="deleteQna">
+        DELETE FROM CS_TBL WHERE CS_NO = #{csNo}
+    </delete>
     <select id="selectNoticeList" resultMap="CsResultMap">
         SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 ORDER BY ROWNUM DESC
+    </select>
+    <select id="selectQnaList" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 2 ORDER BY ROWNUM DESC
     </select>
     <select id="selectOneByNo" resultMap="CsResultMap">
         SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 AND CS_NO = #{csNo}
     </select>
+    <select id="selectQnaOneByNo" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 2 AND CS_NO = #{csNo}
+    </select>
     <select id="selectListByKeyword" resultMap="CsResultMap">
         SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO
         <where>
-        <if test="searchCondition == 'subject'">
-            CS_SUBJECT LIKE '%' || #{searchValue} || '%'
-        </if>
-        <if test="searchCondition == 'content'">
-            CS_CONTENT LIKE '%' || #{searchValue} || '%'
-        </if>
-        <if test="searchCondition == 'userName'">
-            USER_NAME LIKE '%' || #{searchValue} || '%'
-        </if>
-            '1' = '1' and CS_CATEGORY = 1
+            <if test="searchCondition == 'subject'">
+                '1' = '1' AND  CS_SUBJECT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'content'">
+                '1' = '1' AND  CS_CONTENT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'userName'">
+                '1' = '1' AND  USER_NAME LIKE '%' || #{searchValue} || '%'
+            </if>
+            and CS_CATEGORY = 1
+        </where>
+    </select>
+    <select id="selectQnaListByKeyword" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO
+        <where>
+            <if test="searchCondition == 'subject'">
+                '1' = '1' AND  CS_SUBJECT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'content'">
+                '1' = '1' AND  CS_CONTENT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'userName'">
+                '1' = '1' AND  USER_NAME LIKE '%' || #{searchValue} || '%'
+            </if>
+             and CS_CATEGORY = 2
         </where>
     </select>
 

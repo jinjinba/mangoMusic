@@ -1,0 +1,30 @@
+{{>layouts/sidebar}}
+<link rel="stylesheet" href="css/notice_wr.css" />
+<main>
+
+    <div id="main-all">
+        <div class="main-header">
+            <h2>Q&A</h2>
+            <hr>
+        </div>
+        <div class="main-body">
+            <form action="/qnaWrite" method="post">
+                <div class="writer">
+                    <ul>
+                        <li>
+                            <label>제목 :</label>
+                            <input type="text" name="csSubject" placeholder="제목을 입력해주세요.">
+                        </li>
+                        <li>
+                            <textarea id="story" name="csContent" rows="30" cols="200" placeholder="내용을 입력해주세요."></textarea>
+                        </li>
+                    </ul>
+                    <div class="btn">
+                        <input type="submit" value="등록하기">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{{>layouts/footer}}

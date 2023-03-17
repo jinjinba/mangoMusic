@@ -41,7 +41,7 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("msg", e.getMessage());
-            return "error";
+            return "/register";
         }
     }
 

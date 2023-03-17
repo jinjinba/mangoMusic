@@ -23,8 +23,18 @@ public class CsServiceImpl implements CsService {
     }
 
     @Override
+    public int insertQna(Cs cs) {
+        return cStore.insertQna(session, cs);
+    }
+
+    @Override
     public int updateNotice(Cs cs) {
         return cStore.updateNotice(session, cs);
+    }
+
+    @Override
+    public int updateQna(Cs cs) {
+        return cStore.updateQna(session, cs);
     }
 
     @Override
@@ -33,8 +43,18 @@ public class CsServiceImpl implements CsService {
     }
 
     @Override
+    public List<Cs> selectQnaList() {
+        return cStore.selectQnaList(session);
+    }
+
+    @Override
     public int deleteNotice(int csNo) {
         return cStore.deleteNotice(session, csNo);
+    }
+
+    @Override
+    public int deleteQna(int csNo) {
+        return cStore.deleteQna(session, csNo);
     }
 
     @Override
@@ -43,8 +63,18 @@ public class CsServiceImpl implements CsService {
     }
 
     @Override
+    public Cs selectQnaOneByNo(int csNo) {
+        return cStore.selectQnaOneByNo(session, csNo);
+    }
+
+    @Override
     public List<Cs> selectListByKeyword(CsSearch nSearch) {
         return cStore.selectListByKeyword(session, nSearch);
+    }
+
+    @Override
+    public List<Cs> selectQnaListByKeyword(CsSearch qSearch) {
+        return cStore.selectQnaListByKeyword(session, qSearch);
     }
 
 

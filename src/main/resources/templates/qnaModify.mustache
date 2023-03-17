@@ -1,0 +1,35 @@
+{{>layouts/sidebar}}
+<link rel="stylesheet" href="css/notice_wr.css" />
+<main>
+
+    <div id="main-all">
+        <div class="main-header">
+            <h2>Q&A</h2>
+            <hr>
+        </div>
+        <div class="main-body">
+            <form action="/qnaModify" method="post">
+                <input type="hidden" name="csNo" value="{{cs.csNo}}">
+                <div class="writer">
+                    <ul>
+                        <li>
+                            <label>제목 :</label>
+                            <input type="text" name="csSubject" value="{{cs.csSubject}}">
+                        </li>
+<!--                        <li>-->
+<!--                            <label>작성자 :</label>-->
+<!--                            <input type="text" name="userName">-->
+<!--                        </li>-->
+                        <li>
+                            <textarea id="story" name="csContent" rows="30" cols="200">{{cs.csContent}}</textarea>
+                        </li>
+                    </ul>
+                    <div class="btn">
+                        <input type="submit" value="수정하기">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{{>layouts/footer}}
