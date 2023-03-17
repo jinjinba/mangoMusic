@@ -17,6 +17,7 @@ public class Message {
     private Timestamp msgDate;
     private int sendUserNo;
     private int receiveUserNo;
+    private int msgRoom;
 
     public Message(String msgContent, int sendUserNo, int receiveUserNo) {
         this.msgContent = msgContent;

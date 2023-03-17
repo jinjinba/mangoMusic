@@ -16,7 +16,13 @@
     <select id="selectMessageListAll" resultType="com.kh.mango.message.domain.Message">
         SELECT * FROM MSG_TBL WHERE SEND_USER_NO = #{sendUserNo} and RECEIVE_USER_NO = #{receiveUserNo}
     </select>
+    <select id="selectChatRoom" resultType="com.kh.mango.message.domain.Message">
+        SELECT * FROM MSG_TBL WHERE MSG_ROOM = #{userNo} ORDER BY MSG_NO ASC
+    </select>
     <insert id="insertMsgSend">
-        INSERT INTO MSG_TBL VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent},SYSTIMESTAMP,#{sendUserNo},#{receiveUserNo},SEQ_MSG_ROOM.NEXTVAL)
+        INSERT INTO MSG_TBL VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent},SYSTIMESTAMP,#{sendUserNo},#{receiveUserNo},#{receiveUserNo})
+    </insert>
+    <insert id="insertMsgSend2">
+        INSERT INTO MSG_TBL VALUES (SEQ_MSG_NO.NEXTVAL,#{msgContent},SYSTIMESTAMP,#{sendUserNo},#{receiveUserNo},#{sendUserNo})
     </insert>
 </mapper>

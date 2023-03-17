@@ -14,4 +14,6 @@ public interface MessageStore {
     int insertMsgSend(Message message);
 
     List<Message> selectChatRoomList(int userNo);
+
+    List<Message> selectChatRoom(int userNo);
 }

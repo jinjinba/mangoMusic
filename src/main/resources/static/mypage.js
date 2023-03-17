@@ -1,5 +1,33 @@
 let newMsgBtnStatus = false;
-let msgRoom = false;
+let selectMsgRoom = false;
+
+const msgBox = $('#msg-box');
+$(document).ready(function () {
+    loadingChatRoom();
+});
+
+// 메시지 입력 버튼
+function msgBtn() {
+    var msgData = {
+        "msgContent": $('.msg-input').val(),
+        "sendUser": $('#userNo').val(),
+        "receiveUser": $('#receiveUserNo').val()
+    }
+    $.ajax({
+        url: "/ajaxMsgSend",
+        type: "post",
+        data: msgData,
+        datatype: "json",
+        success: function (data) {
+            $('.msg-input').val("");
+            $('.msg-content-box').scrollTop($('.msg-content-box')[0].scrollHeight);
+        },
+        error: function (request, status, error) {
+            alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+        }
+    })
+}
+
 
 // 메시지 검색창 끄기
 function msgSearchBoxClose() {
@@ -10,191 +38,122 @@ function msgSearchBoxClose() {
     newMsgBtnStatus = false;
 }
 
-function testaaa() {
 
+function loadingChatRoom() {
     $.ajax({
         url: "/ajaxLoadChatRoom",
         data: {
             "userNo": $("#userNo").val()
         },
-        type:"post",
+        type: "post",
         dataType: "json",
         success: function (data) {
+            console.log(data);
             if (data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
+                    var str = "";
+                    str += "<li onclick='selectChatRoom(" + data[i].sendUserNo + ")'>" + data[i].userName + "</li>";
+                    $('.msg-user-list-ul').append(str);
+                    $('.msg-input-box').remove();
+                    var str2 = "";
+                    str2 += "<div class='msg-input-box' style='display: inline-block; flex-direction: row;float:left;'>";
+                    str2 +=     "<div style=' height: 100%; width: 495px; background-color: #F2F3F5;  float:left;'>";
+                    str2 +=        "<input type='text' class='msg-input' onKeyPress='javascript:if(event.keyCode==13) {msgBtn()}'>";
+                    str2 +=            "<button type='button' class='msg-input-btn' onClick='msgBtn()'></button>";
+                    str2 +=    "</div>";
+                    str2 +="</div>";
 
+                    $('.msg-area').append(str2);
                 }
             }
         }
     });
 }
 
-$(".que").click(function () {
-    $(this).next(".anw").stop().slideToggle(300);
-    $(this).toggleClass('on').siblings().removeClass('on');
-    $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
-});
-//  포인트 잔량 정규 표현식
-var pointVal = document.querySelector(".point-val").value;
-document.querySelector(".point-val-re").innerHTML = pointVal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-
-// 포인트 충전 내역 정규표현식
-var pointVal2 = document.querySelectorAll(".pointRecord-val");
-for (var a = 0; a < pointVal2.length; a++) {
-    document.querySelectorAll(".pointRecord-val-re")[a].innerHTML = pointVal2[a].value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " Mango";
-}
-
-function modal(id) {
-    var zIndex = 9999;
-    var modal = document.getElementById(id);
-
-    // 모달 div 뒤에 희끄무레한 레이어
-    var bg = document.createElement('div');
-    bg.setStyle({
-        position: 'fixed',
-        zIndex: zIndex,
-        left: '0px',
-        top: '0px',
-        width: '100%',
-        height: '100%',
-        overflow: 'auto',
-        // 레이어 색갈은 여기서 바꾸면 됨
-        backgroundColor: 'rgba(0,0,0,0.4)'
-    });
-    document.body.append(bg);
-
-    // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
-    modal.querySelector('#modal_close_btn').addEventListener('click', function () {
-        bg.remove();
-        modal.style.display = 'none';
-    });
-    // modal.querySelector('#modal_close_btn-2').addEventListener('click', function () {
-    //     bg.remove();
-    //     modal.style.display = 'none';
-    // });
-
-    modal.setStyle({
-        position: 'fixed',
-        display: 'block',
-        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
-
-        // 시꺼먼 레이어 보다 한칸 위에 보이기
-        zIndex: zIndex + 1,
-
-        // div center 정렬
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        msTransform: 'translate(-50%, -50%)',
-        webkitTransform: 'translate(-50%, -50%)'
-    });
-}
-
-// Element 에 style 한번에 오브젝트로 설정하는 함수 추가
-Element.prototype.setStyle = function (styles) {
-    for (var k in styles) this.style[k] = styles[k];
-    return this;
-};
-
-document.getElementById('popup_open_btn').addEventListener('click', function () {
-    // 모달창 띄우기
-    modal('my_modal');
-    $('#point-add-input').val('');
-});
-document.getElementById('popup_open_btn-2').addEventListener('click', function () {
-    // 모달창 띄우기
-    modal('my_modal-2');
-    $('#point-refund-input').val('');
-
-});
-
-function pointAddFunc() {
-    let pointData = {
-        "userNo": parseInt($('#userNo').val()),
-        "pointVal": parseInt($('#point-add-input').val()),
-    };
-    if (pointData.pointVal < 0) {
-        pointData = null;
-    }
-    $.ajax(
-        {
-            type: "POST",
-            url: "/ajaxAddPoint",
-            data: pointData,
-            success: function (data) {
-                $('.point-val-re').text(data.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+function selectChatRoom(i) {
+    // timer = setInterval(function () {
+        $.ajax({
+            url: "/ajaxSelectChatRoom",
+            type: "post",
+            dataType: "json",
+            data: {
+                "userNo": i
             },
-            error: function () {
-                alert("올바른 값을 입력해주세요.");
-            }
-        }
-    )
-    $('#modal_close_btn').trigger("click");
-}
-
-function pointRefundFunc() {
-    let pointData = {
-        "userNo": parseInt($('#userNo').val()),
-        "pointVal": parseInt($('#point-refund-input').val()),
-        "pointCurrentVal": parseInt($('#point-val-current').val())
-    };
-    if (pointData.pointVal > pointData.pointCurrentVal) {
-        pointData = null;
-    }
-    $.ajax(
-        {
-            type: "POST",
-            url: "/ajaxRefundPoint",
-            data: pointData,
             success: function (data) {
-                $('.point-val-re').text(data.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
-            },
-            error: function (request, status, error) {
-                if (request.status === 400) {
-                    alert("올바른 값을 입력해주세요.");
-                } else if (request.status === 500) {
-                    alert("현재 Mango 보다 작은 값을 입력해주세요.");
-                }
-
-            }
-        }
-    )
-    $('.add-btn')[3].click();
-
-}
-
-const msgBtn = $('#msg-btn');
-const msgBox = $('#msg-box');
-const msgObj = {"userNo": parseInt($('#userNo').val())}
-
-function msgToggle() {
-    msgBox.toggle('active');
-}
-
-window.onload = function () {
-    $.ajax(
-        {
-            type: "POST",
-            url: "/ajaxMessage",
-            data: msgObj,
-            success: function (data) {
-                let msgList = JSON.parse(data);
-                if (msgList.length > 0) {
-                    for (var i = 0; i < msgList.length; i++) {
-                        $('#msg-ul').append("<button type='button' style='border:none; background-color: transparent' onclick='msg_user(" + i + ")'><li>" + msgList[i].userName + "</li> <input type='hidden' value='" + msgList[i].sendUserNo + "' id='send_user_" + i + "'></button><br>");
+                console.log(data);
+                $('#receiveUserNo').remove();
+                // if (data.length > 0) {
+                    $('.receive-msg-area-container').remove();
+                    $('.send-msg-area-container').remove();
+                    var str = "";
+                    for (var a = 0; a < data.length; a++) {
+                        if (data[a].sendUserNo === i) {
+                            str += "<div class='receive-msg-area-container'>";
+                            str += "<div class='receive-msg-area'>";
+                            str += "<ul>";
+                            str += "<li>" + data[a].msgContent + "</li>";
+                            str += "<span class='receive-msg-p'></span><br>";
+                            str += "</ul>";
+                            str += "</div>";
+                            str += "</div>";
+                        } else {
+                            str += "<div class='send-msg-area-container'>";
+                            str += "<div class='send-msg-area'>";
+                            str += "<ul>";
+                            str += "<span class='receive-msg-p'></span><li>" + data[a].msgContent + "</li><br>";
+                            str += "</ul>";
+                            str += "</div>";
+                            str += "</div>";
+                        }
                     }
-                } else {
-                    // $('#msg-ul').append("<li>메시지가 없습니다.</li>");
-                }
-                console.log([0].msgContent);
+                    $('.msg-input-box').remove();
+                    var str2 = "";
+                    str2 += "<div class='msg-input-box' style='display: inline-block; flex-direction: row;float:left;'>";
+                    str2 +=     "<div style=' height: 100%; width: 495px; background-color: #F2F3F5;  float:left;'>";
+                    str2 +=        "<input type='text' class='msg-input' onKeyPress='javascript:if(event.keyCode==13) {msgBtn()}'>";
+                    str2 +=            "<button type='button' class='msg-input-btn' onClick='msgBtn()'></button>";
+                    str2 +=    "</div>";
+                    str2 +="</div>";
 
+                    $('.msg-area').append(str2);
+                    str+="<input type='hidden' value='"+data[0].msgRoom+"' id='receiveUserNo'>";
+                    let msgBox = $('.msg-box');
+                    msgBox.append(str);
+                // }
+                $('.msg-content-box').scrollTop($('.msg-content-box')[0].scrollHeight);
             },
             error: function (request, status, error) {
-                alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+                console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
             }
-        }
-    )
+        })
+    // }, 1000);
 }
+
+//
+// window.onload = function () {
+//     const msgObj = {"userNo": parseInt($('#userNo').val())}
+//     $.ajax(
+//         {
+//             type: "POST",
+//             url: "/ajaxMessage",
+//             data: msgObj,
+//             success: function (data) {
+//                 let msgList = JSON.parse(data);
+//                 if (msgList.length > 0) {
+//                     console.log(data);
+//                     for (var i = 0; i < msgList.length; i++) {
+//                         $('#msg-ul').append("<button type='button' style='border:none; background-color: transparent' onclick='msg_user(" + i + ")'><li>" + msgList[i].userName + "</li> <input type='hidden' value='" + msgList[i].sendUserNo + "' id='send_user_" + i + "'></button><br>");
+//                     }
+//                 } else {
+//                     // $('#msg-ul').append("<li>메시지가 없습니다.</li>");
+//                 }
+//             },
+//             error: function (request, status, error) {
+//                 alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+//             }
+//         }
+//     )
+// }
 
 $('.new-msg-user-list').click(function () {
     if (newMsgBtnStatus === true) {
@@ -238,11 +197,15 @@ function msgUserSearchFunc() {
     });
 }
 
+// 채팅 초기 로드
 function chatStart(userNo) {
     msgSearchBoxClose();
-    if (msgRoom === true) {
-        return;
-    }
+    // if (msgRoom === true) {
+    //     return;
+    // }
+    $('#receiveUserNo').remove();
+    $('.receive-msg-area-container').remove();
+    $('.send-msg-area-container').remove();
     $('.msg-user-list-result-' + userNo).css('background-color', '#F2F3F5');
     $.ajax({
         type: "post",
@@ -252,12 +215,157 @@ function chatStart(userNo) {
             "userNo": userNo
         },
         success: function (data) {
-            console.log(data);
-            $('.msg-user-list-ul').append("<li onclick='chatStart(" + data[0].userNo + ")' class='msg-user-list-result-" + data[0].userNo + "'> " + data[0].userName + "<br><span class='msg-user-list-result-span'>@" + data[0].userId + "</span><input type='hidden' value='" + data[0].userNo + "' id='receiveUser'> </li>");
+            var str = "";
+            if (data.length > 0) {
+                str += "<li onclick='selectChatRoom("+userNo+")'>"+data[0].userName+"</li>";
+                str+="<input type='hidden' value='"+data[0].userNo+"' id='receiveUserNo'>";
 
+                $('.msg-user-list-ul').append(str);
+            }
         }
     })
     newMsgBtnStatus = false;
+}
+
+
+// 아코디언 메뉴
+$(".que").click(function () {
+    $(this).next(".anw").stop().slideToggle(300);
+    $(this).toggleClass('on').siblings().removeClass('on');
+    $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
+});
+//  포인트 잔량 정규 표현식
+var pointVal = document.querySelector(".point-val").value;
+document.querySelector(".point-val-re").innerHTML = pointVal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+
+// 포인트 충전 내역 정규표현식
+var pointVal2 = document.querySelectorAll(".pointRecord-val");
+for (var a = 0; a < pointVal2.length; a++) {
+    document.querySelectorAll(".pointRecord-val-re")[a].innerHTML = pointVal2[a].value.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " Mango";
+}
+
+// 모달
+function modal(id) {
+    var zIndex = 9999;
+    var modal = document.getElementById(id);
+
+    // 모달 div 뒤에 희끄무레한 레이어
+    var bg = document.createElement('div');
+    bg.setStyle({
+        position: 'fixed',
+        zIndex: zIndex,
+        left: '0px',
+        top: '0px',
+        width: '100%',
+        height: '100%',
+        overflow: 'auto',
+        // 레이어 색갈은 여기서 바꾸면 됨
+        backgroundColor: 'rgba(0,0,0,0.4)'
+    });
+    document.body.append(bg);
+
+    // 닫기 버튼 처리, 시꺼먼 레이어와 모달 div 지우기
+    modal.querySelector('#modal_close_btn').addEventListener('click', function () {
+        bg.remove();
+        modal.style.display = 'none';
+    });
+
+
+    modal.setStyle({
+        position: 'fixed',
+        display: 'block',
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)',
+
+        // 시꺼먼 레이어 보다 한칸 위에 보이기
+        zIndex: zIndex + 1,
+
+        // div center 정렬
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        msTransform: 'translate(-50%, -50%)',
+        webkitTransform: 'translate(-50%, -50%)'
+    });
+}
+
+// Element 에 style 한번에 오브젝트로 설정하는 함수 추가
+Element.prototype.setStyle = function (styles) {
+    for (var k in styles) this.style[k] = styles[k];
+    return this;
+};
+
+document.getElementById('popup_open_btn').addEventListener('click', function () {
+    // 모달창 띄우기
+    modal('my_modal');
+    $('#point-add-input').val('');
+});
+document.getElementById('popup_open_btn-2').addEventListener('click', function () {
+    // 모달창 띄우기
+    modal('my_modal-2');
+    $('#point-refund-input').val('');
+
+});
+
+// 포인트 충전
+function pointAddFunc() {
+    let pointData = {
+        "userNo": parseInt($('#userNo').val()),
+        "pointVal": parseInt($('#point-add-input').val()),
+    };
+    if (pointData.pointVal < 0) {
+        pointData = null;
+    }
+    $.ajax(
+        {
+            type: "POST",
+            url: "/ajaxAddPoint",
+            data: pointData,
+            success: function (data) {
+                $('.point-val-re').text(data.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+            },
+            error: function () {
+                alert("올바른 값을 입력해주세요.");
+            }
+        }
+    )
+    $('#modal_close_btn').trigger("click");
+}
+
+// 포인트 환불
+function pointRefundFunc() {
+    let pointData = {
+        "userNo": parseInt($('#userNo').val()),
+        "pointVal": parseInt($('#point-refund-input').val()),
+        "pointCurrentVal": parseInt($('#point-val-current').val())
+    };
+    if (pointData.pointVal > pointData.pointCurrentVal) {
+        pointData = null;
+    }
+    $.ajax(
+        {
+            type: "POST",
+            url: "/ajaxRefundPoint",
+            data: pointData,
+            success: function (data) {
+                $('.point-val-re').text(data.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","));
+            },
+            error: function (request, status, error) {
+                if (request.status === 400) {
+                    alert("올바른 값을 입력해주세요.");
+                } else if (request.status === 500) {
+                    alert("현재 Mango 보다 작은 값을 입력해주세요.");
+                }
+
+            }
+        }
+    )
+    $('.add-btn')[3].click();
+
+}
+
+
+function msgToggle() {
+    msgBox.toggle('active');
 }
 
 
@@ -280,26 +388,6 @@ function chatStart(userNo) {
 //         }
 //     )
 // }
-
-function msg_btn() {
-    var msgData = {
-        "msgContent": $('.msg-input').val(),
-        "sendUser": $('#userNo').val(),
-        "receiveUser": $('#receiveUser').val()
-    }
-    $.ajax({
-        url: "/ajaxMsgSend",
-        type: "post",
-        data: msgData,
-        datatype: "json",
-        success: function (data) {
-            console.log(data);
-        },
-        error: function (request, status, error) {
-            alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
-        }
-    })
-}
 
 
 // 음악 정보 api 로 가져오기

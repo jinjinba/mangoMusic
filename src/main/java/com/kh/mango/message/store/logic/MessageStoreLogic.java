@@ -27,11 +27,18 @@ public class MessageStoreLogic implements MessageStore {
 
     @Override
     public int insertMsgSend(Message message) {
+        session.insert("MessageMapper.insertMsgSend2",message);
         return session.insert("MessageMapper.insertMsgSend",message);
     }
 
     @Override
     public List<Message> selectChatRoomList(int userNo) {
         return session.selectList("MessageMapper.selectMessageList",userNo);
+    }
+
+    @Override
+    public List<Message> selectChatRoom(int userNo) {
+        return session.selectList("MessageMapper.selectChatRoom",userNo);
+
     }
 }

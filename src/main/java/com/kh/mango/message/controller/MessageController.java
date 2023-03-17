@@ -58,6 +58,8 @@ public class MessageController {
     }
 
 
+
+
     @PostMapping("/ajaxMsgSend")
     @ResponseBody
     public String ajaxMsgSend(String msgContent, int sendUser, int receiveUser){
@@ -74,7 +76,33 @@ public class MessageController {
     @ResponseBody
     public String ajaxLoadChatRoom(int userNo){
         List<Message> mList = mService.selectChatRoomList(userNo);
-        return "";
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
 
+        try {
+            jsonString = objectMapper.writeValueAsString(mList);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+
+        return jsonString;
+    }
+
+
+    @PostMapping("/ajaxSelectChatRoom")
+    @ResponseBody
+    public String ajaxSelectChatRoom(int userNo){
+        List<Message> mList = mService.selectChatRoom(userNo);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+        try {
+            jsonString = objectMapper.writeValueAsString(mList);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+
+        return jsonString;
     }
 }
