@@ -499,6 +499,15 @@ a {
                 background-color: #bebebe;
             }
 
+            .point-val-re:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+            .point-val-re:active {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
         #main2-2{
             width: 100%;
             height: 350px;

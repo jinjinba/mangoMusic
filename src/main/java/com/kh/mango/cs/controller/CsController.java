@@ -1,14 +1,12 @@
 package com.kh.mango.cs.controller;
 
 import com.kh.mango.cs.domain.Cs;
-import com.kh.mango.cs.domain.Notice;
-import com.kh.mango.cs.domain.nDetail;
+import com.kh.mango.cs.domain.CsSearch;
 import com.kh.mango.cs.service.CsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -20,12 +18,12 @@ public class CsController {
     private CsService cService;
 
     // 공지사항 등록 회면
-    @RequestMapping(value = "/notice_wr", method = RequestMethod.GET)
+    @RequestMapping(value = "/noticeWrite", method = RequestMethod.GET)
     public String notice_wrView(){
-        return "/notice_wr";
+        return "noticeWrite";
     }
     // 공지사항 등록
-    @RequestMapping(value = "/notice_wr", method = RequestMethod.POST)
+    @RequestMapping(value = "/noticeWrite", method = RequestMethod.POST)
     public String noticeRegister(
             @ModelAttribute Cs cs
             , HttpServletRequest request
@@ -34,7 +32,7 @@ public class CsController {
         if(result > 0) {
             return "redirect:/notice";
         }else {
-            return "/notice_wr";
+            return "noticeWrite";
         }
     }
     // 공지사항 수정 화면
@@ -42,7 +40,7 @@ public class CsController {
     public String noticeModifyView(
             @RequestParam("csNo") Integer csNo
             , Model model) {
-        nDetail cs = cService.selectOneByNo(csNo);
+        Cs cs = cService.selectOneByNo(csNo);
         if(cs != null) {
             model.addAttribute("cs", cs);
             return "/noticeModify";
@@ -54,18 +52,12 @@ public class CsController {
     // 공지사항 수정
     @PostMapping(value = "/noticeModify")
     public String noticeModify(
-            String csSubject
-            , String csContent
-            ,@ModelAttribute Cs cs
+            @ModelAttribute Cs cs
             , Model model
             , HttpServletRequest request){
-        cs.setCsSubject(csSubject);
-        cs.setCsContent(csContent);
-        System.out.println(cs);
-
         int result = cService.updateNotice(cs);
         if(result > 0) {
-            return "redirect:nDetail?csNo="+cs.getCsNo();
+            return "redirect:/noticeDetail?csNo="+cs.getCsNo();
         }else {
             model.addAttribute("msg", "실패!");
             return "/noticeModify";
@@ -76,12 +68,10 @@ public class CsController {
     // 공지사항 목록 화면
     @RequestMapping(method = RequestMethod.GET, value = "/notice")
     public String noticeView(
-
-            Model model
-    ) {
-        List<Notice> noticeList = cService.selectNoticeList();
-        for(int i = 1; i < noticeList.size(); i++){
-            noticeList.get(i-1).setRowNum(i);
+            Model model) {
+        List<Cs> noticeList = cService.selectNoticeList();
+        for(int i = 0; i < noticeList.size(); i++){
+            noticeList.get(i).setRowNum(i+1);
         }
         model.addAttribute("noticeList",noticeList);
         return "/notice";
@@ -97,18 +87,37 @@ public class CsController {
             return "redirect:/notice";
         }else {
             model.addAttribute("msg", "삭제 실패!");
-            return "/nDetail";
+            return "noticeDetail";
         }
     }
 
     // 공지사항 상세
-    @GetMapping(value = "/nDetail")
+    @GetMapping(value = "/noticeDetail")
     public String noticeDetailView(
             @RequestParam("csNo") int csNo
             , Model model){
-            nDetail cs = cService.selectOneByNo(csNo);
-            model.addAttribute("cs", cs);
-            return "/nDetail";
+        Cs cs = cService.selectOneByNo(csNo);
+        model.addAttribute("cs", cs);
+        return "noticeDetail";
+    }
+
+    // 공지사항 검색
+    @GetMapping(value = "/noticeSearch")
+    public String noticeSearchView(
+            @ModelAttribute CsSearch nSearch
+            , @RequestParam("searchValue") String keyword
+            , @RequestParam(value = "searchCondition") String condition
+            , Model model) {
+        List<Cs> searchList = cService.selectListByKeyword(nSearch);
+        if(!searchList.isEmpty()) {
+            model.addAttribute("search", nSearch);
+//            model.addAttribute("pi", pi);
+            model.addAttribute("nSearchList", searchList);
+            return "/noticeSearch";
+        }else {
+            model.addAttribute("msg", "조회실패!");
+            return "/notice";
+        }
     }
 
 }

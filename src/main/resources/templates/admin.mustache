@@ -39,32 +39,37 @@
         <div id="main">
             <div id="main1">
                 <div id="submit">회원 목록</div>
-                <form action="/admin/search.do" method="get">
+<!--                <form action="/admin/search.do" method="get">-->
                     <input type="text" id="search-input" name="searchValue" placeholder="검색어 입력" style="width: 300px; height: 30px">
                     <input type="submit" value="검색" id="searchUserList">
-                </form>
-                <div id="user-list">
+<!--                </form>-->
+                <div id="user-list" style="overflow: scroll; height: 600px;">
                     <table class="table table-sm" style="color: #b6b6b6; font-size : 16px">
                         <thead class="thead-light">
                         <tr>
+                            <th>번호</th>
                             <th>아이디</th>
                             <th>이름</th>
                             <th>이메일</th>
                         </tr>
                         </thead>
+
+                        <tbody id="tableBody"  style="cursor: pointer;">
                         {{#user}}
-                        <tr id="user-tr" onclick="window.open('/admin/userInfo?userNo={{userNo}}','','top=0, left=700, width=500, height=600')" style="cursor: pointer;">
+                            <tr onclick="window.open('/admin/userInfo?userNo={{userNo}}','','top=0, left=700, width=500, height=600')">
+                            <td>{{userNo}}</td>
                             <td>{{userId}}</td>
                             <td>{{userName}}</td>
                             <td>{{userEmail}}</td>
-                        </tr>
+                        <tr>
                         {{/user}}
-                        <tr align="center">
-                            <td colspan="3">
-                                <a href="/admin?page={{page}}">Previous</a>&nbsp;&nbsp;&nbsp;
-                                <a href="/admin?page={{page}}">Next</a>
-                            </td>
-                        </tr>
+                        </tbody>
+
+<!--                        <tr align="center">-->
+<!--                            <td colspan="3">-->
+
+<!--                            </td>-->
+<!--                        </tr>-->
                     </table>
                 </div>
             </div>
@@ -74,11 +79,11 @@
                     <div id="point">
                         <input type="hidden" value="{{adminPoint}}" class="point-val">
                         <div class="point-value">
-                            <span class="point-val-re"></span>
+                            <span class="point-val-re" onclick="window.open('/admin/pointList','','top=0, left=700, width=500, height=600')"></span>
                             <span class="point-value-text">Mango</span>
                         </div>
                         <br>
-                        <button type="button" id="point-btn" onclick="window.open('/admin/pointList')">포인트 내역 보기</button>
+<!--                        <button type="button" id="point-btn" onclick="window.open('/admin/pointList','','top=0, left=700, width=500, height=600')">포인트 내역 보기</button>-->
                     </div>
                 </div>
                 <div id="main2-2">
@@ -110,6 +115,8 @@
     // 회원 검색 목록 ajax로 구현하기
     $("#searchUserList").click(function () {
 
+        // console.log($("#search-input").val())
+
         const searchData = {
             "searchValue" : $("#search-input").val()
         };
@@ -119,10 +126,22 @@
                     type: "GET",
                     url: "/ajaxSearchUser",
                     data: searchData,
-                    success: function (data) {
+                    dataType : "json" ,
+                    success: function (result) {
+                        console.log(result);
                         //결과값 넣기
-                        // $(obj).val('팔로잉');
+                        let tableTd = "";
+                        for(let i=0; i< result.length; i++) {
 
+                            tableTd += "<tr onclick=\"window.open('/admin/userInfo?userNo="+result[i].userNo+"','','top=0, left=700, width=500, height=600')\">";
+                            tableTd += '<td>' + result[i].userNo + '</td>';
+                            tableTd += '<td>' + result[i].userId + '</td>';
+                            tableTd += '<td>' + result[i].userName + '</td>';
+                            tableTd += '<td>' + result[i].userEmail + '</td>';
+                            tableTd += '</tr>'
+                            // $('#tableBody').attr("onclick='window.open('/admin/userInfo?userNo="+result[i].userNo+"','','top=0, left=700, width=500, height=600')'");
+                        }
+                        $('#tableBody').html(tableTd);
                     }
                 }
         )

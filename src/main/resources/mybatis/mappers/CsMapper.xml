@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CsMapper">
-    <resultMap id="NoticeResultMap" type="com.kh.mango.cs.domain.Notice">
+    <resultMap id="CsResultMap" type="com.kh.mango.cs.domain.Cs">
         <id property="csNo" column="CS_NO"/>
+        <result property="csCategory" column="CS_CATEGORY"/>
         <result property="csSubject" column="CS_SUBJECT"/>
-        <result property="userName" column="USER_NAME"/>
+        <result property="csContent" column="CS_CONTENT"/>
         <result property="csDate" column="CS_DATE"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="userName" column="USER_NAME"/>
     </resultMap>
 
 <!--    <resultMap id="nDetailResultMap" type="com.kh.mango.cs.domain.nDetail">-->
@@ -25,11 +28,26 @@
     <delete id="deleteNotice">
         DELETE FROM CS_TBL WHERE CS_NO = #{csNo}
     </delete>
-    <select id="selectNoticeList" resultMap="NoticeResultMap">
-        SELECT CS_NO, CS_SUBJECT,USER_NAME, CS_DATE FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 ORDER BY ROWNUM DESC
+    <select id="selectNoticeList" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 ORDER BY ROWNUM DESC
     </select>
-    <select id="selectOneByNo" resultType="com.kh.mango.cs.domain.nDetail">
-        SELECT CS_SUBJECT, CS_CONTENT, U.USER_NAME, CS_DATE, CS_NO FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 AND CS_NO = #{csNo}
+    <select id="selectOneByNo" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 1 AND CS_NO = #{csNo}
+    </select>
+    <select id="selectListByKeyword" resultMap="CsResultMap">
+        SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO
+        <where>
+        <if test="searchCondition == 'subject'">
+            CS_SUBJECT LIKE '%' || #{searchValue} || '%'
+        </if>
+        <if test="searchCondition == 'content'">
+            CS_CONTENT LIKE '%' || #{searchValue} || '%'
+        </if>
+        <if test="searchCondition == 'userName'">
+            USER_NAME LIKE '%' || #{searchValue} || '%'
+        </if>
+            '1' = '1' and CS_CATEGORY = 1
+        </where>
     </select>
 
 </mapper>

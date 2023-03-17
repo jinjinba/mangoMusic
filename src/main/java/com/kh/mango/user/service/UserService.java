@@ -13,7 +13,7 @@ public interface UserService {
 
 
 
-    List<User> selectMember(PageInfo pi);
+    List<User> selectMember();
 
     MyPage myPageInfo(int userNo);
 

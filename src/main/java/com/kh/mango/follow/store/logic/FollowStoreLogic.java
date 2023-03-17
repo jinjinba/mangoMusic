@@ -1,6 +1,7 @@
 package com.kh.mango.follow.store.logic;
 
 import com.kh.mango.follow.domain.Follow;
+import com.kh.mango.follow.domain.FollowYn;
 import com.kh.mango.follow.domain.SearchUser;
 import com.kh.mango.follow.store.FollowStore;
 import com.kh.mango.user.domain.User;
@@ -29,7 +30,7 @@ public class FollowStoreLogic implements FollowStore {
     }
 
     @Override
-    public List<User> searchUser(SearchUser searchUser) {
+    public List<FollowYn> searchUser(SearchUser searchUser) {
         return sqlSession.selectList("FollowMapper.searchUser", searchUser);
     }
 

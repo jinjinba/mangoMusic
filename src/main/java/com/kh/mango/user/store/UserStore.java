@@ -24,7 +24,7 @@ public interface UserStore {
 
     User findUserPw(SqlSession session, User user);
 
-    List<User> selectMember(SqlSession session, PageInfo pi);
+    List<User> selectMember(SqlSession session);
 
 
     List<User> searchUser(String searchValue);

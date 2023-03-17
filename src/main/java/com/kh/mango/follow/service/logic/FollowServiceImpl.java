@@ -1,6 +1,7 @@
 package com.kh.mango.follow.service.logic;
 
 import com.kh.mango.follow.domain.Follow;
+import com.kh.mango.follow.domain.FollowYn;
 import com.kh.mango.follow.domain.SearchUser;
 import com.kh.mango.follow.service.FollowService;
 import com.kh.mango.follow.store.FollowStore;
@@ -33,7 +34,7 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public List<User> searchUser(SearchUser searchUser) {
+    public List<FollowYn> searchUser(SearchUser searchUser) {
         return followStore.searchUser(searchUser);
     }
 

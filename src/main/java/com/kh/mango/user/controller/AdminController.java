@@ -1,5 +1,7 @@
 package com.kh.mango.user.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.mango.point.domain.AdminPoint;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.point.service.PointService;
@@ -34,15 +36,18 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String adminPage(Model model
-               , @RequestParam(value = "page", required = false, defaultValue = "1") Integer page){
-        int totalCount = uService.getListCount();
-        PageInfo pi = this.getPageInfo(page, totalCount);
-        List<User> userList = uService.selectMember(pi);
+               //, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+    ){
+//        int totalCount = uService.getListCount();
+//        PageInfo pi = this.getPageInfo(page, totalCount);
+        List<User> userList = uService.selectMember();
         int adminPoint = uService.addAllPoint();
-        model.addAttribute("pi", pi);
+//        model.addAttribute("pi", pi);
         model.addAttribute("user",userList);
         model.addAttribute("adminPoint",adminPoint);
-        model.addAttribute("page", page);
+//        model.addAttribute("page", page);
+//        model.addAttribute("page+1", page+1);
+//        model.addAttribute("page-1", page-1);
         return "admin";
     }
 
@@ -88,11 +93,20 @@ public class AdminController {
         return "allPointRecordList";
     }
 
-    @PostMapping("/ajaxSearchUser")
+    @GetMapping("/ajaxSearchUser")
     @ResponseBody
-    public List<User> searchUserList(String searchValue) {
+    public String searchUserList(String searchValue) {
         List<User> searchList = uService.searchUser(searchValue);
-        return searchList;
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(searchList);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+        return jsonString;
     }
 
 }
