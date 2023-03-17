@@ -1,6 +1,7 @@
 package com.kh.mango.follow.controller;
 
 import com.kh.mango.follow.domain.Follow;
+import com.kh.mango.follow.domain.FollowYn;
 import com.kh.mango.follow.domain.SearchUser;
 import com.kh.mango.follow.service.FollowService;
 import com.kh.mango.point.domain.Point;
@@ -49,7 +50,8 @@ public class FollowController {
              , @SessionAttribute("loginUser") User user
                          , Model model) {
         SearchUser searchUser = new SearchUser(searchValue, user.getUserNo());
-        List<User> searchList = followService.searchUser(searchUser);
+//        List<User> searchList = followService.searchUser(searchUser);
+        List<FollowYn> searchList = followService.searchUser(searchUser);
         model.addAttribute("user", searchList);
         return "userList";
     }

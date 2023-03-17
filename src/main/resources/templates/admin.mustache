@@ -77,11 +77,11 @@
                     <div id="point">
                         <input type="hidden" value="{{adminPoint}}" class="point-val">
                         <div class="point-value">
-                            <span class="point-val-re"></span>
+                            <span class="point-val-re" onclick="window.open('/admin/pointList','','top=0, left=700, width=500, height=600')"></span>
                             <span class="point-value-text">Mango</span>
                         </div>
                         <br>
-                        <button type="button" id="point-btn" onclick="window.open('/admin/pointList')">포인트 내역 보기</button>
+<!--                        <button type="button" id="point-btn" onclick="window.open('/admin/pointList','','top=0, left=700, width=500, height=600')">포인트 내역 보기</button>-->
                     </div>
                 </div>
                 <div id="main2-2">
@@ -132,9 +132,9 @@
                         for(let i=0; i< result.length; i++) {
 
                             tableTd += '<tr>';
-                            tableTd += '<td>' + result[i].userId + '<td>';
-                            tableTd += '<td>' + result[i].userName + '<td>';
-                            tableTd += '<td>' + result[i].userEmail + '<td>';
+                            tableTd += '<td>' + result[i].userId + '</td>';
+                            tableTd += '<td>' + result[i].userName + '</td>';
+                            tableTd += '<td>' + result[i].userEmail + '</td>';
                             tableTd += '</tr>'
 
 
