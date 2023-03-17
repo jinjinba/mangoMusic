@@ -22,7 +22,7 @@
 <!--    </select>-->
 
     <select id="searchUser" resultMap="searchUserMap">
-        SELECT u.user_no, u.user_name, u.user_id, f.user_no as USER_NO_F FROM USER_TBL u full outer join follow_tbl f on u.user_no = f. follow_no
+        SELECT u.user_no, u.user_name, u.user_id, NVL(f.user_no,0) as USER_NO_F FROM USER_TBL u full outer join follow_tbl f on u.user_no = f. follow_no
         WHERE (u.USER_ID LIKE '%' || #{searchValue} ||'%' or u.USER_NAME LIKE '%' || #{searchValue} ||'%') and u.USER_NO != #{userNo}
     </select>
 </mapper>
