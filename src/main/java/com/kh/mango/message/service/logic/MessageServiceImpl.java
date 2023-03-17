@@ -24,4 +24,14 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> selectMessageListAll(MessageUser mUser) {
         return mStore.selectMessageListAll(mUser);
     }
+
+    @Override
+    public int insertMsgSend(Message message) {
+        return mStore.insertMsgSend(message);
+    }
+
+    @Override
+    public List<Message> selectChatRoomList(int userNo) {
+        return mStore.selectChatRoomList(userNo);
+    }
 }

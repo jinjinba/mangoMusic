@@ -18,4 +18,9 @@ public class Message {
     private int sendUserNo;
     private int receiveUserNo;
 
+    public Message(String msgContent, int sendUserNo, int receiveUserNo) {
+        this.msgContent = msgContent;
+        this.sendUserNo = sendUserNo;
+        this.receiveUserNo = receiveUserNo;
+    }
 }

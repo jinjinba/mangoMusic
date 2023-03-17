@@ -316,18 +316,19 @@ tr:hover {
 /*    display: flex;*/
 /*}*/
 .msg-area span{
-    opacity: 1;
-    font-size: 30px;
-    position: absolute;
-    top: 30px;
-    left: 50px;
+    /*opacity: 1;*/
+    /*font-size: 30px;*/
+    /*position: absolute;*/
+    /*top: 30px;*/
+    /*left: 50px;*/
 }
-.msg-area ul {
+.msg-user-list-ul{
     position: absolute;
-    top: 45px;
+    top: 60px;
     left: 22px;
     font-size: 25px;
 }
+
 
 .msg-text{
     border: 1px solid #ccc;
@@ -342,7 +343,7 @@ tr:hover {
     overflow: hidden;
 }
 
-#msg-ul li {
+.msg-user-list-ul li {
     width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -350,12 +351,12 @@ tr:hover {
     border: 1px solid #ccc;
     border-radius: 10px;
     padding-left: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     color: black;
     background-color: white;
 }
 
-#msg-ul li:hover{
+.msg-user-list-ul li:hover{
     background-color: #ccc;
 }
 .msg-user-list-box{
@@ -370,7 +371,7 @@ tr:hover {
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 90%;
+    height: inherit;
     background-color: white;
     opacity: 1;
     float: left;
@@ -384,7 +385,7 @@ tr:hover {
 .new-msg-user-list{
     display: flex;
     flex-direction: column;
-    height: 10%;
+    height: 60px;
     width: 100%;
     text-align: center;
     border-top: 1px solid black;
@@ -406,11 +407,7 @@ tr:hover {
     flex-direction: column;
     overflow: auto;
 }
-.msg-box{
-    width: 100%;
-    height: 90%;
-    background-color: white;
-}
+
 .msg-input-box{
     width: 100%;
     height: 10%;
@@ -461,4 +458,65 @@ tr:hover {
 }
 .msg-search-box-ul li {
     color: black;
+    width: 200px;
+    height: 80px;
+}
+.msg-user-list-result{
+    width: 150px;
+    height: 50px;
+    color: black;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding-top: 3px;
+    padding-left: 10px;
+}
+
+.msg-user-list-result:hover{
+    background-color: #F2F3F5;
+}
+
+.msg-user-list-result-span{
+    position: relative;
+    top: -15px;
+    font-size: 15px;
+    color:#ccc;
+}
+
+.msg-user-search-box-close{
+    width: 100%;
+    height: 60px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-image: url("img/backicon.svg");
+    background-color: white;
+    background-position: center;
+    background-size: 50px 50px;
+    background-repeat: no-repeat;
+}
+.msg-user-search-box-close:hover{
+    background-color: #F2F3F5;
+}
+
+.msg-box{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    background-color: #F2F3F5;
+    overflow: auto;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.receive-msg-area-container{
+    display: flex;
+}
+
+.send-msg-area-container{
+    display: flex;
+}
+.send-msg-area{
+    justify-content: right;
 }

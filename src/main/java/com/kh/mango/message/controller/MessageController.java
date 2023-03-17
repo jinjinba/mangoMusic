@@ -58,5 +58,23 @@ public class MessageController {
     }
 
 
+    @PostMapping("/ajaxMsgSend")
+    @ResponseBody
+    public String ajaxMsgSend(String msgContent, int sendUser, int receiveUser){
+        Message message = new Message(msgContent,sendUser,receiveUser);
+        int result = mService.insertMsgSend(message);
+        if(result > 0){
+            return "result";
+        }else {
+            return null;
+        }
+    }
 
+    @PostMapping("/ajaxLoadChatRoom")
+    @ResponseBody
+    public String ajaxLoadChatRoom(int userNo){
+        List<Message> mList = mService.selectChatRoomList(userNo);
+        return "";
+
+    }
 }

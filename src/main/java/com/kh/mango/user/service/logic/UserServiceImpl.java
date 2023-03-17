@@ -104,6 +104,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserSearch> selectUserList(int userNo) {
+        return uStore.selectUserList(session,userNo);
+    }
+
+    @Override
     public List<User> selectMember(PageInfo pi) {
         List<User> userList = uStore.selectMember(session, pi);
         return userList;

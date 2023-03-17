@@ -91,4 +91,7 @@
         select count(*) from user_tbl
     </select>
 
+    <select id="selectUserListByNo" resultType="com.kh.mango.user.domain.UserSearch">
+        SELECT USER_NO, USER_ID, USER_NAME FROM USER_TBL WHERE  USER_NO = ${userNo}
+    </select>
 </mapper>

@@ -1,6 +1,35 @@
+let newMsgBtnStatus = false;
+let msgRoom = false;
 
+// 메시지 검색창 끄기
+function msgSearchBoxClose() {
+    $('.msg-user-search-box').remove();
+    $('.msg-user-search-box-close').remove();
+    var msgBox = $('.msg-content-box');
+    msgBox.css("display", "block");
+    newMsgBtnStatus = false;
+}
 
-    $(".que").click(function () {
+function testaaa() {
+
+    $.ajax({
+        url: "/ajaxLoadChatRoom",
+        data: {
+            "userNo": $("#userNo").val()
+        },
+        type:"post",
+        dataType: "json",
+        success: function (data) {
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+
+                }
+            }
+        }
+    });
+}
+
+$(".que").click(function () {
     $(this).next(".anw").stop().slideToggle(300);
     $(this).toggleClass('on').siblings().removeClass('on');
     $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
@@ -167,42 +196,71 @@ window.onload = function () {
     )
 }
 
-$('.new-msg-user-list').click(function(){
+$('.new-msg-user-list').click(function () {
+    if (newMsgBtnStatus === true) {
+        return;
+    }
+    $('.msg-user-list-box').prepend("<button class='msg-user-search-box-close' onclick='msgSearchBoxClose()' value='<'></button>")
     var msgBox = $('.msg-content-box');
-    msgBox.css("display","none");
+    msgBox.css("display", "none");
     msgBox.after('<div class="msg-user-search-box"><input type="text" class="msg-user-search-bar"  placeholder="검색 할 아이디를 입력해주세요..." onkeyup="msgUserSearchFunc()"></div>');
     var msgSearchBox = $('.msg-user-search-box');
     msgSearchBox.append("<ul class='msg-search-box-ul'></ul>");
-    console.log("이게 왜작동됨?0");
+    newMsgBtnStatus = true;
 });
-function msgUserSearchFunc(){
-        var word = $('.msg-user-search-bar').val();
-            $.ajax({
-                url : "/ajaxMsgUserSearch",
-                type: "POST",
-                data:{
-                    "userId" : word
-                },
-                dataType: 'json',
-                success:function(data){
-                    console.log(data);
-                    var str = '';
-                    if(data.length > 0) {
-                        for (var i = 0; i < data.length; i++) {
-                            str += "<li>" + data[i].userName + "</li>";
-                        }
-                        $('.msg-search-box-ul').html(str);
-                    }else {
-                        $('.msg-search-box-ul').html(str);
+
+function msgUserSearchFunc() {
+    var word = $('.msg-user-search-bar').val();
+    $.ajax({
+        url: "/ajaxMsgUserSearch",
+        type: "POST",
+        data: {
+            "userId": word
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            var str = '';
+            if (data != null) {
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        str += "<li onclick='chatStart(" + data[i].userNo + ")' class='msg-user-list-result-" + data[i].userNo + "'> " + data[i].userName + "<br><span class='msg-user-list-result-span'>@" + data[i].userId + "</span></li>";
                     }
-                },
-                error: function (request, status, error) {
-                    console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+                    $('.msg-search-box-ul').html(str);
                 }
-            });
-
-
+            } else {
+                $('.msg-search-box-ul').html(str);
+            }
+        },
+        error: function (request, status, error) {
+            console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+        }
+    });
 }
+
+function chatStart(userNo) {
+    msgSearchBoxClose();
+    if (msgRoom === true) {
+        return;
+    }
+    $('.msg-user-list-result-' + userNo).css('background-color', '#F2F3F5');
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: "/ajaxMsgUserAdd",
+        data: {
+            "userNo": userNo
+        },
+        success: function (data) {
+            console.log(data);
+            $('.msg-user-list-ul').append("<li onclick='chatStart(" + data[0].userNo + ")' class='msg-user-list-result-" + data[0].userNo + "'> " + data[0].userName + "<br><span class='msg-user-list-result-span'>@" + data[0].userId + "</span><input type='hidden' value='" + data[0].userNo + "' id='receiveUser'> </li>");
+
+        }
+    })
+    newMsgBtnStatus = false;
+}
+
+
 // function msg_user(i) {
 //     const test = {
 //         "sendUserNo" : $('#send_user_1').val(),
@@ -224,8 +282,25 @@ function msgUserSearchFunc(){
 // }
 
 function msg_btn() {
-    $.ajax({})
+    var msgData = {
+        "msgContent": $('.msg-input').val(),
+        "sendUser": $('#userNo').val(),
+        "receiveUser": $('#receiveUser').val()
+    }
+    $.ajax({
+        url: "/ajaxMsgSend",
+        type: "post",
+        data: msgData,
+        datatype: "json",
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (request, status, error) {
+            alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+        }
+    })
 }
+
 
 // 음악 정보 api 로 가져오기
 

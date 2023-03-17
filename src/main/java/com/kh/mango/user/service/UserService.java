@@ -46,4 +46,6 @@ public interface UserService {
 
     int getListCount();
     List<UserSearch> selectUserList(String userId);
+
+    List<UserSearch> selectUserList(int userNo);
 }

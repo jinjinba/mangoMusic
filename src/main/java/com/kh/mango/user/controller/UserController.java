@@ -190,14 +190,30 @@ public class UserController {
     @ResponseBody
     public String ajaxMsgUserSearch(String userId){
         List<UserSearch> userList = null;
-        if(userId != null) {
+        if(userId != null && userId != "") {
             userList = uService.selectUserList(userId);
         }
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = "";
-
+        
         try {
             jsonString = objectMapper.writeValueAsString(userList);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+        return jsonString;
+    }
+
+    @PostMapping("/ajaxMsgUserAdd")
+    @ResponseBody
+    public String ajaxMsgUserAdd(int userNo){
+        List<UserSearch> uList = uService.selectUserList(userNo);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(uList);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return jsonString;

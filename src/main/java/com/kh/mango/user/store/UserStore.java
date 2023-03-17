@@ -46,4 +46,6 @@ public interface UserStore {
 
     List<UserSearch> selectUserList(SqlSession session, String userId);
     int getListCount(SqlSession session);
+
+    List<UserSearch> selectUserList(SqlSession session, int userNo);
 }

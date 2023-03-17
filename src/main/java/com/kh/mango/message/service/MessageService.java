@@ -10,4 +10,8 @@ public interface MessageService {
     List<MessageList> selectMessageList(int userNo);
 
     List<Message> selectMessageListAll(MessageUser mUser);
+
+    int insertMsgSend(Message message);
+
+    List<Message> selectChatRoomList(int userNo);
 }
