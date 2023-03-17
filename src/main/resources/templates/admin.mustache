@@ -47,6 +47,7 @@
                     <table class="table table-sm" style="color: #b6b6b6; font-size : 16px">
                         <thead class="thead-light">
                         <tr>
+                            <th>번호</th>
                             <th>아이디</th>
                             <th>이름</th>
                             <th>이메일</th>
@@ -56,6 +57,7 @@
                         <tbody id="tableBody"  style="cursor: pointer;">
                         {{#user}}
                             <tr onclick="window.open('/admin/userInfo?userNo={{userNo}}','','top=0, left=700, width=500, height=600')">
+                            <td>{{userNo}}</td>
                             <td>{{userId}}</td>
                             <td>{{userName}}</td>
                             <td>{{userEmail}}</td>
@@ -131,19 +133,15 @@
                         let tableTd = "";
                         for(let i=0; i< result.length; i++) {
 
-                            tableTd += '<tr>';
+                            tableTd += "<tr onclick=\"window.open('/admin/userInfo?userNo="+result[i].userNo+"','','top=0, left=700, width=500, height=600')\">";
+                            tableTd += '<td>' + result[i].userNo + '</td>';
                             tableTd += '<td>' + result[i].userId + '</td>';
                             tableTd += '<td>' + result[i].userName + '</td>';
                             tableTd += '<td>' + result[i].userEmail + '</td>';
                             tableTd += '</tr>'
-
-
+                            // $('#tableBody').attr("onclick='window.open('/admin/userInfo?userNo="+result[i].userNo+"','','top=0, left=700, width=500, height=600')'");
                         }
                         $('#tableBody').html(tableTd);
-
-
-                        // $(obj).val('팔로잉');
-
                     }
                 }
         )
