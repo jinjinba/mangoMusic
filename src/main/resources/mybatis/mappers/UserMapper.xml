@@ -42,7 +42,7 @@
 
 
     <select id="test" resultType="com.kh.mango.user.domain.User">
-        SELECT * FROM USER_TBL
+        SELECT * FROM USER_TBL WHERE USER_ID != 'admin' ORDER BY USER_NO ASC
     </select>
     <select id="checkUserLogin" resultType="com.kh.mango.user.domain.User">
         SELECT * FROM USER_TBL WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
@@ -65,7 +65,7 @@
     </select>
 
     <select id="searchUser" resultType="com.kh.mango.user.domain.User">
-        SELECT * FROM USER_TBL WHERE (USER_ID LIKE '%' || #{searchValue} ||'%' or USER_NAME LIKE '%' || #{searchValue} ||'%')
+        SELECT * FROM USER_TBL WHERE (USER_ID LIKE '%' || #{searchValue} ||'%' or USER_NAME LIKE '%' || #{searchValue} ||'%') AND USER_ID != 'admin'
     </select>
     <select id="selectFollowers" resultMap="myPageFollowersResultMap">
         SELECT F.FOLLOW_NO, U.USER_NO, U.USER_ID, U.USER_NAME, U.USER_GENDER  FROM USER_TBL U, FOLLOW_TBL F WHERE F.FOLLOW_NO = #{userNo} AND F.USER_NO = U.USER_NO

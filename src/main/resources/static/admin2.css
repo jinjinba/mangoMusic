@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700&display=swap");
+
 /*
 :root {
 
@@ -440,93 +441,39 @@ a {
 
 #main-header {
     width: 100%;
-    height:100px;
+    height:70px;
     color: #ffffff;
-    font-size: 40px;
-}
-#admin_page {
-    padding-left: 30px;
+    font-size: 35px;
+    padding: 30px;
 }
 
 #main {
     width: 100%;
     height: 700px;
-    --background-color: #00acfc;
+    --background-color: #8ffc00;
 }
-    #main1 {
-        width:50%;
-        height: inherit;
-        --background-color: #c46e86;
-        float: left;
-        --font-size: 20px;
-        font-weight: bold;
-        padding: 10px;
-        --border-right: solid 1px;
-        --border-right-color: whitesmoke;
-    }
-    #submit {
-        font-size: 30px;
-    }
-        #user-list {
-            font-size: 20px;
-            font-weight: normal;
-            padding-right: 150px;
-            padding-top: 20px;
-            padding-left: 20px;
-        }
 
-    #main2 {
-        width:50%;
-        height: inherit;
-        --background-color: #343a40;
-        float: left;
-        padding: 10px;
-    }
-        #main2-1{
-            width: 100%;
-            height: 350px;
-            --background-color: #00ced5;
-            font-size: 20px;
-            font-weight: bold;
-        }
-            #point {
-                color: #f38f59;
-                font-size: 40px;
-                padding: 20px;
-            }
-            #point-btn {
-                font-size: 20px;
-                width: 170px;
-                height: 40px;
-                font-family: "Roboto", sans-serif;
-                font-size: 15px;
-                border-radius: 10px;
-                background-color: rgba(255, 255, 255, 0.5);/*까만색(0,0,0) 80% 불투명도*/
-            }
-            #point-btn:hover {
-                background-color: #bebebe;
-            }
+.main-navi {
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    display:flex;
+    justify-content: flex-start;
+    --background-color: #fff2fb;
+    justify-content: space-around;
+}
 
-            .point-val-re:hover {
-                text-decoration: underline;
-                cursor: pointer;
-            }
-            .point-val-re:active {
-                text-decoration: underline;
-                cursor: pointer;
-            }
+.main-sumary {
+    font-size: 20px;
+    cursor: pointer;
+}
 
-        #main2-2{
-            width: 100%;
-            height: 350px;
-            --background-color: blueviolet;
-            font-size: 20px;
-            font-weight: bold;
-        }
-            #qna {
-                padding: 20px;
-            }
+.main-sumary:hover {
+    color: white;
+}
 
-    #user-tr:hover {
-        background-color: #343a40;
-    }
+#main-content {
+    width: 100%;
+    height: 600px;
+    background-color: #000000;
+}
