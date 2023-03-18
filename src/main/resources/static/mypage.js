@@ -122,7 +122,6 @@ function selectChatRoom(i) {
                             str += "</div>";
                         }
                     }
-                    addMsgInputBox(i);
                     str+="<input type='hidden' value='"+data[0].msgRoom+"' id='receiveUserNo'>";
                     let msgBox = $('.msg-box');
                     msgBox.append(str);
@@ -132,7 +131,9 @@ function selectChatRoom(i) {
                 console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
             }
         })
-    }, 5000);
+    }, 1000);
+    addMsgInputBox(i);
+
 }
 
 function chatRemove(i){
