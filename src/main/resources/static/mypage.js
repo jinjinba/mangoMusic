@@ -84,7 +84,7 @@ function addMsgInputBox(i){
 function selectChatRoom(i) {
     $('.msg-user-list-li').removeAttr('style');
     $('#msg-user-list-li-'+i).css("background-color","#F2F3F5");
-    // timer = setInterval(function () {
+    timer = setInterval(function () {
         $.ajax({
             url: "/ajaxSelectChatRoom",
             type: "post",
@@ -132,7 +132,7 @@ function selectChatRoom(i) {
                 console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
             }
         })
-    // }, 1000);
+    }, 5000);
 }
 
 function chatRemove(i){
