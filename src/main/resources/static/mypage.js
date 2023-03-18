@@ -81,10 +81,13 @@ function addMsgInputBox(i){
     str2 +="</div>";
     $('.msg-area').append(str2);
 }
+function selectChatRoom(){
+
+}
 function selectChatRoom(i) {
     $('.msg-user-list-li').removeAttr('style');
     $('#msg-user-list-li-'+i).css("background-color","#F2F3F5");
-    timer = setInterval(function () {
+    // timer = setInterval(function () {
         $.ajax({
             url: "/ajaxSelectChatRoom",
             type: "post",
@@ -93,6 +96,7 @@ function selectChatRoom(i) {
                 "userNo": i,
                 "userNo2" : $('#userNo').val()
             },
+            async:false,
             success: function (data) {
                 console.log(data);
                 $('#receiveUserNo').remove();
@@ -108,7 +112,7 @@ function selectChatRoom(i) {
                             str += "<div class='receive-msg-area'>";
                             str += "<ul>";
                             str += "<li>" + data[a].msgContent + "</li>";
-                            str += "<span class='receive-msg-p'></span><br>";
+                            str += "<span class='receive-msg-p'>"+moment(data[a].msgDate).format("MM-DD HH:mm")+"</span><br>";
                             str += "</ul>";
                             str += "</div>";
                             str += "</div>";
@@ -116,7 +120,7 @@ function selectChatRoom(i) {
                             str += "<div class='send-msg-area-container'>";
                             str += "<div class='send-msg-area'>";
                             str += "<ul>";
-                            str += "<span class='receive-msg-p'></span><li>" + data[a].msgContent + "</li><br>";
+                            str += "<span class='receive-msg-p'>"+moment(data[a].msgDate).format("MM-DD HH:mm")+"</span><li>" + data[a].msgContent + "</li><br>";
                             str += "</ul>";
                             str += "</div>";
                             str += "</div>";
@@ -125,14 +129,15 @@ function selectChatRoom(i) {
                     str+="<input type='hidden' value='"+data[0].msgRoom+"' id='receiveUserNo'>";
                     let msgBox = $('.msg-box');
                     msgBox.append(str);
-                $('.msg-content-box').scrollTop($('.msg-content-box')[0].scrollHeight);
+
             },
             error: function (request, status, error) {
                 console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
             }
         })
-    }, 1000);
+    // }, 1000);
     addMsgInputBox(i);
+    $('.msg-content-box').scrollTop($('.msg-content-box')[0].scrollHeight);
 
 }
 
