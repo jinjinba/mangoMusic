@@ -458,9 +458,9 @@ a {
     height: 40px;
     background-color:rgba(0, 0, 0, 0.5);
     display:flex;
-    justify-content: flex-start;
     --background-color: #fff2fb;
     justify-content: space-around;
+    align-items : center;
 }
 
 .main-sumary {

@@ -48,7 +48,7 @@
         SELECT SUM(POINT_VAL) FROM POINT_TBL
     </select>
        <select id="AllPointRecordList" resultMap="PointRecordListMap">
-        SELECT U.USER_ID, P.POINT_PM, P.POINT_RECORD, P.POINT_RECORD_DATE FROM POINT_RECORD_TBL P JOIN USER_TBL U ON P.USER_NO = U.USER_NO
+        SELECT U.USER_ID, P.POINT_PM, P.POINT_RECORD, P.POINT_RECORD_DATE FROM POINT_RECORD_TBL P JOIN USER_TBL U ON P.USER_NO = U.USER_NO ORDER BY P.POINT_RECORD_DATE DESC
     </select>
     <select id="selectPoint" resultType="com.kh.mango.point.domain.Point">
         SELECT * FROM POINT_TBL WHERE USER_NO = ${userNo}
