@@ -102,7 +102,10 @@
                             tableTd += '<td>' + result[i].userId + '</td>';
                             tableTd += '<td>' + result[i].userName + '</td>';
                             tableTd += '<td>' + result[i].userEmail + '</td>';
-                            tableTd += '<td>' + result[i].userGender + '</td>';
+
+                            // 이부분 수정함
+                            tableTd += '<td>' + moment(result[i].userDate).format("YYYY-MM-DD HH:mm:ss") + '</td>';
+
                             tableTd += '</tr>'
                             // $('#tableBody').attr("onclick='window.open('/admin/userInfo?userNo="+result[i].userNo+"','','top=0, left=700, width=500, height=600')'");
                         }
