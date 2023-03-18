@@ -63,14 +63,23 @@ public class AdminController {
         return "allUserList";
     }
 
-    @GetMapping("adminNotice")
+    @GetMapping("/adminNotice")
     public String adminNotice(Model model) {
         List<Cs> noticeList = cService.selectNoticeList();
         for(int i = 0; i < noticeList.size(); i++){
             noticeList.get(i).setRowNum(i+1);
         }
         model.addAttribute("noticeList",noticeList);
-        return "/adminNotice";
+        return "adminNotice";
+    }
+
+    @GetMapping("/adminPoint")
+    public String adminPoint(Model model) {
+        int adminPoint = uService.addAllPoint();
+        List<User> recordList = pService.allPointList();
+        model.addAttribute("adminPoint",adminPoint);
+        model.addAttribute("recordList", recordList);
+        return "adminPoint";
     }
 
 
@@ -136,5 +145,6 @@ public class AdminController {
     public String admin2() {
         return "admin2";
     }
+
 
 }

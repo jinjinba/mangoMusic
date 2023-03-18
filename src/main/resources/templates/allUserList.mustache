@@ -6,13 +6,45 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        #table-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        #table-search {
+            float: right;
+        }
+        tr:hover {
+            color: white;
+        }
+        #submit {
+            font-size: 30px;
+        }
+        #user-list {
+            font-size: 20px;
+            font-weight: normal;
+            padding: 20px;
+            /*padding-right: 150px;*/
+            /*padding-top: 20px;*/
+            /*padding-left: 20px;*/
+        }
+
+        /*table {*/
+        /*    width: inherit;*/
+        /*    height: 500px;*/
+        /*    text-align: center;*/
+        /*}*/
+    </style>
 </head>
 <body>
-    <div id="submit">회원 목록</div>
-    <!--                <form action="/admin/search.do" method="get">-->
-    <input type="text" id="search-input" name="searchValue" placeholder="검색어 입력" style="width: 300px; height: 30px">
-    <input type="submit" value="검색" id="searchUserList">
-    <!--                </form>-->
+    <div id="table-header">
+        <div id="submit">회원 목록</div>
+        <div id="table-search">
+            <input type="text" id="search-input" name="searchValue" placeholder="검색어 입력" style="width: 300px; height: 30px">
+            <input type="submit" value="검색" id="searchUserList">
+        </div>
+    </div>
     <div id="user-list" style="overflow: scroll; height: 500px;">
         <table class="table" style="color: #b6b6b6; font-size : 16px">
             <thead class="thead-light">
@@ -62,8 +94,6 @@
                     data: searchData,
                     dataType : "json" ,
                     success: function (result) {
-                        console.log(result);
-                        //결과값 넣기
                         let tableTd = "";
                         for(let i=0; i< result.length; i++) {
 
@@ -72,6 +102,7 @@
                             tableTd += '<td>' + result[i].userId + '</td>';
                             tableTd += '<td>' + result[i].userName + '</td>';
                             tableTd += '<td>' + result[i].userEmail + '</td>';
+                            tableTd += '<td>' + result[i].userGender + '</td>';
                             tableTd += '</tr>'
                             // $('#tableBody').attr("onclick='window.open('/admin/userInfo?userNo="+result[i].userNo+"','','top=0, left=700, width=500, height=600')'");
                         }
