@@ -477,6 +477,7 @@ tr:hover {
     top: 10px;
     padding-left: 25px;
     border : 1px solid #ccc;
+    margin-bottom: 6px;
 }
 .msg-search-box-ul{
     display: block;

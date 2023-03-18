@@ -67,9 +67,21 @@ function loadingChatRoom() {
         }
     });
 }
-
+function addMsgInputBox(i){
+    var str2 = "";
+    str2 += "<div class='msg-input-box' style='display: inline-block; flex-direction: row;float:left;'>";
+    str2 +=     "<div style='display:flex; height: 100%; width: 495px; background-color: #F2F3F5;  float:left;'>";
+    str2 +=     "<div>";
+    str2 +=        "<input type='text' class='msg-input' onKeyPress='javascript:if(event.keyCode==13) {msgBtn()}'>";
+    str2 +=            "<button type='button' class='msg-input-btn' onClick='msgBtn()'></button>";
+    str2 +=     "</div>"
+    str2 +=     "<div><button class='msg-room-close' onclick='chatRemove("+i+")'>나가기</button></div>";
+    str2 +=    "</div>";
+    str2 +="</div>";
+    $('.msg-area').append(str2);
+}
 function selectChatRoom(i) {
-    $('.msg-user-list-li').removeAttr('background-color');
+    $('.msg-user-list-li').removeAttr('style');
     $('#msg-user-list-li-'+i).css("background-color","#F2F3F5");
     // timer = setInterval(function () {
         $.ajax({
@@ -108,18 +120,7 @@ function selectChatRoom(i) {
                     }
                     str += "</div>"
                     $('.msg-input-box').remove();
-                    var str2 = "";
-                    str2 += "<div class='msg-input-box' style='display: inline-block; flex-direction: row;float:left;'>";
-                    str2 +=     "<div style='display:flex; height: 100%; width: 495px; background-color: #F2F3F5;  float:left;'>";
-                    str2 +=     "<div>";
-                    str2 +=        "<input type='text' class='msg-input' onKeyPress='javascript:if(event.keyCode==13) {msgBtn()}'>";
-                    str2 +=            "<button type='button' class='msg-input-btn' onClick='msgBtn()'></button>";
-                    str2 +=     "</div>"
-                    str2 +=     "<div><button class='msg-room-close' onclick='chatRemove("+i+")'>나가기</button></div>";
-                    str2 +=    "</div>";
-                    str2 +="</div>";
-
-                    $('.msg-area').append(str2);
+                    addMsgInputBox(i);
                     str+="<input type='hidden' value='"+data[0].msgRoom+"' id='receiveUserNo'>";
                     let msgBox = $('.msg-box');
                     msgBox.append(str);
@@ -132,6 +133,7 @@ function selectChatRoom(i) {
         })
     // }, 1000);
 }
+
 function chatRemove(i){
     if(confirm("방에서 나가시겠습니까?")){
         $.ajax({
@@ -150,31 +152,6 @@ function chatRemove(i){
         });
     }
 }
-//
-// window.onload = function () {
-//     const msgObj = {"userNo": parseInt($('#userNo').val())}
-//     $.ajax(
-//         {
-//             type: "POST",
-//             url: "/ajaxMessage",
-//             data: msgObj,
-//             success: function (data) {
-//                 let msgList = JSON.parse(data);
-//                 if (msgList.length > 0) {
-//                     console.log(data);
-//                     for (var i = 0; i < msgList.length; i++) {
-//                         $('#msg-ul').append("<button type='button' style='border:none; background-color: transparent' onclick='msg_user(" + i + ")'><li>" + msgList[i].userName + "</li> <input type='hidden' value='" + msgList[i].sendUserNo + "' id='send_user_" + i + "'></button><br>");
-//                     }
-//                 } else {
-//                     // $('#msg-ul').append("<li>메시지가 없습니다.</li>");
-//                 }
-//             },
-//             error: function (request, status, error) {
-//                 alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
-//             }
-//         }
-//     )
-// }
 
 $('.new-msg-user-list').click(function () {
     if (newMsgBtnStatus === true) {
@@ -220,6 +197,7 @@ function msgUserSearchFunc() {
 
 // 채팅 초기 로드
 function chatStart(userNo) {
+    $('.msg-user-list-li').removeAttr('style');
     msgSearchBoxClose();
     // if (msgRoom === true) {
     //     return;
@@ -238,13 +216,14 @@ function chatStart(userNo) {
         success: function (data) {
             var str = "";
             if (data.length > 0) {
-                str += "<li onclick='selectChatRoom("+userNo+")'>"+data[0].userName+"</li>";
+                str += "<li onclick='selectChatRoom("+userNo+")' class='msg-user-list-li' id='msg-user-list-li-"+userNo+"'>"+data[0].userName + "<p>@"+data[0].userId+"</p></li>";
                 str+="<input type='hidden' value='"+data[0].userNo+"' id='receiveUserNo'>";
-
                 $('.msg-user-list-ul').prepend(str);
+                $('#msg-user-list-li-'+userNo).css("background-color","#F2F3F5");
             }
         }
-    })
+    });
+    addMsgInputBox(userNo);
     newMsgBtnStatus = false;
 }
 
