@@ -10,8 +10,8 @@
         <result column="USER_NAME" property="userName"/>
     </resultMap>
 
-    <select id="selectMessageList" resultMap="selectMessageResultMap">
-        SELECT DISTINCT USER_NAME, SEND_USER_NO FROM MSG_TBL JOIN USER_TBL ON USER_NO = SEND_USER_NO WHERE MSG_TBL.RECEIVE_USER_NO =  #{userNo}
+    <select id="selectMessageList" resultType="com.kh.mango.message.domain.MessageList">
+        SELECT USER_NAME,USER_ID, RECEIVE_USER_NO,MSG_ROOM FROM MSG_TBL JOIN USER_TBL ON USER_NO = RECEIVE_USER_NO WHERE MSG_NO IN (SELECT MAX(MSG_NO) FROM MSG_TBL GROUP BY MSG_ROOM) AND (RECEIVE_USER_NO =  #{userNo} OR SEND_USER_NO = #{userNo}) AND MSG_ROOM != SEND_USER_NO ORDER BY MSG_NO DESC
     </select>
     <select id="selectMessageListAll" resultType="com.kh.mango.message.domain.Message">
         SELECT * FROM MSG_TBL WHERE SEND_USER_NO = #{sendUserNo} and RECEIVE_USER_NO = #{receiveUserNo}
@@ -25,4 +25,7 @@
     <insert id="insertMsgSend2">
         INSERT INTO MSG_TBL VALUES (SEQ_MSG_NO.NEXTVAL,#{msgContent},SYSTIMESTAMP,#{sendUserNo},#{receiveUserNo},#{sendUserNo})
     </insert>
+    <delete id="deleteChatRoom">
+        DELETE FROM MSG_TBL WHERE MSG_ROOM = #{roomNo}
+    </delete>
 </mapper>

@@ -52,14 +52,12 @@ function loadingChatRoom() {
             if (data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
                     var str = "";
-                    str += "<li onclick='selectChatRoom(" + data[i].sendUserNo + ")'>" + data[i].userName + "</li>";
+                    str += "<li onclick='selectChatRoom(" + data[i].receiveUserNo + ")' class='msg-user-list-li' id='msg-user-list-li-"+data[i].receiveUserNo+"'>" + data[i].userName + "<p>@"+data[i].userId+"</p></li>";
                     $('.msg-user-list-ul').append(str);
                     $('.msg-input-box').remove();
                     var str2 = "";
                     str2 += "<div class='msg-input-box' style='display: inline-block; flex-direction: row;float:left;'>";
                     str2 +=     "<div style=' height: 100%; width: 495px; background-color: #F2F3F5;  float:left;'>";
-                    str2 +=        "<input type='text' class='msg-input' onKeyPress='javascript:if(event.keyCode==13) {msgBtn()}'>";
-                    str2 +=            "<button type='button' class='msg-input-btn' onClick='msgBtn()'></button>";
                     str2 +=    "</div>";
                     str2 +="</div>";
 
@@ -71,6 +69,8 @@ function loadingChatRoom() {
 }
 
 function selectChatRoom(i) {
+    $('.msg-user-list-li').removeAttr('background-color');
+    $('#msg-user-list-li-'+i).css("background-color","#F2F3F5");
     // timer = setInterval(function () {
         $.ajax({
             url: "/ajaxSelectChatRoom",
@@ -85,7 +85,7 @@ function selectChatRoom(i) {
                 // if (data.length > 0) {
                     $('.receive-msg-area-container').remove();
                     $('.send-msg-area-container').remove();
-                    var str = "";
+                    var str = "<div class='msg-box'>";
                     for (var a = 0; a < data.length; a++) {
                         if (data[a].sendUserNo === i) {
                             str += "<div class='receive-msg-area-container'>";
@@ -106,12 +106,16 @@ function selectChatRoom(i) {
                             str += "</div>";
                         }
                     }
+                    str += "</div>"
                     $('.msg-input-box').remove();
                     var str2 = "";
                     str2 += "<div class='msg-input-box' style='display: inline-block; flex-direction: row;float:left;'>";
-                    str2 +=     "<div style=' height: 100%; width: 495px; background-color: #F2F3F5;  float:left;'>";
+                    str2 +=     "<div style='display:flex; height: 100%; width: 495px; background-color: #F2F3F5;  float:left;'>";
+                    str2 +=     "<div>";
                     str2 +=        "<input type='text' class='msg-input' onKeyPress='javascript:if(event.keyCode==13) {msgBtn()}'>";
                     str2 +=            "<button type='button' class='msg-input-btn' onClick='msgBtn()'></button>";
+                    str2 +=     "</div>"
+                    str2 +=     "<div><button class='msg-room-close' onclick='chatRemove("+i+")'>나가기</button></div>";
                     str2 +=    "</div>";
                     str2 +="</div>";
 
@@ -128,7 +132,24 @@ function selectChatRoom(i) {
         })
     // }, 1000);
 }
-
+function chatRemove(i){
+    if(confirm("방에서 나가시겠습니까?")){
+        $.ajax({
+            url : "/ajaxChatRemove",
+            type : "post",
+            data : {
+                "roomNo" : i
+            },
+            success : function(data){
+                $('.msg-user-list-li-'+i).remove();
+                $('.msg-box').remove();
+            },
+            error(data){
+                alert("삭제실패");
+            }
+        });
+    }
+}
 //
 // window.onload = function () {
 //     const msgObj = {"userNo": parseInt($('#userNo').val())}
@@ -220,7 +241,7 @@ function chatStart(userNo) {
                 str += "<li onclick='selectChatRoom("+userNo+")'>"+data[0].userName+"</li>";
                 str+="<input type='hidden' value='"+data[0].userNo+"' id='receiveUserNo'>";
 
-                $('.msg-user-list-ul').append(str);
+                $('.msg-user-list-ul').prepend(str);
             }
         }
     })

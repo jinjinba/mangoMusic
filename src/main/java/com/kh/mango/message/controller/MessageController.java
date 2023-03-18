@@ -72,6 +72,12 @@ public class MessageController {
         }
     }
 
+    @PostMapping("/ajaxChatRemove")
+    @ResponseBody
+    public String ajaxChatRemove(int roomNo){
+        int result = mService.deleteRoomRemove(roomNo);
+        return "success";
+    }
     @PostMapping("/ajaxLoadChatRoom")
     @ResponseBody
     public String ajaxLoadChatRoom(int userNo){

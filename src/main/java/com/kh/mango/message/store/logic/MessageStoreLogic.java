@@ -41,4 +41,9 @@ public class MessageStoreLogic implements MessageStore {
         return session.selectList("MessageMapper.selectChatRoom",userNo);
 
     }
+
+    @Override
+    public int deleteRoomRemove(int roomNo) {
+        return session.delete("MessageMapper.deleteChatRoom",roomNo);
+    }
 }
