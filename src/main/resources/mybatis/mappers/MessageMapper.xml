@@ -11,15 +11,15 @@
     </resultMap>
 
     <select id="selectMessageList" resultType="com.kh.mango.message.domain.MessageList">
-        SELECT USER_NAME,USER_ID, RECEIVE_USER_NO,MSG_ROOM FROM MSG_TBL JOIN USER_TBL ON USER_NO = RECEIVE_USER_NO
+        SELECT USER_NAME,USER_ID, SEND_USER_NO,MSG_ROOM FROM MSG_TBL JOIN USER_TBL ON USER_NO = MSG_ROOM
         WHERE MSG_NO IN (SELECT MAX(MSG_NO) FROM MSG_TBL GROUP BY MSG_ROOM) AND (RECEIVE_USER_NO =  #{userNo}
-        OR SEND_USER_NO = #{userNo}) AND MSG_ROOM != SEND_USER_NO ORDER BY MSG_NO DESC
+        OR SEND_USER_NO = #{userNo}) AND MSG_ROOM != #{userNo} ORDER BY MSG_NO DESC
     </select>
     <select id="selectMessageListAll" resultType="com.kh.mango.message.domain.Message">
         SELECT * FROM MSG_TBL WHERE SEND_USER_NO = #{sendUserNo} and RECEIVE_USER_NO = #{receiveUserNo}
     </select>
     <select id="selectChatRoom" resultType="com.kh.mango.message.domain.Message">
-        SELECT * FROM MSG_TBL WHERE MSG_ROOM = #{userNo} ORDER BY MSG_NO ASC
+        select USER_NAME, MSG_NO, MSG_CONTENT, MSG_DATE,SEND_USER_NO,RECEIVE_USER_NO,MSG_ROOM from msg_tbl JOIN USER_TBL ON msg_room = USER_NO where msg_room = #{sendUserNo} and (send_user_no = #{sendUserNo} or receive_user_no = #{sendUserNo}) and (send_user_no = #{receiveUserNo} or receive_user_no = #{receiveUserNo}) ORDER BY MSG_NO ASC
     </select>
     <insert id="insertMsgSend">
         INSERT INTO MSG_TBL VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent},SYSTIMESTAMP,#{sendUserNo},#{receiveUserNo},#{receiveUserNo})

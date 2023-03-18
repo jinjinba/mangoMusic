@@ -52,7 +52,7 @@ function loadingChatRoom() {
             if (data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
                     var str = "";
-                    str += "<li onclick='selectChatRoom(" + data[i].receiveUserNo + ")' class='msg-user-list-li' id='msg-user-list-li-"+data[i].receiveUserNo+"'>" + data[i].userName + "<p>@"+data[i].userId+"</p></li>";
+                    str += "<li onclick='selectChatRoom(" + data[i].msgRoom + ")' class='msg-user-list-li' id='msg-user-list-li-"+data[i].sendUserNo+"'>" + data[i].userName + "<p>@"+data[i].userId+"</p><input type='hidden' value='"+data[i].sendUserNo+"' id='msg-user-list-id-"+data[i].sendUserNo+"'></li>";
                     $('.msg-user-list-ul').append(str);
                     $('.msg-input-box').remove();
                     var str2 = "";
@@ -68,6 +68,7 @@ function loadingChatRoom() {
     });
 }
 function addMsgInputBox(i){
+    $('.msg-input-box').remove();
     var str2 = "";
     str2 += "<div class='msg-input-box' style='display: inline-block; flex-direction: row;float:left;'>";
     str2 +=     "<div style='display:flex; height: 100%; width: 495px; background-color: #F2F3F5;  float:left;'>";
@@ -89,15 +90,18 @@ function selectChatRoom(i) {
             type: "post",
             dataType: "json",
             data: {
-                "userNo": i
+                "userNo": i,
+                "userNo2" : $('#userNo').val()
             },
             success: function (data) {
                 console.log(data);
                 $('#receiveUserNo').remove();
                 // if (data.length > 0) {
+
                     $('.receive-msg-area-container').remove();
                     $('.send-msg-area-container').remove();
-                    var str = "<div class='msg-box'>";
+                    // var str = "<div class='msg-box'>";
+                    var str = "";
                     for (var a = 0; a < data.length; a++) {
                         if (data[a].sendUserNo === i) {
                             str += "<div class='receive-msg-area-container'>";
@@ -118,13 +122,10 @@ function selectChatRoom(i) {
                             str += "</div>";
                         }
                     }
-                    str += "</div>"
-                    $('.msg-input-box').remove();
                     addMsgInputBox(i);
                     str+="<input type='hidden' value='"+data[0].msgRoom+"' id='receiveUserNo'>";
                     let msgBox = $('.msg-box');
                     msgBox.append(str);
-                // }
                 $('.msg-content-box').scrollTop($('.msg-content-box')[0].scrollHeight);
             },
             error: function (request, status, error) {
@@ -197,8 +198,14 @@ function msgUserSearchFunc() {
 
 // 채팅 초기 로드
 function chatStart(userNo) {
+    if(userNo == $('#msg-user-list-id-'+userNo).val()){
+        msgSearchBoxClose();
+        addMsgInputBox(userNo);
+        selectChatRoom(userNo);
+    }else {
     $('.msg-user-list-li').removeAttr('style');
     msgSearchBoxClose();
+    addMsgInputBox(userNo);
     // if (msgRoom === true) {
     //     return;
     // }
@@ -223,8 +230,8 @@ function chatStart(userNo) {
             }
         }
     });
-    addMsgInputBox(userNo);
     newMsgBtnStatus = false;
+    }
 }
 
 

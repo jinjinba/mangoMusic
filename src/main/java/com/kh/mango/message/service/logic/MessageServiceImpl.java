@@ -36,8 +36,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public List<Message> selectChatRoom(int userNo) {
-        return mStore.selectChatRoom(userNo);
+    public List<Message> selectChatRoom(Message message) {
+        return mStore.selectChatRoom(message);
     }
 
     @Override

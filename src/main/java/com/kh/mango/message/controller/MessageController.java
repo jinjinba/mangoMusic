@@ -98,8 +98,9 @@ public class MessageController {
 
     @PostMapping("/ajaxSelectChatRoom")
     @ResponseBody
-    public String ajaxSelectChatRoom(int userNo){
-        List<Message> mList = mService.selectChatRoom(userNo);
+    public String ajaxSelectChatRoom(int userNo,int userNo2){
+        Message message = new Message(userNo,userNo2);
+        List<Message> mList = mService.selectChatRoom(message);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = "";
         try {

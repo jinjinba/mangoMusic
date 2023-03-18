@@ -15,7 +15,7 @@ public interface MessageStore {
 
     List<Message> selectChatRoomList(int userNo);
 
-    List<Message> selectChatRoom(int userNo);
+    List<Message> selectChatRoom(Message message);
 
     int deleteRoomRemove(int roomNo);
 }

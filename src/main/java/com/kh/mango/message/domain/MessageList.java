@@ -9,6 +9,6 @@ public class MessageList {
 
     private String userName;
     private String userId;
-    private int receiveUserNo;
+    private int sendUserNo;
     private int msgRoom;
 }
