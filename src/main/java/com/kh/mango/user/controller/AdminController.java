@@ -2,6 +2,8 @@ package com.kh.mango.user.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.mango.cs.domain.Cs;
+import com.kh.mango.cs.service.CsService;
 import com.kh.mango.point.domain.AdminPoint;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.point.service.PointService;
@@ -32,6 +34,9 @@ public class AdminController {
     @Autowired
     private PointService pService;
 
+    @Autowired
+    private CsService cService;
+
 //    @PageableDefault(page = 0, size = 10) Pageable pageable
 
     @GetMapping("/admin")
@@ -50,6 +55,24 @@ public class AdminController {
 //        model.addAttribute("page-1", page-1);
         return "admin";
     }
+
+    @GetMapping("/allUserList")
+    public String allUserList(Model model) {
+        List<User> userList = uService.selectMember();
+        model.addAttribute("user",userList);
+        return "allUserList";
+    }
+
+    @GetMapping("adminNotice")
+    public String adminNotice(Model model) {
+        List<Cs> noticeList = cService.selectNoticeList();
+        for(int i = 0; i < noticeList.size(); i++){
+            noticeList.get(i).setRowNum(i+1);
+        }
+        model.addAttribute("noticeList",noticeList);
+        return "/adminNotice";
+    }
+
 
     private PageInfo getPageInfo(int currentPage, int totalCount) {
         PageInfo pi = null;
@@ -107,6 +130,11 @@ public class AdminController {
             return jsonString;
         }
         return jsonString;
+    }
+
+    @GetMapping("/admin2")
+    public String admin2() {
+        return "admin2";
     }
 
 }
