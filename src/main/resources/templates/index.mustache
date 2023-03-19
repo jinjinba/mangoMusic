@@ -1,5 +1,6 @@
 
 {{>layouts/sidebar}}
+<link rel="stylesheet" href="/myPageStyle.css">
 
 <main class="body" id="body-mypage">
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
@@ -12,6 +13,28 @@
             <div style="margin-right: 1rem">
             </div>
             {{#loginUser}}
+                <div style="margin-right: 1rem; display: flex" class="message">
+                    <div class="msg-area" id="msg-box" >
+                        <div class="msg-user-list-box" style=" float: left;">
+                            <div class="msg-user-list">
+                                <ul class="msg-user-list-ul">
+                                </ul>
+                            </div>
+                            <div class="new-msg-user-list">새로운 메시지</div>
+                        </div>
+                        <div class="msg-content-box">
+                            <div class="msg-box" >
+
+                            </div>
+
+                        </div>
+                        <div class="msg-input-box" style="display: inline-block; flex-direction: row;float:left;">
+                            <div class="in" style=" height: 100%; width: 495px; background-color: #F2F3F5;  float:left;">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="msg-toggle-btn" id="msg-btn" onclick="msgToggle();"></button>
+                </div>
             <div class="dropdown" id="myPageDropDown">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
@@ -21,6 +44,7 @@
                     <!-- 유저이름 -->
                     &nbsp;&nbsp;{{userName}}&nbsp;&nbsp;
                 </button>
+                <input type="hidden" value="{{loginUser.userNo}}" id="userNo">
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
                     {{#loginUser.userType}}
                         <li><a class="dropdown-item" href="/admin2">관리자페이지</a></li>
@@ -376,5 +400,6 @@
         </div>
     </div>
 </main>
+<script src="message.js"></script>
 
 {{>layouts/footer}}

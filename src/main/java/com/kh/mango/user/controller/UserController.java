@@ -8,8 +8,11 @@ import com.kh.mango.user.domain.*;
 import com.kh.mango.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -172,19 +175,30 @@ public class UserController {
 
 
     @GetMapping("/mypage")
-    public String myPageView(Model model,@SessionAttribute("loginUser") User user){
-        MyPage myPage = uService.myPageInfo(user.getUserNo());
-        List<MyPageFollow> followList = uService.myPageFollow(user.getUserNo());
-        List<MyPageDeals> deals = uService.myPageDeals(user.getUserNo());
-        List<Like> like = uService.myPageLikes(user.getUserNo());
-        List<PointRecord> pointRecordsList = uService.selectPointRecord(user.getUserNo());
-        model.addAttribute("myPage",myPage);
-        model.addAttribute("followers",followList);
-        model.addAttribute("deals",deals);
-        model.addAttribute("likes",like);
-        model.addAttribute("pointRecord",pointRecordsList);
-        return "mypage";
+    public String myPageView(Model model, @SessionAttribute(value = "loginUser", required = false) User user) {
+        try {
+            if(user == null) {
+                throw new Exception("Session attribute 'loginUser' is missing");
+            }
+            MyPage myPage = uService.myPageInfo(user.getUserNo());
+            List<MyPageFollow> followList = uService.myPageFollow(user.getUserNo());
+            List<MyPageDeals> deals = uService.myPageDeals(user.getUserNo());
+            List<Like> like = uService.myPageLikes(user.getUserNo());
+            List<PointRecord> pointRecordsList = uService.selectPointRecord(user.getUserNo());
+            model.addAttribute("myPage",myPage);
+            model.addAttribute("followers",followList);
+            model.addAttribute("deals",deals);
+            model.addAttribute("likes",like);
+            model.addAttribute("pointRecord",pointRecordsList);
+            return "mypage";
+        } catch(Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "mypage";
+        }
     }
+
+
+
 
     @PostMapping("/ajaxMsgUserSearch")
     @ResponseBody

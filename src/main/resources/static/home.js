@@ -433,6 +433,7 @@ const fillPageArtists = function ([
 // };
 
 window.onload = async () => {
+    loadingChatRoom();
     const listOfSearchAlbums = await getAlbums();
     fillPageAlbums(listOfSearchAlbums);
 
@@ -442,4 +443,5 @@ window.onload = async () => {
     const listOfGenres = await getPlaylists();
     console.log(listOfGenres);
     fillPagePlaylists(listOfGenres);
+
 };

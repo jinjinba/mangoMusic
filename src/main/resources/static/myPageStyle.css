@@ -300,7 +300,7 @@ tr:hover {
     top: 280px;
     z-index: 9999999999;
     border-radius: 25px;
-    display: block;
+    display: none;
     overflow: auto;
     border: 1px solid #ccc;
     flex-direction: row;
