@@ -188,6 +188,8 @@
                     </div>
                     <div class="anw">
                         <table>
+{{/loginUser}}
+
                             {{#pointRecord}}
                                 <tr>
                                     <td style="width: 100px">{{pointPM}}
@@ -207,8 +209,9 @@
 </main>
 <script src="mypage.js"></script>
 <script src="message.js"></script>
+    {{#loginUser}}
 {{>layouts/footer}}
-{{/loginUser}}
+    {{/loginUser}}
     {{^loginUser}}
     <script>
         $(document).ready(function () {
@@ -216,4 +219,5 @@
             window.location.replace("http://localhost:8985/login");
         });
     </script>
+
     {{/loginUser}}
