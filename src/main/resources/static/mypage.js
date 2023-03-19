@@ -1,5 +1,71 @@
 
 
+
+
+
+// 프로필 수정 시작 버튼
+$(".modify-btn").click(function(){
+
+    var str = "<input type='text' value='"+$('.profile-name-h1').html()+"' class='profile-name-input' spellcheck='false'><button type='button' onclick='ajaxProfileModify();' value='저장' class='modify-submit-btn'>수정</button>";
+    var str2 = "<textarea type='text' class='profile-letter-input' spellcheck='false'></textarea>";
+    $('.profile-name-h1').remove();
+    $('.profile-name').append(str);
+    $('.profile-letter').append(str2);
+    $('.profile-letter-input').val($('.profile-letter-span').html());
+    $('.profile-letter-span').remove();
+
+});
+
+
+function ajaxProfileModify(){
+    $.ajax({
+        url:"/ajaxProfileModify",
+        type:"post",
+        dataType:"json",
+        data:{
+            "userNo" : $('#userNo').val(),
+            "userName" : $('.profile-name-input').val(),
+            "userLetter" : $('.profile-letter-input').val()
+        },
+        success:function(data){
+            $('.modify-submit-btn').remove();
+            $('.profile-name-input').remove();
+            $('.profile-letter-input').remove();
+            str = "<h1 class='profile-name-h1'>"+data.userName+"</h1>";
+            str2 = "<span class='profile-letter-span'>"+data.userProfileLetter+"</span>";
+            $('.profile-name').append(str);
+            $('.profile-letter').append(str2);
+            str3 = "<img src='../img/abstract-user-flat-3.svg' style='width: 30px; height: 30px; border-radius: 50%' />";
+            $('#dropdownMenuButton1').text("  "+data.userName+"  ");
+            $('#dropdownMenuButton1').prepend(str3);
+        },
+        error: function (request, status, error) {
+            alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+        }
+    });
+}
+//프로필 수정 submit
+// $('.modify-submit-btn').on("click",function (){
+//    $.ajax({
+//        url:"/ajaxProfileModify",
+//        type:"post",
+//        dataType:"json",
+//        data:{
+//            "userNo" : $('#userNo').val(),
+//            "userName" : $('.profile-name-input').val(),
+//            "userLetter" : $('.profile-letter-input').val()
+//        },
+//        success:function(data){
+//            alert(data);
+//        },
+//        error:function (data){
+//            alert(data);
+//        }
+//    })
+// });
+
+
+
 // 아코디언 메뉴
 $(".que").click(function () {
     $(this).next(".anw").stop().slideToggle(300);

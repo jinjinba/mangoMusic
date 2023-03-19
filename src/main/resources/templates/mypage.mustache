@@ -14,9 +14,11 @@
             <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
         </div>
 <!--        <button onclick="test111()" value="asdasd" style="width: 30px;height: 30px;"></button>-->
-
         <div class="d-flex align-items-center" id="rightnav">
+            <button type="button" class="modify-btn"></button>
+
             <div style="margin-right: 1rem; display: flex" class="message">
+
                 <div class="msg-area" id="msg-box">
                     <div class="msg-user-list-box" style=" float: left;">
                         <div class="msg-user-list">
@@ -42,8 +44,7 @@
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
                     <!-- 유저 이미지 -->
-                    <img src="../img/abstract-user-flat-3.svg"
-                         style="width: 30px; height: 30px; border-radius: 50%" />
+                    <img src="../img/abstract-user-flat-3.svg" style="width: 30px; height: 30px; border-radius: 50%" />
                     <!-- 유저이름 -->
                     &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
                 </button>
@@ -61,8 +62,8 @@
 
             <!--             닉네임 들어갈곳-->
             <input type="hidden" value="{{loginUser.userNo}}" id="userNo">
-            <div class="profile-name"><h1>{{myPage.userName}}</h1></div>
-            <div class="profile-letter"><span>{{#myPage.userProfileLetter}}{{{myPage.userProfileLetter}}}{{/myPage.userProfileLetter}}</span></div>
+            <div class="profile-name"><h1 class="profile-name-h1">{{myPage.userName}}</h1></div>
+            <div class="profile-letter"><span class="profile-letter-span">{{#myPage.userProfileLetter}}{{{myPage.userProfileLetter}}}{{/myPage.userProfileLetter}}</span></div>
         </div>
     </div>
 
@@ -217,7 +218,8 @@
         $(document).ready(function () {
             alert("로그인이 필요합니다.")
             window.location.replace("http://localhost:8985/login");
-        });
-    </script>
+       });
+        var str = "/reply/Remove.bld?replyNo="+replyNo+"&noticeNo="${notice.noticeNo}
 
+    </script>
     {{/loginUser}}

@@ -1,16 +1,11 @@
 package com.kh.mango.user.service.logic;
 
-import com.kh.mango.message.domain.Message;
-import com.kh.mango.point.domain.AdminPoint;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 import com.kh.mango.user.service.UserService;
 import com.kh.mango.user.store.UserStore;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -106,6 +101,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserSearch> selectUserList(int userNo) {
         return uStore.selectUserList(session,userNo);
+    }
+
+    @Override
+    public User updateUserProfile(User user) {
+        return uStore.updateUserProfile(user);
     }
 
     @Override

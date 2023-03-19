@@ -92,8 +92,14 @@
     <select id="getListCount" resultType="_int">
         select count(*) from user_tbl
     </select>
-
+    <select id="selectUserProfile" resultType="com.kh.mango.user.domain.User">
+        SELECT USER_NAME, USER_PROFILE_LETTER FROM USER_TBL WHERE USER_NO = ${userNo}
+    </select>
     <select id="selectUserListByNo" resultType="com.kh.mango.user.domain.UserSearch">
         SELECT USER_NO, USER_ID, USER_NAME FROM USER_TBL WHERE  USER_NO = ${userNo}
     </select>
+
+    <update id="updateUserProfile">
+        UPDATE USER_TBL SET USER_NAME = #{userName}, USER_PROFILE_LETTER = #{userProfileLetter} WHERE USER_NO = ${userNo}
+    </update>
 </mapper>

@@ -59,16 +59,23 @@
 
 .profile-name{
     padding-top: 80px;
-    width: 300px;
-    height: 100px;
+    width: 400px;
+    height: 170px;
     margin-left: 340px;
 }
 
 .profile-letter{
     width: auto;
-    margin-top: 80px;
-    margin-left: 62px;
+    margin-top: 10px;
+    margin-left: 75px;
     display: inline-block;
+}
+.profile-letter-input{
+    background-color: transparent;
+    width: 700px;
+    height: 78px;
+    color: #dedee0;
+
 }
 
 #mypage-content-container{
@@ -280,15 +287,52 @@ tr:hover {
     font-size: 20px;
     font-weight: bold;
 }
+
+
+.modify-btn{
+    background-image: url("img/modify.svg");
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    position: relative;
+    top: 0;
+    right: 0px;
+    background-size: cover;
+    border: none;
+}
+
+
+.profile-name-input{
+    font-size: 32px;
+    /*width: auto;*/
+    box-sizing: content-box;
+    width: 275px;
+    background-color: transparent;
+    color: #dedee0;
+    margin-right: 40px;
+}
+
+.modify-submit-btn{
+    width: 65px;
+    height: 45px;
+    border-radius: 10px;
+    background-color: transparent;
+    color: #dedee0;
+    font-size: 20px;
+}
+
+.search_in{display: block;margin: 1px 2px 3px 4px;}
+.search_in input{width:100%}
+
 .msg-toggle-btn{
     width: 40px;
     height: 40px;
     background-image: url("img/mailbox.svg");
     background-color: transparent;
     border: none;
-    position: fixed;
+    position: relative;
     top: 0px;
-    right: 180px;
+    right: -5px;
 }
 
 

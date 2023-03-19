@@ -197,6 +197,24 @@ public class UserController {
         }
     }
 
+    @PostMapping("/ajaxProfileModify")
+    @ResponseBody
+    public String ajaxProfileModify(int userNo, String userName, String userLetter,@SessionAttribute("loginUser") User loginUser,HttpSession session){
+        User user = new User(userNo,null,userName,null,userLetter);
+        user = uService.updateUserProfile(user);
+        loginUser.setUserName(user.getUserName());
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(user);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+        session.setAttribute("loginUser",loginUser);
+        return jsonString;
+    }
 
 
 

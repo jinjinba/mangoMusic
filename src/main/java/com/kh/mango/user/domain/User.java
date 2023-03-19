@@ -27,6 +27,15 @@ public class User {
     public User() {
     }
 
+
+    public User(int userNo, String userId, String userName, String userEmail, String userProfileLetter) {
+        this.userNo = userNo;
+        this.userId = userId;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userProfileLetter = userProfileLetter;
+    }
+
     private PointRecord pointRecord;
 
     public User(String userId, String userPw) {
