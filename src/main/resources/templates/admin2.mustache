@@ -1,4 +1,5 @@
 {{>layouts/sidebar}}
+{{#loginUser}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <main class="body" id="body-mypage">
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
@@ -142,3 +143,12 @@
 
 </script>
 {{>layouts/footer}}
+{{/loginUser}}
+{{^loginUser}}
+    <script>
+        $(document).ready(function () {
+            alert("로그인이 필요합니다.")
+            window.location.replace("http://localhost:8985/login");
+        });
+    </script>
+{{/loginUser}}
