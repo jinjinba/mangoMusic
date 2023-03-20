@@ -1,5 +1,5 @@
 {{>layouts/sidebar}}
-<link rel="stylesheet" href="css/nDetail" />
+<link rel="stylesheet" href="css/qDetail" />
 <main>
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -38,22 +38,26 @@
     </nav>
     <div id="main-all">
         <div class="main-header">
-            <h2>공지사항</h2>
+            <h2>Q&A</h2>
             <hr>
         </div>
         <div class="notice_content_container">
             작성자 : {{cs.userName}} / 작성날짜 : {{cs.csDate}}
             <br>
-            제목 : {{cs.csSubject}}
+            <h1>제목 : {{cs.csSubject}}</h1>
             <br>
             내용 : {{cs.csContent}}
             <br>
             <hr>
-            {{#loginUser.userType}}
+            {{^loginUser.userType}}
                 <a href="/qnaModify?csNo={{cs.csNo}}">수정</a>
 <!--                <a href="#">수정</a>-->
                 <a href="javascript:void(0);" onclick="removeCheck({{cs.csNo}});">삭제</a>
             {{/loginUser.userType}}
+        </div>
+        <div>
+            <span></span>
+            <input type="text" name="" value="댓들을 입력해주세요.">
         </div>
     </div>
     <script>

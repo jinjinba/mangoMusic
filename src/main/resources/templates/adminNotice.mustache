@@ -11,6 +11,19 @@
         .main-header2 {
             padding: 20px;
         }
+        .notice_category2 {
+            border: 1px solid white;
+            border-radius: 10px;
+            border-style: hidden;
+            box-shadow: 0 0 0 1px #808080;
+            margin-left: 70px;
+            margin-top: 130px;
+            border-collapse: collapse;
+            line-height: 50px;
+            width: 150px;
+            height: 150px;
+            --position: fixed;
+        }
     </style>
 </head>
 <body>
@@ -23,7 +36,7 @@
     </div>
     <div class="notice_content_container">
         <aside>
-            <table class="notice_category">
+            <table class="notice_category2">
                 <tbody>
                 <tr>
                     <td class="side_td">
@@ -75,24 +88,29 @@
                 </form>
                 </tbody>
                 <tfoot>
+                <tr align="center">
+                    <td class="td_page" colspan="3">
+                        <span>{{{paging}}}</span>
+                    </td>
+                    <form action="/noticeWrite">
+                        {{#loginUser.userType}}
+                            <td class="td_wr"><button class="td_btn" type="button" onclick="location.href = '/noticeWrite'">글쓰기</button></td>
+                        {{/loginUser.userType}}
+                    </form>
+                </tr>
                 <tr>
                     <td colspan="4">
                         <form action="/noticeSearch" method="get">
                             <select name="searchCondition">
-                                <option value="all">전체</option>
-                                <option value="userName">작성자</option>
-                                <option value="subject">제목</option>
-                                <option value="content">내용</option>
+                                <option class="option" value="all">전체</option>
+                                <option class="option" value="userName">작성자</option>
+                                <option class="option" value="subject">제목</option>
+                                <option class="option" value="content">내용</option>
                             </select>
-                            <input type="text" name="searchValue" placeholder="검색어를 입력해주세요.">
-                            <input type="submit" value="검색">
+                            <input type="text" class="input_text" name="searchValue" placeholder="검색어를 입력해주세요.">
+                            <input type="submit" class="input_submit" value="검색">
                         </form>
                     </td>
-                    <form action="/noticeWrite">
-                        {{#loginUser.userType}}
-                            <td><button type="button" onclick="location.href = '/noticeWrite'">글쓰기</button></td>
-                        {{/loginUser.userType}}
-                    </form>
                 </tr>
                 </tfoot>
             </table>

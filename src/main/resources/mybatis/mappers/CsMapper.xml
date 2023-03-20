@@ -23,7 +23,7 @@
         INSERT INTO CS_TBL VALUES (SEQ_CSNO.NEXTVAL, '1', #{csSubject}, #{csContent}, DEFAULT, '62')
     </insert>
     <insert id="insertQna">
-        INSERT INTO CS_TBL VALUES (SEQ_CSNO.NEXTVAL, '2', #{csSubject}, #{csContent}, DEFAULT, USER_NO = #{userNo})
+        INSERT INTO CS_TBL VALUES (SEQ_CSNO.NEXTVAL, '2', #{csSubject}, #{csContent}, DEFAULT, SEQ_USER_NO.NEXTVAL)
     </insert>
     <update id="updateNotice">
         UPDATE CS_TBL SET CS_SUBJECT = #{csSubject}, CS_CONTENT = #{csContent} WHERE CS_NO = #{csNo}
@@ -49,6 +49,7 @@
     <select id="selectQnaOneByNo" resultMap="CsResultMap">
         SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO WHERE CS_CATEGORY = 2 AND CS_NO = #{csNo}
     </select>
+
     <select id="selectListByKeyword" resultMap="CsResultMap">
         SELECT C.*, U.USER_NAME FROM CS_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO
         <where>
@@ -78,6 +79,12 @@
             </if>
              and CS_CATEGORY = 2
         </where>
+    </select>
+    <select id="getNoticeListCount" resultType="_int">
+        SELECT COUNT(*) FROM CS_TBL WHERE CS_CATEGORY = 1
+    </select>
+    <select id="getQnaListCount" resultType="_int">
+        SELECT COUNT(*) FROM CS_TBL WHERE CS_CATEGORY = 2
     </select>
 
 </mapper>
