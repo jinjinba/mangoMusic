@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 public class PlayListController {
 
+    @GetMapping("/addPlaylist")
+    public String addPlaylist() {
+        return "addPlaylist";
+    }
+
     @GetMapping("/followPlaylist")
     public String followPlaylist() {
         return "followPlaylist";

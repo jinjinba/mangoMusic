@@ -1,0 +1,66 @@
+{{>layouts/sidebar}}
+    <!-- sidebar -->
+    <main class="body" id="body-mypage">
+        <nav class="navbar sticky-top mb-3" id="navbar-mypage">
+            <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
+                <div class="d-flex"></div>
+                <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
+            </div>
+
+            <div class="d-flex align-items-center" id="rightnav">
+                <div style="margin-right: 1rem">
+                </div>
+                {{#loginUser.userId}}
+                    <div class="dropdown" id="myPageDropDown">
+                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                            <!-- 유저 이미지 -->
+                            <img src="../img/abstract-user-flat-3.svg"
+                                 style="width: 30px; height: 30px; border-radius: 50%" />
+                            <!-- 유저이름 -->
+                            &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                            {{^loginUser.userType}}
+                                <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                            {{/loginUser.userType}}
+                            {{#loginUser.userType}}
+                                <li><a class="dropdown-item" href="/admin2">관리자페이지</a></li>
+                            {{/loginUser.userType}}
+                            <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                        </ul>
+                    </div>
+                {{/loginUser.userId}}
+            </div>
+        </nav>
+
+        <!-- 검색 폼 -->
+        <nav class="navbar sticky-top mb-3">
+            <div class="d-flex align-items-center">
+                <div>
+                    <input type="text" class="mx-4 form-control" id="search-input" placeholder="어떤 음악을 듣고 싶으세요?"
+                           onkeyup="search()" style="border-radius: 20px" />
+                </div>
+            </div>
+        </nav>
+
+        <!-- 검색 결과를 표시할 목록 -->
+        <ul id="search-results"></ul>
+
+        <!-- 영상이 노출될 영역 -->
+        <div id="player" style="display: none;"></div>
+
+</main>
+{{#loginUser}}
+    {{>layouts/footer}}
+{{/loginUser}}
+{{^loginUser}}
+    <script>
+        $(document).ready(function () {
+            alert("로그인이 필요합니다.")
+            window.location.replace("http://localhost:8985/login");
+        });
+        var str = "/reply/Remove.bld?replyNo="+replyNo+"&noticeNo="${notice.noticeNo}
+
+    </script>
+{{/loginUser}}
