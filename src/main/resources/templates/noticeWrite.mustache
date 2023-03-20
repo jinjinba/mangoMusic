@@ -1,0 +1,40 @@
+{{>layouts/sidebar}}
+{{#loginUser.userType}}
+<link rel="stylesheet" href="css/notice_wr.css" />
+<main>
+
+    <div id="main-all">
+        <div class="main-header">
+            <h2>공지사항</h2>
+            <hr>
+        </div>
+        <div class="main-body">
+            <form action="/noticeWrite" method="post">
+                <div class="writer">
+                    <ul>
+                        <li>
+                            <label>제목 :</label>
+                            <input type="text" name="csSubject" placeholder="제목을 입력해주세요.">
+                        </li>
+                        <li>
+                            <textarea id="story" name="csContent" rows="30" cols="200" placeholder="내용을 입력해주세요."></textarea>
+                        </li>
+                    </ul>
+                    <div class="btn">
+                        <input type="submit" value="등록하기">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{{>layouts/footer}}
+{{/loginUser.userType}}
+{{^loginUser.userType}}
+    <script>
+        $(document).ready(function () {
+            alert("관리자만 접근 가능합니다.")
+            window.location.replace("http://localhost:8985/");
+        });
+    </script>
+{{/loginUser.userType}}

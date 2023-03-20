@@ -1,0 +1,143 @@
+{{>layouts/sidebar}}
+<link rel="stylesheet" href="css/notice.css" />
+<main>
+    <nav class="navbar sticky-top mb-3" id="navbar-mypage">
+        <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
+            <div class="d-flex"></div>
+            <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
+        </div>
+
+        <div class="d-flex align-items-center" id="rightnav">
+            <div style="margin-right: 1rem">
+            </div>
+            {{#loginUser}}
+                <div class="dropdown" id="myPageDropDown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                        <!-- 유저 이미지 -->
+                        <img src="../img/abstract-user-flat-3.svg"
+                             style="width: 30px; height: 30px; border-radius: 50%" />
+                        <!-- 유저이름 -->
+                        &nbsp;&nbsp;{{userName}}&nbsp;&nbsp;
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        {{#loginUser.userType}}
+                            <li><a class="dropdown-item" href="/admin">관리자페이지</a></li>
+                        {{/loginUser.userType}}
+                        {{^loginUser.userType}}
+                            <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        {{/loginUser.userType}}
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            {{/loginUser}}
+            {{^loginUser}}
+                <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2" >로그인</button>
+            {{/loginUser}}
+        </div>
+    </nav>
+    <div id="main-all">
+
+
+        <div class="main-header">
+            <h2>Q&A</h2>
+            <hr>
+        </div>
+        <div class="notice_content_container">
+            <aside>
+                <table class="notice_category">
+                    <tbody>
+                    <tr>
+                        <td class="side_td">
+                            <a href="/notice">공지사항</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="side_td">
+                            <a href="/qna">Q&A</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </aside>
+            <div class="notice_all_container" style="overflow: scroll; height: 600px;">
+                <table class="notice_all">
+                    <tbody>
+                    <tr>
+                        <th class="table_no">
+                            번호
+                        </th>
+                        <th class="table_subject">
+                            제목
+                        </th>
+                        <th class="table_writer">
+                            작성자
+                        </th>
+                        <th class="table_writer">
+                            작성날짜
+                        </th>
+                    </tr>
+                    <form action="/qna">
+                        {{#qSearchList}}
+                            <tr>
+                                <td>
+                                    {{rowNum}}
+                                </td>
+                                <td>
+                                    <a href="/qnaDetail?csNo={{csNo}}">{{csSubject}}</a>
+                                </td>
+                                <td>
+                                    {{userName}}
+                                </td>
+                                <td>
+                                    {{csDate}}
+                                </td>
+                            </tr>
+                        {{/qSearchList}}
+                    </form>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <form action="/qnaSearch" method="get">
+                                    <input type="hidden" value="{{{search.searchCondition}}}" id="searchCondition">
+                                    <select name="searchCondition">
+                                        <option value="all" id="select-all">전체</option>
+                                        <option value="userName" id="select-userName">작성자</option>
+                                        <option value="subject" id="select-subject">제목</option>
+                                        <option value="content" id="select-content">내용</option>
+                                    </select>
+                                    <input type="text" name="searchValue" placeholder="검색어를 입력해주세요.">
+                                    <input type="submit" value="검색">
+                                </form>
+                            </td>
+                            <form action="/qnaWrite">
+                                {{#loginUser.userType}}
+                                    <td><button type="button" onclick="location.href = '/notice_wr'">글쓰기</button></td>
+                                {{/loginUser.userType}}
+                            </form>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    window.onload = function(){
+        switch ($('#searchCondition').val()){
+            case 'all' :
+                $('#select-all').attr("selected");
+            case 'userName' :
+                $('#select-userName').attr("selected");
+                break;
+            case 'subject' :
+                $('#select-subject').attr("selected");
+                break;
+            case 'content' :
+                $('#select-content').attr("selected");
+                break;
+        }
+    }
+</script>
+{{>layouts/footer}}

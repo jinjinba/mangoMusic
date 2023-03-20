@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MessageMapper">
+    <resultMap id="selectMessageResultMap" type="com.kh.mango.message.domain.MessageList">
+        <id column="MSG_NO" property="msgNo"/>
+        <result column="MSG_CONTENT" property="msgContent"/>
+        <result column="MSG_DATE" property="msgDate"/>
+        <result column="SEND_USER_NO" property="sendUserNo"/>
+        <result column="RECEIVE_USER_NO" property="receiveUserNo"/>
+        <result column="USER_NAME" property="userName"/>
+    </resultMap>
+
+    <select id="selectMessageList" resultType="com.kh.mango.message.domain.MessageList">
+        SELECT USER_NAME,USER_ID, SEND_USER_NO,MSG_ROOM FROM MSG_TBL JOIN USER_TBL ON USER_NO = MSG_ROOM
+        WHERE MSG_NO IN (SELECT MAX(MSG_NO) FROM MSG_TBL GROUP BY MSG_ROOM) AND (RECEIVE_USER_NO =  #{userNo}
+        OR SEND_USER_NO = #{userNo}) AND MSG_ROOM != #{userNo} ORDER BY MSG_NO DESC
+    </select>
+    <select id="selectMessageListAll" resultType="com.kh.mango.message.domain.Message">
+        SELECT * FROM MSG_TBL WHERE SEND_USER_NO = #{sendUserNo} and RECEIVE_USER_NO = #{receiveUserNo}
+    </select>
+    <select id="selectChatRoom" resultType="com.kh.mango.message.domain.Message">
+        select USER_NAME, MSG_NO, MSG_CONTENT, MSG_DATE,SEND_USER_NO,RECEIVE_USER_NO,MSG_ROOM from msg_tbl JOIN USER_TBL ON msg_room = USER_NO where msg_room = #{sendUserNo} and (send_user_no = #{sendUserNo} or receive_user_no = #{sendUserNo}) and (send_user_no = #{receiveUserNo} or receive_user_no = #{receiveUserNo}) ORDER BY MSG_NO ASC
+    </select>
+    <insert id="insertMsgSend">
+        INSERT INTO MSG_TBL VALUES (SEQ_MSG_NO.NEXTVAL, #{msgContent},SYSTIMESTAMP,#{sendUserNo},#{receiveUserNo},#{receiveUserNo})
+    </insert>
+    <insert id="insertMsgSend2">
+        INSERT INTO MSG_TBL VALUES (SEQ_MSG_NO.NEXTVAL,#{msgContent},SYSTIMESTAMP,#{sendUserNo},#{receiveUserNo},#{sendUserNo})
+    </insert>
+    <delete id="deleteChatRoom">
+        DELETE FROM MSG_TBL WHERE MSG_ROOM = #{roomNo}
+    </delete>
+</mapper>

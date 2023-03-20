@@ -28,12 +28,60 @@ body {
     background-attachment: fixed;
 }
 
-.register-box {
+.main-logo {
+    text-decoration: none;
+}
+
+/*logo i*/
+.heading {
+    font-weight: 600;
+}
+.heading {
+    font-size: 25px;
+    margin-left: 0.5rem;
+}
+.text-light {
+    color: #f8f9fa!important;
+}
+.mt-3 {
+    margin-top: 1rem!important;
+}
+.align-items-center {
+    align-items: center!important;
+}
+.d-flex {
+    display: flex!important;
+}
+
+.fa-regular, .far {
+    font-weight: 400;
+}
+.fa, .fa-brands, .fa-classic, .fa-regular, .fa-sharp, .fa-solid, .fab, .far, .fas {
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+}
+.p-1 {
+    padding: 0.25rem!important;
+}
+.mx-3 {
+    margin-right: 1rem!important;
+    margin-left: 1rem!important;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+
+
+/*find-box*/
+.find-box {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 600px;
-    height: 600px;
+    width: 30%;
+    height: 50%;
     padding: 40px;
     transform: translate(-50%, -50%);
     background: rgba(0,0,0,.5);
@@ -42,18 +90,18 @@ body {
     border-radius: 10px;
 }
 
-.register-box h2 {
+.find-box h2 {
     margin: 0 0 30px;
     padding: 0;
     color: #fff;
     text-align: center;
 }
 
-.register-box .user-box {
+.find-box .user-box {
     position: relative;
 }
 
-.register {
+.find {
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
@@ -65,11 +113,7 @@ body {
     background: transparent;
 }
 
-.gender {
-    padding: 10px 0;
-    margin-left: 21%;
-}
-.register-submit {
+.find-submit {
     text-align: center;
     /*justify-content: space-around;*/
 }
@@ -80,10 +124,10 @@ body {
 /*    margin-top: 30px;*/
 /*    justify-content: space-around;*/
 /*}*/
-#register-btn {
+#find-btn {
     text-align: right;
 }
-.register-btn {
+.find-btn {
     position: relative;
     display: inline-block;
     padding: 20px 40px;
@@ -91,13 +135,13 @@ body {
     font-size: 16px;
     text-decoration: none;
     text-transform: uppercase;
-
+    background-color:transparent;
     overflow: hidden;
     transition: .5s;
     margin-top: 40px;
     letter-spacing: 4px
 }
-.register-btn:hover {
+.find-btn:hover {
     background: #03e9f4;
     color: #fff;
     border-radius: 5px;
@@ -107,12 +151,12 @@ body {
     0 0 100px #03e9f4;
 }
 
-.register-box a span {
+.find-box button span {
     position: absolute;
     display: block;
 }
 
-.register-box a span:nth-child(1) {
+.find-box button span:nth-child(1) {
     top: 0;
     left: -100%;
     width: 100%;
@@ -130,7 +174,7 @@ body {
     }
 }
 
-.register-box a span:nth-child(2) {
+.find-box button span:nth-child(2) {
     top: -100%;
     right: 0;
     width: 2px;
@@ -149,7 +193,7 @@ body {
     }
 }
 
-.register-box a span:nth-child(3) {
+.find-box button span:nth-child(3) {
     bottom: 0;
     right: -100%;
     width: 100%;
@@ -168,7 +212,7 @@ body {
     }
 }
 
-.register-box a span:nth-child(4) {
+.find-box button span:nth-child(4) {
     bottom: -100%;
     left: 0;
     width: 2px;

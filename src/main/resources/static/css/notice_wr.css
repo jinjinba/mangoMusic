@@ -1,0 +1,74 @@
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+#main-all {
+    height: 100%;
+}
+.main-header {
+    margin-top: 50px;
+}
+h2 {
+    padding-bottom: 20px;
+    margin-left: 40px;
+}
+.main-body {
+    margin-top: 50px;
+    text-align: center;
+}
+.title_text {
+    width: 300px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: white;
+}
+.title {
+    margin-bottom: 50px;
+}
+textarea {
+    width: 1000px;
+    height: 600px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding: 30px;
+    /*background-color: rgb(233, 233, 233);*/
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: white;
+}
+.content {
+    margin-bottom: 50px;
+}
+.div_btn {
+    margin-top: 50px;
+}
+.button {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: white;
+    margin: 0px 10px;
+    font-size: 20px;
+    border-radius: 15px;
+
+    position: relative;
+    /*border: none;*/
+    display: inline-block;
+    padding: 15px 50px;
+    font-family: "paybooc-Light", sans-serif;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
