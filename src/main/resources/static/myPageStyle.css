@@ -335,7 +335,11 @@ tr:hover {
     right: -5px;
 }
 
-
+.msg-toggle-btn:after{
+    position: absolute;
+    top: 180px;
+    right: 180px;
+}
 .msg-area{
     background-color: transparent;
     width: 700px;

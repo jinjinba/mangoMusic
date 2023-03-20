@@ -1,23 +1,33 @@
 
 
 
-
+var profileStatus = false;
 
 // 프로필 수정 시작 버튼
 $(".modify-btn").click(function(){
-
-    var str = "<input type='text' value='"+$('.profile-name-h1').html()+"' class='profile-name-input' spellcheck='false'><button type='button' onclick='ajaxProfileModify();' value='저장' class='modify-submit-btn'>수정</button>";
-    var str2 = "<textarea type='text' class='profile-letter-input' spellcheck='false'></textarea>";
-    $('.profile-name-h1').remove();
-    $('.profile-name').append(str);
-    $('.profile-letter').append(str2);
-    $('.profile-letter-input').val($('.profile-letter-span').html());
-    $('.profile-letter-span').remove();
-
+    var name = $('.profile-name-h1');
+    var letter = $('.profile-letter-span');
+    if(!profileStatus){
+        var str = "<input type='text' value='"+$('.profile-name-h1').html()+"' class='profile-name-input' spellcheck='false'><button type='button' onclick='ajaxProfileModify();' value='저장' class='modify-submit-btn'>수정</button>";
+        var str2 = "<textarea type='text' class='profile-letter-input' spellcheck='false'></textarea>";
+        $('.profile-name-h1').remove();
+        $('.profile-name').append(str);
+        $('.profile-letter').append(str2);
+        $('.profile-letter-input').val($('.profile-letter-span').html());
+        $('.profile-letter-span').remove();
+        profileStatus = true;
+    }else {
+        $('.profile-name-input').remove();
+        $('.')
+        $('.profile-letter').append(name);
+        $('.profile-letter').append(letter);
+        profileStatus = false;
+    }
 });
 
 
 function ajaxProfileModify(){
+    profileStatus = false;
     $.ajax({
         url:"/ajaxProfileModify",
         type:"post",

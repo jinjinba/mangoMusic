@@ -25,7 +25,7 @@ function msgBtn() {
         error: function (request, status, error) {
             alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
         }
-    })
+    });
 }
 
 
@@ -87,7 +87,7 @@ function selectChatRoom(){
 function selectChatRoom(i) {
     $('.msg-user-list-li').removeAttr('style');
     $('#msg-user-list-li-'+i).css("background-color","#F2F3F5");
-    // timer = setInterval(function () {
+    timer = setInterval(function () {
     $.ajax({
         url: "/ajaxSelectChatRoom",
         type: "post",
@@ -135,7 +135,7 @@ function selectChatRoom(i) {
             console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
         }
     })
-    // }, 1000);
+    }, 1000);
     addMsgInputBox(i);
     $('.msg-content-box').scrollTop($('.msg-content-box')[0].scrollHeight);
 
@@ -239,6 +239,20 @@ function chatStart(userNo) {
         newMsgBtnStatus = false;
     }
 }
+var msgToggleStatus = false;
 function msgToggle() {
-    msgBox.toggle('active');
+    var msgToggle = $('.msg-toggle-btn');
+    var modifyToggle = $('.modify-btn');
+    if(!msgToggleStatus){
+        msgToggle.css("top","230px")
+    // msgToggle.css("right","200px")
+    //     modifyToggle.css("position","fixed");
+    modifyToggle.css("left","700px");
+    msgToggleStatus = true;
+    }else {
+    msgToggle.css("top","0px");
+    modifyToggle.css("left","0px");
+    msgToggleStatus = false;
+    }
+    msgBox.toggle(0,'show');
 }
