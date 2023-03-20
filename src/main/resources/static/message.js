@@ -81,10 +81,12 @@ function addMsgInputBox(i){
     str2 +="</div>";
     $('.msg-area').append(str2);
 }
-function selectChatRoom(){
-
-}
+var timer;
+var selectChatRoomStatus = false;
 function selectChatRoom(i) {
+    if(selectChatRoomStatus){
+        clearInterval(timer);
+    }
     $('.msg-user-list-li').removeAttr('style');
     $('#msg-user-list-li-'+i).css("background-color","#F2F3F5");
     timer = setInterval(function () {
@@ -129,7 +131,7 @@ function selectChatRoom(i) {
             str+="<input type='hidden' value='"+data[0].msgRoom+"' id='receiveUserNo'>";
             let msgBox = $('.msg-box');
             msgBox.append(str);
-
+            selectChatRoomStatus = true;
         },
         error: function (request, status, error) {
             console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
