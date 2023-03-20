@@ -138,6 +138,35 @@ public class CsController {
 //        return "/notice";
         return mv;
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/adminNotice")
+    public ModelAndView adminNotice(
+            ModelAndView mv
+//            , Model model
+            , @RequestParam(value="page", required=false, defaultValue="1") Integer page) {
+        int totalCount = cService.getListCount();
+        PageInfo pi = this.getPageInfo(page, totalCount);
+        List<Cs> noticeList = cService.selectNoticeList(pi);
+
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < noticeList.size(); i++){
+            noticeList.get(i).setRowNum(i+1);
+        }
+
+        for(int i = 1; i < pi.getEndNavi(); i++){
+            sb.append("<a href='http://localhost:8985/notice?page="+i+"'>"+i+"</a> ");
+        }
+        mv.addObject("paging",sb);
+        mv.addObject("pi", pi);
+        mv.addObject("noticeList", noticeList);
+        mv.setViewName("adminNotice");
+//        mv.addObject("pi", pi);
+//        mv.addObject("noticeList",noticeList);
+//        return "/notice";
+        return mv;
+    }
+
+
     // Q&A 목록 화면
     @GetMapping(value = "/qna")
     public ModelAndView qnaListView(

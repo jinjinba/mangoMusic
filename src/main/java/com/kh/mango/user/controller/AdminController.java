@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -50,9 +51,6 @@ public class AdminController {
 //        model.addAttribute("pi", pi);
         model.addAttribute("user",userList);
         model.addAttribute("adminPoint",adminPoint);
-//        model.addAttribute("page", page);
-//        model.addAttribute("page+1", page+1);
-//        model.addAttribute("page-1", page-1);
         return "admin";
     }
 
@@ -63,15 +61,18 @@ public class AdminController {
         return "allUserList";
     }
 
-    @GetMapping("/adminNotice")
-    public String adminNotice(Model model) {
-        List<Cs> noticeList = cService.selectNoticeList();
-        for(int i = 0; i < noticeList.size(); i++){
-            noticeList.get(i).setRowNum(i+1);
-        }
-        model.addAttribute("noticeList",noticeList);
-        return "adminNotice";
-    }
+//    @GetMapping("/adminNotice")
+//    public String adminNotice(ModelAndView mv
+//            , @RequestParam(value="page", required=false, defaultValue="1") Integer page) {
+//        int totalCount = cService.getListCount();
+//        PageInfo pi = this.getPageInfo(page, totalCount);
+//        List<Cs> noticeList = cService.selectNoticeList(pi);
+//        for(int i = 0; i < noticeList.size(); i++){
+//            noticeList.get(i).setRowNum(i+1);
+//        }
+//        model.addAttribute("noticeList",noticeList);
+//        return "adminNotice";
+//    }
 
     @GetMapping("/adminPoint")
     public String adminPoint(Model model) {
