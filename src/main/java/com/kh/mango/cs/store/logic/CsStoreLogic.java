@@ -2,7 +2,9 @@ package com.kh.mango.cs.store.logic;
 
 import com.kh.mango.cs.domain.Cs;
 import com.kh.mango.cs.domain.CsSearch;
+import com.kh.mango.cs.domain.PageInfo;
 import com.kh.mango.cs.store.CsStore;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -33,14 +35,22 @@ public class CsStoreLogic implements CsStore {
     }
 
     @Override
-    public List<Cs> selectNoticeList(SqlSession session) {
-        List<Cs> notices = session.selectList("CsMapper.selectNoticeList");
-        return notices;
+    public List<Cs> selectNoticeList(SqlSession session, PageInfo pi) {
+        int limit = pi.getBoardLimit();
+        int currentPage = pi.getCurrentPage();
+        int offset = (currentPage - 1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        return session.selectList("CsMapper.selectNoticeList", null, rowBounds);
     }
 
+
     @Override
-    public List<Cs> selectQnaList(SqlSession session) {
-        return session.selectList("CsMapper.selectQnaList");
+    public List<Cs> selectQnaList(SqlSession session, PageInfo pi) {
+        int limit = pi.getBoardLimit();
+        int currentPage = pi.getCurrentPage();
+        int offset = (currentPage - 1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        return session.selectList("CsMapper.selectQnaList", null, rowBounds);
     }
 
     @Override
@@ -66,13 +76,32 @@ public class CsStoreLogic implements CsStore {
 
     // 공지사항 검색
     @Override
-    public List<Cs> selectListByKeyword(SqlSession session, CsSearch nSearch) {
-        return session.selectList("CsMapper.selectListByKeyword", nSearch);
+    public List<Cs> selectListByKeyword(SqlSession session, PageInfo pi, CsSearch nSearch) {
+        int limit = pi.getBoardLimit();
+        int currentPage = pi.getCurrentPage();
+        int offset = (currentPage - 1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        return session.selectList("CsMapper.selectListByKeyword", nSearch, rowBounds);
     }
 
     @Override
     public List<Cs> selectQnaListByKeyword(SqlSession session, CsSearch qSearch) {
         return session.selectList("CsMapper.selectQnaListByKeyword", qSearch);
+    }
+
+    @Override
+    public int getListCount(SqlSession session) {
+        return session.selectOne("CsMapper.getNoticeListCount");
+    }
+    @Override
+    public int getQListCount(SqlSession session) {
+        return session.selectOne("CsMapper.getQnaListCount");
+    }
+
+
+    @Override
+    public int getListCount(SqlSession session, CsSearch nSearch) {
+        return session.selectOne("CsMapper.getNoticeSearchListCount", nSearch);
     }
 
 }

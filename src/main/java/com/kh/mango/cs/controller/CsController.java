@@ -2,14 +2,17 @@ package com.kh.mango.cs.controller;
 
 import com.kh.mango.cs.domain.Cs;
 import com.kh.mango.cs.domain.CsSearch;
+import com.kh.mango.cs.domain.PageInfo;
 import com.kh.mango.cs.service.CsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -47,6 +50,7 @@ public class CsController {
             , Model model) {
         int result = cService.insertQna(cs);
         if(result > 0) {
+            System.out.println(result);
             return "redirect:/qna";
         }else {
             return "/qnaWrite";
@@ -109,25 +113,57 @@ public class CsController {
     }
     // 공지사항 목록 화면
     @RequestMapping(method = RequestMethod.GET, value = "/notice")
-    public String noticeView(
-            Model model) {
-        List<Cs> noticeList = cService.selectNoticeList();
+    public ModelAndView noticeListView(
+            ModelAndView mv
+//            , Model model
+            , @RequestParam(value="page", required=false, defaultValue="1") Integer page) {
+        int totalCount = cService.getListCount();
+        PageInfo pi = this.getPageInfo(page, totalCount);
+        List<Cs> noticeList = cService.selectNoticeList(pi);
+
+        StringBuffer sb = new StringBuffer();
         for(int i = 0; i < noticeList.size(); i++){
             noticeList.get(i).setRowNum(i+1);
         }
-        model.addAttribute("noticeList",noticeList);
-        return "/notice";
+
+        for(int i = 1; i < pi.getEndNavi(); i++){
+            sb.append("<a href='http://localhost:8985/notice?page="+i+"'>"+i+"</a> ");
+        }
+        mv.addObject("paging",sb);
+        mv.addObject("pi", pi);
+        mv.addObject("noticeList", noticeList);
+        mv.setViewName("notice");
+//        mv.addObject("pi", pi);
+//        mv.addObject("noticeList",noticeList);
+//        return "/notice";
+        return mv;
     }
     // Q&A 목록 화면
     @GetMapping(value = "/qna")
-    public String qnaView(
-            Model model) {
-        List<Cs> qnaList = cService.selectQnaList();
-        for(int i = 0; i < qnaList.size(); i++) {
+    public ModelAndView qnaListView(
+            ModelAndView mv
+//            , Model model
+            , @RequestParam(value="page", required=false, defaultValue="1") Integer page) {
+        int totalCount = cService.getQListCount();
+        PageInfo pi = this.getPageInfo(page, totalCount);
+        List<Cs> qnaList = cService.selectQnaList(pi);
+
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < qnaList.size(); i++){
             qnaList.get(i).setRowNum(i+1);
         }
-        model.addAttribute("qnaList", qnaList);
-        return "/qna";
+        for(int i = 1; i < pi.getEndNavi(); i++){
+            sb.append("<a href='http://localhost:8985/qna?page="+i+"'>"+i+"</a> ");
+        }
+//        for(int i = 0; i < qnaList.size(); i++) {
+//            qnaList.get(i).setRowNum(i+1);
+//        }
+        mv.addObject("paging",sb);
+        mv.addObject("pi", pi);
+        mv.addObject("qnaList", qnaList);
+        mv.setViewName("qna");
+//        model.addAttribute("qnaList", qnaList);
+        return mv;
     }
 
     // 공지사항 삭제
@@ -180,13 +216,16 @@ public class CsController {
     @GetMapping(value = "/noticeSearch")
     public String noticeSearchView(
             @ModelAttribute CsSearch nSearch
-            , @RequestParam("searchValue") String keyword
-            , @RequestParam(value = "searchCondition") String condition
+//            , @RequestParam("searchValue") String keyword
+//            , @RequestParam(value = "searchCondition") String condition
+            , @RequestParam(value = "page", required = false, defaultValue = "1") Integer currentPage
             , Model model) {
-        List<Cs> searchList = cService.selectListByKeyword(nSearch);
+        int totalCount = cService.getListCount(nSearch);
+        PageInfo pi = this.getPageInfo(currentPage, totalCount);
+        List<Cs> searchList = cService.selectListByKeyword(pi, nSearch);
         if(!searchList.isEmpty()) {
             model.addAttribute("search", nSearch);
-//            model.addAttribute("pi", pi);
+            model.addAttribute("pi", pi);
             model.addAttribute("nSearchList", searchList);
             return "/noticeSearch";
         }else {
@@ -212,4 +251,24 @@ public class CsController {
             return "/qna";
         }
     }
+    // navigator start, end값 설정 method()
+    private PageInfo getPageInfo(int currentPage, int totalCount) {
+        PageInfo pi = null;
+        int boardLimit = 10;
+        int naviLimit = 5;
+        int maxPage;
+        int startNavi;
+        int endNavi;
+
+        maxPage = (int) ((double)totalCount/boardLimit+0.9);
+        Math.ceil((double)totalCount/boardLimit);
+        startNavi = (((int)((double)currentPage/naviLimit+0.9))-1)*naviLimit+1;
+        endNavi = startNavi + naviLimit -1;
+        if(endNavi > maxPage) {
+            endNavi = maxPage;
+        }
+        pi = new PageInfo(currentPage, boardLimit, naviLimit, startNavi, endNavi, totalCount, maxPage);
+        return pi;
+    }
+
 }

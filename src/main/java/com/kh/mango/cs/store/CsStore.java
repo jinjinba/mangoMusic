@@ -2,6 +2,7 @@ package com.kh.mango.cs.store;
 
 import com.kh.mango.cs.domain.Cs;
 import com.kh.mango.cs.domain.CsSearch;
+import com.kh.mango.cs.domain.PageInfo;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -46,14 +47,14 @@ public interface CsStore {
      * @param session
      * @return List<Cs>
      */
-    List<Cs> selectNoticeList(SqlSession session);
+    List<Cs> selectNoticeList(SqlSession session, PageInfo pi);
 
     /**
      * Q&A 리스트
      * @param session
      * @return List<Cs>
      */
-    List<Cs> selectQnaList(SqlSession session);
+    List<Cs> selectQnaList(SqlSession session, PageInfo pi);
 
     /**
      * 공지사항 삭제
@@ -72,8 +73,15 @@ public interface CsStore {
     Cs selectQnaOneByNo(SqlSession session, int csNo);
 
     // 공지사항 검색
-    List<Cs> selectListByKeyword(SqlSession session, CsSearch nSearch);
+    List<Cs> selectListByKeyword(SqlSession session, PageInfo pi, CsSearch nSearch);
 
     // Q&A 검색
     List<Cs> selectQnaListByKeyword(SqlSession session, CsSearch qSearch);
+
+    int getListCount(SqlSession session);
+
+    int getQListCount(SqlSession session);
+
+    int getListCount(SqlSession session, CsSearch nSearch);
+
 }

@@ -2,6 +2,7 @@ package com.kh.mango.cs.service.logic;
 
 import com.kh.mango.cs.domain.Cs;
 import com.kh.mango.cs.domain.CsSearch;
+import com.kh.mango.cs.domain.PageInfo;
 import com.kh.mango.cs.service.CsService;
 import com.kh.mango.cs.store.CsStore;
 import org.apache.ibatis.session.SqlSession;
@@ -38,13 +39,13 @@ public class CsServiceImpl implements CsService {
     }
 
     @Override
-    public List<Cs> selectNoticeList() {
-        return cStore.selectNoticeList(session);
+    public List<Cs> selectNoticeList(PageInfo pi) {
+        return cStore.selectNoticeList(session, pi);
     }
 
     @Override
-    public List<Cs> selectQnaList() {
-        return cStore.selectQnaList(session);
+    public List<Cs> selectQnaList(PageInfo pi) {
+        return cStore.selectQnaList(session, pi);
     }
 
     @Override
@@ -68,13 +69,28 @@ public class CsServiceImpl implements CsService {
     }
 
     @Override
-    public List<Cs> selectListByKeyword(CsSearch nSearch) {
-        return cStore.selectListByKeyword(session, nSearch);
+    public List<Cs> selectListByKeyword(PageInfo pi, CsSearch nSearch) {
+        return cStore.selectListByKeyword(session, pi, nSearch);
     }
 
     @Override
     public List<Cs> selectQnaListByKeyword(CsSearch qSearch) {
         return cStore.selectQnaListByKeyword(session, qSearch);
+    }
+
+    @Override
+    public int getListCount() {
+        return cStore.getListCount(session);
+    }
+
+    @Override
+    public int getQListCount() {
+        return cStore.getQListCount(session);
+    }
+
+    @Override
+    public int getListCount(CsSearch nSearch) {
+        return cStore.getListCount(session, nSearch);
     }
 
 
