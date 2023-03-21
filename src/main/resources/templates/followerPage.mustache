@@ -62,9 +62,11 @@
 
                 <!--             닉네임 들어갈곳-->
 <!--                여기 수정하기 ~!~!~!-->
-                <input type="hidden" value="" id="userNo">
-                <div class="profile-name"><h1 class="profile-name-h1"></h1></div>
-                <div class="profile-letter"><span class="profile-letter-span"></span></div>
+                <input type="hidden" value="{{followerPage.userNo}}" id="userNo">
+                <div class="profile-name"><h1 class="profile-name-h1">{{followerPage.userName}}</h1></div>
+                <div class="profile-letter"><span class="profile-letter-span">
+                    {{#followerPage.userProfileLetter}} {{{followerPage.userProfileLetter}}} {{/followerPage.userProfileLetter}}
+                </span></div>
             </div>
         </div>
         <br>

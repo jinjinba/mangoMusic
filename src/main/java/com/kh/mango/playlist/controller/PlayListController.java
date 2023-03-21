@@ -4,6 +4,7 @@ import com.kh.mango.playlist.domain.PlayList;
 import com.kh.mango.playlist.service.PlayListService;
 import com.kh.mango.user.domain.MyPage;
 import com.kh.mango.user.domain.User;
+import com.kh.mango.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,9 @@ public class PlayListController {
 
     @Autowired
     private PlayListService pService;
+
+    @Autowired
+    private UserService uService;
 
 
     @GetMapping("/addPlaylist")
@@ -42,7 +46,7 @@ public class PlayListController {
     }
 
     @GetMapping("/followPlaylist")
-    public String followPlaylist(Model model, @RequestParam("userNo") String userNo,
+    public String followPlaylist(Model model, @RequestParam("userNo") int userNo,
                                  @RequestParam("userName") String userName) {
         List<PlayList> followPlaylist = pService.showFollowPlaylist(userNo);
         model.addAttribute("followPlaylist",followPlaylist);
@@ -51,8 +55,10 @@ public class PlayListController {
     }
 
     @GetMapping("/followerPage")
-    public String followerPage(Model model, @RequestParam("userNo") String userNo) {
+    public String followerPage(Model model, @RequestParam("userNo") int userNo) {
+        MyPage followerPage = uService.myPageInfo(userNo);
         List<PlayList> followPlaylist = pService.showFollowPlaylist(userNo);
+        model.addAttribute("followerPage",followerPage);
         model.addAttribute("followPlaylist",followPlaylist);
         return "followerPage";
     }
