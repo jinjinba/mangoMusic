@@ -127,7 +127,7 @@
                             </tr>
                             {{#followers}}
                                 <tr>
-                                    <td onclick="window.open('/followPlaylist?userNo={{userNo}}&userName={{userName}}','','top=0, left=700, width=500, height=600')">{{userName}}</td>
+                                    <td onclick="location.href='/followerPage?userNo={{userNo}}'">{{userName}}</td>
                                 </tr>
                             {{/followers}}
                         </table>

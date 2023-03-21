@@ -50,6 +50,15 @@ public class PlayListController {
         return "followPlaylist";
     }
 
+    @GetMapping("/followerPage")
+    public String followerPage(Model model, @RequestParam("userNo") String userNo) {
+        List<PlayList> followPlaylist = pService.showFollowPlaylist(userNo);
+        model.addAttribute("followPlaylist",followPlaylist);
+        return "followerPage";
+    }
+
+
+
 //    @GetMapping("/library")
 //    public String showLibrary(Model model, @SessionAttribute(value = "loginUser", required = false) User user) {
 //        try {
