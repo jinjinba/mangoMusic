@@ -25,5 +25,6 @@
         margin: 30px;
     }
     #song-list {
-        font-size: 17px;
+        font-size: 19px;
+        padding: 5px;
     }
