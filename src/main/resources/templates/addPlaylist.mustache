@@ -140,8 +140,8 @@
             type: "post",
             data : {
                 "userNo" : parseInt($('#userNo').val()),
-                "name" : ($(obj).text()).split('-')[0],
-                "artist" : ($(obj).text()).split('-')[1]
+                "name" : $.trim(($(obj).text()).split('-')[0]),
+                "artist" : $.trim(($(obj).text()).split('-')[1])
             },
             datatype: "json",
             success: function(data) {

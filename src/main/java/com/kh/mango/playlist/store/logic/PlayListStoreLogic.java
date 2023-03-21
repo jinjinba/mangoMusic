@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class PlayListStoreLogic implements PlayListStore {
 
@@ -15,5 +17,15 @@ public class PlayListStoreLogic implements PlayListStore {
     @Override
     public int addPlaylist(PlayList playlistParam) {
         return sqlSession.insert("PlaylistMapper.addPlaylist",playlistParam);
+    }
+
+    @Override
+    public List<PlayList> showMyPlaylist(int userNo) {
+        return sqlSession.selectList("PlaylistMapper.showMyPlaylist", userNo);
+    }
+
+    @Override
+    public List<PlayList> showFollowPlaylist(String userNo) {
+        return sqlSession.selectList("PlaylistMapper.showFollowPlaylist", userNo);
     }
 }

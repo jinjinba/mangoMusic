@@ -9,11 +9,11 @@
 </head>
 <body>
 <div id="table-header">
-    <div id="header"> {{userName}}님의 플레이리스트</div>
-    <!--    <div id="table-search">-->
-    <!--        <input type="text" id="search-input" name="searchValue" placeholder="검색어 입력" style="width: 300px; height: 30px">-->
-    <!--        <input type="submit" value="검색" id="searchUserList">-->
-    <!--    </div>-->
+    <div id="submit">내 플레이리스트</div>
+<!--    <div id="table-search">-->
+<!--        <input type="text" id="search-input" name="searchValue" placeholder="검색어 입력" style="width: 300px; height: 30px">-->
+<!--        <input type="submit" value="검색" id="searchUserList">-->
+<!--    </div>-->
 </div>
 <div id="user-list">
     <table class="table" style="color: #b6b6b6; font-size : 16px; text-align: center;">
@@ -25,12 +25,12 @@
         </thead>
 
         <tbody id="tableBody">
-        {{#followPlaylist}}
+        {{#myPlaylist}}
             <tr>
-                <td>{{playlistArtist}}</td>
-                <td>{{playlistSong}}</td>
+            <td>{{playlistArtist}}</td>
+            <td>{{playlistSong}}</td>
             <tr>
-        {{/followPlaylist}}
+        {{/myPlaylist}}
         </tbody>
 
         <!--                        <tr align="center">-->

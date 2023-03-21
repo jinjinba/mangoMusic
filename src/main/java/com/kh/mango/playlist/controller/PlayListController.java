@@ -2,12 +2,12 @@ package com.kh.mango.playlist.controller;
 
 import com.kh.mango.playlist.domain.PlayList;
 import com.kh.mango.playlist.service.PlayListService;
+import com.kh.mango.user.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,10 +23,6 @@ public class PlayListController {
         return "addPlaylist";
     }
 
-    @GetMapping("/followPlaylist")
-    public String followPlaylist() {
-        return "followPlaylist";
-    }
 
     @PostMapping("/ajaxAddPlaylist")
     @ResponseBody
@@ -35,4 +31,21 @@ public class PlayListController {
         int playlist = pService.addPlaylist(playlistParam);
         return "success";
     }
+
+    @GetMapping("/myPlaylist")
+    public String myPlaylist(Model model, @SessionAttribute(value = "loginUser", required = false) User user) {
+        List<PlayList> myPlaylist = pService.showMyPlaylist(user.getUserNo());
+        model.addAttribute("myPlaylist", myPlaylist);
+        return "myPlaylist";
+    }
+
+    @GetMapping("/followPlaylist")
+    public String followPlaylist(Model model, @RequestParam("userNo") String userNo,
+                                 @RequestParam("userName") String userName) {
+        List<PlayList> followPlaylist = pService.showFollowPlaylist(userNo);
+        model.addAttribute("followPlaylist",followPlaylist);
+        model.addAttribute("userName", userName);
+        return "followPlaylist";
+    }
+
 }

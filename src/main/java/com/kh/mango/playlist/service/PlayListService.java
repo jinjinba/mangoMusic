@@ -7,4 +7,8 @@ import java.util.List;
 public interface PlayListService {
 
     int addPlaylist(PlayList playlistParam);
+
+    List<PlayList> showMyPlaylist(int userNo);
+
+    List<PlayList> showFollowPlaylist(String userNo);
 }
