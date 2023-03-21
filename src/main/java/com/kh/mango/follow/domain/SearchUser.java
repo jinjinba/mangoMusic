@@ -8,5 +8,5 @@ import lombok.*;
 @NoArgsConstructor
 public class SearchUser {
     private String searchValue;
-    private int userNo;
+    private String userId;
 }
