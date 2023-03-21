@@ -1,6 +1,6 @@
 {{>layouts/sidebar}}
 {{#loginUser.userNo}}
-    <link rel="stylesheet" href="/myPageStyle.css">
+    <link rel="stylesheet" href="/library.css">
     <script>
         $(document).ready(function(){
             msgUserSearchFunc();
@@ -99,6 +99,10 @@
 
 <script src="mypage.js"></script>
 <script src="message.js"></script>
+{{#loginUser.userId}}
+    {{>layouts/footer}}
+{{/loginUser.userId}}
+
 {{^loginUser.userId}}
     {{>layouts/footer}}
     <script>
