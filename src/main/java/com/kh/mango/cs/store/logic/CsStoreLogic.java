@@ -85,8 +85,12 @@ public class CsStoreLogic implements CsStore {
     }
 
     @Override
-    public List<Cs> selectQnaListByKeyword(SqlSession session, CsSearch qSearch) {
-        return session.selectList("CsMapper.selectQnaListByKeyword", qSearch);
+    public List<Cs> selectQnaListByKeyword(SqlSession session, PageInfo pi, CsSearch qSearch) {
+        int limit = pi.getBoardLimit();
+        int currentPage = pi.getCurrentPage();
+        int offset = (currentPage - 1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        return session.selectList("CsMapper.selectQnaListByKeyword", qSearch, rowBounds);
     }
 
     @Override
@@ -102,6 +106,10 @@ public class CsStoreLogic implements CsStore {
     @Override
     public int getListCount(SqlSession session, CsSearch nSearch) {
         return session.selectOne("CsMapper.getNoticeSearchListCount", nSearch);
+    }
+    @Override
+    public int getQListCount(SqlSession session, CsSearch qSearch) {
+        return session.selectOne("CsMapper.getQnaSearchListCount", qSearch);
     }
 
 }

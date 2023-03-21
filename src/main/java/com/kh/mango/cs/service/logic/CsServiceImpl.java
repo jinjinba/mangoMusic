@@ -74,8 +74,8 @@ public class CsServiceImpl implements CsService {
     }
 
     @Override
-    public List<Cs> selectQnaListByKeyword(CsSearch qSearch) {
-        return cStore.selectQnaListByKeyword(session, qSearch);
+    public List<Cs> selectQnaListByKeyword(PageInfo pi, CsSearch qSearch) {
+        return cStore.selectQnaListByKeyword(session, pi, qSearch);
     }
 
     @Override
@@ -91,6 +91,11 @@ public class CsServiceImpl implements CsService {
     @Override
     public int getListCount(CsSearch nSearch) {
         return cStore.getListCount(session, nSearch);
+    }
+
+    @Override
+    public int getQListCount(CsSearch qSearch) {
+        return cStore.getQListCount(session, qSearch);
     }
 
 

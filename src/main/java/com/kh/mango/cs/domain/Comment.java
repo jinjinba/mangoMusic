@@ -1,16 +1,14 @@
-package com.kh.mango.comment.domain;
+package com.kh.mango.cs.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
     private int commentNo;
     private int userNo;
@@ -19,5 +17,4 @@ public class Comment {
     private int tradeNo;
     private int csNo;
     private String userName;
-
 }

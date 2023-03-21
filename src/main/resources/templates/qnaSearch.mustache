@@ -37,8 +37,6 @@
         </div>
     </nav>
     <div id="main-all">
-
-
         <div class="main-header">
             <h2>Q&A</h2>
             <hr>
@@ -60,36 +58,38 @@
                     </tbody>
                 </table>
             </aside>
-            <div class="notice_all_container" style="overflow: scroll; height: 600px;">
+            <div class="notice_all_container">
                 <table class="notice_all">
-                    <tbody>
-                    <tr>
-                        <th class="table_no">
-                            번호
-                        </th>
-                        <th class="table_subject">
-                            제목
-                        </th>
-                        <th class="table_writer">
-                            작성자
-                        </th>
-                        <th class="table_writer">
-                            작성날짜
-                        </th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th class="table_no">
+                                번호
+                            </th>
+                            <th class="table_subject">
+                                제목
+                            </th>
+                            <th class="table_writer">
+                                작성자
+                            </th>
+                            <th class="table_writer">
+                                작성날짜
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody box1">
                     <form action="/qna">
                         {{#qSearchList}}
-                            <tr>
-                                <td>
+                            <tr class="noticeList">
+                                <td class="td_no">
                                     {{rowNum}}
                                 </td>
-                                <td>
+                                <td class="td_subject">
                                     <a href="/qnaDetail?csNo={{csNo}}">{{csSubject}}</a>
                                 </td>
-                                <td>
+                                <td class="td_writer">
                                     {{userName}}
                                 </td>
-                                <td>
+                                <td class="td_day">
                                     {{csDate}}
                                 </td>
                             </tr>
@@ -97,8 +97,18 @@
                     </form>
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <td colspan="4">
+                        <tr align="center" class="tf_f">
+                            <td class="td_page" colspan="3">
+                                {{{paging}}}&nbsp;&nbsp;
+                            </td>
+                            <form action="/qnaWrite">
+                                {{^loginUser.userType}}
+                                    <td class="tf_right"><button type="button" class="td_btn" onclick="location.href = '/qnaWrite'">글쓰기</button></td>
+                                {{/loginUser.userType}}
+                            </form>
+                        </tr>
+                        <tr class="tfoot">
+                            <td colspan="4"  class="tf_left">
                                 <form action="/qnaSearch" method="get">
                                     <input type="hidden" value="{{{search.searchCondition}}}" id="searchCondition">
                                     <select name="searchCondition">
@@ -107,15 +117,10 @@
                                         <option value="subject" id="select-subject">제목</option>
                                         <option value="content" id="select-content">내용</option>
                                     </select>
-                                    <input type="text" name="searchValue" placeholder="검색어를 입력해주세요.">
+                                    <input type="text" class="input_text" name="searchValue" placeholder="검색어를 입력해주세요.">
                                     <input type="submit" value="검색">
                                 </form>
                             </td>
-                            <form action="/qnaWrite">
-                                {{#loginUser.userType}}
-                                    <td><button type="button" onclick="location.href = '/notice_wr'">글쓰기</button></td>
-                                {{/loginUser.userType}}
-                            </form>
                         </tr>
                     </tfoot>
                 </table>

@@ -76,12 +76,13 @@ public interface CsStore {
     List<Cs> selectListByKeyword(SqlSession session, PageInfo pi, CsSearch nSearch);
 
     // Q&A 검색
-    List<Cs> selectQnaListByKeyword(SqlSession session, CsSearch qSearch);
+    List<Cs> selectQnaListByKeyword(SqlSession session, PageInfo pi, CsSearch qSearch);
 
     int getListCount(SqlSession session);
 
     int getQListCount(SqlSession session);
 
     int getListCount(SqlSession session, CsSearch nSearch);
+    int getQListCount(SqlSession session, CsSearch qSearch);
 
 }

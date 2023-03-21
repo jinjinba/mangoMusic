@@ -21,7 +21,7 @@
 <!--                            <input type="text" name="userName">-->
 <!--                        </li>-->
                         <li>
-                            <textarea id="story" name="csContent" rows="30" cols="200">{{cs.csContent}}</textarea>
+                            <textarea id="story txtArea" onkeypress="onTestChange();" name="csContent" rows="30" cols="100">{{cs.csContent}}</textarea>
                         </li>
                     </ul>
                     <div class="btn">
@@ -32,4 +32,18 @@
         </div>
     </div>
 </main>
+<script>
+    function onTestChange() {
+        var key = window.event.keyCode;
+
+        // If the user has pressed enter
+        if (key === 13) {
+            document.getElementById("txtArea").value = document.getElementById("txtArea").value + "\n*";
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+</script>
 {{>layouts/footer}}
