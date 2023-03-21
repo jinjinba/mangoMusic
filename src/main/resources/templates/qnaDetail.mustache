@@ -41,48 +41,59 @@
             <h2>Q&A</h2>
             <hr>
         </div>
-        <div class="notice_content_container">
-            <h3>제목 : {{cs.csSubject}}</h3>
-            <br>
-            <small>작성자 : {{cs.userName}} / 작성날짜 : {{cs.csDate}}</small>
-            <hr>
-            <br>
-            <div class="main_content">
-                {{cs.csContent}}
+        <div id="content_box">
+            <div class="notice_content_container">
+                <h3>제목 : {{cs.csSubject}}</h3>
+                <br>
+                <small>작성자 : {{cs.userName}} / 작성날짜 : {{cs.csDate}}</small>
+                <hr>
+                <br>
+                <div class="main_content">
+                    {{cs.csContent}}
+                </div>
+                <br>
+                <hr>
+                <div class="div-a-tag">
+                {{^loginUser.userType}}
+                    <a class="a-tag" href="/qnaModify?csNo={{cs.csNo}}">수정</a>
+    <!--                <a href="#">수정</a>-->
+                    <a class="a-tag" href="javascript:void(0);" onclick="removeCheck({{cs.csNo}});">삭제</a>
+                {{/loginUser.userType}}
+                </div>
             </div>
-            <br>
-            <hr>
-            {{^loginUser.userType}}
-                <a href="/qnaModify?csNo={{cs.csNo}}">수정</a>
-<!--                <a href="#">수정</a>-->
-                <a href="javascript:void(0);" onclick="removeCheck({{cs.csNo}});">삭제</a>
-            {{/loginUser.userType}}
-        </div>
-        <!-- Comments Form -->
-        <div class="comment-all">
-            <h5>Comment</h5>
-            <div class="comment-main">
-                <form action="/commentWrite" method="post">
-                    <div class="">
-                        <textarea name="commentContent" class="comment" rows="3"></textarea>
-                    </div>
-                    <div>
-                        <input type="hidden" name="csNo" value="{{cs.csNo}}">
-                        <input type="submit" class="btn btn-primary" value="댓글달기">
-                    </div>
-                </form>
-                <form name="comment-form" action="/qnaSearch" method="post" autocomplete="off">
-                    {{#cmList}}
-                    <div>
-                        <div>
-                            {{{userName}}}&nbsp;<small>{{{commentDate}}}</small>
+            <!-- Comments Form -->
+            <div class="comment-all">
+                <h5>Comment</h5>
+                <div class="comment_main">
+                    <form action="/commentWrite" method="post">
+                        <div class="comment_textarea">
+                            <textarea name="commentContent" class="comment" rows="3"></textarea>
                         </div>
-                        <div>
-                            {{{commentContent}}}
+                        {{#loginUser}}
+                            <div>
+                                <div>
+                                <input type="hidden" name="csNo" value="{{cs.csNo}}">
+                                </div>
+                                <div class="btn_submit">
+                                <input type="submit" class="cm_btn" value="댓글 등록">
+                                </div>
+                            </div>
+                        {{/loginUser}}
+                    </form>
+                    <form name="comment-form" action="/qnaSearch" method="post" autocomplete="off">
+                        {{#cmList}}
+                        <div class="cmContent_main">
+                            <div class="cmName">
+                                {{{userName}}}&nbsp;<small>{{{commentDate}}}</small> &nbsp; &nbsp;
+                                <a class="cmRemove_tag" href="javascript:void(0);" onclick="cmRemoveCheck({{csNo}});">삭제</a>
+                            </div>
+                            <div class="cm_cm">
+                                {{{commentContent}}}
+                            </div>
                         </div>
-                    </div>
-                    {{/cmList}}
-                </form>
+                        {{/cmList}}
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -92,11 +103,21 @@
                 location.href="/qnaRemove?csNo=" + csNo;
             }
         }
+        function cmRemoveCheck(commentNo) {
+            if (confirm("정말 삭제하시겠습니까?")) {
+                location.href="/qnaRemove?csNo=" + csNo;
+            }
+        }
         {{#comment}}
             window.onload = function (){
                 alert("로그인 후 이용 바랍니다.");
             }
         {{/comment}}
+            {{#error}}
+            window.onload = function() {
+                alert("로그인 후 사용하세요")
+            }
+            {{/error}}
     </script>
 </main>
 {{>layouts/footer}}

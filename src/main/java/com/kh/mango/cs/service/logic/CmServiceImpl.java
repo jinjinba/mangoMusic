@@ -23,9 +23,15 @@ public class CmServiceImpl implements CmService {
     }
 
     @Override
+    public int deleteComment(int csNo) {
+        return cmStore.deleteComment(session, csNo);
+    }
+
+    @Override
     public List<Comment> selectCommentList(int csNo) {
         return cmStore.insertComment(session, csNo);
     }
+
 
 
 }

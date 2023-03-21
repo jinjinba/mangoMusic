@@ -290,8 +290,8 @@ public class CsController {
             model.addAttribute("nSearchList", searchList);
             return "/noticeSearch";
         }else {
-            model.addAttribute("msg", "조회실패!");
-            return "/notice";
+            model.addAttribute("msg", "로그인 후 사용 바랍니다.");
+            return "common/error";
         }
     }
     // Q&A 검색

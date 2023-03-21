@@ -15,8 +15,16 @@ public interface CmService {
     public int insertComment(Comment comment);
 
     /**
+     * 댓글 삭제 Service
+     * @param csNo
+     * @return
+     */
+    int deleteComment(int csNo);
+
+    /**
      * 댓글 목록 조회 Service
      * @return
      */
     List<Comment> selectCommentList(int csNo);
+
 }

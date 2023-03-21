@@ -103,9 +103,11 @@
                                     {{{paging}}}&nbsp;&nbsp;
                                 </td>
                             <form action="/qnaWrite">
-                                {{^loginUser.userType}}
-                                <td class="tf_right"><button type="button" class="td_btn" onclick="location.href = '/qnaWrite'">글쓰기</button></td>
-                                {{/loginUser.userType}}
+                                {{#loginUser}}
+                                    {{^loginUser.userType}}
+                                        <td class="tf_right"><button type="button" class="td_btn" onclick="location.href = '/qnaWrite'">글쓰기</button></td>
+                                    {{/loginUser.userType}}
+                                {{/loginUser}}
                             </form>
                             </tr>
                             <tr class="tfoot">
@@ -128,11 +130,11 @@
             </div>
     </div>
     <script>
-            {{^search}}
-                window.onload = function() {
-                    alert("정보가 없는 검색어입니다.")
-                }
-            {{/search}}
+        {{^search}}
+            window.onload = function() {
+                alert("정보가 없는 검색어입니다.")
+            }
+        {{/search}}
     </script>
         </main>
 {{>layouts/footer}}
