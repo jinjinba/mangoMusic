@@ -24,9 +24,19 @@ public class Message {
 
     private String chatRoomName;
 
+    private String userId;
+    private String userName;
+
 
     public Message(int userNo1, int userNo2) {
         this.userNo1 = userNo1;
         this.userNo2 = userNo2;
+    }
+
+
+    public Message(int msgSendNo, String msgContent, int userNo1) {
+        this.msgSendNo = msgSendNo;
+        this.msgContent = msgContent;
+        this.userNo1 = userNo1;
     }
 }

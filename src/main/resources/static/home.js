@@ -433,7 +433,7 @@ const fillPageArtists = function ([
 // };
 
 window.onload = async () => {
-    loadingChatRoom();
+    // loadingChatRoom();
     const listOfSearchAlbums = await getAlbums();
     fillPageAlbums(listOfSearchAlbums);
 

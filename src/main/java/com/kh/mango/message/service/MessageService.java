@@ -8,5 +8,16 @@ import java.util.List;
 public interface MessageService {
 
 
-    Message insertChatRoom(Message message);
+    List<Message> selectChatRoomList(int userNo);
+
+
+    int deleteChatRoom(Message message);
+
+    Message selectUserByUserNo1(int userNo);
+
+    int insertCreateToMsgSend(Message message);
+
+    Message selectChatRoom(Message message);
+
+    int insertNotCreateToMsgSend(Message message);
 }

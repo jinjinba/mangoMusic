@@ -14,10 +14,50 @@ public class MessageStoreLogic implements MessageStore {
     private SqlSession session;
 
 
+
+
+
+
+    // 채팅방 리스트 로딩
     @Override
-    public Message insertChatRoom(Message message) {
-        session.insert("MessageMapper.insertChatRoomUser",message);
-        session.insert("MessageMapper.insertChatRoom",message);
-        return session.selectOne("MessageMapper.selectChatRoomJoinRoomUser");
+    public List<Message> selectChatRoomList(int userNo) {
+        return session.selectList("MessageMapper.selectChatRoomList",userNo);
     }
+
+
+
+    // 채팅방 삭제
+    @Override
+    public int deleteChatRoom(Message message) {
+        return session.delete("MessageMapper.deleteChatRoom",message);
+    }
+
+    @Override
+    public Message selectUserByUserNo1(int userNo) {
+        return session.selectOne("MessageMapper.selectUserByUserNo1",userNo);
+    }
+
+    // 유저 정보가 있는 채팅방 생성
+    @Override
+    public int insertChatRoomUser(Message message) {
+        return session.insert("MessageMapper.insertChatRoomUser",message);
+    }
+    // 위 메소드를 기반으로 채팅방 정보 입력
+    @Override
+    public int insertChatRoom(Message message) {
+        return session.insert("MessageMapper.insertChatRoom",message);
+    }
+    // 채팅방 정보를 가지고 메시지 발송
+    @Override
+    public int insertSendMsg(Message message) {
+        return session.insert("MessageMapper.insertSendMsg", message);
+    }
+
+    // 채팅방이 있는지 체크
+    @Override
+    public Message selectChatRoom(Message message) {
+        return session.selectOne("MessageMapper.selectChatRoom",message);
+    }
+
+
 }
