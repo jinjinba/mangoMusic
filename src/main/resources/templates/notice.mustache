@@ -37,94 +37,92 @@
         </div>
     </nav>
     <div id="main-all">
-
-
-            <div class="main-header">
-                <h2>공지사항</h2>
-                <hr>
-            </div>
-            <div class="notice_content_container">
-                <aside>
-                    <table class="notice_category">
-                        <tbody>
-                        <tr>
-                            <td class="side_td">
-                                <a href="/notice">공지사항</a>
+        <div class="main-header">
+            <h2>공지사항</h2>
+            <hr>
+        </div>
+        <div class="notice_content_container">
+            <aside>
+                <table class="notice_category">
+                    <tbody>
+                    <tr>
+                        <td class="side_td">
+                            <a href="/notice">공지사항</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="side_td">
+                            <a href="/qna">Q&A</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </aside>
+            <div class="notice_all_container">
+                <table class="notice_all">
+                    <tbody>
+                    <tr id="tr_th">
+                        <th class="table_no">
+                            번호
+                        </th>
+                        <th class="table_subject">
+                            제목
+                        </th>
+                        <th class="table_writer">
+                            작성자
+                        </th>
+                        <th class="table_writer">
+                            작성날짜
+                        </th>
+                    </tr>
+                    <form action="/notice">
+                        {{#noticeList}}
+                        <tr class="noticeList">
+                            <td>
+                                {{rowNum}}
+                            </td>
+                            <td>
+                                <a href="/noticeDetail?csNo={{csNo}}">{{csSubject}}</a>
+                            </td>
+                            <td>
+                                {{userName}}
+                            </td>
+                            <td>
+                                {{csDate}}
                             </td>
                         </tr>
-                        <tr>
-                            <td class="side_td">
-                                <a href="/qna">Q&A</a>
+                        {{/noticeList}}
+                    </form>
+                    </tbody>
+                    <tfoot>
+                        <tr align="center" class="tf_f">
+                            <td class="td_page" colspan="3">
+                                {{{paging}}}
                             </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </aside>
-                <div class="notice_all_container">
-                    <table class="notice_all">
-                        <tbody>
-                        <tr id="tr_th">
-                            <th class="table_no">
-                                번호
-                            </th>
-                            <th class="table_subject">
-                                제목
-                            </th>
-                            <th class="table_writer">
-                                작성자
-                            </th>
-                            <th class="table_writer">
-                                작성날짜
-                            </th>
-                        </tr>
-                        <form action="/notice">
-                            {{#noticeList}}
-                            <tr class="noticeList">
-                                <td>
-                                    {{rowNum}}
-                                </td>
-                                <td>
-                                    <a href="/noticeDetail?csNo={{csNo}}">{{csSubject}}</a>
-                                </td>
-                                <td>
-                                    {{userName}}
-                                </td>
-                                <td>
-                                    {{csDate}}
-                                </td>
-                            </tr>
-                            {{/noticeList}}
+                        <form action="/noticeWrite">
+                            {{#loginUser.userType}}
+                                <td class="td_wr"><button class="td_btn" type="button" onclick="location.href = '/noticeWrite'">글쓰기</button></td>
+                            {{/loginUser.userType}}
                         </form>
-                        </tbody>
-                        <tfoot>
-                            <tr align="center">
-                                <td class="td_page" colspan="3">
-                                    <span>{{{paging}}}</span>
-                                </td>
-                            <form action="/noticeWrite">
-                                {{#loginUser.userType}}
-                                    <td class="td_wr"><button class="td_btn" type="button" onclick="location.href = '/noticeWrite'">글쓰기</button></td>
-                                {{/loginUser.userType}}
-                            </form>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <form action="/noticeSearch" method="get">
-                                        <select name="searchCondition">
-                                            <option class="option" value="all">전체</option>
-                                            <option class="option" value="userName">작성자</option>
-                                            <option class="option" value="subject">제목</option>
-                                            <option class="option" value="content">내용</option>
-                                        </select>
-                                        <input type="text" class="input_text" name="searchValue" placeholder="검색어를 입력해주세요.">
-                                        <input type="submit" class="input_submit" value="검색">
-                                    </form>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                <form action="/noticeSearch" method="get">
+                                    <select name="searchCondition">
+                                        <option class="option" value="all">전체</option>
+                                        <option class="option" value="userName">작성자</option>
+                                        <option class="option" value="subject">제목</option>
+                                        <option class="option" value="content">내용</option>
+                                    </select>
+                                    <input type="text" class="input_text" name="searchValue" placeholder="검색어를 입력해주세요.">
+                                    <input type="submit" class="input_submit" value="검색">
+                                </form>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
+        </div>
     </div>
 </main>
 {{>layouts/footer}}

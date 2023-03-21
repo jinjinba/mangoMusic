@@ -51,6 +51,9 @@ public class AdminController {
 //        model.addAttribute("pi", pi);
         model.addAttribute("user",userList);
         model.addAttribute("adminPoint",adminPoint);
+//        model.addAttribute("page", page);
+//        model.addAttribute("page+1", page+1);
+//        model.addAttribute("page-1", page-1);
         return "admin";
     }
 
@@ -67,6 +70,15 @@ public class AdminController {
 //        int totalCount = cService.getListCount();
 //        PageInfo pi = this.getPageInfo(page, totalCount);
 //        List<Cs> noticeList = cService.selectNoticeList(pi);
+//        for(int i = 0; i < noticeList.size(); i++){
+//            noticeList.get(i).setRowNum(i+1);
+//        }
+//        model.addAttribute("noticeList",noticeList);
+//        return "adminNotice";
+//    }
+//    @GetMapping("/adminNotice")
+//    public String adminNotice(Model model) {
+//        List<Cs> noticeList = cService.selectNoticeList();
 //        for(int i = 0; i < noticeList.size(); i++){
 //            noticeList.get(i).setRowNum(i+1);
 //        }

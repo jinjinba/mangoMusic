@@ -90,7 +90,7 @@ public interface CsService {
      * @param qSearch
      * @return List<Cs>
      */
-    List<Cs> selectQnaListByKeyword(CsSearch qSearch);
+    List<Cs> selectQnaListByKeyword(PageInfo pi, CsSearch qSearch);
 
     /**
      * 공지사항 검색 Service
@@ -110,4 +110,10 @@ public interface CsService {
      */
     int getListCount(CsSearch nSearch);
 
+    /**
+     * Q&A검색 게시물 전체 개수 Service
+     * @param qSearch
+     * @return int
+     */
+    int getQListCount(CsSearch qSearch);
 }

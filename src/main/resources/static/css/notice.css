@@ -133,12 +133,17 @@ span {
     padding-right: 40px;
 
 }
+.tf_f {
+    padding-top: 50px;
+}
 .td_btn{
     border: 1px solid white;
     padding: 0px 10px;
     border-radius: 15px;
     color: white;
     background-color: transparent;
+    float: right;
+    margin-right: 30px;
 }
 .td_btn:hover {
     color: black;

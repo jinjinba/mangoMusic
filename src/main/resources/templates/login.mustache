@@ -118,21 +118,21 @@
     function onSignIn(googleUser) {
         var access_token = googleUser.getAuthResponse().access_token
         var profile = googleUser.getBasicProfile();
-        // $.ajax({
-        //     // people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
-        //     url: 'https://people.googleapis.com/v1/people/me'
-        //     // key에 자신의 API 키를 넣습니다.
-        //     , data: {personFields:'birthdays', key:'AIzaSyBScc-YZc-YZ4IF1ZMUuD0hH6bBwM047fM', 'access_token': access_token}
-        //     , method:'GET'
-        // })
-        // .done(function(e){
-        //     //프로필을 가져온다.
-        //
-        //     console.log(profile)
-        // })
-        // .fail(function(e){
-        //     console.log(e);
-        // })
+        $.ajax({
+            // people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
+            url: 'https://people.googleapis.com/v1/people/me'
+            // key에 자신의 API 키를 넣습니다.
+            , data: {personFields:'birthdays', key:'AIzaSyBScc-YZc-YZ4IF1ZMUuD0hH6bBwM047fM', 'access_token': access_token}
+            , method:'GET'
+        })
+        .done(function(e){
+            //프로필을 가져온다.
+
+            console.log(profile)
+        })
+        .fail(function(e){
+            console.log(e);
+        })
     }
     function onSignInFailure(t){
         console.log(t);

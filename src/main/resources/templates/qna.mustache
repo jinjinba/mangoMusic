@@ -1,5 +1,5 @@
 {{>layouts/sidebar}}
-<link rel="stylesheet" href="css/qna.css" />
+<link rel="stylesheet" href="css/notice.css" />
 <main>
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -76,7 +76,6 @@
                                 </th>
                             </tr>
                         </thead>
-<!--                        <div style="overflow:scroll;">-->
                         <tbody class="tbody box1">
                         <form action="/qna">
                             {{#qnaList}}
@@ -99,13 +98,13 @@
                         </tbody>
 <!--                        </div>-->
                         <tfoot>
-                            <tr>
+                            <tr align="center" class="tf_f">
                                 <td class="td_page" colspan="3">
-                                    <span>{{{paging}}}</span>
+                                    {{{paging}}}&nbsp;&nbsp;
                                 </td>
                             <form action="/qnaWrite">
                                 {{^loginUser.userType}}
-                                <td class="tf_right"><button type="button" class="input_btn" onclick="location.href = '/qnaWrite'">글쓰기</button></td>
+                                <td class="tf_right"><button type="button" class="td_btn" onclick="location.href = '/qnaWrite'">글쓰기</button></td>
                                 {{/loginUser.userType}}
                             </form>
                             </tr>
@@ -128,5 +127,12 @@
                 </div>
             </div>
     </div>
-</main>
+    <script>
+            {{^search}}
+                window.onload = function() {
+                    alert("정보가 없는 검색어입니다.")
+                }
+            {{/search}}
+    </script>
+        </main>
 {{>layouts/footer}}

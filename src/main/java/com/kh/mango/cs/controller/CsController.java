@@ -1,9 +1,12 @@
 package com.kh.mango.cs.controller;
 
+import com.kh.mango.cs.domain.Comment;
 import com.kh.mango.cs.domain.Cs;
 import com.kh.mango.cs.domain.CsSearch;
 import com.kh.mango.cs.domain.PageInfo;
+import com.kh.mango.cs.service.CmService;
 import com.kh.mango.cs.service.CsService;
+import com.kh.mango.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +24,9 @@ public class CsController {
 
     @Autowired
     private CsService cService;
+
+    @Autowired
+    private CmService cmSerivce;
 
     // 공지사항 등록 회면
     @RequestMapping(value = "/noticeWrite", method = RequestMethod.GET)
@@ -45,9 +52,13 @@ public class CsController {
     // Q&A 등록
     @RequestMapping(value = "/qnaWrite", method = RequestMethod.POST)
     public String qnaRegister(
-            @ModelAttribute Cs cs
+            HttpSession session
+            , @ModelAttribute Cs cs
             , HttpServletRequest request
             , Model model) {
+        // 세션으로 받아오기
+        User user = (User)session.getAttribute("loginUser");
+        cs.setUserNo(user.getUserNo());
         int result = cService.insertQna(cs);
         if(result > 0) {
             System.out.println(result);
@@ -126,8 +137,8 @@ public class CsController {
             noticeList.get(i).setRowNum(i+1);
         }
 
-        for(int i = 1; i < pi.getEndNavi(); i++){
-            sb.append("<a href='http://localhost:8985/notice?page="+i+"'>"+i+"</a> ");
+        for(int i = 0; i < pi.getEndNavi(); i++){
+            sb.append("<a href='http://localhost:8985/notice?page="+(i+1)+"'>"+(i+1)+"</a> ");
         }
         mv.addObject("paging",sb);
         mv.addObject("pi", pi);
@@ -181,8 +192,8 @@ public class CsController {
         for(int i = 0; i < qnaList.size(); i++){
             qnaList.get(i).setRowNum(i+1);
         }
-        for(int i = 1; i < pi.getEndNavi(); i++){
-            sb.append("<a href='http://localhost:8985/qna?page="+i+"'>"+i+"</a> ");
+        for(int i = 0; i < pi.getEndNavi(); i++){
+            sb.append("<a href='http://localhost:8985/qna?page="+(i+1)+"'>"+(i+1)+"</a> ");
         }
 //        for(int i = 0; i < qnaList.size(); i++) {
 //            qnaList.get(i).setRowNum(i+1);
@@ -194,6 +205,7 @@ public class CsController {
 //        model.addAttribute("qnaList", qnaList);
         return mv;
     }
+
 
     // 공지사항 삭제
     @GetMapping(value = "/noticeRemove")
@@ -228,6 +240,7 @@ public class CsController {
             @RequestParam("csNo") int csNo
             , Model model){
         Cs cs = cService.selectOneByNo(csNo);
+
         model.addAttribute("cs", cs);
         return "/noticeDetail";
     }
@@ -237,13 +250,16 @@ public class CsController {
             @RequestParam("csNo") int csNo
             , Model model) {
         Cs cs = cService.selectQnaOneByNo(csNo);
+        List<Comment> cmList = cmSerivce.selectCommentList(csNo);
         model.addAttribute("cs", cs);
+        model.addAttribute("cmList", cmList);
         return "/qnaDetail";
     }
 
     // 공지사항 검색
     @GetMapping(value = "/noticeSearch")
     public String noticeSearchView(
+//            HttpServletRequest request
             @ModelAttribute CsSearch nSearch
 //            , @RequestParam("searchValue") String keyword
 //            , @RequestParam(value = "searchCondition") String condition
@@ -252,7 +268,23 @@ public class CsController {
         int totalCount = cService.getListCount(nSearch);
         PageInfo pi = this.getPageInfo(currentPage, totalCount);
         List<Cs> searchList = cService.selectListByKeyword(pi, nSearch);
+//        HttpSession session = request.getSession();
+
+        for(int i = 0; i < searchList.size(); i++){
+            searchList.get(i).setRowNum(i+1);
+        }
+        List<Cs> noticeList = cService.selectNoticeList(pi);
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < noticeList.size(); i++){
+            noticeList.get(i).setRowNum(i+1);
+        }
+
+        for(int i = 0; i < pi.getEndNavi(); i++){
+            sb.append("<a href='http://localhost:8985/notice?page="+(i+1)+"'>"+(i+1)+"</a> ");
+        }
+
         if(!searchList.isEmpty()) {
+            model.addAttribute("paging", sb);
             model.addAttribute("search", nSearch);
             model.addAttribute("pi", pi);
             model.addAttribute("nSearchList", searchList);
@@ -266,17 +298,20 @@ public class CsController {
     @RequestMapping(value = "/qnaSearch", method = RequestMethod.GET)
     public String qnaSearchView(
             @ModelAttribute CsSearch qSearch
-            , @RequestParam("searchValue") String keyword
-            , @RequestParam(value = "searchCondition") String condition
+//            , @RequestParam("searchValue") String keyword
+//            , @RequestParam(value = "searchCondition") String condition
+            , @RequestParam(value = "page", required = false, defaultValue = "1") Integer currentPage
             , Model model) {
-        List<Cs> searchList = cService.selectQnaListByKeyword(qSearch);
+        int totalCount = cService.getQListCount(qSearch);
+        PageInfo pi = this.getPageInfo(currentPage, totalCount);
+        List<Cs> searchList = cService.selectQnaListByKeyword(pi, qSearch);
         if (!searchList.isEmpty()) {
             model.addAttribute("search", qSearch);
-//            model.addAttribute("pi", pi);
+            model.addAttribute("pi", pi);
             model.addAttribute("qSearchList", searchList);
             return "/qnaSearch";
         } else {
-            model.addAttribute("msg", "조회실패!");
+            model.addAttribute("error", "조회실패!");
             return "/qna";
         }
     }
@@ -299,5 +334,22 @@ public class CsController {
         pi = new PageInfo(currentPage, boardLimit, naviLimit, startNavi, endNavi, totalCount, maxPage);
         return pi;
     }
+//    private PageInfo getQPageInfo(int currentPage, int totalCount) {
+//        PageInfo qpi = null;
+//        int boardLimit = 10;
+//        int naviLimit = 5;
+//        int maxPage;
+//        int startNavi;
+//        int endNavi;
+//        maxPage = (int) ((double)totalCount/boardLimit+0.9);
+//        Math.ceil((double)totalCount/boardLimit);
+//        startNavi = (((int)((double)currentPage/naviLimit+0.9))-1)*naviLimit+1;
+//        endNavi = startNavi + naviLimit -1;
+//        if(endNavi > maxPage) {
+//            endNavi = maxPage;
+//        }
+//        qpi = new PageInfo(currentPage, boardLimit, naviLimit, startNavi, endNavi, totalCount, maxPage);
+//        return qpi;
+//    }
 
 }

@@ -1,0 +1,48 @@
+.navbar {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+#main-all {
+    height: 100%;
+}
+
+.main-header {
+    margin-top: 50px;
+}
+h2 {
+    padding-bottom: 20px;
+    margin-left: 40px;
+}
+aside {
+    width: 20%;
+    display: flex;
+    justify-content: right;
+    height: 550px;
+    display: block;
+    float: left;
+}
+.side_td {
+    font-size: 25px;
+}
+
+.notice_content_container {
+    margin: 50px 70px;
+}
+h3, small {
+    margin-left: 40px;
+}
+small {
+    color: #ccc;
+}
+.main_content {
+    margin-left: 40px;
+    padding-left: 40px;
+    height: 300px;
+    /*display: table-cell;*/
+    /*vertical-align: middle;*/
+}
