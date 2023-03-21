@@ -17,7 +17,9 @@ function msgToggle() {
     msgBox.toggle(0,'show');
 }
 
-$('.new-msg-user-list').click(function () {
+let newMsgBtnStatus = false;
+
+$('.new-msg-btn').click(function () {
     if (newMsgBtnStatus === true) {
         return;
     }
@@ -30,8 +32,44 @@ $('.new-msg-user-list').click(function () {
     newMsgBtnStatus = true;
 });
 
+// 메시지 검색창 끄기
+function msgSearchBoxClose() {
+    $('.msg-user-search-box').remove();
+    $('.msg-user-search-box-close').remove();
+    var msgBox = $('.msg-content-box');
+    msgBox.css("display", "block");
+    newMsgBtnStatus = false;
+}
 
-
+// 메시지 검색창
+function msgUserSearchFunc() {
+    var word = $('.msg-user-search-bar').val();
+    $.ajax({
+        url: "/ajaxMsgUserSearch",
+        type: "POST",
+        data: {
+            "userId": word
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data);
+            var str = '';
+            if (data != null) {
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        str += "<li onclick='chatStart(" + data[i].userNo + ")' class='msg-user-list-result-" + data[i].userNo + "'> " + data[i].userName + "<br><span class='msg-user-list-result-span'>@" + data[i].userId + "</span></li>";
+                    }
+                    $('.msg-search-box-ul').html(str);
+                }
+            } else {
+                $('.msg-search-box-ul').html(str);
+            }
+        },
+        error: function (request, status, error) {
+            console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+        }
+    });
+}
 
 // 페이지 로드시 채팅룸 로딩
 $(document).ready(function () {
@@ -67,11 +105,25 @@ function loadingChatRoom() {
     });
 }
 
+function chatStart(userNo1){
+    $.ajax({
+        url:"/ajaxChatStart",
+        type:"post",
+        dataType:"json",
+        data:{
+            "userNo1" : userNo1,
+            "userNo2" : $('#userNo').val()
+        },
+        success:function(data){
+
+        }
+    })
+}
 
 
 
-// // 채팅 시작
-// function chatStart(otherUserNo) {
+// 채팅 시작
+// function chatStart(userNo) {
 //     if(userNo == $('#msg-user-list-id-'+otherUserNo).val()){
 //         $('.msg-user-list-li').removeAttr('style');
 //         $('#msg-user-list-li-'+otherUserNo).css("background-color","#F2F3F5");
@@ -122,7 +174,6 @@ function loadingChatRoom() {
 // }
 //
 //
-// let newMsgBtnStatus = false;
 // let selectMsgRoom = false;
 
 //
@@ -149,14 +200,7 @@ function loadingChatRoom() {
 // }
 //
 //
-// // 메시지 검색창 끄기
-// function msgSearchBoxClose() {
-//     $('.msg-user-search-box').remove();
-//     $('.msg-user-search-box-close').remove();
-//     var msgBox = $('.msg-content-box');
-//     msgBox.css("display", "block");
-//     newMsgBtnStatus = false;
-// }
+
 //
 //
 
@@ -256,31 +300,4 @@ function loadingChatRoom() {
 //
 
 //
-// function msgUserSearchFunc() {
-//     var word = $('.msg-user-search-bar').val();
-//     $.ajax({
-//         url: "/ajaxMsgUserSearch",
-//         type: "POST",
-//         data: {
-//             "userId": word
-//         },
-//         dataType: 'json',
-//         success: function (data) {
-//             console.log(data);
-//             var str = '';
-//             if (data != null) {
-//                 if (data.length > 0) {
-//                     for (var i = 0; i < data.length; i++) {
-//                         str += "<li onclick='chatStart(" + data[i].userNo + ")' class='msg-user-list-result-" + data[i].userNo + "'> " + data[i].userName + "<br><span class='msg-user-list-result-span'>@" + data[i].userId + "</span></li>";
-//                     }
-//                     $('.msg-search-box-ul').html(str);
-//                 }
-//             } else {
-//                 $('.msg-search-box-ul').html(str);
-//             }
-//         },
-//         error: function (request, status, error) {
-//             console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
-//         }
-//     });
-// }
+

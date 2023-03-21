@@ -49,6 +49,9 @@ public class FollowController {
     public String userList(@RequestParam("searchValue") String searchValue
              , @SessionAttribute("loginUser") User user
                          , Model model) {
+        if(searchValue == null || searchValue.equals("")){
+            searchValue = " ";
+        }
         SearchUser searchUser = new SearchUser(searchValue, user.getUserNo());
 //        List<User> searchList = followService.searchUser(searchUser);
         List<FollowYn> searchList = followService.searchUser(searchUser);

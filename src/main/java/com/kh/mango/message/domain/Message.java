@@ -12,14 +12,21 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Message {
-    private int userNo;
-    private int userId;
-    private String userName;
     private int msgNo;
-    private String msgContent;
-    private Timestamp msgDate;
-    private int msgOtherUser;
-    private int msgUser;
     private int msgRoom;
+    private int msgSendNo;
+    private Timestamp sendTime;
+    private String msgContent;
 
+    private int chatRoomNo;
+    private int userNo1;
+    private int userNo2;
+
+    private String chatRoomName;
+
+
+    public Message(int userNo1, int userNo2) {
+        this.userNo1 = userNo1;
+        this.userNo2 = userNo2;
+    }
 }

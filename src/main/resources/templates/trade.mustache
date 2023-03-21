@@ -1,5 +1,5 @@
 {{>layouts/sidebar}}
-<link rel="stylesheet" href="css/market.css" />
+<link rel="stylesheet" href="css/trade.css" />
 <main>
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -43,9 +43,9 @@
             <h2>거래소</h2>
             <hr>
         </div>
-        <div class="notice_content_container">
-            <div class="notice_all_container">
-                <table class="notice_all">
+        <div class="trade_content_container">
+            <div class="trade_all_container">
+                <table class="trade_all">
                     <tbody>
                     <tr id="tr_th">
                         <th class="table_no">
@@ -67,7 +67,7 @@
                     {{#tList}}
                         <tr>
                             <td>
-                                {{rowNum}}
+                                {{tradeNo}}
                             </td>
                             <td>
                                 <a href="/tradeDetail?tradeNo={{tradeNo}}">{{tradeSubject}}</a>
@@ -88,14 +88,14 @@
                     <tfoot>
                     <tr align="center">
                         <td class="td_page" colspan="3">
-                            <span>{{{paging}}}</span>
+                            <span class="span-navi">{{{paging}}}</span>
                         </td>
-                        <td class="td_wr"><button class="td_btn" type="button" onclick="location.href = '/noticeWrite'">글쓰기</button></td>
+                        <td class="td_wr"><button class="td_btn" type="button" onclick="location.href = '/tradeWrite'">글쓰기</button></td>
                     </tr>
                     <tr>
                         <td colspan="4">
-                            <form action="/noticeSearch" method="get">
-                                <select name="searchCondition">
+                            <form action="/tradeSearch" method="get">
+                                <select name="searchCondition" class="select-search">
                                     <option class="option" value="all">전체</option>
                                     <option class="option" value="userName">작성자</option>
                                     <option class="option" value="subject">제목</option>

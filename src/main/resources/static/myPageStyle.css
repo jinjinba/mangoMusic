@@ -443,7 +443,7 @@ tr:hover {
     width: 0;
 }
 
-.new-msg-user-list{
+.new-msg-btn{
     display: flex;
     flex-direction: column;
     height: 60px;
@@ -535,7 +535,7 @@ tr:hover {
 .msg-search-box-ul li {
     color: black;
     /*width: 200px;*/
-    height: 50px;
+    height: 60px;
     padding-left: 20px;
 }
 .msg-search-box-ul li:hover{

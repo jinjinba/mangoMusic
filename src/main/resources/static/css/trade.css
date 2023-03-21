@@ -30,19 +30,6 @@ aside {
     font-size: 25px;
 }
 
-.notice_category {
-    border: 1px solid white;
-    border-radius: 10px;
-    border-style: hidden;
-    box-shadow: 0 0 0 1px #808080;
-    margin-left: 70px;
-    margin-top: 130px;
-    border-collapse: collapse;
-    line-height: 50px;
-    width: 150px;
-    height: 150px;
-    position: fixed;
-}
 table {
     display: table;
     border-collapse: separate;
@@ -50,11 +37,11 @@ table {
     text-indent: initial;
     border-spacing: 2px;
     border-color: gray;
-    height: 60%;
+    /*height: 60%;*/
     /*width: ;*/
 }
 
-.notice_all_container {
+.trade_all_container {
     float: left;
     margin-top: 100px;
     margin-bottom: 100px;
@@ -69,11 +56,11 @@ table {
     margin-right: 10px;
     /*background-color: #2e2649;*/
 }
-.noticeList:hover {
+.tradeList:hover {
     background-color: rgba(255,255,255,0.3);
 }
 
-.notice_all {
+.trade_all {
     /*border-top: 1px solid #969696;*/
     /*border-bottom: 1px solid #969696;*/
     /*margin-left: 30px;*/
@@ -93,6 +80,13 @@ table {
 .pageWr {
     text-align: right;
 }
+
+.span-navi{
+    letter-spacing: 5px;
+}
+.select-search{
+    cursor: pointer;
+}
 /** {*/
 /*    border: 1px solid white;*/
 /*}*/
@@ -106,6 +100,7 @@ th, td {
     /*border-bottom: 1px solid #888888;*/
     background-color: rgba(255,255,255,0.3);
     /*background-color: #2e2649;*/
+    height: 30px;
 }
 
 

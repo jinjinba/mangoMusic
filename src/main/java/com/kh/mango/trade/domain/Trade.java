@@ -13,13 +13,11 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class Trade {
     private int rowNum;
-
     private int tradeNo;
     private String tradeSubject;
     private String tradeContent;
     private int userNo;
     private int tradeView;
-
     private Timestamp tradeDate;
     private String userName;
 

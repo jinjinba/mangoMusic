@@ -2,6 +2,7 @@ package com.kh.mango.trade.store.logic;
 
 import com.kh.mango.cs.domain.PageInfo;
 import com.kh.mango.trade.domain.Trade;
+import com.kh.mango.trade.domain.TradeComment;
 import com.kh.mango.trade.store.TradeStore;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
@@ -26,6 +27,17 @@ public class TradeStoreLogic implements TradeStore {
         int offset = (currentPage - 1) * limit;
         RowBounds rowBounds = new RowBounds(offset, limit);
         return session.selectList("TradeMapper.selectTradeList",null,rowBounds);
+    }
+
+    @Override
+    public Trade selectTradeOneByNo(int tradeNo) {
+        session.update("TradeMapper.updateTradeView",tradeNo);
+        return session.selectOne("TradeMapper.selectTradeOneByNo",tradeNo);
+    }
+
+    @Override
+    public List<TradeComment> selectTradeCommentList(int tradeNo) {
+        return session.selectList("TradeMapper.selectTradeCommentList",tradeNo);
     }
 
 

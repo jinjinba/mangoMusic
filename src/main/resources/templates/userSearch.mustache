@@ -7,6 +7,7 @@
     <title>회원 상세 페이지</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap');
         body {
@@ -94,14 +95,24 @@
     </style>
 </head>
 <body>
+<script>
+    function Check(){
+        var input = $('.search-input').val();
+        console.log(input);
+        if(input == null || input === ""){
+            alert("검색어를 입력해 주세요.");
+            return false;
+        }
+    }
+</script>
 <br>
 <h2>회원 검색</h2>
 <br>
 
 <div id="main1">
-    <form id="search" action="/userList" method="get">
-        <input type="text" name="searchValue" value="" style="width: 300px; height: 30px">
-        <input type="submit" value="검색">
+    <form id="search" action="/userList" method="get" onsubmit="return Check();">
+        <input type="text" name="searchValue" value="" style="width: 300px; height: 30px" class="search-input">
+        <input type="submit"  value="검색">
     </form>
 
 </div>
@@ -109,5 +120,6 @@
 <div id="button-area">
     <p id="input"><input type="button" value="닫기" onclick="self.close()"></p>
 </div>
+
 </body>
 </html>

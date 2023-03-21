@@ -1,0 +1,109 @@
+{{>layouts/sidebar}}
+<link rel="stylesheet" href="css/nDetail.css" />
+<main>
+    <nav class="navbar sticky-top mb-3" id="navbar-mypage">
+        <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
+            <div class="d-flex"></div>
+            <!-- <i class="fa-solid fa-chevron-left chevrons"></i><i class="fa-solid fa-chevron-right chevrons"></i> -->
+        </div>
+
+        <div class="d-flex align-items-center" id="rightnav">
+            <div style="margin-right: 1rem">
+            </div>
+            {{#loginUser}}
+                <div class="dropdown" id="myPageDropDown">
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
+                        <!-- 유저 이미지 -->
+                        <img src="../img/abstract-user-flat-3.svg"
+                             style="width: 30px; height: 30px; border-radius: 50%" />
+                        <!-- 유저이름 -->
+                        &nbsp;&nbsp;{{userName}}&nbsp;&nbsp;
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton1">
+                        {{#loginUser.userType}}
+                            <li><a class="dropdown-item" href="/admin">관리자페이지</a></li>
+                        {{/loginUser.userType}}
+                        {{^loginUser.userType}}
+                            <li><a class="dropdown-item" href="/mypage">마이페이지</a></li>
+                        {{/loginUser.userType}}
+                        <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            {{/loginUser}}
+            {{^loginUser}}
+                <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2" >로그인</button>
+            {{/loginUser}}
+        </div>
+    </nav>
+    <div id="main-all">
+        <div class="main-header">
+            <h2>거래소</h2>
+            <hr>
+        </div>
+        <div class="trade_content_container">
+            <h3>제목 : </h3>
+            <br>
+            <small>작성자 : / 작성날짜 : </small>
+            <hr>
+            <br>
+            <div class="main_content">
+
+            </div>
+            <br>
+            <hr>
+            <input type="hidden" value="" id="writeUserNo">
+            <input type="hidden" value="{{loginUser.userNo}}" id="loginUserNo">
+            <div class="btn-area">
+
+            </div>
+        </div>
+        <!-- Comments Form -->
+        <div class="comment-all">
+            <h5>Comment</h5>
+            <div class="comment-main">
+                <form action="/commentWrite" method="post">
+                    <div class="">
+                        <textarea name="commentContent" class="comment" rows="3"></textarea>
+                    </div>
+                    <div>
+<!--                        <input type="hidden" name="csNo" value="">-->
+                        <input type="submit" class="btn btn-primary" value="댓글달기">
+                    </div>
+                </form>
+                <form name="comment-form" action="/qnaSearch" method="post" autocomplete="off">
+                    {{#commentList}}
+                        <div>
+                            <div>
+                                {{{userName}}}&nbsp;<small>{{{commentDate}}}</small>
+                            </div>
+                            <div>
+                                {{{commentContent}}}
+                            </div>
+                        </div>
+                    {{/commentList}}
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function removeCheck(tradeNo) {
+            if (confirm("정말 삭제하시겠습니까?")) {
+                location.href="/tradeRemove?tradeNo=" + tradeNo;
+            }
+        }
+            {{#comment}}
+            window.onload = function (){
+                alert("로그인 후 이용 바랍니다.");
+            }
+            {{/comment}}
+        $(document).ready(function(){
+            if($('#loginUserNo').val() == $('#writeUserNo').val()){
+                str = '<a href="/tradeModify?tradeNo=">수정</a>';
+                str += '<a href="javascript:void(0);" onclick="removeCheck();">삭제</a>';
+                $('.btn-area').append(str);
+            }
+        });
+    </script>
+</main>
+{{>layouts/footer}}

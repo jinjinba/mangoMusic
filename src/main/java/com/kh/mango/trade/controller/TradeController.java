@@ -2,6 +2,7 @@ package com.kh.mango.trade.controller;
 
 import com.kh.mango.cs.domain.PageInfo;
 import com.kh.mango.trade.domain.Trade;
+import com.kh.mango.trade.domain.TradeComment;
 import com.kh.mango.trade.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ public class TradeController {
     @Autowired
     private TradeService tService;
 
-    @GetMapping("/market")
+    @GetMapping("/trade")
     public String marketView( @RequestParam(value="page", required=false, defaultValue="1") Integer page, Model model){
         int totalCount = tService.getQListCount();
         PageInfo pi = this.getPageInfo(page, totalCount);
@@ -26,13 +27,13 @@ public class TradeController {
         for(int i = 0; i < tList.size(); i++){
             tList.get(i).setRowNum(i+1);
         }
-        for(int i = 1; i < pi.getEndNavi(); i++){
-            sb.append("<a href='http://localhost:8985/market?page="+i+"'>"+i+"</a> ");
+        for(int i = 1; i < pi.getEndNavi()-1; i++){
+            sb.append("<a href='http://localhost:8985/trade?page="+i+"'>"+i+"</a> ");
         }
         model.addAttribute("paging",sb);
         model.addAttribute("pi",pi);
         model.addAttribute("tList",tList);
-        return "market";
+        return "trade";
     }
 
 
@@ -54,6 +55,19 @@ public class TradeController {
         }
         pi = new PageInfo(currentPage, boardLimit, naviLimit, startNavi, endNavi, totalCount, maxPage);
         return pi;
+    }
+
+
+    @GetMapping("/tradeDetail")
+    public String tradeDetail(
+            @RequestParam("tradeNo") int tradeNo,
+            Model model
+    ){
+        Trade trade = tService.selectTradeOneByNo(tradeNo);
+        List<TradeComment> tc = tService.selectTradeCommentList(tradeNo);
+        model.addAttribute("tradeDetail",trade);
+        model.addAttribute("commentList",tc);
+        return "tradeDetail";
     }
 
 

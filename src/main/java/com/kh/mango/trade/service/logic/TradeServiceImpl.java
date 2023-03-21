@@ -2,6 +2,7 @@ package com.kh.mango.trade.service.logic;
 
 import com.kh.mango.cs.domain.PageInfo;
 import com.kh.mango.trade.domain.Trade;
+import com.kh.mango.trade.domain.TradeComment;
 import com.kh.mango.trade.service.TradeService;
 import com.kh.mango.trade.store.TradeStore;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,16 @@ public class TradeServiceImpl implements TradeService {
     @Override
     public List<Trade> selectTradeList(PageInfo pi) {
         return tStore.selectTradeList(pi);
+    }
+
+    @Override
+    public Trade selectTradeOneByNo(int tradeNo) {
+        return tStore.selectTradeOneByNo(tradeNo);
+    }
+
+    @Override
+    public List<TradeComment> selectTradeCommentList(int tradeNo) {
+        return tStore.selectTradeCommentList(tradeNo);
     }
 
 

@@ -21,6 +21,12 @@ font-family: "Roboto", sans-serif;
 .navLogo:hover{
     background-color: #1a1a1a;
 }
+.fa-trade::before{
+    content: url("img/trade.svg");
+    height: 20px;
+    width: 25px;
+    display: inline-block;
+}
 
 body {
     color: #a5a5a7;
