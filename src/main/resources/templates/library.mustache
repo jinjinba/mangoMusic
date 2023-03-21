@@ -66,8 +66,34 @@
             <div class="profile-letter"><span class="profile-letter-span">{{#myPage.userProfileLetter}}{{{myPage.userProfileLetter}}}{{/myPage.userProfileLetter}}</span></div>
         </div>
     </div>
-
 {{/loginUser}}
+        <br>
+
+<!--라이브러리 추가할 곳-->
+    <div id="library">
+        <div id="library-playlist">
+            <h4 id="playlist-header">내 플레이리스트</h4>
+            <div class="container" style="overflow: scroll; height: 500px;">
+<!--                노래 들어갈 곳-->
+                <ul>
+                    {{#myPlaylist}}
+                        <li id="song-list">
+                            {{playlistSong}} - {{playlistArtist}}
+                        </li>
+                    {{/myPlaylist}}
+                </ul>
+            </div>
+        </div>
+        <div id="library-like">
+            <h4 id="like-header">내 좋아요</h4>
+            <div class="container">
+<!--                좋아요 한 노래 들어갈 곳-->
+            </div>
+        </div>
+    </div>
+
+
+
 </main>
 
 <script src="mypage.js"></script>

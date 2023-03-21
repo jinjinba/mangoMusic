@@ -1,0 +1,29 @@
+#library{
+    --background-color: white;
+    padding: 20px;
+    width: 1200px;
+    height: 500px;
+
+}
+    #library-playlist {
+        height: inherit;
+        width: 50%;
+        --background-color: #00ced5;
+        float: left;
+    }
+    #library-like {
+        height: inherit;
+        width: 50%;
+        --background-color: #c46e86;
+        float: left;
+    }
+
+    .container {
+        width: 450px;
+        height: 400px;
+        --background-color: #c46e86;
+        margin: 30px;
+    }
+    #song-list {
+        font-size: 17px;
+    }

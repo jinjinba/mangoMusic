@@ -3,6 +3,8 @@ package com.kh.mango.user.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.mango.message.domain.Message;
+import com.kh.mango.playlist.domain.PlayList;
+import com.kh.mango.playlist.service.PlayListService;
 import com.kh.mango.point.domain.PointRecord;
 import com.kh.mango.user.domain.*;
 import com.kh.mango.user.service.UserService;
@@ -25,6 +27,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService uService;
+
+    @Autowired
+    private PlayListService pService;
 
     // 회원가입 화면
     @RequestMapping(method = RequestMethod.GET, value = "/register")
@@ -261,6 +266,8 @@ public class UserController {
             }
             MyPage myPage = uService.myPageInfo(user.getUserNo());
             model.addAttribute("myPage",myPage);
+            List<PlayList> myPlaylist = pService.showMyPlaylist(user.getUserNo());
+            model.addAttribute("myPlaylist", myPlaylist);
             return "library";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
