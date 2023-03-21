@@ -10,5 +10,5 @@ public interface PlayListService {
 
     List<PlayList> showMyPlaylist(int userNo);
 
-    List<PlayList> showFollowPlaylist(String userNo);
+    List<PlayList> showFollowPlaylist(int userNo);
 }

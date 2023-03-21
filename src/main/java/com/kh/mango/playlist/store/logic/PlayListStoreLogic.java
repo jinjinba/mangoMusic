@@ -25,7 +25,7 @@ public class PlayListStoreLogic implements PlayListStore {
     }
 
     @Override
-    public List<PlayList> showFollowPlaylist(String userNo) {
+    public List<PlayList> showFollowPlaylist(int userNo) {
         return sqlSession.selectList("PlaylistMapper.showFollowPlaylist", userNo);
     }
 }

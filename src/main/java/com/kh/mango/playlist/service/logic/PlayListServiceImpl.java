@@ -30,7 +30,7 @@ public class PlayListServiceImpl implements PlayListService {
     }
 
     @Override
-    public List<PlayList> showFollowPlaylist(String userNo) {
+    public List<PlayList> showFollowPlaylist(int userNo) {
         return playListStore.showFollowPlaylist(userNo);
     }
 }
