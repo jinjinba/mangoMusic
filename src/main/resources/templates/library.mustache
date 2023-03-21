@@ -1,5 +1,5 @@
     {{>layouts/sidebar}}
-{{#loginUser}}
+{{#loginUser.userNo}}
 <link rel="stylesheet" href="/myPageStyle.css">
 <script>
     $(document).ready(function(){
@@ -66,8 +66,8 @@
             <div class="profile-letter"><span class="profile-letter-span">{{#myPage.userProfileLetter}}{{{myPage.userProfileLetter}}}{{/myPage.userProfileLetter}}</span></div>
         </div>
     </div>
-{{/loginUser}}
         <br>
+{{/loginUser.userNo}}
 
 <!--라이브러리 추가할 곳-->
     <div id="library">
@@ -98,16 +98,13 @@
 
 <script src="mypage.js"></script>
 <script src="message.js"></script>
-    {{#loginUser}}
+    {{^loginUser.userId}}
 {{>layouts/footer}}
-    {{/loginUser}}
-    {{^loginUser}}
     <script>
         $(document).ready(function () {
-            alert("로그인이 필요합니다.")
+            alert("로그인이 필요합니다.");
             window.location.replace("http://localhost:8985/login");
        });
-        var str = "/reply/Remove.bld?replyNo="+replyNo+"&noticeNo="${notice.noticeNo}
 
     </script>
-    {{/loginUser}}
+    {{/loginUser.userId}}

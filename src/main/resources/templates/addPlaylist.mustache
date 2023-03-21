@@ -32,7 +32,6 @@
             </div>
         </nav>
     <input type="hidden" value="{{loginUser.userNo}}" id="userNo">
-{{/loginUser}}
 <!--플레이리스트 추가 페이지 영역-->
 <div id="addPlaylist-header">플레이리스트 추가하기</div>
 
@@ -55,6 +54,8 @@
         <div id="player" style="display: none;"></div>
 
 </main>
+{{/loginUser}}
+
 <script>
     function search() {
         // 검색어 가져오기
@@ -152,16 +153,13 @@
     }
 
 </script>
-    {{#loginUser}}
         {{>layouts/footer}}
-    {{/loginUser}}
     {{^loginUser}}
         <script>
             $(document).ready(function () {
                 alert("로그인이 필요합니다.")
                 window.location.replace("http://localhost:8985/login");
             });
-            var str = "/reply/Remove.bld?replyNo="+replyNo+"&noticeNo="${notice.noticeNo}
 
         </script>
     {{/loginUser}}
