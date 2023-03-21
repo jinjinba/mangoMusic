@@ -253,5 +253,20 @@ public class UserController {
         return jsonString;
     }
 
+    @GetMapping("/library")
+    public String showLibrary(Model model, @SessionAttribute(value = "loginUser", required = false) User user) {
+        try {
+            if (user == null) {
+                throw new Exception("Session attribute 'loginUser' is missing");
+            }
+            MyPage myPage = uService.myPageInfo(user.getUserNo());
+            model.addAttribute("myPage",myPage);
+            return "library";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "library";
+        }
+    }
+
 
 }

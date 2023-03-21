@@ -2,6 +2,7 @@ package com.kh.mango.playlist.controller;
 
 import com.kh.mango.playlist.domain.PlayList;
 import com.kh.mango.playlist.service.PlayListService;
+import com.kh.mango.user.domain.MyPage;
 import com.kh.mango.user.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ public class PlayListController {
 
     @Autowired
     private PlayListService pService;
+
 
     @GetMapping("/addPlaylist")
     public String addPlaylist() {
@@ -47,5 +49,19 @@ public class PlayListController {
         model.addAttribute("userName", userName);
         return "followPlaylist";
     }
+
+//    @GetMapping("/library")
+//    public String showLibrary(Model model, @SessionAttribute(value = "loginUser", required = false) User user) {
+//        try {
+//            if (user == null) {
+//                throw new Exception("Session attribute 'loginUser' is missing");
+//            }
+//            MyPage myPage = uService.myPageInfo(user.getUserNo());
+//            return "library";
+//        } catch (Exception e) {
+//            model.addAttribute("error", e.getMessage());
+//            return "mypage";
+//        }
+//    }
 
 }
