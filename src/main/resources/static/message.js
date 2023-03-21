@@ -1,68 +1,72 @@
-const msgBox = $('#msg-box');
-
-$('.new-msg-user-list').click(function () {
-    if (newMsgBtnStatus === true) {
-        return;
-    }
-    $('.msg-user-list-box').prepend("<button class='msg-user-search-box-close' onclick='msgSearchBoxClose()' value='<'></button>")
-    var msgBox = $('.msg-content-box');
-    msgBox.css("display", "none");
-    msgBox.after('<div class="msg-user-search-box"><input type="text" class="msg-user-search-bar"  placeholder="검색 할 아이디를 입력해주세요..." onkeyup="msgUserSearchFunc()"></div>');
-    var msgSearchBox = $('.msg-user-search-box');
-    msgSearchBox.append("<ul class='msg-search-box-ul'></ul>");
-    newMsgBtnStatus = true;
-});
-
-$(document).ready(function () {
-    loadingChatRoom();
-});
-
-function loadingChatRoom() {
-    $.ajax({
-        url: "/ajaxLoadChatRoom",
-        data: {
-            "userNo": $("#userNo").val()
-        },
-        type: "post",
-        dataType: "json",
-        success: function (data) {
-            console.log(data);
-            if (data.length > 0) {
-                for (var i = 0; i < data.length; i++) {
-                    var str = "";
-                    str += "<li onclick='selectChatRoom(" + data[i].msgRoom + ")' class='msg-user-list-li' id='msg-user-list-li-"+data[i].msgRoom+"'>" + data[i].userName + "<p>@"+data[i].userId+"</p><input type='hidden' value='"+data[i].msgRoom+"' id='msg-user-list-id-"+data[i].msgRoom+"'></li>";
-                    $('.msg-user-list-ul').append(str);
-                    $('.msg-input-box').remove();
-                    var str2 = "";
-                    str2 += "<div class='msg-input-box' style='display: inline-block; flex-direction: row;float:left;'>";
-                    str2 +=     "<div style=' height: 100%; width: 495px; background-color: #F2F3F5;  float:left;'>";
-                    str2 +=    "</div>";
-                    str2 +="</div>";
-
-                    $('.msg-area').append(str2);
-                }
-            }
-        }
-    });
-}
-
-var msgToggleStatus = false;
-function msgToggle() {
-    var msgToggle = $('.msg-toggle-btn');
-    var modifyToggle = $('.modify-btn');
-    if(!msgToggleStatus){
-        msgToggle.css("top","230px")
-        // msgToggle.css("right","200px")
-        //     modifyToggle.css("position","fixed");
-        modifyToggle.css("left","700px");
-        msgToggleStatus = true;
-    }else {
-        msgToggle.css("top","0px");
-        modifyToggle.css("left","0px");
-        msgToggleStatus = false;
-    }
-    msgBox.toggle(0,'show');
-}
+// const msgBox = $('#msg-box');
+// var msgToggleStatus = false;
+// function msgToggle() {
+//     var msgToggle = $('.msg-toggle-btn');
+//     var modifyToggle = $('.modify-btn');
+//     if(!msgToggleStatus){
+//         msgToggle.css("top","230px")
+//         // msgToggle.css("right","200px")
+//         //     modifyToggle.css("position","fixed");
+//         modifyToggle.css("left","700px");
+//         msgToggleStatus = true;
+//     }else {
+//         msgToggle.css("top","0px");
+//         modifyToggle.css("left","0px");
+//         msgToggleStatus = false;
+//     }
+//     msgBox.toggle(0,'show');
+// }
+//
+// $('.new-msg-user-list').click(function () {
+//     if (newMsgBtnStatus === true) {
+//         return;
+//     }
+//     $('.msg-user-list-box').prepend("<button class='msg-user-search-box-close' onclick='msgSearchBoxClose()' value='<'></button>")
+//     var msgBox = $('.msg-content-box');
+//     msgBox.css("display", "none");
+//     msgBox.after('<div class="msg-user-search-box"><input type="text" class="msg-user-search-bar"  placeholder="검색 할 아이디를 입력해주세요..." onkeyup="msgUserSearchFunc()"></div>');
+//     var msgSearchBox = $('.msg-user-search-box');
+//     msgSearchBox.append("<ul class='msg-search-box-ul'></ul>");
+//     newMsgBtnStatus = true;
+// });
+//
+//
+//
+//
+// // 페이지 로드시 채팅룸 로딩
+// $(document).ready(function () {
+//     loadingChatRoom();
+// });
+//
+// function loadingChatRoom() {
+//     $.ajax({
+//         url: "/ajaxLoadChatRoom",
+//         data: {
+//             "userNo": $("#userNo").val()
+//         },
+//         type: "post",
+//         dataType: "json",
+//         success: function (data) {
+//             console.log(data);
+//             if (data.length > 0) {
+//                 for (var i = 0; i < data.length; i++) {
+//                     var str = "";
+//                     str += "<li onclick='selectChatRoom(" + data[i].msgRoom + ")' class='msg-user-list-li' id='msg-user-list-li-"+data[i].msgRoom+"'>" + data[i].userName + "<p>@"+data[i].userId+"</p><input type='hidden' value='"+data[i].msgRoom+"' id='msg-user-list-id-"+data[i].msgRoom+"'></li>";
+//                     $('.msg-user-list-ul').append(str);
+//                     $('.msg-input-box').remove();
+//                     var str2 = "";
+//                     str2 += "<div class='msg-input-box' style='display: inline-block; flex-direction: row;float:left;'>";
+//                     str2 +=     "<div style=' height: 100%; width: 495px; background-color: #F2F3F5;  float:left;'>";
+//                     str2 +=    "</div>";
+//                     str2 +="</div>";
+//
+//                     $('.msg-area').append(str2);
+//                 }
+//             }
+//         }
+//     });
+// }
+//
 
 
 
