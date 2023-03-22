@@ -177,7 +177,7 @@ function loadingChatRoom() {
             if (data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
                     var str = "";
-                    str += "<li onclick='selectChatRoom(" + data[i].chatRoomNo + ")' class='msg-user-list-li' id='msg-user-list-li-"+data[i].chatRoomNo+"'>" + data[i].userName + "<p>@"+data[i].userId+"</p><input type='hidden' value='"+data[i].chatRoomNo+"' id='msg-user-list-id-"+data[i].chatRoomNo+"'></li>";
+                    str += "<li onclick='addChatRoom(" + data[i].chatRoomNo + ")' class='msg-user-list-li' id='msg-user-list-li-"+data[i].chatRoomNo+"'>" + data[i].userName + "<p>@"+data[i].userId+"</p><input type='hidden' value='"+data[i].chatRoomNo+"' id='msg-user-list-id-"+data[i].chatRoomNo+"'></li>";
                     $('.msg-user-list-ul').append(str);
                     $('.msg-input-box').remove();
                     var str2 = "";
@@ -193,7 +193,13 @@ function loadingChatRoom() {
 }
 
 function addChatRoom(chatRoomNo){
+    $('.msg-user-list-li').removeAttr('style');
+    $('#msg-user-list-li-'+chatRoomNo).css("background-color","#F2F3F5");
+    $('#msg-user-list-li-'+chatRoomNo).css("pointer-event","none");
     removeMsgContent();
+    timer = setInterval(function () {
+        $('.receive-msg-area-container').remove();
+        $('.send-msg-area-container').remove();
     $.ajax({
         url:"/ajaxChatRoom",
         type:"post",
@@ -201,67 +207,99 @@ function addChatRoom(chatRoomNo){
         data:{
             "chatRoomNo" : chatRoomNo,
         },
+        async:false,
         success:function(data){
-
-        }
-    })
-}
-
-// 채팅 목록에서 채팅방 진입
-function selectChatRoom(chatRoomNo) {
-    $('.msg-user-list-li').removeAttr('style');
-    $('#msg-user-list-li-'+chatRoomNo).css("background-color","#F2F3F5");
-    // timer = setInterval(function () {
-        $.ajax({
-            url: "/ajaxSelectChatRoom",
-            type: "post",
-            dataType: "json",
-            data: {
-                "userNo": i,
-                "userNo2" : $('#userNo').val()
-            },
-            async:false,
-            success: function (data) {
-                console.log(data);
-                $('#receiveUserNo').remove();
-
-                $('.receive-msg-area-container').remove();
-                $('.send-msg-area-container').remove();
-                var str = "";
-                for (var a = 0; a < data.length; a++) {
-                    if (data[a].sendUserNo === i) {
+            var str = "";
+            if(data.length > 0){
+            for(var a = 0; a < data.length; a++){
+                    if(parseInt($('#userNo').val()) !== data[a].msgSendNo){
                         str += "<div class='receive-msg-area-container'>";
                         str += "<div class='receive-msg-area'>";
                         str += "<ul>";
                         str += "<li>" + data[a].msgContent + "</li>";
-                        str += "<span class='receive-msg-p'>"+moment(data[a].msgDate).format("MM-DD HH:mm")+"</span><br>";
+                        str += "<span class='receive-msg-p'>"+moment(data[a].sendTime).format("MM-DD HH:mm")+"</span><br>";
                         str += "</ul>";
                         str += "</div>";
                         str += "</div>";
-                    } else {
+                    }else {
                         str += "<div class='send-msg-area-container'>";
                         str += "<div class='send-msg-area'>";
                         str += "<ul>";
-                        str += "<span class='receive-msg-p'>"+moment(data[a].msgDate).format("MM-DD HH:mm")+"</span><li>" + data[a].msgContent + "</li><br>";
+                        str += "<span class='receive-msg-p'>"+moment(data[a].sendTime).format("MM-DD HH:mm")+"</span><li>" + data[a].msgContent + "</li><br>";
                         str += "</ul>";
                         str += "</div>";
                         str += "</div>";
                     }
                 }
-                str+="<input type='hidden' value='"+i+"' id='receiveUserNo'>";
-                let msgBox = $('.msg-box');
-                msgBox.append(str);
-                selectChatRoomStatus = true;
-            },
-            error: function (request, status, error) {
-                console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
             }
-        })
-    // }, 1000);
-    addMsgInputBox(i);
+            let msgBox = $('.msg-box');
+            msgBox.append(str);
+
+        }
+    })
+    }, 2000);
+
+    addMsgInputBox($('#msg-user-list-id-'+chatRoomNo));
     $('.msg-content-box').scrollTop($('.msg-content-box')[0].scrollHeight);
 
 }
+
+
+// 채팅 목록에서 채팅방 진입
+// function selectChatRoom(chatRoomNo) {
+//     $('.msg-user-list-li').removeAttr('style');
+//     $('#msg-user-list-li-'+chatRoomNo).css("background-color","#F2F3F5");
+//     $('#msg-user-list-li-'+chatRoomNo).css("pointer-event","none");
+//     timer = setInterval(function () {
+//         $.ajax({
+//             url: "/ajaxSelectChatRoom",
+//             type: "post",
+//             dataType: "json",
+//             data: {
+//                 "userNo2" : $('#userNo').val(),
+//                 "chatRoomNo" : chatRoomNo
+//             },
+//             async:false,
+//             success: function (data) {
+//                 console.log(data);
+//                 $('#receiveUserNo').remove();
+//
+//                 $('.receive-msg-area-container').remove();
+//                 $('.send-msg-area-container').remove();
+//                 var str = "";
+//                 for (var a = 0; a < data.length; a++) {
+//                     if (data[a].sendUserNo === a) {
+//                         str += "<div class='receive-msg-area-container'>";
+//                         str += "<div class='receive-msg-area'>";
+//                         str += "<ul>";
+//                         str += "<li>" + data[a].msgContent + "</li>";
+//                         str += "<span class='receive-msg-p'>"+moment(data[a].msgDate).format("MM-DD HH:mm")+"</span><br>";
+//                         str += "</ul>";
+//                         str += "</div>";
+//                         str += "</div>";
+//                     } else {
+//                         str += "<div class='send-msg-area-container'>";
+//                         str += "<div class='send-msg-area'>";
+//                         str += "<ul>";
+//                         str += "<span class='receive-msg-p'>"+moment(data[a].msgDate).format("MM-DD HH:mm")+"</span><li>" + data[a].msgContent + "</li><br>";
+//                         str += "</ul>";
+//                         str += "</div>";
+//                         str += "</div>";
+//                     }
+//                 }
+//                 str+="<input type='hidden' value='"+i+"' id='receiveUserNo'>";
+//                 let msgBox = $('.msg-box');
+//                 msgBox.append(str);
+//             },
+//             error: function (request, status, error) {
+//                 console.log("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
+//             }
+//         })
+//     }, 1000);
+//     addMsgInputBox(i);
+//     $('.msg-content-box').scrollTop($('.msg-content-box')[0].scrollHeight);
+//
+// }
 
 
 

@@ -101,4 +101,21 @@ public class MessageController {
 
         return jsonString;
     }
+
+    @PostMapping("/ajaxChatRoom")
+    @ResponseBody
+    public String ajaxChatRoom(int chatRoomNo){
+        List<Message> mList = mService.selectMessageList(chatRoomNo);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(mList);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+
+        return jsonString;
+    }
 }

@@ -3,7 +3,7 @@
 <mapper namespace="MessageMapper">
 
     <select id="selectChatRoomList" resultType="com.kh.mango.message.domain.Message">
-        SELECT U.USER_NO AS USER_NO, U.USER_ID AS USER_ID, U.USER_NAME AS USER_NAME, R1.CHAT_ROOM_NO AS CHAT_ROOM_NO FROM USER_TBL U join CHAT_ROOM_USER_TBL R1 ON U.USER_NO = R1.USER_NO_1 OR U.USER_NO = R1.USER_NO_2 WHERE USER_NO != #{userNo}
+        SELECT U.USER_NO AS USER_NO, U.USER_ID AS USER_ID, U.USER_NAME AS USER_NAME, R1.CHAT_ROOM_NO AS CHAT_ROOM_NO FROM USER_TBL U join CHAT_ROOM_USER_TBL R1 ON U.USER_NO = R1.USER_NO_1 OR U.USER_NO = R1.USER_NO_2 WHERE USER_NO != #{userNo} AND (USER_NO_1 = #{userNo1} OR USER_NO_2 = #{userNo2})
     </select>
 
     <select id="selectUserByUserNo1" resultType="com.kh.mango.message.domain.Message">
@@ -12,6 +12,10 @@
 
     <select id="selectChatRoom" resultType="com.kh.mango.message.domain.Message">
         SELECT CHAT_ROOM_NO FROM CHAT_ROOM_USER_TBL WHERE (USER_NO_1 = #{userNo1} AND USER_NO_2 = #{msgSendNo}) OR (USER_NO_1 = #{msgSendNo} AND USER_NO_2 = #{userNo1})
+    </select>
+
+    <select id="selectMessageList" resultType="com.kh.mango.message.domain.Message">
+        SELECT M.*,  U. USER_NO, USER_ID, USER_NAME FROM MSG_TBL M JOIN USER_TBL U ON USER_NO = MSG_SEND_NO WHERE MSG_ROOM = #{chatRoomNo} order by msg_no asc
     </select>
 
     <insert id="insertChatRoomUser">

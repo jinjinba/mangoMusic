@@ -20,4 +20,6 @@ public interface MessageService {
     Message selectChatRoom(Message message);
 
     int insertNotCreateToMsgSend(Message message);
+
+    List<Message> selectMessageList(int chatRoomNo);
 }

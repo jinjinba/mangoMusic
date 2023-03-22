@@ -59,5 +59,10 @@ public class MessageStoreLogic implements MessageStore {
         return session.selectOne("MessageMapper.selectChatRoom",message);
     }
 
+    @Override
+    public List<Message> selectMessageList(int chatRoomNo) {
+        return session.selectList("MessageMapper.selectMessageList",chatRoomNo);
+    }
+
 
 }

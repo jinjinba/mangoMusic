@@ -39,4 +39,10 @@ public class Message {
         this.msgContent = msgContent;
         this.userNo1 = userNo1;
     }
+
+    public Message(int msgRoom, int userNo1, int userNo2) {
+        this.msgRoom = msgRoom;
+        this.userNo1 = userNo1;
+        this.userNo2 = userNo2;
+    }
 }

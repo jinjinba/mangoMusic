@@ -21,4 +21,6 @@ public interface MessageStore {
     int insertSendMsg(Message message);
 
     Message selectChatRoom(Message message);
+
+    List<Message> selectMessageList(int chatRoomNo);
 }
