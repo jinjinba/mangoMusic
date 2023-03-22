@@ -102,4 +102,8 @@
     <update id="updateUserProfile">
         UPDATE USER_TBL SET USER_NAME = #{userName}, USER_PROFILE_LETTER = #{userProfileLetter} WHERE USER_NO = ${userNo}
     </update>
+
+    <update id="updateUserProfilePic">
+        UPDATE USER_TBL SET USER_FILENAME = #{userFilename}, USER_FILEPATH = #{userFilepath} WHERE USER_NO = #{userNo}
+    </update>
 </mapper>

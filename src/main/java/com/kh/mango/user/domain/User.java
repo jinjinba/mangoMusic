@@ -27,6 +27,11 @@ public class User {
     public User() {
     }
 
+    public User(int userNo, String userFilename, String userFilepath) {
+        this.userNo = userNo;
+        this.userFilename = userFilename;
+        this.userFilepath = userFilepath;
+    }
 
     public User(int userNo, String userId, String userName, String userEmail, String userProfileLetter) {
         this.userNo = userNo;

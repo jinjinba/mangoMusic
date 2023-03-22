@@ -115,6 +115,11 @@ public class UserStoreLogic implements UserStore {
     }
 
     @Override
+    public int updateUserProfilePic(User user) {
+        return sqlSession.update("UserMapper.updateUserProfilePic",user);
+    }
+
+    @Override
     public List<UserSearch> selectUserList(SqlSession session, String userId) {
         return session.selectList("UserMapper.selectUserList",userId);
     }

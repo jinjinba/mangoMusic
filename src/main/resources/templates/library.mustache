@@ -45,7 +45,14 @@
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 25px;">
                     <!-- 유저 이미지 -->
-                    <img src="../img/abstract-user-flat-3.svg" style="width: 30px; height: 30px; border-radius: 50%" />
+                    {{#loginUser.userFilename}}
+                        <img src="{{loginUser.userFilename}}"
+                             style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                    {{/loginUser.userFilename}}
+                    {{^loginUser.userFilename}}
+                        <img src="../img/abstract-user-flat-3.svg"
+                             style="width: 30px; height: 30px; border-radius: 50%" class="dropdown-pic"/>
+                    {{/loginUser.userFilename}}
                     <!-- 유저이름 -->
                     &nbsp;&nbsp;{{loginUser.userName}}&nbsp;&nbsp;
                 </button>

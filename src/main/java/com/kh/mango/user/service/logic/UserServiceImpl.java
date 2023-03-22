@@ -109,6 +109,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int updateUserProfilePic(User user) {
+        return uStore.updateUserProfilePic(user);
+    }
+
+    @Override
     public List<User> selectMember() {
         List<User> userList = uStore.selectMember(session);
         return userList;

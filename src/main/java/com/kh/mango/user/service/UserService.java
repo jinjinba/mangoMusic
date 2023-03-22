@@ -46,4 +46,6 @@ public interface UserService {
     List<UserSearch> selectUserList(int userNo);
 
     User updateUserProfile(User user);
+
+    int updateUserProfilePic(User user);
 }

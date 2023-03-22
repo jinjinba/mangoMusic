@@ -1,12 +1,89 @@
-
 var profileStatus = false;
 var name = $('.profile-name-h1').text();
 var letter = $('.profile-letter-span').text();
-// 프로필 수정 시작 버튼
-$(".modify-btn").click(function(){
+var profileImg = $('.profile-img');
+var modal = $('.profile-modal');
 
-    if(!profileStatus){
-        var str = "<input type='text' value='"+$('.profile-name-h1').html()+"' class='profile-name-input' spellcheck='false'><button type='button' onclick='ajaxProfileModify();' value='저장' class='modify-submit-btn'>수정</button><button type='button' onclick='modifyClose();' value='저장' class='modify-submit-btn' id='modify-close-btn'>취소</button>";
+
+// 마우스 인 이벤트
+profileImg.mouseover(function () {
+    profileImg.append("<span class='profile-img-modify-span'>프로필 수정</span>");
+});
+// 마우스 아웃 이벤트
+profileImg.mouseout(function () {
+    $('.profile-img-modify-span').remove();
+});
+
+
+//모달창
+profileImg.click(function () {
+    modal.css("display", "block");
+    modal.classList.toggle('show');
+});
+//모달창 닫기
+$('.profile-modal_close').click(function () {
+    modal.css("display", "none");
+});
+
+
+//이미지 미리보기
+var sel_file;
+
+$(document).ready(function () {
+    $("#file").on("change", handleImgFileSelect);
+});
+
+function handleImgFileSelect(e) {
+    var files = e.target.files;
+    var filesArr = Array.prototype.slice.call(files);
+
+    var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+
+    filesArr.forEach(function (f) {
+        if (!f.type.match(reg)) {
+            alert("확장자는 이미지 확장자만 가능합니다.");
+            return;
+        }
+
+        sel_file = f;
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            console.log(e.target.result);
+            $(".upload-pic-miri").attr("src", e.target.result);
+        }
+        reader.readAsDataURL(f);
+    });
+}
+
+//파일 업로드
+function fn_submit() {
+
+    var form = new FormData();
+    form.append("file", $("#file")[0].files[0]);
+
+    $.ajax({
+        url: "/ajaxFileUpload"
+        , type: "POST"
+        , processData: false
+        , contentType: false
+        , data: form
+        , success: function (response) {
+            alert("저장되었습니다.");
+            modal.css("display", "none");
+            location.reload(true);
+        }
+        , error: function (jqXHR) {
+            alert(jqXHR.responseText);
+        }
+    });
+}
+
+// 프로필 수정 시작 버튼
+$(".modify-btn").click(function () {
+
+    if (!profileStatus) {
+        var str = "<input type='text' value='" + $('.profile-name-h1').html() + "' class='profile-name-input' spellcheck='false'><button type='button' onclick='ajaxProfileModify();' value='저장' class='modify-submit-btn'>수정</button><button type='button' onclick='modifyClose();' value='저장' class='modify-submit-btn' id='modify-close-btn'>취소</button>";
         var str2 = "<textarea type='text' class='profile-letter-input' spellcheck='false'></textarea>";
         $('.profile-name-h1').remove();
         $('.profile-name').append(str);
@@ -17,39 +94,39 @@ $(".modify-btn").click(function(){
     }
 });
 
-function modifyClose(){
+function modifyClose() {
     $('.profile-name-input').remove();
     $('.modify-submit-btn').remove();
     $('.profile-letter-input').remove();
     $('.modify-close-btn').remove();
-    var str = "<h1 class='profile-name-h1'>"+name+"</h1>";
-    var str2 = "<span class='profile-letter-span'>"+letter+"</span>";
+    var str = "<h1 class='profile-name-h1'>" + name + "</h1>";
+    var str2 = "<span class='profile-letter-span'>" + letter + "</span>";
     $('.profile-name').append(str);
     $('.profile-letter').append(str2);
     profileStatus = false;
 }
 
-function ajaxProfileModify(){
+function ajaxProfileModify() {
     profileStatus = false;
     $.ajax({
-        url:"/ajaxProfileModify",
-        type:"post",
-        dataType:"json",
-        data:{
-            "userNo" : $('#userNo').val(),
-            "userName" : $('.profile-name-input').val(),
-            "userLetter" : $('.profile-letter-input').val()
+        url: "/ajaxProfileModify",
+        type: "post",
+        dataType: "json",
+        data: {
+            "userNo": $('#userNo').val(),
+            "userName": $('.profile-name-input').val(),
+            "userLetter": $('.profile-letter-input').val()
         },
-        success:function(data){
+        success: function (data) {
             $('.modify-submit-btn').remove();
             $('.profile-name-input').remove();
             $('.profile-letter-input').remove();
-            str = "<h1 class='profile-name-h1'>"+data.userName+"</h1>";
-            str2 = "<span class='profile-letter-span'>"+data.userProfileLetter+"</span>";
+            str = "<h1 class='profile-name-h1'>" + data.userName + "</h1>";
+            str2 = "<span class='profile-letter-span'>" + data.userProfileLetter + "</span>";
             $('.profile-name').append(str);
             $('.profile-letter').append(str2);
             str3 = "<img src='../img/abstract-user-flat-3.svg' style='width: 30px; height: 30px; border-radius: 50%' />";
-            $('#dropdownMenuButton1').text("  "+data.userName+"  ");
+            $('#dropdownMenuButton1').text("  " + data.userName + "  ");
             $('#dropdownMenuButton1').prepend(str3);
         },
         error: function (request, status, error) {
