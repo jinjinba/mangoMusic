@@ -7,7 +7,7 @@ import com.kh.mango.trade.domain.TradeComment;
 import java.util.List;
 
 public interface TradeStore {
-    int getQListCount();
+    int getTradeListCount();
 
     List<Trade> selectTradeList(PageInfo pi);
 

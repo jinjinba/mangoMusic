@@ -90,15 +90,15 @@
                         {{/loginUser}}
                     </form>
                     <form name="comment-form" action="/qnaSearch" method="post" autocomplete="off">
-                        {{#cmList}}
+                        {{#commentList}}
                         <div class="cmContent_main">
                             <div class="cmName">
                                 {{{userName}}}&nbsp;<small>{{{commentDate}}}</small> &nbsp; &nbsp;
-                                <a class="cmRemove_tag" href="javascript:void(0);" onclick="cmRemoveCheck({{commentNo}},{{csNo}});">삭제</a>
+                                <a class="cmRemove_tag" href="javascript:void(0);" onclick="cmRemoveCheck({{commentNo}},{{tradeNo}});">삭제</a>
                             </div>
                             <textarea class="cm_cm" readonly>{{{commentContent}}}</textarea>
                         </div>
-                        {{/cmList}}
+                        {{/commentList}}
                     </form>
                 </div>
             </div>

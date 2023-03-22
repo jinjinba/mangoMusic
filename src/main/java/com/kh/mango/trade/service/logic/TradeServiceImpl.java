@@ -15,8 +15,8 @@ public class TradeServiceImpl implements TradeService {
     @Autowired
     private TradeStore tStore;
     @Override
-    public int getQListCount() {
-        return tStore.getQListCount();
+    public int getTradeListCount() {
+        return tStore.getTradeListCount();
     }
 
     @Override

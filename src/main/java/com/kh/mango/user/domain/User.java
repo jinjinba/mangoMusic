@@ -23,6 +23,7 @@ public class User {
     private String userFilename;
     private String userFilepath;
     private String userProfileLetter;
+    private int pointVal;
 
     public User() {
     }

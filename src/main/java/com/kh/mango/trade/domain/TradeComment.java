@@ -12,4 +12,6 @@ public class TradeComment {
     private Timestamp commentDate;
     private int tradeNo;
     private int csNo;
+
+    private String userName;
 }

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -18,8 +20,8 @@ public class TradeController {
     private TradeService tService;
 
     @GetMapping("/trade")
-    public String marketView( @RequestParam(value="page", required=false, defaultValue="1") Integer page, Model model){
-        int totalCount = tService.getQListCount();
+    public String tradeView( @RequestParam(value="page", required=false, defaultValue="1") Integer page, Model model){
+        int totalCount = tService.getTradeListCount();
         PageInfo pi = this.getPageInfo(page, totalCount);
         List<Trade> tList =  tService.selectTradeList(pi);
 
@@ -27,8 +29,8 @@ public class TradeController {
         for(int i = 0; i < tList.size(); i++){
             tList.get(i).setRowNum(i+1);
         }
-        for(int i = 1; i < pi.getEndNavi()-1; i++){
-            sb.append("<a href='http://localhost:8985/trade?page="+i+"'>"+i+"</a> ");
+        for(int i = 0; i < pi.getEndNavi(); i++){
+            sb.append("<a href='http://localhost:8985/trade?page="+(i+1)+"'>"+(i+1)+"</a> ");
         }
         model.addAttribute("paging",sb);
         model.addAttribute("pi",pi);
@@ -69,6 +71,10 @@ public class TradeController {
         model.addAttribute("commentList",tc);
         return "tradeDetail";
     }
+
+
+
+
 
 
 }

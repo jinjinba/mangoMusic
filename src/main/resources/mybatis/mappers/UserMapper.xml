@@ -45,7 +45,7 @@
         SELECT * FROM USER_TBL WHERE USER_ID != 'admin' ORDER BY USER_NO ASC
     </select>
     <select id="checkUserLogin" resultType="com.kh.mango.user.domain.User">
-        SELECT * FROM USER_TBL WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
+        SELECT A.*,P.POINT_VAL FROM USER_TBL A JOIN POINT_TBL P ON A.USER_NO = P.USER_NO  WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
     </select>
 
     <select id="selectFindId" resultType="com.kh.mango.user.domain.User">
@@ -71,7 +71,8 @@
         SELECT F.FOLLOW_NO, U.USER_NO, U.USER_ID, U.USER_NAME, U.USER_GENDER  FROM USER_TBL U, FOLLOW_TBL F WHERE F.FOLLOW_NO = #{userNo} AND F.USER_NO = U.USER_NO
     </select>
     <select id="selectDeals" resultType="com.kh.mango.deal.domain.Deal">
-        SELECT * FROM DEAL_TBL WHERE BUYER_NO = #{userNo} OR SELLER_NO = #{userNo}
+        SELECT * FROM DEAL_TBL WHERE (BUYER_NO = #{userNo} and deal_type = '구매') OR (SELLER_NO =#{userNo} and deal_type = '판매')
+
     </select>
     <select id="selectLikes" resultType="com.kh.mango.user.domain.Like">
         SELECT * FROM LIKE_TBL WHERE USER_NO = #{userNo}
@@ -82,7 +83,7 @@
     </select>
 
     <select id="selectPointRecord" resultType="com.kh.mango.point.domain.PointRecord">
-        SELECT * FROM POINT_RECORD_TBL ORDER BY POINT_RECORD_DATE DESC
+        SELECT * FROM POINT_RECORD_TBL WHERE USER_NO = #{userNo} ORDER BY POINT_RECORD_DATE DESC
     </select>
 
     <select id="selectUserList" resultType="com.kh.mango.user.domain.UserSearch">

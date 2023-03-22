@@ -20,5 +20,6 @@ public class Trade {
     private int tradeView;
     private Timestamp tradeDate;
     private String userName;
+    private int tradePrice;
 
 }

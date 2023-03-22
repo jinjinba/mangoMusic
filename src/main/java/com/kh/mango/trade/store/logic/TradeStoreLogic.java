@@ -16,8 +16,8 @@ public class TradeStoreLogic implements TradeStore {
     @Autowired
     private SqlSession session;
     @Override
-    public int getQListCount() {
-        return session.selectOne("CsMapper.getQnaListCount");
+    public int getTradeListCount() {
+        return session.selectOne("TradeMapper.getTradeListCount");
     }
 
     @Override
