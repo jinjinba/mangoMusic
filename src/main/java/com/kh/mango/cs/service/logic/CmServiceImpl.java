@@ -23,8 +23,8 @@ public class CmServiceImpl implements CmService {
     }
 
     @Override
-    public int deleteComment(int csNo) {
-        return cmStore.deleteComment(session, csNo);
+    public int deleteComment(int commentNo) {
+        return cmStore.deleteComment(session, commentNo);
     }
 
     @Override

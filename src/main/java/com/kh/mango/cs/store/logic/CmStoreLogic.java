@@ -18,8 +18,8 @@ public class CmStoreLogic implements CmStore {
     }
 
     @Override
-    public int deleteComment(SqlSession session, int csNo) {
-        return session.delete("CommentMapper.deleteComment", csNo);
+    public int deleteComment(SqlSession session, int commentNo) {
+        return session.delete("CommentMapper.deleteComment", commentNo);
     }
 
     @Override

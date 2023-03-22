@@ -76,28 +76,28 @@
                             </th>
                         </tr>
                     <form action="/notice">
-                        {{#noticeList}}
+                        {{#nSearchList}}
                         <tr class="noticeList">
-                            <td>
+                            <td  class="td_no">
                                 {{rowNum}}
                             </td>
-                            <td>
+                            <td class="td_subject">
                                 <a href="/noticeDetail?csNo={{csNo}}">{{csSubject}}</a>
                             </td>
-                            <td>
+                            <td class="td_writer">
                                 {{userName}}
                             </td>
-                            <td>
+                            <td class="td_day">
                                 {{csDate}}
                             </td>
                         </tr>
-                        {{/noticeList}}
+                        {{/nSearchList}}
                     </form>
                     </tbody>
                     <tfoot>
                         <tr align="center" class="tf_f">
                             <td class="td_page" colspan="3">
-<!--                                {{{paging}}}-->
+                                {{{paging}}}
                             </td>
                             <form action="/noticeWrite">
                                 {{#loginUser.userType}}
@@ -105,15 +105,15 @@
                                 {{/loginUser.userType}}
                             </form>
                         </tr>
-                        <tr>
-                            <td colspan="4">
+                        <tr class="tfoot">
+                            <td colspan="4" class="tf_left">
                                 <form action="/noticeSearch" method="get">
                                     <input type="hidden" value="{{{search.searchCondition}}}" id="searchCondition">
                                     <select name="searchCondition">
-                                        <option value="all" id="select-all">전체</option>
-                                        <option value="userName" id="select-userName">작성자</option>
-                                        <option value="subject" id="select-subject">제목</option>
-                                        <option value="content" id="select-content">내용</option>
+                                        <option class="option" value="all" id="select-all">전체</option>
+                                        <option class="option" value="userName" id="select-userName">작성자</option>
+                                        <option class="option" value="subject" id="select-subject">제목</option>
+                                        <option class="option" value="content" id="select-content">내용</option>
                                     </select>
                                     <input type="text" class="input_text" name="searchValue" placeholder="검색어를 입력해주세요.">
                                     <input type="submit" class="input_submit" value="검색">

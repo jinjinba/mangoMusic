@@ -11,7 +11,7 @@ public interface CmStore {
 
     int insertComment(SqlSession session, Comment comment);
 
-    int deleteComment(SqlSession session, int csNo);
+    int deleteComment(SqlSession session, int commentNo);
 
     List<Comment> insertComment(SqlSession session, int csNo);
 

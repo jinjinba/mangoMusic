@@ -16,10 +16,10 @@ public interface CmService {
 
     /**
      * 댓글 삭제 Service
-     * @param csNo
+     * @param commentNo
      * @return
      */
-    int deleteComment(int csNo);
+    int deleteComment(int commentNo);
 
     /**
      * 댓글 목록 조회 Service

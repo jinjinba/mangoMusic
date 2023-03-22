@@ -1,5 +1,6 @@
 {{>layouts/sidebar}}
 <link rel="stylesheet" href="css/notice_wr.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <main>
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -42,7 +43,7 @@
             <hr>
         </div>
         <div class="main-body">
-            <form action="/qnaWrite" method="post">
+            <form action="/qnaWrite" method="post" onsubmit="return validateForm()">
                 <div class="writer">
                     <div class="title">
                         <label>제목</label> <br>
@@ -50,15 +51,35 @@
                     </div>
                     <div class="content">
                         <label>내용</label> <br>
-                        <textarea id="story" name="csContent" rows="30" cols="150" placeholder="내용을 입력해주세요."></textarea>
+                        <textarea name="csContent" rows="30" cols="150" placeholder="내용을 입력해주세요."></textarea>
                     </div>
                     <div class="div_btn">
-                        <input type="submit" class="button" value="등록">
+                        <input type="submit" id="enter" class="button" value="등록">
                         <input type="reset" class="button" value="취소">
                     </div>
                 </div>
             </form>
         </div>
     </div>
+    <script>
+        // function validateForm() {
+        //     var title = document.forms["myForm"]["csSubject"].value;
+        //     var content = document.forms["myForm"]["csContent"].value;
+        //     if (title == null || title == "" || content == null || content == "") {
+        //         alert("제목과 내용을 모두 입력해주세요.");
+        //         return false;
+        //     }
+        // }
+        function validateForm() {
+            var title = document.forms["myForm"]["csSubject"].value.trim();
+            var content = document.forms["myForm"]["csContent"].value.trim();
+            var titleRegex = /^\S/;
+            var contentRegex = /^\S/;
+            if (title == "" || content == "" || !titleRegex.test(title) || !contentRegex.test(content)) {
+                alert("제목과 내용을 모두 입력해주세요.");
+                return false;
+            }
+        }
+    </script>
 </main>
 {{>layouts/footer}}

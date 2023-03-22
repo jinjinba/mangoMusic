@@ -60,34 +60,36 @@
             </aside>
             <div class="notice_all_container">
                 <table class="notice_all">
-                    <tbody>
-                    <tr id="tr_th">
-                        <th class="table_no">
-                            번호
-                        </th>
-                        <th class="table_subject">
-                            제목
-                        </th>
-                        <th class="table_writer">
-                            작성자
-                        </th>
-                        <th class="table_writer">
-                            작성날짜
-                        </th>
-                    </tr>
+                    <thead>
+                        <tr id="tr_th">
+                            <th class="table_no">
+                                번호
+                            </th>
+                            <th class="table_subject">
+                                제목
+                            </th>
+                            <th class="table_writer">
+                                작성자
+                            </th>
+                            <th class="table_writer">
+                                작성날짜
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody box1">
                     <form action="/notice">
                         {{#noticeList}}
                         <tr class="noticeList">
-                            <td>
+                            <td class="td_no">
                                 {{rowNum}}
                             </td>
-                            <td>
+                            <td class="td_no">
                                 <a href="/noticeDetail?csNo={{csNo}}">{{csSubject}}</a>
-                            </td>
-                            <td>
+                            </td class="td_subject">
+                            <td class="td_writer">
                                 {{userName}}
                             </td>
-                            <td>
+                            <td class="td_day">
                                 {{csDate}}
                             </td>
                         </tr>
@@ -105,8 +107,8 @@
                             {{/loginUser.userType}}
                         </form>
                         </tr>
-                        <tr>
-                            <td colspan="4">
+                        <tr class="tfoot">
+                            <td colspan="4" class="tf_left">
                                 <form action="/noticeSearch" method="get">
                                     <select name="searchCondition">
                                         <option class="option" value="all">전체</option>

@@ -19,15 +19,19 @@ h2 {
 }
 .main-body {
     margin-top: 50px;
-    text-align: center;
+    /*text-align: center;*/
+}
+.writer {
+    margin: 0px 300px;
 }
 label{
-    margin-right: 900px;
+    /*margin-right: 900px;*/
     font-size: 20px;
-    margin-bottom: 20px;
+    margin: 10px 30px;
+
 }
 .title_text {
-    width: 400px;
+    width: 40%;
     height: 40px;
     font-size: 15px;
     border: 0;
@@ -40,11 +44,8 @@ label{
 }
 .title {
     text-align: left;
-    margin-left: 280px;
+    /*margin-left: 280px;*/
     margin-bottom: 50px;
-}
-.title > label {
-    margin-left: 32px;
 }
 textarea {
     width: 1000px;
@@ -63,6 +64,7 @@ textarea {
     margin-bottom: 50px;
 }
 .div_btn {
+    text-align: center;
     margin-top: 50px;
 }
 .button {

@@ -137,8 +137,8 @@ public class CsController {
             noticeList.get(i).setRowNum(i+1);
         }
 
-        for(int i = 0; i < pi.getEndNavi(); i++){
-            sb.append("<a href='http://localhost:8985/notice?page="+(i+1)+"'>"+(i+1)+"</a> ");
+        for(int i = pi.getStartNavi(); i <= pi.getEndNavi(); i++){
+            sb.append("<a href='http://localhost:8985/notice?page="+i+"'>"+i+"</a> ");
         }
         mv.addObject("paging",sb);
         mv.addObject("pi", pi);
@@ -250,6 +250,7 @@ public class CsController {
             @RequestParam("csNo") int csNo
             , Model model) {
         Cs cs = cService.selectQnaOneByNo(csNo);
+        model.addAttribute("csNo", csNo);
         List<Comment> cmList = cmSerivce.selectCommentList(csNo);
         model.addAttribute("cs", cs);
         model.addAttribute("cmList", cmList);
@@ -268,19 +269,14 @@ public class CsController {
         int totalCount = cService.getListCount(nSearch);
         PageInfo pi = this.getPageInfo(currentPage, totalCount);
         List<Cs> searchList = cService.selectListByKeyword(pi, nSearch);
-//        HttpSession session = request.getSession();
+        StringBuffer sb = new StringBuffer();
 
         for(int i = 0; i < searchList.size(); i++){
             searchList.get(i).setRowNum(i+1);
         }
-        List<Cs> noticeList = cService.selectNoticeList(pi);
-        StringBuffer sb = new StringBuffer();
-        for(int i = 0; i < noticeList.size(); i++){
-            noticeList.get(i).setRowNum(i+1);
-        }
 
-        for(int i = 0; i < pi.getEndNavi(); i++){
-            sb.append("<a href='http://localhost:8985/notice?page="+(i+1)+"'>"+(i+1)+"</a> ");
+        for(int i = 0; i < pi.getEndNavi()-1; i++){
+            sb.append("<a href='http://localhost:8985/noticeSearch?page="+(i+1)+"'>"+(i+1)+"</a> ");
         }
 
         if(!searchList.isEmpty()) {
@@ -290,8 +286,8 @@ public class CsController {
             model.addAttribute("nSearchList", searchList);
             return "/noticeSearch";
         }else {
-            model.addAttribute("msg", "로그인 후 사용 바랍니다.");
-            return "common/error";
+            model.addAttribute("msg", "조회 실패!");
+            return "/notice";
         }
     }
     // Q&A 검색
@@ -305,7 +301,15 @@ public class CsController {
         int totalCount = cService.getQListCount(qSearch);
         PageInfo pi = this.getPageInfo(currentPage, totalCount);
         List<Cs> searchList = cService.selectQnaListByKeyword(pi, qSearch);
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0; i < searchList.size(); i++){
+            searchList.get(i).setRowNum(i+1);
+        }
+        for(int i = 0; i < pi.getEndNavi()-1; i++) {
+            sb.append("<a href='http://localhost:8985/qnaSearch?page="+(i+1)+"'>"+(i+1)+"</a> ");
+        }
         if (!searchList.isEmpty()) {
+            model.addAttribute("paging", sb);
             model.addAttribute("search", qSearch);
             model.addAttribute("pi", pi);
             model.addAttribute("qSearchList", searchList);
@@ -314,6 +318,26 @@ public class CsController {
             model.addAttribute("error", "조회실패!");
             return "/qna";
         }
+        // Q&A 검색
+//    @RequestMapping(value = "/qnaSearch", method = RequestMethod.GET)
+//    public String qnaSearchView(
+//            @ModelAttribute CsSearch qSearch
+////            , @RequestParam("searchValue") String keyword
+////            , @RequestParam(value = "searchCondition") String condition
+//            , @RequestParam(value = "page", required = false, defaultValue = "1") Integer currentPage
+//            , Model model) {
+//        int totalCount = cService.getQListCount(qSearch);
+//        PageInfo pi = this.getPageInfo(currentPage, totalCount);
+//        List<Cs> searchList = cService.selectQnaListByKeyword(pi, qSearch);
+//        if (!searchList.isEmpty()) {
+//            model.addAttribute("search", qSearch);
+//            model.addAttribute("pi", pi);
+//            model.addAttribute("qSearchList", searchList);
+//            return "/qnaSearch";
+//        } else {
+//            model.addAttribute("error", "조회실패!");
+//            return "/qna";
+//        }
     }
     // navigator start, end값 설정 method()
     private PageInfo getPageInfo(int currentPage, int totalCount) {

@@ -48,17 +48,19 @@
                 <small>작성자 : {{cs.userName}} / 작성날짜 : {{cs.csDate}}</small>
                 <hr>
                 <br>
-                <div class="main_content">
-                    {{cs.csContent}}
-                </div>
+                <textarea name="csContent" rows="30" cols="150" class="main_content" readonly>{{cs.csContent}}</textarea>
                 <br>
                 <hr>
                 <div class="div-a-tag">
+                {{#loginUser}}
                 {{^loginUser.userType}}
+                    {{#loginUser.userNo}}
                     <a class="a-tag" href="/qnaModify?csNo={{cs.csNo}}">수정</a>
     <!--                <a href="#">수정</a>-->
                     <a class="a-tag" href="javascript:void(0);" onclick="removeCheck({{cs.csNo}});">삭제</a>
+                    {{/loginUser.userNo}}
                 {{/loginUser.userType}}
+                {{/loginUser}}
                 </div>
             </div>
             <!-- Comments Form -->
@@ -66,13 +68,14 @@
                 <h5>Comment</h5>
                 <div class="comment_main">
                     <form action="/commentWrite" method="post">
+                        {{#loginUser}}
                         <div class="comment_textarea">
                             <textarea name="commentContent" class="comment" rows="3"></textarea>
                         </div>
-                        {{#loginUser}}
                             <div>
                                 <div>
-                                <input type="hidden" name="csNo" value="{{cs.csNo}}">
+                                <input type="hidden" name="csNo" value="{{csNo}}">
+<!--                                    <input type="hidden" name="csNo" value="">-->
                                 </div>
                                 <div class="btn_submit">
                                 <input type="submit" class="cm_btn" value="댓글 등록">
@@ -85,11 +88,9 @@
                         <div class="cmContent_main">
                             <div class="cmName">
                                 {{{userName}}}&nbsp;<small>{{{commentDate}}}</small> &nbsp; &nbsp;
-                                <a class="cmRemove_tag" href="javascript:void(0);" onclick="cmRemoveCheck({{csNo}});">삭제</a>
+                                <a class="cmRemove_tag" href="javascript:void(0);" onclick="cmRemoveCheck({{commentNo}},{{csNo}});">삭제</a>
                             </div>
-                            <div class="cm_cm">
-                                {{{commentContent}}}
-                            </div>
+                            <textarea class="cm_cm" readonly>{{{commentContent}}}</textarea>
                         </div>
                         {{/cmList}}
                     </form>
@@ -103,16 +104,16 @@
                 location.href="/qnaRemove?csNo=" + csNo;
             }
         }
-        function cmRemoveCheck(commentNo) {
+        function cmRemoveCheck(commentNo, csNo) {
             if (confirm("정말 삭제하시겠습니까?")) {
-                location.href="/qnaRemove?csNo=" + csNo;
+                location.href="/commentRemove?commentNo=" + commentNo+"&csNo="+csNo;
             }
         }
-        {{#comment}}
+        {{#cmList}}
             window.onload = function (){
                 alert("로그인 후 이용 바랍니다.");
             }
-        {{/comment}}
+        {{/cmList}}
             {{#error}}
             window.onload = function() {
                 alert("로그인 후 사용하세요")

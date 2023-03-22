@@ -50,7 +50,7 @@ table {
     text-indent: initial;
     border-spacing: 2px;
     border-color: gray;
-    height: 60%;
+    /*height: 60%;*/
     /*width: ;*/
 }
 
@@ -65,7 +65,7 @@ table {
 }
 #tr_th {
     /*border-bottom: 1px solid #888888;*/
-    background-color: rgba(137,119,173,0.3);
+    background-color: rgba(137,119,173,0.4);
     margin-right: 10px;
     /*background-color: #2e2649;*/
 }
@@ -102,12 +102,6 @@ a {
 th, td {
     text-align: center;
 }
-#tr_th {
-    /*border-bottom: 1px solid #888888;*/
-    background-color: rgba(255,255,255,0.3);
-    /*background-color: #2e2649;*/
-}
-
 
 .table_subject {
     width: 60%;
@@ -134,7 +128,7 @@ span {
 
 }
 .tf_f {
-    padding-top: 50px;
+    padding-top: 100px;
 }
 .td_btn{
     border: 1px solid white;
@@ -143,6 +137,7 @@ span {
     color: white;
     background-color: transparent;
     float: right;
+    margin-top: 20px;
     margin-right: 30px;
 }
 .td_btn:hover {
