@@ -660,7 +660,7 @@ tr:hover {
         --background-color: #c46e86;
         margin: 30px;
     }
-    #song-list {
+    .song-list {
         font-size: 19px;
         padding: 5px;
     }

@@ -70,15 +70,21 @@
 {{/loginUser.userNo}}
 
 <!--라이브러리 추가할 곳-->
+        <input type="hidden" id="userNo" value="{{loginUser.userNo}}">
     <div id="library">
         <div id="library-playlist">
-            <h4 id="playlist-header">내 플레이리스트</h4>
+            <h4 id="playlist-header" style="float: left">내 플레이리스트</h4>
+            <i class="fa-solid fa-trash" style="color: #dedede; cursor:pointer;"></i>
+            <i class="fa-solid fa-headphones" style="color: #dedede; cursor:pointer;"></i>
+
+
             <div class="container" style="overflow: scroll; height: 500px;">
 <!--                노래 들어갈 곳-->
                 <ul>
                     {{#myPlaylist}}
-                        <li id="song-list">
+                        <li class ="song-list">
                             {{playlistSong}} - {{playlistArtist}}
+                            <i class="fa-solid fa-trash" onclick="deleteMusic(this)" style="color: #dedede; cursor:pointer;"></i>
                         </li>
                     {{/myPlaylist}}
                 </ul>
@@ -110,5 +116,27 @@
             window.location.replace("http://localhost:8985/login");
        });
 
+    </script>
+
+    <script>
+        function deleteMusic(obj) {
+            console.log($.trim(($(obj).parent().siblings('.song-list').val()).split('-')[0]));
+
+            const deleteMusicData = {
+                "userNo" : parseInt($('#userNo').val()),
+                "playlistSong" : $.trim(($(obj).parent().siblings('.song-list').val()).split('-')[0]),
+                "playlistArtist" : $.trim(($(obj).text()).split('-')[1])
+            }
+            // $.ajax(
+            //         {
+            //             type: "post",
+            //             url: "",
+            //             data: deleteMusicData,
+            //             success :
+            //
+            //         }
+            // )
+
+        }
     </script>
     {{/loginUser.userId}}

@@ -38,6 +38,8 @@ public class PlayListController {
         return "success";
     }
 
+
+
     @GetMapping("/myPlaylist")
     public String myPlaylist(Model model, @SessionAttribute(value = "loginUser", required = false) User user) {
         List<PlayList> myPlaylist = pService.showMyPlaylist(user.getUserNo());
