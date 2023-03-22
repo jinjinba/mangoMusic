@@ -72,7 +72,6 @@
     </select>
     <select id="selectDeals" resultType="com.kh.mango.deal.domain.Deal">
         SELECT * FROM DEAL_TBL WHERE (BUYER_NO = #{userNo} and deal_type = '구매') OR (SELLER_NO =#{userNo} and deal_type = '판매')
-
     </select>
     <select id="selectLikes" resultType="com.kh.mango.user.domain.Like">
         SELECT * FROM LIKE_TBL WHERE USER_NO = #{userNo}
