@@ -11,4 +11,6 @@ public interface PlayListService {
     List<PlayList> showMyPlaylist(int userNo);
 
     List<PlayList> showFollowPlaylist(int userNo);
+
+    int deletePlaylist(PlayList playlistParam);
 }

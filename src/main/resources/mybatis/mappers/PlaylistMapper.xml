@@ -21,5 +21,9 @@
         SELECT U.USER_NAME, P.PLAYLIST_SONG, P.PLAYLIST_ARTIST FROM PLAYLIST_TBL P JOIN USER_TBL U ON P.USER_NO = U.USER_NO WHERE P.USER_NO= #{userNo}
     </select>
 
+    <delete id="deletePlaylist">
+        DELETE FROM PLAYLIST_TBL WHERE PLAYLIST_ARTIST = #{playlistArtist} AND PLAYLIST_SONG = #{playlistSong} AND USER_NO= #{userNo}
+    </delete>
+
 
 </mapper>

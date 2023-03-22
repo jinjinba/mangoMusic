@@ -33,4 +33,9 @@ public class PlayListServiceImpl implements PlayListService {
     public List<PlayList> showFollowPlaylist(int userNo) {
         return playListStore.showFollowPlaylist(userNo);
     }
+
+    @Override
+    public int deletePlaylist(PlayList playlistParam) {
+        return playListStore.deletePlaylist(playlistParam);
+    }
 }

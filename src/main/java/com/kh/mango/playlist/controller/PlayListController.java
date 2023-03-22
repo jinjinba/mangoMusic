@@ -1,5 +1,7 @@
 package com.kh.mango.playlist.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.mango.playlist.domain.PlayList;
 import com.kh.mango.playlist.service.PlayListService;
 import com.kh.mango.user.domain.MyPage;
@@ -80,5 +82,21 @@ public class PlayListController {
 //            return "mypage";
 //        }
 //    }
+
+    @PostMapping("/ajaxDeletePlaylist")
+    @ResponseBody
+    public String ajaxDeletePlaylist(int userNo, String playlistSong, String playlistArtist) {
+        PlayList playlistParam = new PlayList(userNo, playlistSong, playlistArtist);
+        int result = pService.deletePlaylist(playlistParam);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString("success");
+        } catch (JsonProcessingException e) {
+            return  jsonString;
+        }
+        return jsonString;
+    }
 
 }

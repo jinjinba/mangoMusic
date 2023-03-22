@@ -115,10 +115,12 @@
         //console.log($.trim(($(obj).parent().siblings('.song-list').val()).split('-')[0]));
         //console.log($(obj).siblings('#songId').text());
 
+        console.log(parseInt($('#userNo').val()));
         console.log($.trim(($(obj).siblings('#songId').text()).split('-')[0]));
         console.log($.trim(($(obj).siblings('#songId').text()).split('-')[1]));
-        $(obj).parent().remove();
-
+        //$(obj).parent().remove(); 삭제하는 코드
+        let playlistSong = $.trim(($(obj).siblings('#songId').text()).split('-')[0]);
+        let playlistArtist = $.trim(($(obj).siblings('#songId').text()).split('-')[1]);
 
         //song
         //$.trim(($(obj).siblings('#songId').text()).split('-')[0])
@@ -130,23 +132,25 @@
         //$(obj).parent().remove();
 
 
-        // const deleteMusicData = {
-        //     "userNo" : parseInt($('#userNo').val()),
-        //     "playlistSong" : $.trim(($(obj).siblings('#songId').text()).split('-')[0]),
-        //     "playlistArtist" : $.trim(($(obj).siblings('#songId').text()).split('-')[1])
-        // }
-        // $.ajax(
-        //         {
-        //             type: "post",
-        //             url: "",
-        //             data: deleteMusicData,
-        //             dataType: "json",
-        //             success : function (data) {
-        //                 alert("삭제되었습니다.");
-        //             }
-        //
-        //         }
-        // )
+        const deleteMusicData = {
+            "userNo" : parseInt($('#userNo').val()),
+            "playlistSong" : playlistSong,
+            "playlistArtist" : playlistArtist
+        }
+        $.ajax(
+                {
+                    type: "post",
+                    url: "/ajaxDeletePlaylist",
+                    data: deleteMusicData,
+                    dataType: "json",
+                    success : function (data) {
+                        console.log(data);
+                        $(obj).parent().remove();
+                        alert("삭제되었습니다.");
+                    }
+
+                }
+        )
 
     }
 </script>

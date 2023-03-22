@@ -28,4 +28,9 @@ public class PlayListStoreLogic implements PlayListStore {
     public List<PlayList> showFollowPlaylist(int userNo) {
         return sqlSession.selectList("PlaylistMapper.showFollowPlaylist", userNo);
     }
+
+    @Override
+    public int deletePlaylist(PlayList playlistParam) {
+        return sqlSession.delete("PlaylistMapper.deletePlaylist",playlistParam);
+    }
 }
