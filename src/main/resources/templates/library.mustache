@@ -92,7 +92,7 @@
                 <ul>
                     {{#myPlaylist}}
                         <li class ="song-list">
-                            <div class="songId" style="float: left;">{{playlistSong}} - {{playlistArtist}}</div>
+                            <div id="songId" class="song-clss" style="float: left;">{{playlistSong}} - {{playlistArtist}}</div>
                             &nbsp;&nbsp;&nbsp;
                             <i class="fa-solid fa-trash" onclick="deleteMusic(this)" style="color: #dedede; cursor:pointer;"></i>
                         </li>
@@ -148,10 +148,10 @@
 
         // class = songId의 text 값을 가져와서 test(검색어) onclick 이벤트 작성
         $(document).ready(function () {
-            $('.songId').each(function () {
+            $('.song-clss').each(function () {
                 var video_query = $(this).text();
                 video_query.replace(/ /g,"");
-                $('.songId').onclick = audio(video_query);
+                $('.song-clss').onclick = audio(video_query);
             })
         })
 
