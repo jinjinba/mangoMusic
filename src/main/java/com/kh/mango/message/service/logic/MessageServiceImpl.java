@@ -20,8 +20,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public int deleteChatRoom(Message message) {
-        return mStore.deleteChatRoom(message);
+    public int deleteChatRoom(int chatRoomNo) {
+        return mStore.deleteChatRoom(chatRoomNo);
     }
 
     @Override
@@ -60,5 +60,11 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> selectMessageList(int chatRoomNo) {
         return mStore.selectMessageList(chatRoomNo);
     }
+
+    @Override
+    public Message selectChatRoom2(Message message) {
+        return mStore.selectChatRoom2(message);
+    }
+
 
 }

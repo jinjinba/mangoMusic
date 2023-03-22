@@ -58,9 +58,8 @@ public class MessageController {
 
     @PostMapping("/ajaxChatRemove")
     @ResponseBody
-    public String ajaxChatRemove(int userNo1, int userNo2) {
-        Message message = new Message(userNo1, userNo2);
-        int result = mService.deleteChatRoom(message);
+    public String ajaxChatRemove(int userNo1, int chatRoomNo) {
+        int result = mService.deleteChatRoom(chatRoomNo);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = "";
 
@@ -75,19 +74,35 @@ public class MessageController {
     }
 
 
+    @PostMapping("/ajaxSearchByChatRoom")
+    @ResponseBody
+    public String ajaxSearchByChatRoom (int userNo1,int userNo2) {
+        Message message = new Message(userNo1,userNo2);
+        Message messageEmp = mService.selectChatRoom2(message);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(messageEmp);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+        return jsonString;
+    }
+
     // 메시지 보낼시 채팅방 생성
     @PostMapping("/ajaxMsgSend")
     @ResponseBody
-    public String ajaxMsgSend(int msgSendNo,int userNo1, String msgContent){
-        Message message = new Message(msgSendNo,msgContent,userNo1);
+    public String ajaxMsgSend(int msgSendNo, int userNo1, String msgContent) {
+        Message message = new Message(msgSendNo, msgContent, userNo1);
         Message messageEmp = mService.selectChatRoom(message);
         int result = 0;
-        if(messageEmp == null){
-        result = mService.insertCreateToMsgSend(message);
-        }else {
+        if (messageEmp == null) {
+            result = mService.insertCreateToMsgSend(message);
+        } else {
             result = mService.insertNotCreateToMsgSend(message);
         }
-
 
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = "";
@@ -104,7 +119,7 @@ public class MessageController {
 
     @PostMapping("/ajaxChatRoom")
     @ResponseBody
-    public String ajaxChatRoom(int chatRoomNo){
+    public String ajaxChatRoom(int chatRoomNo) {
         List<Message> mList = mService.selectMessageList(chatRoomNo);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = "";

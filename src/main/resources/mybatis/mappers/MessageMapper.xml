@@ -14,6 +14,10 @@
         SELECT CHAT_ROOM_NO FROM CHAT_ROOM_USER_TBL WHERE (USER_NO_1 = #{userNo1} AND USER_NO_2 = #{msgSendNo}) OR (USER_NO_1 = #{msgSendNo} AND USER_NO_2 = #{userNo1})
     </select>
 
+    <select id="selectChatRoom2" resultType="com.kh.mango.message.domain.Message">
+        SELECT CHAT_ROOM_NO FROM CHAT_ROOM_USER_TBL WHERE (USER_NO_1 = #{userNo1} AND USER_NO_2 = #{userNo2}) OR (USER_NO_1 = #{userNo2} AND USER_NO_2 = #{userNo1})
+    </select>
+
     <select id="selectMessageList" resultType="com.kh.mango.message.domain.Message">
         SELECT M.*,  U. USER_NO, USER_ID, USER_NAME FROM MSG_TBL M JOIN USER_TBL U ON USER_NO = MSG_SEND_NO WHERE MSG_ROOM = #{chatRoomNo} order by msg_no asc
     </select>
@@ -29,7 +33,7 @@
     </insert>
 
     <delete id="deleteChatRoom">
-        DELETE FROM CHAT_ROOM_USER_TBL WHERE (USER_NO_1 = #{userNo1} AND USER_NO_2 = #{userNo2}) or (USER_NO_1 = #{userNo2} AND USER_NO_2 = #{userNo1})
+        DELETE FROM CHAT_ROOM_USER_TBL WHERE CHAT_ROOM_NO = #{chatRoomNo}
     </delete>
 
 </mapper>

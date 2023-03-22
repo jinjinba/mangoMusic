@@ -11,7 +11,7 @@ public interface MessageService {
     List<Message> selectChatRoomList(int userNo);
 
 
-    int deleteChatRoom(Message message);
+    int deleteChatRoom(int chatRoomNo);
 
     Message selectUserByUserNo1(int userNo);
 
@@ -22,4 +22,7 @@ public interface MessageService {
     int insertNotCreateToMsgSend(Message message);
 
     List<Message> selectMessageList(int chatRoomNo);
+
+
+    Message selectChatRoom2(Message message);
 }

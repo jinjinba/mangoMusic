@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class MessageStoreLogic implements MessageStore {
-    @Autowired
+        @Autowired
     private SqlSession session;
 
 
@@ -28,8 +28,8 @@ public class MessageStoreLogic implements MessageStore {
 
     // 채팅방 삭제
     @Override
-    public int deleteChatRoom(Message message) {
-        return session.delete("MessageMapper.deleteChatRoom",message);
+    public int deleteChatRoom(int chatRoomNo) {
+        return session.delete("MessageMapper.deleteChatRoom", chatRoomNo);
     }
 
     @Override
@@ -63,6 +63,12 @@ public class MessageStoreLogic implements MessageStore {
     public List<Message> selectMessageList(int chatRoomNo) {
         return session.selectList("MessageMapper.selectMessageList",chatRoomNo);
     }
+
+    @Override
+    public Message selectChatRoom2(Message message) {
+        return session.selectOne("MessageMapper.selectChatRoom2",message);
+    }
+
 
 
 }

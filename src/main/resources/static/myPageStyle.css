@@ -59,9 +59,12 @@
 
 .profile-name{
     padding-top: 80px;
-    width: 400px;
+    width: 500px;
     height: 170px;
     margin-left: 340px;
+}
+.modify-submit-btn{
+    margin-left: 10px;
 }
 
 .profile-letter{
@@ -301,6 +304,12 @@ tr:hover {
     border: none;
 }
 
+.msg-box li{
+    color : black;
+}
+.msg-box li:hover{
+    color:black;
+}
 
 .profile-name-input{
     font-size: 32px;

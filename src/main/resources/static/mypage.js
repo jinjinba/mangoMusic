@@ -1,14 +1,12 @@
 
-
-
 var profileStatus = false;
-
+var name = $('.profile-name-h1').text();
+var letter = $('.profile-letter-span').text();
 // 프로필 수정 시작 버튼
 $(".modify-btn").click(function(){
-    var name = $('.profile-name-h1');
-    var letter = $('.profile-letter-span');
+
     if(!profileStatus){
-        var str = "<input type='text' value='"+$('.profile-name-h1').html()+"' class='profile-name-input' spellcheck='false'><button type='button' onclick='ajaxProfileModify();' value='저장' class='modify-submit-btn'>수정</button>";
+        var str = "<input type='text' value='"+$('.profile-name-h1').html()+"' class='profile-name-input' spellcheck='false'><button type='button' onclick='ajaxProfileModify();' value='저장' class='modify-submit-btn'>수정</button><button type='button' onclick='modifyClose();' value='저장' class='modify-submit-btn' id='modify-close-btn'>취소</button>";
         var str2 = "<textarea type='text' class='profile-letter-input' spellcheck='false'></textarea>";
         $('.profile-name-h1').remove();
         $('.profile-name').append(str);
@@ -16,15 +14,20 @@ $(".modify-btn").click(function(){
         $('.profile-letter-input').val($('.profile-letter-span').html());
         $('.profile-letter-span').remove();
         profileStatus = true;
-    }else {
-        $('.profile-name-input').remove();
-        $('.')
-        $('.profile-letter').append(name);
-        $('.profile-letter').append(letter);
-        profileStatus = false;
     }
 });
 
+function modifyClose(){
+    $('.profile-name-input').remove();
+    $('.modify-submit-btn').remove();
+    $('.profile-letter-input').remove();
+    $('.modify-close-btn').remove();
+    var str = "<h1 class='profile-name-h1'>"+name+"</h1>";
+    var str2 = "<span class='profile-letter-span'>"+letter+"</span>";
+    $('.profile-name').append(str);
+    $('.profile-letter').append(str2);
+    profileStatus = false;
+}
 
 function ajaxProfileModify(){
     profileStatus = false;
@@ -54,26 +57,6 @@ function ajaxProfileModify(){
         }
     });
 }
-//프로필 수정 submit
-// $('.modify-submit-btn').on("click",function (){
-//    $.ajax({
-//        url:"/ajaxProfileModify",
-//        type:"post",
-//        dataType:"json",
-//        data:{
-//            "userNo" : $('#userNo').val(),
-//            "userName" : $('.profile-name-input').val(),
-//            "userLetter" : $('.profile-letter-input').val()
-//        },
-//        success:function(data){
-//            alert(data);
-//        },
-//        error:function (data){
-//            alert(data);
-//        }
-//    })
-// });
-
 
 
 // 아코디언 메뉴
@@ -210,30 +193,6 @@ function pointRefundFunc() {
     $('.add-btn')[3].click();
 
 }
-
-
-
-
-
-// function msg_user(i) {
-//     const test = {
-//         "sendUserNo" : $('#send_user_1').val(),
-//         "receiveUserNo": $('#userNo').val()
-//     };
-//     $.ajax(
-//         {
-//             type: "POST",
-//             url: "/ajaxMsgUser",
-//             data: test,
-//             success : function (data) {
-//                 console.log(JSON.parse(data));
-//             },
-//             error: function (request, status, error) {
-//                 alert("code : " + request.status + "\n" + " message : " + request.responseText + "\n" + "error: " + error);
-//             }
-//         }
-//     )
-// }
 
 
 // 음악 정보 api 로 가져오기
