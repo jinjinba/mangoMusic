@@ -71,7 +71,7 @@ function fn_submit() {
         , success: function (response) {
             alert("저장되었습니다.");
             modal.css("display", "none");
-            location.reload(true);
+            history.go(0);
         }
         , error: function (jqXHR) {
             alert(jqXHR.responseText);

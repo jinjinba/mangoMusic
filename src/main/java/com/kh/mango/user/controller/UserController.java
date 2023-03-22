@@ -282,7 +282,7 @@ public class UserController {
     //파일 업로드
     @PostMapping("/ajaxFileUpload")
     @ResponseBody
-    public String result(@RequestParam("file") MultipartFile multi, HttpServletRequest request, HttpServletResponse response,@SessionAttribute("loginUser") User loginUser ,Model model) {
+    public String result(@RequestParam("file") MultipartFile multi, HttpServletRequest request, HttpServletResponse response,@SessionAttribute("loginUser") User loginUser,HttpSession session ) {
         String url = null;
 
         String jsonString = null;
@@ -310,6 +310,8 @@ public class UserController {
                     multi.transferTo(file);
                 }
             }
+            loginUser.setUserFilename(saveFileName);
+            session.setAttribute("loginUser",loginUser);
             jsonString = saveFileName;
         } catch (Exception e) {
             e.printStackTrace();
