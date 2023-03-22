@@ -53,7 +53,7 @@
                 <div class="writer">
                     <div class="title">
                         <label>제목</label> <br>
-                        <input type="text" name="csSubject" placeholder="제목을 입력해주세요.">
+                        <input type="text" class="title_text" name="csSubject" placeholder="제목을 입력해주세요.">
                     </div>
                     <div class="content">
                         <label>내용</label> <br>
@@ -68,7 +68,7 @@
         </div>
     </div>
 </main>
-{{>layouts/footer}
+{{>layouts/footer}}
 {{/loginUser.userType}}
 {{^loginUser.userType}}
     <script>
