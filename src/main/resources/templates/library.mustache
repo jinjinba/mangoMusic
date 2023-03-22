@@ -74,8 +74,7 @@
         <input type="hidden" id="userNo" value="{{loginUser.userNo}}">
     <div id="library">
         <div id="library-playlist">
-            <h4 id="playlist-header" style="float: left">내 플레이리스트</h4>
-            <i class="fa-solid fa-trash" style="color: #dedede; cursor:pointer;"></i>
+            <h4 id="playlist-header" style="float: left">내 플레이리스트</h4> &nbsp;&nbsp;&nbsp;
             <i class="fa-solid fa-headphones" style="color: #dedede; cursor:pointer;"></i>
 
 
@@ -85,6 +84,7 @@
                     {{#myPlaylist}}
                         <li id ="song-list">
                             <div id="songId" style="float: left;">{{playlistSong}} - {{playlistArtist}}</div>
+                            &nbsp;&nbsp;&nbsp;
                             <i class="fa-solid fa-trash" onclick="deleteMusic(this)" style="color: #dedede; cursor:pointer;"></i>
                         </li>
                     {{/myPlaylist}}
