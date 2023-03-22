@@ -26,14 +26,26 @@ public class CmController {
             , @ModelAttribute Comment comment
             , HttpServletRequest request
             , Model model) {
-        User user = (User)session.getAttribute("loginUser");
-        comment.setUserNo(user.getUserNo());
-        int result = cmService.insertComment(comment);
+            User user = (User)session.getAttribute("loginUser");
+            comment.setUserNo(user.getUserNo());
+            int result = cmService.insertComment(comment);
+            if (result > 0) {
+                return "redirect:/qnaDetail?csNo=" + comment.getCsNo();
+            } else {
+                model.addAttribute("msg", "로그인");
+                model.addAttribute("url", "/qnaDetail?csNo=" + comment.getCsNo());
+                return "/common/error";
+            }
+    }
+    // 댓글 삭제
+    @GetMapping("/commentRemove")
+    private String DeleteComment(@RequestParam("commentNo") int csNo, Model model) {
+        int result = cmService.deleteComment(csNo);
         if(result > 0) {
-            return "redirect:/qnaDetail?csNo="+comment.getCsNo();
+            return "redirect:/qnaDetail";
         }else {
-            model.addAttribute("comment", "실패");
-            return "/qnaDetail";
+            model.addAttribute("error", "삭제가 완료되지 않았습니다.");
+            return "/common/error";
         }
     }
     // 댓글 리스트

@@ -1,5 +1,5 @@
 {{>layouts/sidebar}}
-<link rel="stylesheet" href="css/nDetail" />
+<link rel="stylesheet" href="css/nDetail.css" />
 <main>
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -41,19 +41,26 @@
             <h2>공지사항</h2>
             <hr>
         </div>
-        <div class="notice_content_container">
-            작성자 : {{cs.userName}} / 작성날짜 : {{cs.csDate}}
-            <br>
-            제목 : {{cs.csSubject}}
-            <br>
-            내용 : {{cs.csContent}}
-            <br>
-            <hr>
-            {{#loginUser.userType}}
-                <a href="/noticeModify?csNo={{cs.csNo}}">수정</a>
-<!--                <a href="#">수정</a>-->
-                <a href="javascript:void(0);" onclick="removeCheck({{cs.csNo}});">삭제</a>
-            {{/loginUser.userType}}
+        <div id="content_box">
+            <div class="notice_content_container">
+                <h3>제목 : {{cs.csSubject}}</h3>
+                <br>
+                <small>작성자 : {{cs.userName}} / 작성날짜 : {{cs.csDate}}</small>
+                <hr>
+                <br>
+                <div class="main_content">
+                    {{cs.csContent}}
+                </div>
+                <br>
+                <hr>
+                <div class="div-a-tag">
+                {{#loginUser.userType}}
+                    <a class="a-tag" href="/noticeModify?csNo={{cs.csNo}}">수정</a>
+    <!--                <a href="#">수정</a>-->
+                    <a class="a-tag" href="javascript:void(0);" onclick="removeCheck({{cs.csNo}});">삭제</a>
+                {{/loginUser.userType}}
+                </div>
+            </div>
         </div>
     </div>
     <script>

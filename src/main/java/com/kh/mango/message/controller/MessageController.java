@@ -21,17 +21,96 @@ public class MessageController {
     private MessageService mService;
 
 
-    //새로운 메시지 > 검색 > 유저 선택을 통해 chatRoom 생성
-    @PostMapping("/ajaxChatStart")
+    @PostMapping("/ajaxLoadChatRoom")
     @ResponseBody
-    public String ajaxChatStart(int userNo1, int userNo2){
-        Message message = new Message(userNo1,userNo2);
-        Message messageResult = mService.insertChatRoom(message);
+    public String ajaxLoadChatRoom(int userNo) {
+        List<Message> chatRoomList = mService.selectChatRoomList(userNo);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = "";
 
         try {
-            jsonString = objectMapper.writeValueAsString(messageResult);
+            jsonString = objectMapper.writeValueAsString(chatRoomList);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+
+        return jsonString;
+    }
+
+    @PostMapping("/ajaxFindByUserNo1")
+    @ResponseBody
+    public String ajaxFindByUserNo1(int userNo) {
+        Message message = mService.selectUserByUserNo1(userNo);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(message);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+
+        return jsonString;
+    }
+
+
+    @PostMapping("/ajaxChatRemove")
+    @ResponseBody
+    public String ajaxChatRemove(int userNo1, int userNo2) {
+        Message message = new Message(userNo1, userNo2);
+        int result = mService.deleteChatRoom(message);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(result);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+
+        return jsonString;
+    }
+
+
+    // 메시지 보낼시 채팅방 생성
+    @PostMapping("/ajaxMsgSend")
+    @ResponseBody
+    public String ajaxMsgSend(int msgSendNo,int userNo1, String msgContent){
+        Message message = new Message(msgSendNo,msgContent,userNo1);
+        Message messageEmp = mService.selectChatRoom(message);
+        int result = 0;
+        if(messageEmp == null){
+        result = mService.insertCreateToMsgSend(message);
+        }else {
+            result = mService.insertNotCreateToMsgSend(message);
+        }
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(result);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return jsonString;
+        }
+
+        return jsonString;
+    }
+
+    @PostMapping("/ajaxChatRoom")
+    @ResponseBody
+    public String ajaxChatRoom(int chatRoomNo){
+        List<Message> mList = mService.selectMessageList(chatRoomNo);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = "";
+
+        try {
+            jsonString = objectMapper.writeValueAsString(mList);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return jsonString;
