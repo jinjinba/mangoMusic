@@ -1,5 +1,6 @@
     {{>layouts/sidebar}}
 {{#loginUser.userNo}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/library.css">
 <script>
     $(document).ready(function(){
@@ -82,8 +83,8 @@
 <!--                노래 들어갈 곳-->
                 <ul>
                     {{#myPlaylist}}
-                        <li class ="song-list">
-                            {{playlistSong}} - {{playlistArtist}}
+                        <li id ="song-list">
+                            <div id="songId" style="float: left;">{{playlistSong}} - {{playlistArtist}}</div>
                             <i class="fa-solid fa-trash" onclick="deleteMusic(this)" style="color: #dedede; cursor:pointer;"></i>
                         </li>
                     {{/myPlaylist}}
@@ -104,39 +105,61 @@
 
 <script src="mypage.js"></script>
 <script src="message.js"></script>
+<script>
+    function test123() {
+        console.log(3);
+    }
+
+    function deleteMusic(obj) {
+        //console.log(3);
+        //console.log($.trim(($(obj).parent().siblings('.song-list').val()).split('-')[0]));
+        //console.log($(obj).siblings('#songId').text());
+
+        console.log($.trim(($(obj).siblings('#songId').text()).split('-')[0]));
+        console.log($.trim(($(obj).siblings('#songId').text()).split('-')[1]));
+        $(obj).parent().remove();
+
+
+        //song
+        //$.trim(($(obj).siblings('#songId').text()).split('-')[0])
+
+        //artist
+        //$.trim(($(obj).siblings('#songId').text()).split('-')[1])
+
+        //삭제하는 코드
+        //$(obj).parent().remove();
+
+
+        // const deleteMusicData = {
+        //     "userNo" : parseInt($('#userNo').val()),
+        //     "playlistSong" : $.trim(($(obj).siblings('#songId').text()).split('-')[0]),
+        //     "playlistArtist" : $.trim(($(obj).siblings('#songId').text()).split('-')[1])
+        // }
+        // $.ajax(
+        //         {
+        //             type: "post",
+        //             url: "",
+        //             data: deleteMusicData,
+        //             dataType: "json",
+        //             success : function (data) {
+        //                 alert("삭제되었습니다.");
+        //             }
+        //
+        //         }
+        // )
+
+    }
+</script>
     {{#loginUser.userId}}
         {{>layouts/footer}}
     {{/loginUser.userId}}
 
     {{^loginUser.userId}}
-{{>layouts/footer}}
+    {{>layouts/footer}}
     <script>
         $(document).ready(function () {
             alert("로그인이 필요합니다.");
             window.location.replace("http://localhost:8985/login");
        });
-
-    </script>
-
-    <script>
-        function deleteMusic(obj) {
-            console.log($.trim(($(obj).parent().siblings('.song-list').val()).split('-')[0]));
-
-            const deleteMusicData = {
-                "userNo" : parseInt($('#userNo').val()),
-                "playlistSong" : $.trim(($(obj).parent().siblings('.song-list').val()).split('-')[0]),
-                "playlistArtist" : $.trim(($(obj).text()).split('-')[1])
-            }
-            // $.ajax(
-            //         {
-            //             type: "post",
-            //             url: "",
-            //             data: deleteMusicData,
-            //             success :
-            //
-            //         }
-            // )
-
-        }
     </script>
     {{/loginUser.userId}}
