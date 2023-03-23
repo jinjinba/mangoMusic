@@ -15,9 +15,16 @@
     <insert id="insertComment">
         INSERT INTO COMMENT_TBL VALUES (SEQ_COMMENT_NO.NEXTVAL, #{userNo}, #{commentContent}, SYSTIMESTAMP, NULL, #{csNo})
     </insert>
+
+    <insert id="insertCommentByTrade">
+        INSERT INTO COMMENT_TBL VALUES (SEQ_COMMENT_NO.NEXTVAL, #{userNo}, #{commentContent}, SYSTIMESTAMP,  #{tradeNo}, NULL)
+    </insert>
+
+
     <delete id="deleteComment">
         DELETE FROM COMMENT_TBL WHERE COMMENT_NO = #{commentNo}
     </delete>
+
     <select id="selectCommentList" resultType="com.kh.mango.cs.domain.Comment">
         SELECT M.*, U.USER_NAME, C.CS_NO FROM COMMENT_TBL M
             JOIN USER_TBL U ON U.USER_NO = M.USER_NO

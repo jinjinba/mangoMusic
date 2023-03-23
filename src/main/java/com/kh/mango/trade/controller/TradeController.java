@@ -1,5 +1,6 @@
 package com.kh.mango.trade.controller;
 
+import com.kh.mango.comment.domain.Comment;
 import com.kh.mango.cs.domain.PageInfo;
 import com.kh.mango.trade.domain.Trade;
 import com.kh.mango.trade.domain.TradeComment;
@@ -68,9 +69,16 @@ public class TradeController {
         Trade trade = tService.selectTradeOneByNo(tradeNo);
         List<TradeComment> tc = tService.selectTradeCommentList(tradeNo);
         model.addAttribute("tradeDetail",trade);
-        model.addAttribute("commentList",tc);
+        model.addAttribute("cmList",tc);
         return "tradeDetail";
     }
+
+    @GetMapping("/tradeWrite")
+    public String tradeWriteView(){
+        return "tradeWrite";
+    }
+
+
 
 
 

@@ -1,5 +1,6 @@
 package com.kh.mango.trade.service.logic;
 
+import com.kh.mango.comment.domain.Comment;
 import com.kh.mango.cs.domain.PageInfo;
 import com.kh.mango.trade.domain.Trade;
 import com.kh.mango.trade.domain.TradeComment;
@@ -33,6 +34,7 @@ public class TradeServiceImpl implements TradeService {
     public List<TradeComment> selectTradeCommentList(int tradeNo) {
         return tStore.selectTradeCommentList(tradeNo);
     }
+
 
 
 }

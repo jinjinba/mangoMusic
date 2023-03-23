@@ -87,9 +87,7 @@
                             <td>
                                 {{userName}}
                             </td>
-                            <td>
-                                {{tradeDate}}
-                            </td>
+                            <td class="tradeDate-td">{{tradeDate}}</td>
                             <td>
                                 {{TradeView}}
                             </td>
@@ -124,4 +122,13 @@
         </div>
     </div>
 </main>
+<script>
+    $(document).ready(function(){
+        var tradeDateList = document.querySelectorAll('.tradeDate-td');
+
+        for(var i = 0; i < tradeDateList.length; i++){
+            tradeDateList[i].innerHTML = tradeDateList[i].innerHTML.substring(0,16);
+        }
+    })
+</script>
 {{>layouts/footer}}

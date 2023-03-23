@@ -1,5 +1,6 @@
 package com.kh.mango.trade.store.logic;
 
+import com.kh.mango.comment.domain.Comment;
 import com.kh.mango.cs.domain.PageInfo;
 import com.kh.mango.trade.domain.Trade;
 import com.kh.mango.trade.domain.TradeComment;
@@ -39,6 +40,8 @@ public class TradeStoreLogic implements TradeStore {
     public List<TradeComment> selectTradeCommentList(int tradeNo) {
         return session.selectList("TradeMapper.selectTradeCommentList",tradeNo);
     }
+
+
 
 
 }

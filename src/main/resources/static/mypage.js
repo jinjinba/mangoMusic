@@ -142,6 +142,7 @@ $(".que").click(function () {
     $(this).toggleClass('on').siblings().removeClass('on');
     $(this).next(".anw").siblings(".anw").slideUp(300); // 1개씩 펼치기
 });
+
 //  포인트 잔량 정규 표현식
 var pointVal = document.querySelector(".point-val").value;
 document.querySelector(".point-val-re").innerHTML = pointVal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");

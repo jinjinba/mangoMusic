@@ -216,6 +216,7 @@ function loadingChatRoom() {
 let timer = setInterval(function(){},1000);
 function addChatRoom(userNo,chatRoomNo){
     clearInterval(timer);
+    $('.msg-content-box').scrollTop($('.msg-content-box')[0].scrollHeight);
     $('.msg-user-list-li').removeAttr('style');
     $('#msg-user-list-li-'+chatRoomNo).css("background-color","#F2F3F5");
     $('#msg-user-list-li-'+chatRoomNo).css("pointer-event","none");
@@ -230,10 +231,11 @@ function addChatRoom(userNo,chatRoomNo){
         data:{
             "chatRoomNo" : chatRoomNo,
         },
-        // async:false,
+        async:false,
         success:function(data){
             console.log(data);
             var str = "";
+
             // if(data.length > 0){
             for(var a = 0; a < data.length; a++){
                     if(parseInt($('#userNo').val()) !== data[a].msgSendNo){
@@ -261,7 +263,7 @@ function addChatRoom(userNo,chatRoomNo){
 
         }
     })
-    }, 2000);
+    }, 1000);
     addMsgInputBox(userNo);
     $('.msg-content-box').scrollTop($('.msg-content-box')[0].scrollHeight);
 

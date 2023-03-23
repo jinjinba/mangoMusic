@@ -278,7 +278,7 @@ public class UserController {
             return "library";
         }
     }
-    private String path="C:\\Users\\lhc93\\IdeaProjects\\mangoMusic\\src\\main\\resources\\static\\profilePic";
+    private String path="C:\\study\\programing\\project holder\\mangoMusic\\src\\main\\resources\\static\\profilePic";
     //파일 업로드
     @PostMapping("/ajaxFileUpload")
     @ResponseBody

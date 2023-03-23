@@ -20,4 +20,9 @@ public class Comment {
     private int csNo;
     private String userName;
 
+    public Comment(int userNo, String commentContent, int tradeNo) {
+        this.userNo = userNo;
+        this.commentContent = commentContent;
+        this.tradeNo = tradeNo;
+    }
 }

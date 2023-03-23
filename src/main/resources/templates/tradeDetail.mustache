@@ -1,5 +1,5 @@
 {{>layouts/sidebar}}
-<link rel="stylesheet" href="tradeDetail.css" />
+<link rel="stylesheet" href="tradeDetail.css"/>
 <main>
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -37,10 +37,11 @@
                         <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
                     </ul>
                 </div>
-            <input type="hidden" value="{{loginUser.userNo}}" id="loginUserNo">
+                <input type="hidden" value="{{loginUser.userNo}}" id="loginUserNo">
             {{/loginUser}}
             {{^loginUser}}
-                <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2" >로그인</button>
+                <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2">로그인
+                </button>
             {{/loginUser}}
         </div>
     </nav>
@@ -50,17 +51,20 @@
             <hr>
         </div>
         <div class="trade_content_container">
-            <h2>제목 : {{tradeDetail.tradeSubject}}</h2>
+            <h2 style="width: 1000px;display: inline-block;">제목 : {{tradeDetail.tradeSubject}}</h2><span
+                class="trade-detail-span">작성자 : {{tradeDetail.userName}} | 작성날짜 : <span
+                class="dateIn"></span></span><span
+                style="position: relative;left: 6%;">조회수:{{tradeDetail.tradeView}}</span>
             <input value="{{tradeDetail.tradeNo}}" type="hidden" class="tradeNo-hidden">
             <input value="{{tradeDetail.tradePrice}}" type="hidden" class="tradePrice-hidden">
             <div class="trade-detail-price-div">가격 : {{tradeDetail.tradePrice}} Mango</div>
             <input type="hidden" value="{{tradeDetail.userNo}}" id="writeUserNo">
             <br>
             <input type="hidden" value="{{tradeDetail.tradeDate}}" id="tradeDate-hidden">
-            <span class="trade-detail-span">작성자 : {{tradeDetail.userName}} / 작성날짜 : <span class="dateIn"></span></span>
             <hr>
             <br>
-            <textarea name="csContent" rows="30" cols="150" class="main_content" readonly>{{tradeDetail.tradeContent}}</textarea>
+            <textarea name="csContent" rows="30" cols="150" class="main_content"
+                      readonly>{{tradeDetail.tradeContent}}</textarea>
             <br>
             <button class="cm_btn" onclick="buy();">구매</button>
             <hr>
@@ -71,15 +75,15 @@
         <div class="comment-all">
             <h5>Comment</h5>
             <div class="comment_main">
-                <form action="/commentWrite" method="post">
+                <form action="/tradeCommentWrite" method="post">
                     {{#loginUser}}
                         <div class="comment_textarea">
                             <textarea name="commentContent" class="comment" rows="3"></textarea>
                         </div>
                         <div>
                             <div>
-                                <input type="hidden" name="csNo" value="{{loginUser.userNo}}">
-                                <input type="hidden" class="csNo" value="{{loginUser.userNo}}">
+                                <input type="hidden" name="tradeNo" value="{{tradeDetail.tradeNo}}">
+                                <input type="hidden" name="userNo" value="{{loginUser.userNo}}">
 
                                 <!--                                    <input type="hidden" name="csNo" value="">-->
                             </div>
@@ -89,61 +93,76 @@
                         </div>
                     {{/loginUser}}
                 </form>
-                <form name="comment-form" action="/qnaSearch" method="post" autocomplete="off">
-                    {{#cmList}}
+                <form name="comment-form" action="/tradeCommentWrite" method="post" autocomplete="off">
                         <div class="cmContent_main">
+                            {{#cmList}}
+
                             <div class="cmName">
-                                {{{userName}}}&nbsp;<small>{{{commentDate}}}</small> &nbsp; &nbsp;
-                                <a class="cmRemove_tag" href="javascript:void(0);" onclick="cmRemoveCheck({{commentNo}},{{csNo}});">삭제</a>
+                                <input type="hidden" value="{{userNo}}" class="cmUserNo-hidden-{{userNo}}">
+                                <span>{{{userName}}}</span>&nbsp;<small>{{{commentDate}}}</small> &nbsp; &nbsp;
+                                {{#loginUser}}
+                                <a class="cmRemove_tag" href="javascript:void(0);"
+                                   onclick="cmRemoveCheck({{commentNo}},{{loginUser.userNo}});">삭제</a>
+                                   {{/loginUser}}
                             </div>
                             <textarea class="cm_cm" readonly>{{{commentContent}}}</textarea>
+                            {{/cmList}}
+
                         </div>
-                    {{/cmList}}
                 </form>
             </div>
         </div>
     </div>
     <script>
-        function removeCheck(tradeNo) {
-            if (confirm("정말 삭제하시겠습니까?")) {
-                location.href="/tradeRemove?tradeNo=" + tradeNo;
+        function cmRemoveCheck(commentNo, userNo) {
+            if ($('.cmUserNo-hidden-' + userNo).val() == userNo) {
+                if (confirm("정말 삭제하시겠습니까?")) {
+                    $.ajax({
+                        url:"/tradeCmRemove",
+                        type:"post",
+                        data:{
+                            "commentNo" : commentNo
+                        },
+                        dataType:"json",
+                        success:function(data){
+                            alert("삭제성공");
+                            window.location.reload();
+                        }
+                    });
+                }
             }
         }
-            {{#comment}}
-            window.onload = function (){
-                alert("로그인 후 이용 바랍니다.");
-            }
-            {{/comment}}
 
-        $(document).ready(function(){
-            if($('#loginUserNo').val() == $('#writeUserNo').val()){
+
+        $(document).ready(function () {
+            if ($('#loginUserNo').val() == $('#writeUserNo').val()) {
                 str = '<a href="/tradeModify?tradeNo={{tradeDetail.tradeNo}}">수정</a>';
                 str += '<a href="javascript:void(0);" onclick="removeCheck({{tradeDetail.tradeNo}});">삭제</a>';
                 $('.div-a-tag').append(str);
             }
             var date = $('#tradeDate-hidden').val();
-            $('.dateIn').text(date.substring(0,19));
+            $('.dateIn').text(date.substring(0, 16));
             console.log();
         });
 
-        function buy(){
+        function buy() {
             var loginUser = parseInt($('#loginUserPointVal').val());
             var price = parseInt($('.tradePrice-hidden').val());
-            if(loginUser > price){
+            if (loginUser > price) {
                 $.ajax({
-                    url:"/songBuy",
-                    type:"post",
-                    data:{
-                        "tradeNo":$('.tradeNo-hidden').val(),
-                        "price" : $('.tradePrice-hidden').val(),
-                        "buyer" : $('.csNo').val(),
-                        "seller" : $('#writeUserNo').val()
+                    url: "/songBuy",
+                    type: "post",
+                    data: {
+                        "tradeNo": $('.tradeNo-hidden').val(),
+                        "price": $('.tradePrice-hidden').val(),
+                        "buyer": $('.csNo').val(),
+                        "seller": $('#writeUserNo').val()
                     },
-                    success:function(data){
+                    success: function (data) {
                         alert("구매에 성공하였습니다.");
                     }
                 })
-            }else {
+            } else {
                 alert("포인트가 부족합니다.");
             }
 

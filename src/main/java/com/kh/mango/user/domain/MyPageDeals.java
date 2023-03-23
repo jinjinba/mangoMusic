@@ -9,5 +9,7 @@ public class MyPageDeals {
     private int tradeNo;
     private Timestamp dealDate;
     private String dealType;
+    private int buyerNo;
+    private int sellerNo;
     private int dealPrice;
 }
