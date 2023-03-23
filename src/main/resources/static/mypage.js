@@ -63,7 +63,7 @@ function fn_submit() {
     form.append("file", $("#file")[0].files[0]);
 
     $.ajax({
-        url: "/ajaxAudioUpload"
+        url: "/ajaxFileUpload"
         , type: "POST"
         , processData: false
         , contentType: false
