@@ -6,7 +6,7 @@
 <script>
     $(document).ready(function () {
         loadingChatRoom();
-        $("#file").on("change", handleImgFileSelect);
+        // $("#file").on("change", handleImgFileSelect);
     });
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -141,28 +141,75 @@
             }
         }
 
-        function handleImgFileSelect(e) {
-            var files = e.target.files;
-            var filesArr = Array.prototype.slice.call(files);
+        // function handleImgFileSelect(e) {
+        //     var files = e.target.files;
+        //     var filesArr = Array.prototype.slice.call(files);
+        //
+        //     var reg = /(.*?)\/(mp3|FLAC|png|bmp)$/;
+        //
+        //     filesArr.forEach(function (f) {
+        //         if (!f.type.match(reg)) {
+        //             alert("확장자는 오디오 확장자만 가능합니다.");
+        //             return;
+        //         }
+        //
+        //         sel_file = f;
+        //
+        //         var reader = new FileReader();
+        //         reader.onload = function (e) {
+        //             console.log(e.target.result);
+        //             $(".upload-pic-miri").attr("src", e.target.result);
+        //         }
+        //         reader.readAsDataURL(f);
+        //     });
+        // }
 
-            var reg = /(.*?)\/(mp3|FLAC|png|bmp)$/;
+        //파일 업로드
+        function fn_submit() {
 
-            filesArr.forEach(function (f) {
-                if (!f.type.match(reg)) {
-                    alert("확장자는 오디오 확장자만 가능합니다.");
-                    return;
+            var form = new FormData();
+            form.append("file", $("#file")[0].files[0]);
+
+            $.ajax({
+                url: "/ajaxAudioUpload"
+                , type: "POST"
+                , processData: false
+                , contentType: false
+                , data: form
+                , success: function (response) {
+                    alert("업로드 완료");
+                    var words = response.split(',');
+                    $('.file-area').append("<br><span>"+words[0]+"</span><input type='hidden' value='"+words[0]+"' name='tradeFilename'>");
+                    $('.file-area').append("<input type='hidden' value='"+words[1]+"' name='tradeFilepath'>");
                 }
-
-                sel_file = f;
-
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    console.log(e.target.result);
-                    $(".upload-pic-miri").attr("src", e.target.result);
+                , error: function (jqXHR) {
+                    alert(jqXHR.responseText);
                 }
-                reader.readAsDataURL(f);
             });
         }
+        //
+        // function handleImgFileSelect(e) {
+        //     var files = e.target.files;
+        //     var filesArr = Array.prototype.slice.call(files);
+        //
+        //     var reg = /(.*?)\/(mp3|FLAC|png|bmp)$/;
+        //
+        //     filesArr.forEach(function (f) {
+        //         if (!f.type.match(reg)) {
+        //             alert("확장자는 오디오 확장자만 가능합니다.");
+        //             return;
+        //         }
+        //
+        //         sel_file = f;
+        //
+        //         var reader = new FileReader();
+        //         reader.onload = function (e) {
+        //             console.log(e.target.result);
+        //             $(".upload-pic-miri").attr("src", e.target.result);
+        //         }
+        //         reader.readAsDataURL(f);
+        //     });
+        // }
 
         //파일 업로드
         function fn_submit() {

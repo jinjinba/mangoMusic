@@ -1,5 +1,6 @@
 {{>layouts/sidebar}}
 <link rel="stylesheet" href="css/tradeDetail.css"/>
+<link rel="stylesheet" href="audio.css"/>
 <main>
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -64,7 +65,13 @@
             <hr>
             <br>
             <textarea name="csContent" rows="30" cols="150" class="main_content"
-                      readonly>{{tradeDetail.tradeContent}}</textarea>
+                      readonly>{{tradeDetail.tradeContent}}
+            </textarea>
+            <a href="" download="userMusic/20232242151818_DJ VoJo-Wind Waker (Original Mix).mp3">다운로드</a>
+            <figure>
+                <audio controls disableRemotePlayback src="userMusic/{{tradeDetail.tradeFilename}}">브라우저가 오디오를 지원하지 않습니다.</audio>
+            </figure>
+
             <br>
             <button class="cm_btn" onclick="buy();">구매</button>
             <hr>
@@ -82,8 +89,8 @@
                         </div>
                         <div>
                             <div>
-                                <input type="hidden" name="tradeNo" value="{{tradeDetail.tradeNo}}">
-                                <input type="hidden" name="userNo" value="{{loginUser.userNo}}">
+                                <input type="hidden" name="tradeNo" value="{{tradeDetail.tradeNo}}" id="tradeNo">
+                                <input type="hidden" name="userNo" value="{{loginUser.userNo}}" id="userNo">
                                 <!--                                    <input type="hidden" name="csNo" value="">-->
                             </div>
                             <div class="btn_submit">
@@ -149,6 +156,10 @@
         });
 
         function buy() {
+            if($('#writeUserNo').val() == $('#userNo').val()){
+                alert("자신의 판매글을 구매할 수 없습니다.");
+                return;
+            }
             var loginUser = parseInt($('#loginUserPointVal').val());
             var price = parseInt($('.tradePrice-hidden').val());
             if (loginUser > price) {
@@ -158,7 +169,7 @@
                     data: {
                         "tradeNo": $('.tradeNo-hidden').val(),
                         "price": $('.tradePrice-hidden').val(),
-                        "buyer": $('.csNo').val(),
+                        "buyer": $('#userNo').val(),
                         "seller": $('#writeUserNo').val()
                     },
                     success: function (data) {
@@ -168,7 +179,6 @@
             } else {
                 alert("포인트가 부족합니다.");
             }
-
         }
 
     </script>
