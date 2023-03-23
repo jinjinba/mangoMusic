@@ -68,7 +68,7 @@
                       readonly>{{tradeDetail.tradeContent}}
             </textarea>
             {{#tradeDetail.tradeFilename}}
-            <a style="position: relative; top: 5%; left: 5%; border: 1px solid #ccc; border-radius: 15px; width: 143px; height: 50px; " href="userMusic/{{tradeDetail.tradeFilename}}" download="{{tradeDetail.tradeFilename}}">다운로드</a>
+            <a id="download-a"  href="userMusic/{{tradeDetail.tradeFilename}}" download="{{tradeDetail.tradeFilename}}">다운로드</a>
             <figure>
                 <audio controls disableRemotePlayback src="userMusic/{{tradeDetail.tradeFilename}}">브라우저가 오디오를 지원하지 않습니다.</audio>
             </figure>
