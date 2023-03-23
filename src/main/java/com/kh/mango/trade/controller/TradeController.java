@@ -78,6 +78,11 @@ public class TradeController {
         return "tradeWrite";
     }
 
+//    @PostMapping("/tradeWrite")
+//    public String tradeWrite(@RequestParam()Trade trade){
+//
+//    }
+
 
 
 

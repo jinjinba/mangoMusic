@@ -1,5 +1,5 @@
 {{>layouts/sidebar}}
-<link rel="stylesheet" href="tradeDetail.css"/>
+<link rel="stylesheet" href="css/tradeDetail.css"/>
 <main>
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -47,7 +47,7 @@
     </nav>
     <div id="main-all">
         <div class="main-header">
-            <h2>거래소</h2>
+            <h1 style="display: inline;margin-left: 38px;">거래소</h1><h2>{{tradeDetail.tradeType}}</h2>
             <hr>
         </div>
         <div class="trade_content_container">
@@ -84,7 +84,6 @@
                             <div>
                                 <input type="hidden" name="tradeNo" value="{{tradeDetail.tradeNo}}">
                                 <input type="hidden" name="userNo" value="{{loginUser.userNo}}">
-
                                 <!--                                    <input type="hidden" name="csNo" value="">-->
                             </div>
                             <div class="btn_submit">
@@ -99,7 +98,7 @@
 
                             <div class="cmName">
                                 <input type="hidden" value="{{userNo}}" class="cmUserNo-hidden-{{userNo}}">
-                                <span>{{{userName}}}</span>&nbsp;<small>{{{commentDate}}}</small> &nbsp; &nbsp;
+                                <span>{{{userName}}}</span>&nbsp;<small class="comment-date-small">{{{commentDate}}}</small> &nbsp; &nbsp;
                                 {{#loginUser}}
                                 <a class="cmRemove_tag" href="javascript:void(0);"
                                    onclick="cmRemoveCheck({{commentNo}},{{loginUser.userNo}});">삭제</a>
@@ -142,7 +141,11 @@
             }
             var date = $('#tradeDate-hidden').val();
             $('.dateIn').text(date.substring(0, 16));
-            console.log();
+
+            var cmDate = document.querySelectorAll('.comment-date-small');
+            for(var i = 0; i < cmDate.length; i++ ){
+                cmDate[i].innerHTML = cmDate[i].innerHTML.substring(0,19);
+            }
         });
 
         function buy() {

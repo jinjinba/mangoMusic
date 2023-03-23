@@ -7,24 +7,28 @@
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
+
 #main-all {
     height: 100%;
 }
+
 #content_box {
     margin: 60px 150px;
     padding: 60px 60px;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .main-header {
     margin-top: 50px;
 }
+
 h2 {
     padding-bottom: 10px;
     padding-top: 10px;
     margin-bottom: 0;
     margin-left: 40px;
 }
+
 aside {
     width: 20%;
     display: flex;
@@ -33,6 +37,7 @@ aside {
     display: block;
     float: left;
 }
+
 .side_td {
     font-size: 25px;
 }
@@ -40,16 +45,20 @@ aside {
 .notice_content_container {
     margin: 0px 0px;
 }
+
 h3 {
     font-size: 25px;
 }
+
 h3, small {
     margin-left: 40px;
 }
+
 small {
     color: #ccc;
     font-size: 13px;
 }
+
 .main_content {
     margin-left: 50px;
     padding-left: 10px;
@@ -62,43 +71,51 @@ small {
     /*display: table-cell;*/
     /*vertical-align: middle;*/
 }
-.trade-detail-span{
+
+.trade-detail-span {
     position: relative;
     left: 5%;
 }
-.trade-detail-price-div{
+
+.trade-detail-price-div {
     position: relative;
     left: 3%;
     width: 400px;
     height: 20px;
     font-size: 25px;
 }
+
 .main_content:focus {
     outline: none;
 }
+
 .div-a-tag {
     text-align: right;
     margin-top: 30px;
     margin-right: 30px;
 }
+
 .a-tag {
     margin: 30px 10px;
     border-radius: 15px;
     line-height: initial;
     color: white;
-    background-color:transparent;
+    background-color: transparent;
     border: 1px solid #ccc;
     padding: 5px 10px;
 }
+
 .a-tag:hover {
     color: black;
     background-color: white;
 }
+
 /* 댓글 */
 .comment-all {
     margin-left: 40px;
     margin-bottom: 50px;
 }
+
 .comment_textarea {
     float: left;
     width: 84%;
@@ -106,6 +123,7 @@ small {
     margin-bottom: 10px;
     border-bottom: 1px solid #ccc;
 }
+
 textarea {
     /*width: 920px;*/
     width: 98%;
@@ -116,9 +134,11 @@ textarea {
     padding: 0px 10px;
     border: 1px solid #ccc;
 }
+
 #txtArea {
 
 }
+
 .cm_btn {
     /*width: 100px;*/
     width: 9%;
@@ -130,10 +150,12 @@ textarea {
     color: white;
     background-color: transparent;
 }
+
 .cm_btn:hover {
     color: black;
     background-color: white;
 }
+
 .cmContent_main {
     /*margin-top: 20px;*/
     /*width: 920px;*/
@@ -142,18 +164,57 @@ textarea {
     /*border-top: 1px solid #ccc;*/
     border-bottom: 1px solid #ccc;
 }
+
 .cmName {
     margin-bottom: 5px;
 }
-.comment::-webkit-scrollbar{
+
+.comment::-webkit-scrollbar {
     width: 0;
 }
+
 .cm_cm {
     border: none;
 }
+
 .cm_cm:focus {
     outline: none;
 }
-.cm_cm::-webkit-scrollbar{
+
+.cm_cm::-webkit-scrollbar {
     width: 0;
+}
+
+.tradePrice-input {
+    height: 50px;
+    border-radius: 15px;
+    font-size: 20px;
+    outline: none;
+    padding-left: 20px;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: white;
+}
+
+.tradeWriteContent {
+    padding-top: 10px;
+}
+.upload-btn{
+    border-radius: 15px;
+    cursor: pointer;
+    color: white;
+}
+
+#upload-btn-id {
+    height: 45px;
+    font-size: 20px;
+    background-color: transparent;
+    border-radius: 15px;
+    color: white;
+    border:1px solid white;
+}
+
+.title_text{
+    height: 50px;
+    font-size: 25px;
 }

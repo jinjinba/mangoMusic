@@ -21,5 +21,10 @@ public class Trade {
     private Timestamp tradeDate;
     private String userName;
     private int tradePrice;
+    private String tradeType;
+
+    private String uMusicName;
+    private String uMusicPath;
+
 
 }
