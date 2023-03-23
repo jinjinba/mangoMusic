@@ -81,12 +81,13 @@
     <!--라이브러리 추가할 곳-->
     <div id="library">
         <div id="library-playlist">
-            <h4 id="playlist-header">내 플레이리스트</h4>
+            <h4 id="playlist-header" style="float: left">내 플레이리스트</h4>
+
             <div class="container" style="overflow: scroll; height: 500px;">
                 <!--                노래 들어갈 곳-->
                 <ul>
                     {{#followPlaylist}}
-                        <li id="song-list">
+                        <li id="song-list" onclick="playMusic(this)">
                             {{playlistSong}} - {{playlistArtist}}
                         </li>
                     {{/followPlaylist}}
@@ -102,6 +103,110 @@
     </div>
 
 
+<script>
+
+    // var video_query = $.trim($(obj).text()) + ' official music video';
+    // var video_url = createVideoUrl(video_query);
+
+    function playMusic(obj) {
+        var video_query = $.trim($(obj).text()) + ' official music video';
+        var video_url = createVideoUrl(video_query);
+
+        fetch(video_url)
+                .then(response => response.json())
+                .then(data => {
+                    var video_id = data.items[0].id.videoId;
+
+                    // IFrame Player 생성
+                    if (!player) {
+                        player = new YT.Player('player', {
+                            height: '360',
+                            width: '640',
+                            videoId: video_id,
+                            playerVars: {
+                                'rel': 0,
+                                'controls': 0,
+                                'autoplay': 1,
+                                'mute': 0,
+                                'loop': 1,
+                                'playsinline': 1,
+                                'playlist': ''
+                            },
+                            events: {
+                                'onReady': onPlayerReady,
+                                'onStateChange': onPlayerStateChange
+                            }
+                        });
+                        // 플레이바 업데이트 인터벌 설정
+                        progressInterval = setInterval(updateProgressBar, 100);
+                    } else {
+                        // IFrame Player에 비디오 ID 설정
+                        player.loadVideoById(video_id);
+                    }
+                });
+
+    }
+
+    // 플레이어가 준비되면 호출되는 함수
+    function onPlayerReady(event) {
+        event.target.playVideo();
+        duration = player.getDuration();
+    }
+
+    // 플레이어의 상태가 변경될 때 호출되는 함수
+    function onPlayerStateChange(event) {
+        // 재생이 끝나면 다음 비디오 재생
+        if (event.data === YT.PlayerState.ENDED) {
+            var search_results = document.getElementById('search-results');
+            var next_video = search_results.childNodes[0];
+            next_video.click();
+        }
+    }
+
+    // 검색 함수에서 사용할 URL 생성 함수
+    function createVideoUrl(video_query) {
+        var encoded_query = encodeURIComponent(video_query);
+        var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&q=' + encoded_query + '&key=' + youtube_api_key;
+        return url;
+    }
+
+    // 플레이바 업데이트 함수
+    function updateProgressBar() {
+        if (player && duration) {
+            var currentTime = player.getCurrentTime();
+            var progressPercent = (currentTime / duration) * 100;
+            var progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = progressPercent + '%';
+        }
+    }
+
+    // 재생/일시정지 버튼 클릭 시 호출되는 함수
+    function togglePlayPause() {
+        if (player) {
+            var playPauseBtn = document.getElementById('play-pause-btn');
+            if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+            } else {
+                player.playVideo();
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+        }
+    }
+
+    // 볼륨 조절 슬라이더 값 변경 시 호출되는 함수
+    function changeVolume() {
+        if (player) {
+            var volumeSlider = document.getElementById('volume-slider');
+            var volume = volumeSlider.value;
+            player.setVolume(volume);
+        }
+    }
+
+    // YouTube Data API 키
+    var youtube_api_key = 'AIzaSyCN1eJrwdu0EXLc92vyj2Eg8KWWPA1Zm-o';
+
+</script>
 
 </main>
 
