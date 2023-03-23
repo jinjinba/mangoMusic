@@ -1,5 +1,6 @@
 {{>layouts/sidebar}}
 <link rel="stylesheet" href="css/nDetail.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <main>
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -36,6 +37,7 @@
                         <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
                     </ul>
                 </div>
+                <input type="hidden" value="{{loginUser.userNo}}" id="loginUserNo">
             {{/loginUser}}
             {{^loginUser}}
                 <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2" >로그인</button>
@@ -52,22 +54,13 @@
                 <h3>제목 : {{cs.csSubject}}</h3>
                 <br>
                 <small>작성자 : {{cs.userName}} / 작성날짜 : {{cs.csDate}}</small>
+                <input type="hidden" value="{{cs.userNo}}" id="csUserNo">
                 <hr>
                 <br>
                 <textarea name="csContent" rows="30" cols="150" class="main_content" readonly>{{cs.csContent}}</textarea>
                 <br>
                 <hr>
-                <div class="div-a-tag">
-                {{#loginUser}}
-                {{^loginUser.userType}}
-                    {{#loginUser.userNo}}
-                    <a class="a-tag" href="/qnaModify?csNo={{cs.csNo}}">수정</a>
-    <!--                <a href="#">수정</a>-->
-                    <a class="a-tag" href="javascript:void(0);" onclick="removeCheck({{cs.csNo}});">삭제</a>
-                    {{/loginUser.userNo}}
-                {{/loginUser.userType}}
-                {{/loginUser}}
-                </div>
+                <div class="div-a-tag"></div>
             </div>
             <!-- Comments Form -->
             <div class="comment-all">
@@ -90,21 +83,33 @@
                         {{/loginUser}}
                     </form>
                     <form name="comment-form" action="/qnaSearch" method="post" autocomplete="off">
-                        {{#commentList}}
+                        {{#cmList}}
                         <div class="cmContent_main">
                             <div class="cmName">
+                                <input type="hidden" value="{{userNo}}" id="cmUserNo">
                                 {{{userName}}}&nbsp;<small>{{{commentDate}}}</small> &nbsp; &nbsp;
+                                {{#loginUser}}
                                 <a class="cmRemove_tag" href="javascript:void(0);" onclick="cmRemoveCheck({{commentNo}},{{tradeNo}});">삭제</a>
+                                {{/loginUser}}
                             </div>
                             <textarea class="cm_cm" readonly>{{{commentContent}}}</textarea>
                         </div>
-                        {{/commentList}}
+                        {{/cmList}}
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <script>
+        $(document).ready(function(){
+            if($('#loginUserNo').val() == $('#csUserNo').val()){
+                str = '<a class="a-tag" href="/qnaModify?csNo={{cs.csNo}}">수정</a>';
+                str += '<a class="a-tag" href="javascript:void(0);" onclick="removeCheck({{cs.csNo}});">삭제</a>';
+                $('.div-a-tag').append(str);
+            }
+
+
+        });
         function removeCheck(csNo) {
             if (confirm("정말 삭제하시겠습니까?")) {
                 location.href="/qnaRemove?csNo=" + csNo;

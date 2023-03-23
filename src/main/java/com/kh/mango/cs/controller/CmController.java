@@ -56,7 +56,6 @@ public class CmController {
             return "/common/error";
         }
     }
-    // 댓글 리스트 ㅊsController에 있음
 //    @GetMapping(value = "/commentList")
 //    public String commentListView(Model model){
 //        List<Comment> commentList = cService.selectCommentList();
