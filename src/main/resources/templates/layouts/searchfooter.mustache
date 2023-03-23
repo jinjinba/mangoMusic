@@ -1,7 +1,7 @@
 <!-- footer -->
+<div class="container-fluid d-flex" id="containerofsearch"></div>
 <!-- PLAY BAR -->
-<div id="player" style="width: 480px; height: 270px;"></div>
-<div id="playlist" style="display:none;"></div>
+<div id="loved-tracks-list"></div>
 <div class="container-fluid playBar d-flex justify-content-between align-items-center fixed-bottom">
     <div class="playbar d-flex align-items-center">
         <img class="albumImg img-fluid lilAlb m-2" id="album-art"
@@ -14,26 +14,29 @@
         </div>
     </div>
     <div class="d-flex align-items-center">
-        <div id="player"></div>
         <button class="btn btn-outline-secondary" onclick="playPreviousSong()">Prev</button>
-        <button class="btn btn-outline-secondary" id="play-pause-btn-new" onclick="togglePlayPause()">Play</button>
+        <button class="btn btn-outline-secondary" id="play-pause-btn-new"
+                onclick="togglePlayPause()">Play</button>
         <button class="btn btn-outline-secondary" onclick="playNextSong()">Next</button>
+        <button class="btn btn-outline-secondary" onclick="toggleLike()"><i class="fa fa-heart"
+                                                                            id="like-icon"></i></button>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+</body>
+</main>
 <!-- footer end -->
-<!--content of the page-->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 <script src="https://kit.fontawesome.com/8539ff3369.js" crossorigin="anonymous"></script>
-<script src="api2.js"></script>
-<script>getTopTracks()</script>
-<!-- <script src="/playbar.js"></script> -->
+<script src="home.js"></script>
+<script src="/api2.js"></script>
+<script src="/musicPlayer.js"></script>
+
 </body>
 
 </html>
