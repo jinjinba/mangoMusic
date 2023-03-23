@@ -23,7 +23,7 @@
                             <div class="msg-user-list">
                                 <ul class="msg-user-list-ul">
                                 </ul>
-                            </div>
+                            </div>토끼
                             <div class="new-msg-user-list">새로운 메시지</div>
                         </div>
                         <div class="msg-content-box">
@@ -64,8 +64,12 @@
         <div class="margin-top">
             <h2 class="greeting mb-3">Library</h2>
             <div class="profile">
-                <div class="profile-img"></div>
-
+                {{#followerPage.userFilename}}
+                    <div class="profile-img" style="background-image: url('{{followerPage.userFilename}}')"></div>
+                {{/followerPage.userFilename}}
+                {{^followerPage.userFilename}}
+                    <div class="profile-img" ></div>
+                {{/followerPage.userFilename}}
                 <!--             닉네임 들어갈곳-->
 <!--                여기 수정하기 ~!~!~!-->
                 <input type="hidden" value="{{followerPage.userNo}}" id="userNo">
@@ -210,7 +214,6 @@
 
 </main>
 
-<script src="mypage.js"></script>
 <script src="message.js"></script>
 {{#loginUser.userId}}
     {{>layouts/footer}}

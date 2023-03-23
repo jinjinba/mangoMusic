@@ -3,7 +3,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="Search/search.js" defer></script>
 <link rel="stylesheet" href="/library.css">
-<!--    <link rel="stylesheet" href="Search/search.css">-->
 <script>
     $(document).ready(function () {
         loadingChatRoom();
@@ -18,7 +17,6 @@
         </div>
 <!--        <button onclick="test111()" value="asdasd" style="width: 30px;height: 30px;"></button>-->
         <div class="d-flex align-items-center" id="rightnav">
-            <button type="button" class="modify-btn"></button>
 
             <div style="margin-right: 1rem; display: flex" class="message">
 
@@ -68,8 +66,12 @@
     <div class="margin-top">
         <h2 class="greeting mb-3">Library</h2>
         <div class="profile">
-            <div class="profile-img"></div>
-
+            {{#loginUser.userFilename}}
+                <div class="profile-img" style="background-image: url('{{loginUser.userFilename}}')"></div>
+            {{/loginUser.userFilename}}
+            {{^loginUser.userFilename}}
+                <div class="profile-img" ></div>
+            {{/loginUser.userFilename}}
             <!--             닉네임 들어갈곳-->
             <input type="hidden" value="{{loginUser.userNo}}" id="userNo">
             <div class="profile-name"><h1 class="profile-name-h1">{{myPage.userName}}</h1></div>
@@ -112,7 +114,6 @@
 
 </main>
 
-<script src="mypage.js"></script>
 <script src="message.js"></script>
 
     <div id="player" style="display: none;"></div>

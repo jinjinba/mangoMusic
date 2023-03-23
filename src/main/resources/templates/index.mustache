@@ -1,6 +1,11 @@
 {{>layouts/sidebar}}
 <link rel="stylesheet" href="/myPageStyle.css">
-
+<script src="message.js" defer></script>
+<script>
+    $(document).ready(function () {
+        loadingChatRoom();
+    });
+</script>
 <!-- content -->
 <main class="body">
     <nav class="navbar sticky-top mb-3">
@@ -14,22 +19,23 @@
             </div>
             {{#loginUser}}
                 <div style="margin-right: 1rem; display: flex" class="message">
-                    <div class="msg-area" id="msg-box" >
+                    <div class="msg-area" id="msg-box">
                         <div class="msg-user-list-box" style=" float: left;">
                             <div class="msg-user-list">
                                 <ul class="msg-user-list-ul">
                                 </ul>
                             </div>
-                            <div class="new-msg-user-list">새로운 메시지</div>
+                            <div class="new-msg-btn">새로운 메시지</div>
                         </div>
                         <div class="msg-content-box">
-                            <div class="msg-box" >
+                            <div class="msg-box">
 
                             </div>
 
                         </div>
                         <div class="msg-input-box" style="display: inline-block; flex-direction: row;float:left;">
-                            <div class="in" style=" height: 100%; width: 495px; background-color: #F2F3F5;  float:left;">
+                            <div class="in"
+                                 style=" height: 100%; width: 495px; background-color: #F2F3F5;  float:left;">
                             </div>
                         </div>
                     </div>
@@ -378,6 +384,6 @@
     </div>
 </main>
 {{#loginUser}}
-<!--    <script src="message.js"></script>-->
+    <script src="message.js"></script>
 {{/loginUser}}
 {{>layouts/footer}}
