@@ -146,7 +146,7 @@ public class TradeController {
 
             String originFilename = multi.getOriginalFilename();
             String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
-            String saveFileName = genSaveFileName("_"+originFilename.replace(extName,"")+extName);
+            String saveFileName = genSaveFileName("_" + originFilename.replace(extName, "") + extName);
 
             ObjectMapper objectMapper = new ObjectMapper();
             jsonString = "";
@@ -156,71 +156,15 @@ public class TradeController {
             System.out.println("extensionName : " + extName);
             System.out.println("saveFileName : " + saveFileName);
             if (!multi.isEmpty()) {
-                    File file = new File(uploadpath.substring(0,uploadpath.length()-10), saveFileName);
-                    multi.transferTo(file);
-                }
-            jsonString = saveFileName+","+uploadpath;
+                File file = new File(uploadpath.substring(0, uploadpath.length() - 10), saveFileName);
+                multi.transferTo(file);
+            }
+            jsonString = saveFileName + "," + uploadpath;
         } catch (Exception e) {
             e.printStackTrace();
             return jsonString;
         }
         return jsonString;
-    @PostMapping("/tradeWrite")
-    public String tradeWrite(@ModelAttribute Trade trade){
-        int result = tService.insertTrade(trade);
-        return "redirect:trade";
-    }
-
-    @GetMapping("/tradeModify")
-    public String tradeModifyView(@RequestParam("tradeNo") int tradeNo,Model model){
-        Trade trade = tService.selectTradeModify(tradeNo);
-        model.addAttribute("trade",trade);
-        return "tradeModify";
-    }
-
-    @PostMapping("/tradeWriteSubmit")
-    public String tradeModify(@ModelAttribute Trade trade){
-        int result = tService.updateTrade(trade);
-
-        return "redirect:tradeDetail?tradeNo="+trade.getTradeNo();
-    }
-
-    private String path2="C:\\Users\\lhc93\\IdeaProjects\\mangoMusic\\src\\main\\resources\\static\\userMusic";
-
-    @PostMapping("/ajaxAudioUpload")
-    @ResponseBody
-    public String audio(@RequestParam("file") MultipartFile multi, HttpServletRequest request, HttpServletResponse response ) {
-        String url = null;
-
-        String jsonString = null;
-        try {
-
-            //String uploadpath = request.getServletContext().getRealPath(path);
-            String uploadpath = path2;
-
-            String originFilename = multi.getOriginalFilename();
-            String extName = originFilename.substring(originFilename.lastIndexOf("."), originFilename.length());
-            String saveFileName = genSaveFileName("_"+originFilename.replace(extName,"")+extName);
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            jsonString = "";
-
-            System.out.println("uploadpath : " + uploadpath);
-            System.out.println("originFilename : " + originFilename);
-            System.out.println("extensionName : " + extName);
-            System.out.println("saveFileName : " + saveFileName);
-            if (!multi.isEmpty()) {
-                    File file = new File(uploadpath, saveFileName);
-                System.out.println(file);
-                    multi.transferTo(file);
-                }
-            jsonString = saveFileName+","+uploadpath;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return jsonString;
-        }
-        return jsonString;
-
     }
 
     // 현재 시간을 기준으로 파일 이름 생성
