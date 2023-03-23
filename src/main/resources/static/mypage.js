@@ -63,7 +63,7 @@ function fn_submit() {
     form.append("file", $("#file")[0].files[0]);
 
     $.ajax({
-        url: "/ajaxFileUpload"
+        url: "/ajaxAudioUpload"
         , type: "POST"
         , processData: false
         , contentType: false
@@ -154,7 +154,7 @@ for (var a = 0; a < pointVal2.length; a++) {
 }
 
 // 모달
-function modal(id) {
+function modal2(id) {
     var zIndex = 9999;
     var modal = document.getElementById(id);
 
@@ -205,12 +205,12 @@ Element.prototype.setStyle = function (styles) {
 
 document.getElementById('popup_open_btn').addEventListener('click', function () {
     // 모달창 띄우기
-    modal('my_modal');
+    modal2('my_modal');
     $('#point-add-input').val('');
 });
 document.getElementById('popup_open_btn-2').addEventListener('click', function () {
     // 모달창 띄우기
-    modal('my_modal-2');
+    modal2('my_modal-2');
     $('#point-refund-input').val('');
 
 });

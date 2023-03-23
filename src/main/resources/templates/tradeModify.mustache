@@ -1,15 +1,12 @@
-    {{>layouts/sidebar}}
-    {{#loginUser}}
-        <link rel="stylesheet" href="/myPageStyle.css">
+{{>layouts/sidebar}}
 <link rel="stylesheet" href="css/notice_wr.css" />
 <link rel="stylesheet" href="css/tradeDetail.css" />
+<link rel="stylesheet" href="myPageStyle.css"/>
 <script>
     $(document).ready(function () {
         loadingChatRoom();
-        $("#file").on("change", handleImgFileSelect);
     });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <main>
     <nav class="navbar sticky-top mb-3" id="navbar-mypage">
         <div class="d-flex align-items-center justify-content-between" id="d-flex-mypage">
@@ -42,7 +39,6 @@
                 </div>
                 <button type="button" class="msg-toggle-btn" id="msg-btn" onclick="msgToggle();"></button>
             </div>
-
             <div style="margin-right: 1rem">
             </div>
             {{#loginUser}}
@@ -83,121 +79,66 @@
             <hr>
         </div>
         <div class="main-body">
-            <form action="/tradeWrite" method="post" onsubmit="return validateForm()" style="height: 1150px;">
+            <form action="/tradeWriteSubmit" method="post" onsubmit="return validateForm()">
                 <div class="writer">
                     <div class="title" style="margin-bottom: 20px">
+                        <input type="hidden" value="{{trade.tradeNo}}" name="tradeNo">
                         <input type="hidden" value="{{loginUser.userNo}}" name="userNo" id="userNo">
+                        <input type="hidden" value="{{trade.tradeType}}" id="tradeType-hidden">
                         <label>제목</label> <input name="tradeType" value="판매" type="radio" id="sell" class="radio-btn"/><label style="margin:0;" for="sell">판매</label>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="구매" name="tradeType" id="buy" class="radio-btn"/><label style="margin:0;" for="buy">구매</label><br>
-                        <input type="text" class="title_text" name="tradeSubject" placeholder="제목을 입력해주세요.">
+                        <input type="text" class="title_text" name="tradeSubject" placeholder="제목을 입력해주세요." value="{{trade.tradeSubject}}">
                     </div>
                     <div>
                         <label>가격</label><br>
-                        <input type="text" class="tradePrice-input" name="tradePrice" placeholder="가격을 입력 해 주세요." onkeyup="priceOnkey();">
-                        <div class="file-area">
-                            <label for="file">
-                                <div class="upload-btn2" style="border : 1px solid #ccc; padding: 5px;">음악찾기</div>
-                            </label>
-                            <input type="file" name="file" style="display: none" id="file">
-                        <button type="button" class="upload-btn2" id="upload-btn-id2" onclick="fn_submit();">업로드</button><small style="margin-left: 10px">* 파일선택 후 업로드해야 정상적으로 파일첨부가 됩니다.</small>
-                        </div>
-
+                        <input type="text" class="tradePrice-input" name="tradePrice" placeholder="가격을 입력 해 주세요." onkeyup="priceOnkey();" value="{{trade.tradePrice}}">
                     </div>
                     <div class="content">
                         <label>내용</label> <br>
-                        <textarea class="tradeWriteContent" name="tradeContent" rows="30" cols="150" placeholder="내용을 입력해주세요."></textarea>
+                        <textarea class="tradeWriteContent" name="tradeContent" rows="30" cols="150" placeholder="내용을 입력해주세요.">{{trade.tradeContent}}</textarea>
                     </div>
                     <div class="div_btn">
-                        <input type="submit" id="enter" class="button" value="등록">
-                        <input type="reset" class="button" value="취소">
+                        <input type="submit" id="enter" class="button" value="수정">
+                        <input type="button" class="button" onclick="location.href='/tradeDetail?tradeNo={{trade.tradeNo}}'" value="뒤로">
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <script src="message.js"></script>
-
-    <script>
-
-        function validateForm() {
-            var title = document.forms["myForm"]["tradeSubject"].value.trim();
-            var content = document.forms["myForm"]["tradeContent"].value.trim();
-            var price = document.forms["myForm"]["tradePrice"].value.trim();
-            var titleRegex = /^\S/;
-            var contentRegex = /^\S/;
-            var priceRegex = /^\S/;
-            if (title == "" || content == "" || price == "" || !titleRegex.test(title) || !contentRegex.test(content) || !priceRegex.test(price)) {
-                alert("제목과 내용 및 가격을 모두 입력해주세요.");
-                return false;
-            }
-        }
-
-        function priceOnkey(){
-            var str = $('.tradePrice-input').val();
-            let check = /^[0-9]+$/;
-            if (!check.test(str)) {
-                alert("숫자만 입력 가능합니다.");
-                var a = "";
-                $('.tradePrice-input').val(a);
-            }
-        }
-
-        function handleImgFileSelect(e) {
-            var files = e.target.files;
-            var filesArr = Array.prototype.slice.call(files);
-
-            var reg = /(.*?)\/(mp3|FLAC|png|bmp)$/;
-
-            filesArr.forEach(function (f) {
-                if (!f.type.match(reg)) {
-                    alert("확장자는 오디오 확장자만 가능합니다.");
-                    return;
-                }
-
-                sel_file = f;
-
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    console.log(e.target.result);
-                    $(".upload-pic-miri").attr("src", e.target.result);
-                }
-                reader.readAsDataURL(f);
-            });
-        }
-
-        //파일 업로드
-        function fn_submit() {
-
-            var form = new FormData();
-            form.append("file", $("#file")[0].files[0]);
-
-            $.ajax({
-                url: "/ajaxAudioUpload"
-                , type: "POST"
-                , processData: false
-                , contentType: false
-                , data: form
-                , success: function (response) {
-                    alert("업로드 완료");
-                    var words = response.split(',');
-                    $('.file-area').append("<br><span>"+words[0]+"</span><input type='hidden' value='"+words[0]+"' name='tradeFilename'>");
-                    $('.file-area').append("<input type='hidden' value='"+words[1]+"' name='tradeFilepath'>");
-                }
-                , error: function (jqXHR) {
-                    alert(jqXHR.responseText);
-                }
-            });
-        }
-    </script>
 </main>
+<script>
+    function validateForm() {
+        var title = document.forms["myForm"]["tradeSubject"].value.trim();
+        var content = document.forms["myForm"]["tradeContent"].value.trim();
+        var price = document.forms["myForm"]["tradePrice"].value.trim();
+        var titleRegex = /^\S/;
+        var contentRegex = /^\S/;
+        var priceRegex = /^\S/;
+        if (title == "" || content == "" || price == "" || !titleRegex.test(title) || !contentRegex.test(content) || !priceRegex.test(price)) {
+            alert("제목과 내용 및 가격을 모두 입력해주세요.");
+            return false;
+        }
+    }
+
+    function priceOnkey(){
+        var str = $('.tradePrice-input').val();
+        let check = /^[0-9]+$/;
+        if (!check.test(str)) {
+            alert("숫자만 입력 가능합니다.");
+            var a = "";
+            $('.tradePrice-input').val(a);
+        }
+    }
+
+
+
+    $(document).ready(function () {
+        if($('#tradeType-hidden').val() == '판매'){
+            $('#sell').attr('checked','true');
+        }else {
+            $('#buy').attr('checked','true');
+        }
+    });
+</script>
+<script src="message.js" defer></script>
+
 {{>layouts/footer}}
-{{/loginUser}}
-{{^loginUser}}
-    <script>
-        $(document).ready(function () {
-            alert("로그인이 필요합니다.")
-            window.location.replace("http://localhost:8985/login");
-        });
-
-
-    </script>
-{{/loginUser}}

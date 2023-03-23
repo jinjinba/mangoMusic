@@ -23,8 +23,8 @@ public class Trade {
     private int tradePrice;
     private String tradeType;
 
-    private String uMusicName;
-    private String uMusicPath;
+    private String tradeFilename;
+    private String tradeFilepath;
 
 
 }

@@ -6,7 +6,7 @@
         SELECT COUNT(*) FROM TRADE_TBL
     </select>
     <select id="selectTradeList" resultType="com.kh.mango.trade.domain.Trade">
-        SELECT T.*, U.USER_NAME FROM TRADE_TBL T JOIN USER_TBL U ON U.USER_NO = T.USER_NO ORDER BY ROWNUM DESC
+        SELECT T.*, U.USER_NAME FROM TRADE_TBL T JOIN USER_TBL U ON U.USER_NO = T.USER_NO ORDER BY  trade_No desc,ROWNUM DESC
     </select>
     <select id="selectTradeOneByNo" resultType="com.kh.mango.trade.domain.Trade">
         SELECT A.*, B.USER_NAME FROM TRADE_TBL A JOIN USER_TBL B ON A.USER_NO = B.USER_NO  WHERE A.TRADE_NO = #{tradeNo}
@@ -14,8 +14,59 @@
     <select id="selectTradeCommentList" resultType="com.kh.mango.trade.domain.TradeComment">
         SELECT A.*, B.USER_NAME FROM COMMENT_TBL A JOIN USER_TBL B ON A.USER_NO = B.USER_NO  WHERE A.TRADE_NO = #{tradeNo}
     </select>
+    <select id="selectTradeModify" resultType="com.kh.mango.trade.domain.Trade">
+        SELECT * FROM TRADE_TBL WHERE TRADE_NO = #{tradeNo}
+    </select>
+    <select id="selectGetSearchCount" resultType="_int">
+        SELECT COUNT(*) FROM TRADE_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO
+        <where>
+            <if test="searchCondition == 'all'">
+                '1' = '1' AND  TRADE_SUBJECT LIKE '%' || #{searchValue} || '%'
+                OR  TRADE_CONTENT LIKE '%' || #{searchValue} || '%'
+                OR  USER_NAME LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'subject'">
+                '1' = '1' AND  TRADE_SUBJECT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'content'">
+                '1' = '1' AND  TRADE_CONTENT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'userName'">
+                '1' = '1' AND  USER_NAME LIKE '%' || #{searchValue} || '%'
+            </if>
+        </where>
+        ORDER BY ROWNUM DESC
+    </select>
+
+    <select id="selectTradeListByKeyword" resultType="com.kh.mango.trade.domain.Trade">
+        SELECT C.*, U.USER_NAME FROM TRADE_TBL C JOIN USER_TBL U ON U.USER_NO = C.USER_NO
+        <where>
+            <if test="searchCondition == 'all'">
+                '1' = '1' AND  TRADE_SUBJECT LIKE '%' || #{searchValue} || '%'
+                OR  TRADE_CONTENT LIKE '%' || #{searchValue} || '%'
+                OR  USER_NAME LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'subject'">
+                '1' = '1' AND  TRADE_SUBJECT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'content'">
+                '1' = '1' AND  TRADE_CONTENT LIKE '%' || #{searchValue} || '%'
+            </if>
+            <if test="searchCondition == 'userName'">
+                '1' = '1' AND  USER_NAME LIKE '%' || #{searchValue} || '%'
+            </if>
+        </where>
+        ORDER BY ROWNUM DESC
+    </select>
 
     <update id="updateTradeView">
         UPDATE TRADE_TBL SET TRADE_VIEW = TRADE_VIEW + 1 WHERE TRADE_NO = #{tradeNo}
     </update>
+    <update id="updateTrade">
+        UPDATE TRADE_TBL SET TRADE_SUBJECT = #{tradeSubject}, TRADE_CONTENT = #{tradeContent}, TRADE_PRICE = #{tradePrice}, TRADE_TYPE = #{tradeType} WHERE TRADE_NO = #{tradeNo}
+    </update>
+
+    <insert id="insertTrade">
+        INSERT INTO TRADE_TBL VALUES (SEQ_TRADE_NO.NEXTVAL,#{tradeSubject},#{tradeContent},#{userNo},default,systimestamp,#{tradePrice},#{tradeType},#{tradeFilename},#{tradeFilepath})
+    </insert>
 </mapper>

@@ -1,9 +1,9 @@
 {{>layouts/sidebar}}
 {{#loginUser}}
-    <link rel="stylesheet" href="/myPageStyle.css">
+    <link rel="stylesheet" href="myPageStyle.css">
     <script>
-        $(document).ready(function(){
-            msgUserSearchFunc();
+        $(document).ready(function () {
+            loadingChatRoom();
         });
     </script>
     <!-- sidebar -->
@@ -28,13 +28,14 @@
                             <div class="new-msg-btn">새로운 메시지</div>
                         </div>
                         <div class="msg-content-box">
-                            <div class="msg-box" >
+                            <div class="msg-box">
 
                             </div>
 
                         </div>
                         <div class="msg-input-box" style="display: inline-block; flex-direction: row;float:left;">
-                            <div class="in" style=" height: 100%; width: 495px; background-color: #F2F3F5;  float:left;">
+                            <div class="in"
+                                 style=" height: 100%; width: 495px; background-color: #F2F3F5;  float:left;">
                             </div>
                         </div>
                     </div>
@@ -67,7 +68,7 @@
 <div id="addPlaylist-header">플레이리스트 추가하기</div>
 
         <!-- 검색 폼 -->
-        <nav class="navbar sticky-top mb-3">
+        <nav style="width: 500px" class="navbar sticky-top mb-3">
             <div class="d-flex align-items-center">
                 <div>
                     <input type="text" class="mx-4 form-control" id="search-input" placeholder="어떤 음악을 듣고 싶으세요?"
@@ -86,6 +87,7 @@
 
 </main>
 {{/loginUser}}
+<script src="message.js"></script>
 
 <script>
     function search() {

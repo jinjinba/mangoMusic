@@ -12,4 +12,5 @@ public class MyPageDeals {
     private int buyerNo;
     private int sellerNo;
     private int dealPrice;
+    private String tradeSubject;
 }

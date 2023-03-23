@@ -176,13 +176,15 @@
                 <tr>
                     <th>구분</th>
                     <th>번호</th>
+                    <th>제목</th>
                     <th>시간</th>
                     <th>가격</th>
                 </tr>
                 {{#deals}}
-                    <tr>
+                    <tr style="cursor:pointer;" onclick="location.href='/tradeDetail?tradeNo={{tradeNo}}'" >
                         <td>{{dealType}}</td>
                         <td>{{TradeNo}}</td>
+                        <td>{{tradeSubject}}</td>
                         <td>{{dealDate}}</td>
                         <td>{{dealPrice}}</td>
                     </tr>
@@ -249,7 +251,6 @@
             alert("로그인이 필요합니다.")
             window.location.replace("http://localhost:8985/login");
         });
-        var str = "/reply/Remove.bld?replyNo=" + replyNo + "&noticeNo="${notice.noticeNo}
 
     </script>
 {{/loginUser}}

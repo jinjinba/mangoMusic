@@ -37,7 +37,7 @@
                         <li><a class="dropdown-item" href="/logout">로그아웃</a></li>
                     </ul>
                 </div>
-                <input type="hidden" value="{{loginUser.userNo}}" id="loginUserNo">
+                <input type="hidden" value="{{loginUser.userNo}}" id="userNo">
             {{/loginUser}}
             {{^loginUser}}
                 <button type="button" onclick="location.href='/login'" class="btn btn-dark dropdown-toggle2">로그인
@@ -134,9 +134,9 @@
 
 
         $(document).ready(function () {
-            if ($('#loginUserNo').val() == $('#writeUserNo').val()) {
-                str = '<a href="/tradeModify?tradeNo={{tradeDetail.tradeNo}}">수정</a>';
-                str += '<a href="javascript:void(0);" onclick="removeCheck({{tradeDetail.tradeNo}});">삭제</a>';
+            if ($('#userNo').val() == $('#writeUserNo').val()) {
+                str = '<a href="/tradeModify?tradeNo={{tradeDetail.tradeNo}}" class="modify-a">수정</a>';
+                str += '<a href="javascript:void(0);" onclick="removeCheck({{tradeDetail.tradeNo}});" class="delete-a">삭제</a>';
                 $('.div-a-tag').append(str);
             }
             var date = $('#tradeDate-hidden').val();
