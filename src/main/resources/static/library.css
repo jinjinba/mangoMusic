@@ -638,7 +638,7 @@ tr:hover {
 #library{
     --background-color: white;
     padding: 20px;
-    width: 1200px;
+    width: 1400px;
     height: 500px;
 
 }
@@ -654,9 +654,13 @@ tr:hover {
         --background-color: #c46e86;
         float: left;
     }
+    /*.playlist-section {*/
+    /*    width: 500px;*/
+    /*    height: inherit;*/
+    /*}*/
 
     .container {
-        width: 450px;
+        --width: 50%;
         height: 400px;
         --background-color: #c46e86;
         margin: 30px;
