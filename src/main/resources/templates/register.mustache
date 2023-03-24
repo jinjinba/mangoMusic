@@ -68,13 +68,13 @@
         var msgTag = $("#message");
         // var target = userId.val();
         // 첫글자가 소문자라 뒤에있는 수량문자는 3,11된다.
-        var idRegExp = /^[a-z][a-z0-9]{3,11}$/; // 아이디
+        var idRegExp = /^[a-z][a-z0-9]{5,11}$/; // 아이디
         var pwRegExp = /^[a-zA-Z0-9]{4,12}$/; // 비밀번호
         var nameRegExp = /[ㄱ-힣]+$/; // 한글만 가능
         var emailRegExp = /^[a-z0-9]@{4,12}/;
         if(!idRegExp.test(userId.val())) {
             userId.css("background-color", "red");  // 아이디 입력란 색변경
-            msgTag.html("아이디는 영소문자로 시작하고 영어소문자, 숫자 4~12글자로 입력바랍니다.");    // span공간에 메세지 출력
+            msgTag.html("아이디는 영소문자로 시작하고 영어소문자, 숫자 6~12글자로 입력바랍니다.");    // span공간에 메세지 출력
             return false;   // 아이디를 입력하지 않는다면 회원가입을 눌러도 넘어가지 않음
         }else if(!pwRegExp.test(userPw.val())) {    // 비밀번호 체크
             // 비밀번호
