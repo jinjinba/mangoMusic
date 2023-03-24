@@ -10,8 +10,11 @@
 #main-all {
     height: 100%;
 }
-.table-tr:hover{
-    background-color: rgba(255,255,255,0.3);
+/*.table-tr:hover{*/
+/*    !*background-color: rgba(255,255,255,0.3);*!*/
+/*}*/
+.tr-hover:hover{
+    background-color: transparent;
 }
 .main-header {
     margin-top: 50px;

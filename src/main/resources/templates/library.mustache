@@ -79,7 +79,6 @@
         </div>
     </div>
         <br>
-{{/loginUser.userNo}}
 
 <!--라이브러리 추가할 곳-->
         <input type="hidden" id="userNo" value="{{loginUser.userNo}}">
@@ -302,6 +301,8 @@
         )
 
     }
+{{/loginUser.userNo}}
+
 </script>
     {{#loginUser.userId}}
         {{>layouts/footer}}

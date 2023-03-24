@@ -131,16 +131,26 @@ public class TradeController {
         return "redirect:tradeDetail?tradeNo="+trade.getTradeNo();
     }
 
-    private String path2="C:\\study\\programing\\project holder\\mangoMusic\\src\\main\\resources\\static\\userMusic";
+    private String path2="\\src\\main\\resources\\static\\userMusic";
 
     @PostMapping("/ajaxAudioUpload")
     @ResponseBody
     public String audio(@RequestParam("file") MultipartFile multi, HttpServletRequest request, HttpServletResponse response ) {
-        String url = null;
 
         String jsonString = null;
         try {
+            File file1 = new File("");
+            String rootPath = String.valueOf(file1.getAbsoluteFile());
+            File chkMkdir = new File(rootPath+path2);
+            //경로 존재 확인
+            if (!chkMkdir.exists()) {
+                try {
+                    chkMkdir.mkdirs(); //경로가 존재하지 않을 경우 상위폴더까지 모두 생성
+                } catch (Exception ignored) {
+                }
+            }
 
+            System.out.println("현재 프로젝트의 경로 : "+rootPath+path2 );
             //String uploadpath = request.getServletContext().getRealPath(path);
             String uploadpath = path2;
 
@@ -150,13 +160,12 @@ public class TradeController {
 
             ObjectMapper objectMapper = new ObjectMapper();
             jsonString = "";
-
             System.out.println("uploadpath : " + uploadpath);
             System.out.println("originFilename : " + originFilename);
             System.out.println("extensionName : " + extName);
             System.out.println("saveFileName : " + saveFileName);
             if (!multi.isEmpty()) {
-                File file = new File(uploadpath.substring(0, uploadpath.length() - 10), saveFileName);
+                File file = new File(rootPath+path2, saveFileName);
                 multi.transferTo(file);
             }
             jsonString = saveFileName + "," + uploadpath;

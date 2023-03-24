@@ -278,7 +278,7 @@ public class UserController {
             return "library";
         }
     }
-    private String path="C:\\Users\\lhc93\\IdeaProjects\\mangoMusic\\src\\main\\resources\\static\\profilePic";
+    private String path="\\src\\main\\resources\\static\\profilePic";
     //파일 업로드
     @PostMapping("/ajaxFileUpload")
     @ResponseBody
@@ -287,7 +287,16 @@ public class UserController {
 
         String jsonString = null;
         try {
-
+            File file1 = new File("");
+            String rootPath = String.valueOf(file1.getAbsoluteFile());
+            File chkMkdir = new File(rootPath+path);
+            //경로 존재 확인
+            if (!chkMkdir.exists()) {
+                try {
+                    chkMkdir.mkdirs(); //경로가 존재하지 않을 경우 상위폴더까지 모두 생성
+                } catch (Exception ignored) {
+                }
+            }
             //String uploadpath = request.getServletContext().getRealPath(path);
             String uploadpath = path;
 
@@ -306,7 +315,7 @@ public class UserController {
                 User user = new User(loginUser.getUserNo(),saveFileName, uploadpath);
                 int result = uService.updateUserProfilePic(user);
                 if (result > 0) {
-                    File file = new File(uploadpath.substring(0,uploadpath.length()-10), saveFileName);
+                    File file = new File((rootPath+path).substring(0,(rootPath+path).length()-10), saveFileName);
                     multi.transferTo(file);
                 }
             }
